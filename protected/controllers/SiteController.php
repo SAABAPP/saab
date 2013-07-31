@@ -4,24 +4,46 @@ class SiteController extends Controller
 {
 	public $layout='//layouts/index';
 
+	public function filters()
+	{
+		return array('accessControl');
+	}
+
+	//SI USAS ACCESS RULES DEBES ESPECIFICAR TODAS TUS ACCIONES, ES COMO TENER UNA FLACA
+	public function accessRules()
+	{
+		return array(
+			array('allow',
+				'actions'=>array('index','logout'),
+					'users'=>array('@')//@ es todos los usuarios registrados
+					),
+			array('allow',
+				'actions'=>array('contact','login','about'),
+					'users'=>array('*')//* digo son todos los usuarios registrados o no
+					),
+			array('deny',
+				// 'actions'=>array('index','logout','view'),
+				'users'=>array('*')));
+	}
+
 	/**
 	 * Declares class-based actions.
 	 */
-	public function actions()
-	{
-		return array(
-			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
-				'backColor'=>0xFFFFFF,
-			),
-			// page action renders "static" pages stored under 'protected/views/site/pages'
-			// They can be accessed via: index.php?r=site/page&view=FileName
-			'page'=>array(
-				'class'=>'CViewAction',
-			),
-		);
-	}
+	// public function actions()
+	// {
+	// 	return array(
+	// 		// captcha action renders the CAPTCHA image displayed on the contact page
+	// 		'captcha'=>array(
+	// 			'class'=>'CCaptchaAction',
+	// 			'backColor'=>0xFFFFFF,
+	// 		),
+	// 		// page action renders "static" pages stored under 'protected/views/site/pages'
+	// 		// They can be accessed via: index.php?r=site/page&view=FileName
+	// 		'page'=>array(
+	// 			'class'=>'CViewAction',
+	// 		),
+	// 	);
+	// }
 
 	/**
 	 * This is the default 'index' action that is invoked
@@ -31,7 +53,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-
+		$this->layout='//layouts/main';
 		$this->render('index');
 	}
 
@@ -80,9 +102,6 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		
-		
-
 		$model=new LoginForm;
 
 		// if it is ajax validation request
@@ -98,7 +117,12 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+			{
+				//$this->redirect(Yii::app()->user->returnUrl);//CUANDO EL LOGEO ES EXITOSO TE MANDA A LA ULTIMA PAGINA QUE VISITASTE, SIEMPRE Y CUANDO SE GUARDO,
+				//PARA GUARDAR UNA PAGINA ES Yii::app()->user->setReturnUrl($url);
+				//SI TU QUIERES QUE DIRECCIONE AL INDEX SOLO SERIA
+				$this->redirect(array('index'));
+			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));

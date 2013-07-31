@@ -125,9 +125,24 @@ class RequerimientoController extends Controller
 	/**
 	 * Lists all models.
 	 */
+	// public function actionIndex()
+	// {
+	// 	$dataProvider=new CActiveDataProvider('Requerimiento');
+	// 	$this->render('index',array(
+	// 		'dataProvider'=>$dataProvider,
+	// 	));
+	// }
+
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Requerimiento');
+        $requerimiento = new Requerimiento('search');
+        $requerimiento->unsetAttributes();
+        $requerimiento->IDUSUARIO = Yii::app()->user->getState('idusuario');
+        
+        $dataProvider = $requerimiento->search();
+        
+		//$dataProvider=new CActiveDataProvider('Requerimiento');//,array('pagination'=>array('pageSize'=>2,),));//,array('criteria'=>array('condition'=>'IDUSUARIO=2'))
+		// $dataProvider->setPagination('1');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

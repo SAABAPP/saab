@@ -1,4 +1,3 @@
-<?php include("header.php"); ?>
 
      <!-- Page heading -->
      <div class="page-head">
@@ -125,4 +124,3 @@
 
         </div>	
   
-<?php include("footer.php"); ?>
