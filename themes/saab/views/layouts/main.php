@@ -1,6 +1,5 @@
 <?php include("header.php"); ?>
 
-
 <!-- Page heading -->
 <div class="page-head">
        <h2 class="pull-left"><i class="icon-list-ul"></i>
@@ -10,9 +9,7 @@
 			
 			)); ?>
 		<?php endif?>
-        
 		</h2>
-
        <!-- Breadcrumb -->
 
        <div class="bread-crumb pull-right">
@@ -23,9 +20,8 @@
 			
 			)); ?>
 		<?php endif?>
-        
+   
       	</div>
-
       <div class="clearfix"></div>
 </div>
 

@@ -164,7 +164,7 @@ switch($current_file)
               <ul class="dropdown-menu">
                 <li><a href="404.php"><i class="icon-user"></i> Perfil</a></li>
                 <li><a href="404.php"><i class="icon-cogs"></i> Ajustes</a></li>
-                <li><a href="/site/logout.html"><i class="icon-off"></i> Salir</a></li>
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout.html"><i class="icon-off"></i> Salir</a></li>
               </ul>
             </li>
           </ul>
@@ -358,21 +358,21 @@ switch($current_file)
         <!-- Main menu -->
         <li class="has_sub"><a href="" <?php echo $a; ?>><i class="icon-list-ul"></i> Pre-Orden  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
           <ul>
-            <li><a href="/requerimiento">Requerimiento</a></li>
-            <li><a href="/cotizacion">Cotización</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/requerimiento">Requerimiento</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/cotizacion">Cotización</a></li>
           </ul>
         </li>
         <li class="has_sub"><a href="" <?php echo $b; ?>><i class="icon-list-alt"></i> Órdenes  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
           <ul>
-            <li><a href="/ordenCompra">Orden de Compra</a></li>
-            <li><a href="/ordenServicio">Orden de Servicios</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/ordenCompra">Orden de Compra</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/ordenServicio">Orden de Servicios</a></li>
           </ul>
         </li> 
         <li><a href="nea.php" <?php echo $d; ?>><i class="icon-plus"></i> N.E.A</a></li>
         <li class="has_sub"><a href="" <?php echo $e; ?>><i class="icon-retweet"></i> Movimientos  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
           <ul>
-            <li><a href="/regEntrada">Registrar Entrada</a></li>
-            <li><a href="/regSalida">Registrar Salida</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/regEntrada">Registrar Entrada</a></li>
+            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/regSalida">Registrar Salida</a></li>
           </ul>
         </li>
         <li><a href="kardex.php" <?php echo $f; ?>><i class="icon-table"></i>  Kardex</a></li>

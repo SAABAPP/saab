@@ -55,18 +55,18 @@ $this->breadcrumbs=array(
                     </div>
                     <!-- Remember me checkbox and sign in button -->
                     <div class="control-group">
-                      <div class="controls">
+                      <div class="controls text-center">
                         <!-- <label class="checkbox">
                           <input type="checkbox"> Remember me
                         </label>
-                        <br> -->
+                        <br> 
                         
 							<?php echo $form->checkBox($model,'rememberMe'); ?>
 							<?php echo $form->label($model,'rememberMe'); ?>
-							<?php echo $form->error($model,'rememberMe'); ?>
+							<?php echo $form->error($model,'rememberMe'); ?>-->
 						
                         <!-- <button type="submit" class="btn">Ingresar</button> -->
-                        <?php echo CHtml::submitButton('Login',array('class' => 'btn')); ?>
+                        <?php echo CHtml::submitButton('Ingresar',array('class' => 'btn')); ?>
                         <button type="reset" class="btn">Limpiar</button>
 
                       </div>
