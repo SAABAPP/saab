@@ -10,7 +10,7 @@
 			array(
 				'class'=>'span4',
 				'placeholder' => 'Nro Requerimiento',
-				 // 'labelHtmlOptions' => array('label' => false)
+				// 'labelHtmlOptions' => array('class' => 'tmr')
 			)
 		); ?>
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

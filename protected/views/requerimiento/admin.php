@@ -25,13 +25,7 @@ $('.search-form form').submit(function(){
 
 
 <h3>Requerimientos</h3>
-<<<<<<< HEAD
-=======
 
-<?php 
-// echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); 
-?>
->>>>>>> origin/saabDavid
 
 <div class="search-form" >
 <?php $this->renderPartial('_search',array(
@@ -44,6 +38,8 @@ $('.search-form form').submit(function(){
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
+	'type'=>'striped bordered condensed',
+    'template'=>"{items}",
 	// 'filter'=>$model,
 	'columns'=>array(
 

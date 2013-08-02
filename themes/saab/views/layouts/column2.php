@@ -19,11 +19,9 @@
 	</div>
 
 </div>
-<<<<<<< HEAD
-<hr>
-=======
 
->>>>>>> origin/saabDavid
+
+
 <div class="row-fluid">
 
 	<div class="span8 offset2">
