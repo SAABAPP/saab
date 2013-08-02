@@ -1,36 +1,22 @@
-<?php
-/* @var $this ServicioController */
-/* @var $model Servicio */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'servicio-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'SER_descripcion'); ?>
-		<?php echo $form->textField($model,'SER_descripcion',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'SER_descripcion'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'SER_descripcion',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'IDCATALOGO'); ?>
-		<?php echo $form->textField($model,'IDCATALOGO'); ?>
-		<?php echo $form->error($model,'IDCATALOGO'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDCATALOGO',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
