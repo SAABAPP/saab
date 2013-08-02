@@ -8,7 +8,7 @@
 	<div class="span8 input-append">
 		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
 			array(
-				'class'=>'span5',
+				'class'=>'span4',
 				'placeholder' => 'Nro Requerimiento',
 				'labelOptions' => array('label' => false)
 			)

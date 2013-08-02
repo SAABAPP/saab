@@ -32,10 +32,15 @@ $('.search-form form').submit(function(){
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-<br/>
+
+
+
+<br/><br/><br/>
+<hr>
 <h3>Requerimientos</h3>
 <br/>
 
+<div class="span8 offset2">
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
@@ -47,11 +52,8 @@ $('.search-form form').submit(function(){
 		'IDREQUERIMIENTO',
 		'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
 		'REQ_fecha',
-		'REQ_estado',
-		
-		// 'REQ_presupuesto',
-		
-		
+		'REQ_estado',		
+		// 'REQ_presupuesto',		
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 
@@ -59,3 +61,10 @@ $('.search-form form').submit(function(){
 		
 	),
 )); ?>
+
+
+</div>
+
+
+
+

@@ -12,7 +12,7 @@
 
 <div class="row-fluid">
 
-	<div class="span8 offset2">
+	<div class="contenido-total">
 		<div id="sidebar pull-right">
 		<?php
 			$this->beginWidget('zii.widgets.CPortlet', array(
@@ -27,9 +27,9 @@
 		?>
 		</div><!-- sidebar -->
 
-		<div id="content">
+		<!-- content-->
 			<?php echo $content; ?>
-		</div><!-- content -->
+		<!-- content -->
 	</div>
 	
 </div>

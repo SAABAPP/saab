@@ -28,34 +28,36 @@ $this->breadcrumbs=array(
                   <!-- Login form -->
                   <!-- <form class="form-horizontal" action="home.php"> -->
                   <?php $form=$this->beginWidget('CActiveForm', array(
-						'id'=>'login-form',
-						'enableClientValidation'=>true,
-						'clientOptions'=>array(
-							'validateOnSubmit'=>true,
-						),
-					)); ?>
+        						'id'=>'login-form',
+        						'enableClientValidation'=>true,
+                    'htmlOptions'=>array('class'=>'form-horizontal'),        						
+                    'enableAjaxValidation'=>true,
+                    'enableClientValidation'=>true,
+                    'clientOptions'=>array('validateOnSubmit'=>true,),    
+                    'focus'=>'input:visible:enabled:first',
+        					)); ?>
                     <!-- Email -->
                     <div class="control-group">
-                      <label class="control-label" for="inputEmail">Usuario:</label>
-                      <div class="controls">
-                        <?php echo $form->textField($model,'username'); ?>
-						<?php echo $form->error($model,'username'); ?>
+                      <label class="control-label " for="inputEmail">Usuario:</label>
+                      <div class="controls ">
+                        <?php echo $form->textField($model,'username',array('placeholder' => 'Usuario')); ?>                        
+                        <?php echo $form->error($model,'username',array('class'=>'text-error')); ?>
                       </div>
                     </div>
                     <!-- Password -->
                     <div class="control-group">
 
 		
-                      <label class="control-label" for="inputPassword">Contraseña:</label>
-                      <div class="controls">
-                      	<?php echo $form->passwordField($model,'password'); ?>
-                      	<?php echo $form->error($model,'password'); ?>
+                      <label class="control-label " for="inputPassword">Contraseña:</label>
+                      <div class="controls ">
+                      	<?php echo $form->passwordField($model,'password',array('placeholder' => 'Contraseña')); ?>
+                      	<?php echo $form->error($model,'password',array('class'=>'text-error')); ?>
                         <!-- <input type="password" id="inputPassword" placeholder="Contraseña"> -->
                       </div>
                     </div>
                     <!-- Remember me checkbox and sign in button -->
                     <div class="control-group">
-                      <div class="controls text-center">
+                      <div class="controls ">
                         <!-- <label class="checkbox">
                           <input type="checkbox"> Remember me
                         </label>
@@ -67,7 +69,7 @@ $this->breadcrumbs=array(
 						
                         <!-- <button type="submit" class="btn">Ingresar</button> -->
                         <?php echo CHtml::submitButton('Ingresar',array('class' => 'btn')); ?>
-                        <button type="reset" class="btn">Limpiar</button>
+                        <button type="reset" class="btn secundario">Limpiar</button>
 
                       </div>
                     </div>
