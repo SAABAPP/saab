@@ -6760,6 +6760,7 @@ Stack trace:
 REQUEST_URI=/saab/themes/saab/requerimiento
 HTTP_REFERER=http://localhost:8080/saab/site/index.html
 ---
+<<<<<<< HEAD
 2013/08/02 17:26:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "GII"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
 Stack trace:
 #0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('GII')
@@ -6775,4 +6776,481 @@ Stack trace:
 #2 C:\wamp\www\saab\index.php(13): CApplication->run()
 #3 {main}
 REQUEST_URI=/saab/servicios
+=======
+2013/08/02 18:59:47 [error] [exception.CException] exception 'CException' with message 'Propiedad "TbButton"."linkLabelWrapper" no se encuentra definida.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWidgetFactory.php(161): CComponent->__set('linkLabelWrappe...', 'i')
+#1 C:\xampp\htdocs\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(RequerimientoController), 'bootstrap.widge...', Array)
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#3 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): CBaseController->widget('bootstrap.widge...', Array)
+#4 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#5 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): CController->renderPartial('_search', Array)
+#8 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#9 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#12 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): CController->render('admin', Array)
+#13 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#14 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#21 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#23 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/a...')
+#24 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#25 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#26 {main}
+REQUEST_URI=/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=8&yt0=
+HTTP_REFERER=http://saab.com/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=5&yt0=
+---
+2013/08/02 18:59:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 18:59:59 [error] [exception.CException] exception 'CException' with message 'Propiedad "TbButton"."LabelWrapper" no se encuentra definida.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWidgetFactory.php(161): CComponent->__set('LabelWrapper', 'i')
+#1 C:\xampp\htdocs\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(RequerimientoController), 'bootstrap.widge...', Array)
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#3 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): CBaseController->widget('bootstrap.widge...', Array)
+#4 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#5 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): CController->renderPartial('_search', Array)
+#8 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#9 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#12 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): CController->render('admin', Array)
+#13 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#14 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#21 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#23 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/a...')
+#24 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#25 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#26 {main}
+REQUEST_URI=/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=8&yt0=
+HTTP_REFERER=http://saab.com/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=5&yt0=
+---
+2013/08/02 19:00:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:00:05 [error] [exception.CException] exception 'CException' with message 'Propiedad "TbButton"."Wrapper" no se encuentra definida.' in C:\xampp\htdocs\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWidgetFactory.php(161): CComponent->__set('Wrapper', 'i')
+#1 C:\xampp\htdocs\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(RequerimientoController), 'bootstrap.widge...', Array)
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#3 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): CBaseController->widget('bootstrap.widge...', Array)
+#4 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#5 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): CController->renderPartial('_search', Array)
+#8 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#9 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#12 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): CController->render('admin', Array)
+#13 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#14 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#21 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#23 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/a...')
+#24 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#25 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#26 {main}
+REQUEST_URI=/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=8&yt0=
+HTTP_REFERER=http://saab.com/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=5&yt0=
+---
+2013/08/02 19:00:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:20:45 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:98)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(153): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1983): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1257): activeInputField()
+#3 C:\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(657): activeTextField()
+#4 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): TbActiveForm->textField()
+#5 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(173): TbInputVertical->run()
+#7 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): RequerimientoController->widget()
+#8 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow()
+#9 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow()
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#11 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#13 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): RequerimientoController->renderPartial()
+#14 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#15 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#16 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#18 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): RequerimientoController->render()
+#19 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#22 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#23 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#24 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#25 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#27 C:\xampp\htdocs\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#29 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=8&yt0=
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php (142)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php (230)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php (497)
+2013/08/02 19:20:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:22:43 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:98)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(153): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1983): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1257): activeInputField()
+#3 C:\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(657): activeTextField()
+#4 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): TbActiveForm->textField()
+#5 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(173): TbInputVertical->run()
+#7 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): RequerimientoController->widget()
+#8 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow()
+#9 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow()
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#11 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#13 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): RequerimientoController->renderPartial()
+#14 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#15 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#16 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#18 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): RequerimientoController->render()
+#19 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#22 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#23 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#24 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#25 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#27 C:\xampp\htdocs\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#29 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/requerimiento/admin.html
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php (142)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php (230)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php (497)
+2013/08/02 19:22:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:22:56 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:98)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(153): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1983): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1257): activeInputField()
+#3 C:\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(657): activeTextField()
+#4 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): TbActiveForm->textField()
+#5 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(173): TbInputVertical->run()
+#7 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): RequerimientoController->widget()
+#8 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow()
+#9 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow()
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#11 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#13 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): RequerimientoController->renderPartial()
+#14 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#15 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#16 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#18 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): RequerimientoController->render()
+#19 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#22 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#23 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#24 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#25 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#27 C:\xampp\htdocs\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#29 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/requerimiento/admin.html
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php (142)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php (230)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php (497)
+2013/08/02 19:22:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:23:10 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:98)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(153): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1983): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1257): activeInputField()
+#3 C:\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(657): activeTextField()
+#4 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): TbActiveForm->textField()
+#5 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(173): TbInputVertical->run()
+#7 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): RequerimientoController->widget()
+#8 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow()
+#9 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow()
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#11 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#13 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): RequerimientoController->renderPartial()
+#14 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#15 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#16 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#18 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): RequerimientoController->render()
+#19 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#22 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#23 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#24 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#25 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#27 C:\xampp\htdocs\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#29 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/requerimiento/admin.html
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php (142)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php (230)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php (497)
+2013/08/02 19:23:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:23:11 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:98)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(153): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1983): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1257): activeInputField()
+#3 C:\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(657): activeTextField()
+#4 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): TbActiveForm->textField()
+#5 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(173): TbInputVertical->run()
+#7 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): RequerimientoController->widget()
+#8 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow()
+#9 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow()
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#11 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#13 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): RequerimientoController->renderPartial()
+#14 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#15 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#16 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#18 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): RequerimientoController->render()
+#19 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#22 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#23 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#24 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#25 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#27 C:\xampp\htdocs\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#29 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/requerimiento/admin.html
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php (142)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php (230)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php (497)
+2013/08/02 19:23:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:24:16 [error] [php] htmlspecialchars() expects parameter 1 to be string, array given (C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php:98)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(153): renderAttributes()
+#1 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1983): tag()
+#2 C:\xampp\htdocs\yii\framework\web\helpers\CHtml.php(1257): activeInputField()
+#3 C:\xampp\htdocs\yii\framework\web\widgets\CActiveForm.php(657): activeTextField()
+#4 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): TbActiveForm->textField()
+#5 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(173): TbInputVertical->run()
+#7 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): RequerimientoController->widget()
+#8 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow()
+#9 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow()
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#11 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#12 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#13 C:\xampp\htdocs\saab\protected\views\requerimiento\admin.php(36): RequerimientoController->renderPartial()
+#14 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#15 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#16 C:\xampp\htdocs\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#18 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): RequerimientoController->render()
+#19 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#21 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#22 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#23 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#24 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#25 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#26 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#27 C:\xampp\htdocs\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#28 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#29 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#30 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#31 C:\xampp\htdocs\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/requerimiento/admin.html
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php (142)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php (230)
+in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php (497)
+2013/08/02 19:24:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:34:11 [error] [exception.CException] exception 'CException' with message 'TbInput: Failed to initialize widget! Model is not set.' in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php:96
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CBaseController.php(147): TbInput->init()
+#1 C:\xampp\htdocs\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#2 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#3 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow('text', NULL, 'IDREQUERIMIENTO', NULL, Array)
+#4 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow(NULL, 'IDREQUERIMIENTO', Array)
+#5 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\saab\themes\saab\views\layouts\column2.php(9): CController->renderPartial('_search', Array)
+#9 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(784): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#12 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): CController->render('admin', Array)
+#13 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#14 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#21 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#23 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/a...')
+#24 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#25 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#26 {main}
+REQUEST_URI=/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=&yt0=
+HTTP_REFERER=http://saab.com/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=4&yt0=
+---
+2013/08/02 19:34:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/08/02 19:38:17 [error] [exception.CException] exception 'CException' with message 'TbInput: Failed to initialize widget! Model is not set.' in C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\input\TbInput.php:96
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CBaseController.php(147): TbInput->init()
+#1 C:\xampp\htdocs\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#2 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#3 C:\xampp\htdocs\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow('text', NULL, 'IDREQUERIMIENTO', NULL, Array)
+#4 C:\xampp\htdocs\saab\protected\views\requerimiento\_search.php(15): TbActiveForm->textFieldRow(NULL, 'IDREQUERIMIENTO', Array)
+#5 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#6 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#7 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\saab\themes\saab\views\layouts\column2.php(9): CController->renderPartial('_search', Array)
+#9 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#10 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(784): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#12 C:\xampp\htdocs\saab\protected\controllers\RequerimientoController.php(163): CController->render('admin', Array)
+#13 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): RequerimientoController->actionAdmin()
+#14 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 C:\xampp\htdocs\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#17 C:\xampp\htdocs\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 C:\xampp\htdocs\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 C:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#21 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#23 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/a...')
+#24 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#25 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#26 {main}
+REQUEST_URI=/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=&yt0=
+HTTP_REFERER=http://saab.com/requerimiento/admin.html?Requerimiento%5BIDREQUERIMIENTO%5D=4&yt0=
+---
+2013/08/02 19:38:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "favicon.ico"' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+>>>>>>> 2c8fbf189d43556bb7dd1810961c5cb5cc49a508
 ---
