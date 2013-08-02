@@ -26,12 +26,17 @@ $('.search-form form').submit(function(){
 
 <h3>Requerimientos</h3>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
+<?php 
+// echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); 
+?>
+
+<div class="search-form" >
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
+<br/>
+<br/>
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',

@@ -19,7 +19,7 @@
 	</div>
 
 </div>
-<hr>
+
 <div class="row-fluid">
 
 	<div class="span8 offset2">
