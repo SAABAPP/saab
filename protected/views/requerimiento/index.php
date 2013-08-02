@@ -1,17 +1,25 @@
 <?php
-$this->breadcrumbs=array(
-	'Requerimientos',
-);
+// $this->breadcrumbs=array(
+// 	'Requerimientos',
+// );
 
-$this->menu=array(
-	array('label'=>'Create Requerimiento','url'=>array('create')),
-	array('label'=>'Manage Requerimiento','url'=>array('admin')),
-);
+// $this->menu=array(
+// 	array('label'=>'Create Requerimiento','url'=>array('create'),'itemOptions'=>array('class'=>'btn btn-large btn-primary')),
+// 	array('label'=>'Manage Requerimiento','url'=>array('admin'),'itemOptions'=>array('class'=>'btn btn-large btn-primary')),
+// );
+
+
 ?>
 
-<h1>Requerimientos</h1>
 
-<?php $this->widget('bootstrap.widgets.TbListView',array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+
+<?php 
+	// $this->widget('bootstrap.widgets.TbListView',array(
+	// 	'dataProvider'=>$dataProvider,
+	// 	'itemView'=>'_view',
+	// ));
+ ?>
+
+<?php
+	header('Location: /requerimiento/admin.html');
+?>

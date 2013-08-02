@@ -2,13 +2,9 @@
 
 <!-- Page heading -->
 <div class="page-head">
+
        <h2 class="pull-left"><i class="icon-list-ul"></i>
-       	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'homeLink' => CHtml::link('Initial Page', Yii::app()->homeUrl),
-			
-			)); ?>
-		<?php endif?>
+       	
 		</h2>
        <!-- Breadcrumb -->
 

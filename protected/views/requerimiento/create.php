@@ -4,10 +4,10 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Requerimiento','url'=>array('index')),
-	array('label'=>'Manage Requerimiento','url'=>array('admin')),
-);
+// $this->menu=array(
+// 	array('label'=>'List Requerimiento','url'=>array('index')),
+// 	array('label'=>'Manage Requerimiento','url'=>array('admin')),
+// );
 ?>
 
 <h1>Create Requerimiento</h1>
