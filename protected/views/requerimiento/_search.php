@@ -8,9 +8,9 @@
 	<div class="span8 input-append">
 		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
 			array(
-				'class'=>'span4',
+				'class'=>'span5',
 				'placeholder' => 'Nro Requerimiento',
-				// 'labelHtmlOptions' => array('class' => 'tmr')
+				'labelOptions' => array('label' => false)
 			)
 		); ?>
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

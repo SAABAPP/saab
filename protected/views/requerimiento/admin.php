@@ -24,7 +24,7 @@ $('.search-form form').submit(function(){
 
 
 
-<h3>Requerimientos</h3>
+
 
 
 <div class="search-form" >
@@ -33,6 +33,7 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 <br/>
+<h3>Requerimientos</h3>
 <br/>
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(

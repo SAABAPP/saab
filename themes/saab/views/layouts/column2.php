@@ -1,8 +1,18 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
-
+<!-- 
 <div class="row-fluid">
 	<div class="span10">
+		
+	</div>
+
+</div> -->
+
+
+
+<div class="row-fluid">
+
+	<div class="span8 offset2">
 		<div id="sidebar pull-right">
 		<?php
 			$this->beginWidget('zii.widgets.CPortlet', array(
@@ -16,15 +26,6 @@
 			$this->endWidget();
 		?>
 		</div><!-- sidebar -->
-	</div>
-
-</div>
-
-
-
-<div class="row-fluid">
-
-	<div class="span8 offset2">
 
 		<div id="content">
 			<?php echo $content; ?>
