@@ -158,12 +158,12 @@ switch($current_file)
           <ul class="nav pull-right">
             <li class="dropdown pull-right">            
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="icon-user"></i> Administrador <b class="caret"></b>              
+                <i class="icon-user"></i> <?php Usuario::model()->USU_usuario ?> <b class="caret"></b>              
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
-                <li><a href="404.php"><i class="icon-user"></i> Perfil</a></li>
-                <li><a href="404.php"><i class="icon-cogs"></i> Ajustes</a></li>
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li>
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-cogs"></i> Ajustes</a></li>
                 <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout.html"><i class="icon-off"></i> Salir</a></li>
               </ul>
             </li>
@@ -351,11 +351,24 @@ switch($current_file)
   	<div class="sidebar">
       <div class="sidebar-dropdown"><a href="#">Módulos</a></div>
       <!--- Sidebar navigation -->
-     
-
-
-      <ul id="nav">
-        <!-- Main menu -->
+      <?php
+      $this->widget('bootstrap.widgets.TbMenu', array(
+        // 'type'=>'list',
+        // 'htmlOptions' => array('class'=>false),
+        'id'=>'nav',
+        'items' => array(
+          array('label'=>'Pre-Orden','url'=>'', 'itemOptions'=>array('class'=>'has_sub'),'icon'=>'icon-list-ul'),
+          array('label'=>'Órdenes', 'url'=>''),
+          array('label'=>'N.E.A.', 'url'=>''),
+          array('label'=>'Movimientos', 'url'=>''),
+          array('label'=>'Kardex', 'url'=>''),
+          array('label'=>'Usuarios', 'url'=>''),
+          array('label'=>'Reportes', 'url'=>''),
+          )
+        ));
+      ?>
+      <!--<ul id="nav">
+         Main menu 
         <li class="has_sub"><a href="" <?php echo $a; ?>><i class="icon-list-ul"></i> Pre-Orden  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
           <ul>
             <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/requerimiento">Requerimiento</a></li>
@@ -378,7 +391,7 @@ switch($current_file)
         <li><a href="kardex.php" <?php echo $f; ?>><i class="icon-table"></i>  Kardex</a></li>
         <li><a href="adminTrabajador" <?=$g; ?>><i class="icon-user"></i> Usuarios</a></li>
         <li><a href="reportesAdmin" <?php echo $c; ?>><i class="icon-file-alt"></i> Reportes</a></li>
-      </ul>
+      </ul>-->
     </div>
     <!-- Sidebar ends -->
 
