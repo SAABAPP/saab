@@ -2,15 +2,16 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div class="row-fluid">
-	<div class="span8">
-		<div id="sidebar">
+	<div class="span10">
+		<div id="sidebar pull-right">
 		<?php
 			$this->beginWidget('zii.widgets.CPortlet', array(
 				'title'=>'',
 			));
+			
 			$this->widget('zii.widgets.CMenu', array(
 				'items'=>$this->menu,
-				'htmlOptions'=>array('class'=>'operations'),
+				'htmlOptions'=>array('class'=>'operations inline pull-right'),
 			));
 			$this->endWidget();
 		?>
@@ -18,9 +19,11 @@
 	</div>
 
 </div>
+<hr>
 <div class="row-fluid">
 
-	<div class="span8">
+	<div class="span8 offset2">
+
 		<div id="content">
 			<?php echo $content; ?>
 		</div><!-- content -->

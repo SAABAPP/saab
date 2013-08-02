@@ -17,7 +17,15 @@ footer a:hover{
 a {
 	color:#109FE1;
 }
-
+.btn>a {
+	color:white;
+}
+.btn>a:hover{
+	color:white;
+}
+.table td {
+	text-align: center;
+}
 #logo{
 	float:left;
 	margin-top: 8px;

@@ -5,8 +5,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Requerimiento','url'=>array('index')),
-	array('label'=>'Create Requerimiento','url'=>array('create')),
+	array('label'=>'Create Requerimiento','url'=>array('create'),'itemOptions'=>array('class'=>'btn btn-large btn-primary'))
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,9 +24,7 @@ $('.search-form form').submit(function(){
 
 
 
-<h1>Manage Requerimientos</h1>
-
-
+<h3>Requerimientos</h3>
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
@@ -52,6 +49,8 @@ $('.search-form form').submit(function(){
 		
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+
 		),
+		
 	),
 )); ?>
