@@ -32,7 +32,7 @@
 
 
             <form class="form-horizontal">
-              <div class="control-group">
+              <!-- <div class="control-group">
                 <label id="control-label" class="control-label" for="solicitante">Solicitante:</label>
                 <div class="controls">
                   <input type="text" id="solicitante" placeholder="Su nombre...">
@@ -55,7 +55,7 @@
                 <div class="controls">
                   <input type="text" id="clasificador" placeholder="A que clasificador pertenece...">
                 </div>
-              </div>
+              </div> -->
               <div class="control-group">
                 <table class="table table-bordered">
                   <thead>

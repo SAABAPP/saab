@@ -158,7 +158,7 @@ switch($current_file)
           <ul class="nav pull-right">
             <li class="dropdown pull-right">            
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="icon-user"></i> <?php Usuario::model()->USU_usuario ?> <b class="caret"></b>              
+                <i class="icon-user"></i> <?php echo Yii::app()->user->getName(); ?> <b class="caret"></b>              
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
