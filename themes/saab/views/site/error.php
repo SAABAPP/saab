@@ -28,8 +28,6 @@ $this->breadcrumbs=array(
               <div class="widget-content">
                 <div class="padd error center">
                   <h1><?php echo CHtml::encode($message); ?></h1>
-                  
-                  
                   <br />
                   <p>¿Esta buscando algo específico?</p>
                   <form method="get" id="searchform" action="#" class="form-search">
@@ -38,7 +36,7 @@ $this->breadcrumbs=array(
                   </form>      
                  <br />
                  <div class="horizontal-links">
-                  <a href="/site/index.html">Inicio</a> | <a href="javascript:history.back()">Regresar</a>
+                  <a href="<?php echo Yii::app()->request->baseUrl; ?>">Inicio</a> | <a href="javascript:history.back()">Regresar</a>
                  </div>
 
                 </div>

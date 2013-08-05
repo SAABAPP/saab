@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Requerimientos'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 // $this->menu=array(

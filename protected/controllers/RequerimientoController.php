@@ -91,8 +91,11 @@ class RequerimientoController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-
+		$model=new Requerimiento;
+		$idusuario = Yii::app()->user->getState('idusuario');
+  		$usuario= new Usuario;
+ 		$usuario = Usuario::model()->findByPk($idusuario);		
+        
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -105,6 +108,7 @@ class RequerimientoController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+			'usuario'=>$usuario,
 		));
 	}
 

@@ -11089,3 +11089,224 @@ Stack trace:
 REQUEST_URI=/saab/reportesAdmin
 HTTP_REFERER=http://localhost/saab/kardex
 ---
+2013/08/05 20:49:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'El sistema no ha podido encontrar la acción "help.php" solicitada.' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('help.php')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('help.php')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/h...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#4 C:\wamp\www\saab\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/saab/requerimiento/help.php
+HTTP_REFERER=http://localhost:8080/saab/requerimiento/admin.html
+---
+2013/08/05 20:50:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'El sistema no ha podido encontrar la acción "reportesAdmin" solicitada.' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('reportesAdmin')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('reportesAdmin')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/r...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#4 C:\wamp\www\saab\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/saab/requerimiento/reportesAdmin
+HTTP_REFERER=http://localhost:8080/saab/requerimiento/admin.html
+---
+2013/08/05 20:50:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'El sistema no ha podido encontrar la acción "reportesAdmin" solicitada.' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('reportesAdmin')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('reportesAdmin')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/r...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#4 C:\wamp\www\saab\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/saab/requerimiento/reportesAdmin
+HTTP_REFERER=http://localhost:8080/saab/requerimiento/admin.html
+---
+2013/08/05 21:11:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "help.php"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('help.php')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/saab/help.php
+HTTP_REFERER=http://localhost:8080/saab/
+---
+2013/08/05 21:11:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "help.php"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('help.php')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/saab/help.php
+HTTP_REFERER=http://localhost:8080/saab/
+---
+2013/08/05 21:11:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "help.php"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('help.php')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/saab/help.php
+HTTP_REFERER=http://localhost:8080/saab/
+---
+2013/08/05 21:12:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in C:\wamp\www\saab\protected\controllers\OrdenCompraController.php:157
+Stack trace:
+#0 C:\wamp\www\saab\protected\controllers\OrdenCompraController.php(55): OrdenCompraController->loadModel('5')
+#1 [internal function]: OrdenCompraController->actionView('5')
+#2 C:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(OrdenCompraController), Array)
+#3 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(OrdenCompraController), Object(ReflectionMethod), Array)
+#4 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('view')
+#13 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ordenCompra/vie...')
+#14 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#15 C:\wamp\www\saab\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/saab/ordenCompra/5
+---
+2013/08/05 21:47:52 [error] [php] Undefined variable: usuario (C:\wamp\www\saab\protected\views\requerimiento\_form.php:29)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#1 C:\wamp\www\saab\protected\views\requerimiento\update.php(18): RequerimientoController->renderPartial()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#4 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#5 C:\wamp\www\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#6 C:\wamp\www\saab\protected\controllers\RequerimientoController.php(108): RequerimientoController->render()
+#7 unknown(0): RequerimientoController->actionUpdate()
+#8 C:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#9 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#12 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#14 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#15 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\wamp\www\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#18 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#21 C:\wamp\www\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/saab/requerimiento/update/11.html
+in C:\wamp\www\saab\protected\views\requerimiento\_form.php (29)
+in C:\wamp\www\saab\protected\views\requerimiento\update.php (18)
+in C:\wamp\www\saab\protected\controllers\RequerimientoController.php (108)
+2013/08/05 21:48:53 [error] [php] Undefined variable: usuario (C:\wamp\www\saab\protected\views\requerimiento\_form.php:29)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#1 C:\wamp\www\saab\protected\views\requerimiento\update.php(18): RequerimientoController->renderPartial()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#4 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#5 C:\wamp\www\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#6 C:\wamp\www\saab\protected\controllers\RequerimientoController.php(112): RequerimientoController->render()
+#7 unknown(0): RequerimientoController->actionUpdate()
+#8 C:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#9 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#12 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#14 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#15 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\wamp\www\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#18 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#21 C:\wamp\www\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/saab/requerimiento/update/11.html
+in C:\wamp\www\saab\protected\views\requerimiento\_form.php (29)
+in C:\wamp\www\saab\protected\views\requerimiento\update.php (18)
+in C:\wamp\www\saab\protected\controllers\RequerimientoController.php (112)
+2013/08/05 21:49:09 [error] [php] Undefined variable: usuario (C:\wamp\www\saab\protected\views\requerimiento\_form.php:29)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#1 C:\wamp\www\saab\protected\views\requerimiento\update.php(18): RequerimientoController->renderPartial()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#4 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#5 C:\wamp\www\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#6 C:\wamp\www\saab\protected\controllers\RequerimientoController.php(113): RequerimientoController->render()
+#7 unknown(0): RequerimientoController->actionUpdate()
+#8 C:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#9 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#12 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#14 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#15 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\wamp\www\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#18 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#21 C:\wamp\www\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/saab/requerimiento/update/11.html
+in C:\wamp\www\saab\protected\views\requerimiento\_form.php (29)
+in C:\wamp\www\saab\protected\views\requerimiento\update.php (18)
+in C:\wamp\www\saab\protected\controllers\RequerimientoController.php (113)
+2013/08/05 21:51:04 [error] [php] Undefined variable: usuario (C:\wamp\www\saab\protected\views\requerimiento\_form.php:29)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#1 C:\wamp\www\saab\protected\views\requerimiento\update.php(18): RequerimientoController->renderPartial()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#4 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#5 C:\wamp\www\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#6 C:\wamp\www\saab\protected\controllers\RequerimientoController.php(113): RequerimientoController->render()
+#7 unknown(0): RequerimientoController->actionUpdate()
+#8 C:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#9 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#12 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#14 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#15 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\wamp\www\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#18 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#21 C:\wamp\www\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/saab/requerimiento/update/11.html
+in C:\wamp\www\saab\protected\views\requerimiento\_form.php (29)
+in C:\wamp\www\saab\protected\views\requerimiento\update.php (18)
+in C:\wamp\www\saab\protected\controllers\RequerimientoController.php (113)
+2013/08/05 21:51:32 [error] [php] Undefined variable: usuario (C:\wamp\www\saab\protected\views\requerimiento\_form.php:29)
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#1 C:\wamp\www\saab\protected\views\requerimiento\update.php(18): RequerimientoController->renderPartial()
+#2 C:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 C:\wamp\www\yii\framework\web\CBaseController.php(95): RequerimientoController->renderInternal()
+#4 C:\wamp\www\yii\framework\web\CController.php(869): RequerimientoController->renderFile()
+#5 C:\wamp\www\yii\framework\web\CController.php(782): RequerimientoController->renderPartial()
+#6 C:\wamp\www\saab\protected\controllers\RequerimientoController.php(112): RequerimientoController->render()
+#7 unknown(0): RequerimientoController->actionUpdate()
+#8 C:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#9 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): RequerimientoController->runAction()
+#12 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\wamp\www\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#14 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RequerimientoController->filterAccessControl()
+#15 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\wamp\www\yii\framework\web\CController.php(265): RequerimientoController->runActionWithFilters()
+#18 C:\wamp\www\yii\framework\web\CWebApplication.php(282): RequerimientoController->run()
+#19 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#21 C:\wamp\www\saab\index.php(13): CWebApplication->run()
+REQUEST_URI=/saab/requerimiento/update/11.html
+in C:\wamp\www\saab\protected\views\requerimiento\_form.php (29)
+in C:\wamp\www\saab\protected\views\requerimiento\update.php (18)
+in C:\wamp\www\saab\protected\controllers\RequerimientoController.php (112)

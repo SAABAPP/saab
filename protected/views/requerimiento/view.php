@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Requerimientos'=>array('index'),
-	$model->IDREQUERIMIENTO,
+	'Requerimiento N° '.$model->IDREQUERIMIENTO,
 );
 
 $this->menu=array(
