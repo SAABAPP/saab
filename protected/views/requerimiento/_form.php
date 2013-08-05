@@ -25,7 +25,8 @@
   <div class="control-group">
       <label id="control-label" class="control-label" for="solicitante">Solicitante:</label>
       <div class="controls">
-        <input type="text" id="solicitante" class="span5" placeholder="Su nombre..." value="<?= $usuario->iDPERSONAL->PER_nombres ?>" >
+        <input type="text" id="solicitante" class="span5" placeholder="Su nombre..."
+        value="<?php echo $usuario->iDPERSONAL->PER_nombres." ".$usuario->iDPERSONAL->PER_paterno." ".$usuario->iDPERSONAL->PER_materno; ?>" >
       </div>
   </div>
   
