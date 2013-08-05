@@ -2,7 +2,7 @@
 $this->breadcrumbs=array(
 	'Requerimientos'=>array('index'),
 	$model->IDREQUERIMIENTO=>array('view','id'=>$model->IDREQUERIMIENTO),
-	'Update',
+	'Modificar',
 );
 
 $this->menu=array(
@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h1>Update Requerimiento <?php echo $model->IDREQUERIMIENTO; ?></h1>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form',array('model'=>$model,'usuario'=>$usuario)); ?>
