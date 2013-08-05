@@ -27,15 +27,15 @@ class RequerimientoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('admin','create','update','view'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('delete'),
 				'users'=>array('admin'),
 				'deniedCallback' => function() {Yii::app()->controller->redirect(array ('site/error'));},
 			),
@@ -141,11 +141,13 @@ class RequerimientoController extends Controller
 
 	public function actionIndex()
 	{
-        $requerimiento = new Requerimiento('search');
-        $requerimiento->unsetAttributes();
-        $requerimiento->IDUSUARIO = Yii::app()->user->getState('idusuario');
+		//aca es para el index, que redirecciona a views/requerimiento/admin.php
+
+        $requerimiento = new Requerimiento('search');//creo una variable con la funcion search de Requerimiento
+        $requerimiento->unsetAttributes();//limpio los valores que pueda tener
+        $requerimiento->IDUSUARIO = Yii::app()->user->getState('idusuario');//a la variable le asigno el IDUSUARIO igual que el que esta logeado
         
-        $dataProvider = $requerimiento->search();
+        $dataProvider = $requerimiento->search();//creo un dataprovider que mandaremos al admin y ese dataprovider solo tendra los requerimientos del usuario logeado
         
 		//$dataProvider=new CActiveDataProvider('Requerimiento');//,array('pagination'=>array('pageSize'=>2,),));//,array('criteria'=>array('condition'=>'IDUSUARIO=2'))
 		// $dataProvider->setPagination('1');
@@ -161,6 +163,11 @@ class RequerimientoController extends Controller
 	{
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
+		//para la accion admin, solo le cree esto, si el idusuario es diferente del admin, los filtro; sino que se muestren todos
+		if (Yii::app()->user->getState('idusuario')!=1) {
+			$model->IDUSUARIO = Yii::app()->user->getState('idusuario');
+		}
+		
 		if(isset($_GET['Requerimiento']))
 			$model->attributes=$_GET['Requerimiento'];
 

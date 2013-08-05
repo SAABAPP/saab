@@ -10,7 +10,7 @@
 		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
 			array(
 				'class'=>'span4',
-				'placeholder' => 'Nro Requerimiento',
+				'placeholder' => 'N° de Requerimiento',
 				'labelOptions' => array('label' => false)
 			)
 		); ?>

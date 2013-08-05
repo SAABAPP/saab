@@ -22,26 +22,20 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
-
-
-
-
 <div class="search-form" >
-<?php $this->renderPartial('_search',array(
+<?php
+	$this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-
-
-
 <br/><br/><br/>
 <hr>
 <h3>Requerimientos</h3>
 <br/>
 
 <div class="span8 offset2">
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+<?php
+	$this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'striped bordered condensed',
@@ -55,8 +49,8 @@ $('.search-form form').submit(function(){
 		'REQ_estado',		
 		// 'REQ_presupuesto',		
 		array(
+			'header'=>'Opciones',
 			'class'=>'bootstrap.widgets.TbButtonColumn',
-
 		),
 		
 	),
