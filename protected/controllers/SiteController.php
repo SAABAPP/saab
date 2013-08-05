@@ -22,8 +22,10 @@ class SiteController extends Controller
 					'users'=>array('*')//* digo son todos los usuarios registrados o no
 					),
 			array('deny',
-				// 'actions'=>array('index','logout','view'),
-				'users'=>array('*')));
+				'actions'=>array('index'),
+					'users'=>array('*')//* digo son todos los usuarios registrados o no
+					)
+			);
 	}
 
 	/**
