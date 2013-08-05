@@ -29,7 +29,7 @@ $this->breadcrumbs=array(
                 <div class="padd error center">
                   <h1><?php echo CHtml::encode($message); ?></h1>
                   
-                  <p>Disculpe las molestias, estamos trabajando para solucionar esto.</p>
+                  
                   <br />
                   <p>¿Esta buscando algo específico?</p>
                   <form method="get" id="searchform" action="#" class="form-search">
