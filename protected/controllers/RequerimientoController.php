@@ -37,6 +37,7 @@ class RequerimientoController extends Controller
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
+				'deniedCallback' => function() {Yii::app()->controller->redirect(array ('site/error'));},
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -62,19 +63,24 @@ class RequerimientoController extends Controller
 	public function actionCreate()
 	{
 		$model=new Requerimiento;
-
+		$idusuario = Yii::app()->user->getState('idusuario');
+  		$usuario= new Usuario;
+ 		$usuario = Usuario::model()->findByPk($idusuario);		
+        
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Requerimiento']))
 		{
 			$model->attributes=$_POST['Requerimiento'];
+			//$model->IDUSUARIO=Yii::app()->user->getState('idusuario');
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'usuario'=>$usuario,
 		));
 	}
 
