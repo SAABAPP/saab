@@ -27,10 +27,9 @@ $this->breadcrumbs=array(
                 <div class="padd">
                   <!-- Login form -->
                   <!-- <form class="form-horizontal" action="home.php"> -->
-                  <?php $form=$this->beginWidget('CActiveForm', array(
+                  <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         						'id'=>'login-form',
-        						'enableClientValidation'=>true,
-                    'htmlOptions'=>array('class'=>'form-horizontal'),        						
+        						'enableClientValidation'=>true,       						
                     'enableAjaxValidation'=>true,
                     'enableClientValidation'=>true,
                     'clientOptions'=>array('validateOnSubmit'=>true,),    

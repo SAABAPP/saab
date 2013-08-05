@@ -29,7 +29,7 @@ class TbActiveForm extends CActiveForm
 	/**
 	 * @var string the form type. See class constants.
 	 */
-	public $type = self::TYPE_VERTICAL;
+	public $type = self::TYPE_HORIZONTAL;
 	/**
 	 * @var string input class.
 	 */
