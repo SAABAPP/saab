@@ -1,5 +1,4 @@
 <?php
-$current_file = basename($_SERVER['PHP_SELF']);
 $a='';
 $b='';
 $c='';
@@ -7,66 +6,36 @@ $d='';
 $e='';
 $f='';
 $g='';
-switch($current_file)
+switch($this->id)
 {
-  case "requerimiento.php":
+  case 'requerimiento':
   $a='class="open"';
   break;
-  case "requerimiento2.php":
+  case "cotizacion":
   $a='class="open"';
   break;
-  case "requerimiento3.php":
-  $a='class="open"';
-  break;
-  case "cotizacion.php":
-  $a='class="open"';
-  break;
-  case "cotizacion2.php":
-  $a='class="open"';
-  break;
-  case "ordenCompra.php":
+  case "ordenCompra":
   $b='class="open"';
   break;
-  case "ordenCompra2.php":
+  case "ordenServicio":
   $b='class="open"';
   break;
-  case "ordenServicio.php":
-  $b='class="open"';
-  break;
-  case "ordenServicio2.php":
-  $b='class="open"';
-  break;
-  case "reportesAdmin.php":
+  case "nea":
   $c='class="open"';
   break;
-  case "nea.php":
+  case "regEntrada":
   $d='class="open"';
   break;
-  case "nea2.php":
+  case "regSalida":
   $d='class="open"';
   break;
-  case "nea3.php":
-  $d='class="open"';
-  break;
-  case "regEntrada.php":
+  case "kardex":
   $e='class="open"';
   break;
-  case "regEntrada2.php":
-  $e='class="open"';
-  break;
-  case "regSalida.php":
-  $e='class="open"';
-  break;
-  case "regSalida2.php":
-  $e='class="open"';
-  break;
-  case "kardex.php":
+  case "usuario":
   $f='class="open"';
   break;
-  case "adminTrabajador.php":
-  $g='class="open"';
-  break;
-  case "adminTrabajador2.php":
+  case "adminTrabajador2":
   $g='class="open"';
   break;
 }
@@ -162,8 +131,8 @@ switch($current_file)
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
-                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li>
-                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-cogs"></i> Ajustes</a></li>
+                <!-- <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li>
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-cogs"></i> Ajustes</a></li> -->
                 <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout.html"><i class="icon-off"></i> Salir</a></li>
               </ul>
             </li>
@@ -352,23 +321,23 @@ switch($current_file)
       <div class="sidebar-dropdown"><a href="#">Módulos</a></div>
       <!--- Sidebar navigation -->
       <?php
-      $this->widget('bootstrap.widgets.TbMenu', array(
-        // 'type'=>'list',
-        // 'htmlOptions' => array('class'=>false),
-        'id'=>'nav',
-        'items' => array(
-          array('label'=>'Pre-Orden','url'=>'', 'itemOptions'=>array('class'=>'has_sub'),'icon'=>'icon-list-ul'),
-          array('label'=>'Órdenes', 'url'=>''),
-          array('label'=>'N.E.A.', 'url'=>''),
-          array('label'=>'Movimientos', 'url'=>''),
-          array('label'=>'Kardex', 'url'=>''),
-          array('label'=>'Usuarios', 'url'=>''),
-          array('label'=>'Reportes', 'url'=>''),
-          )
-        ));
+      // $this->widget('bootstrap.widgets.TbMenu', array(
+      //   // 'type'=>'list',
+      //   //'htmlOptions' => array('class'=>clean),
+      //   'id'=>'nav',
+      //   'items' => array(
+      //     array('label'=>'Pre-Orden','url'=>'', 'itemOptions'=>array('class'=>'has_sub'),'icon'=>'icon-list-ul'),
+      //     array('label'=>'Órdenes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-list-alt'),
+      //     array('label'=>'N.E.A.', 'url'=>Yii::app()->request->baseUrl.'/nea', 'itemOptions'=>array('class'=>''),'icon'=>'icon-plus'),
+      //     array('label'=>'Movimientos', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-retweet'),
+      //     array('label'=>'Kardex', 'url'=>Yii::app()->request->baseUrl.'/kardex', 'itemOptions'=>array('class'=>''),'icon'=>'icon-table'),
+      //     array('label'=>'Usuarios', 'url'=>Yii::app()->request->baseUrl.'/usuario', 'itemOptions'=>array('class'=>''),'icon'=>'icon-user'),
+      //     array('label'=>'Reportes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-file-alt'),
+      //     )
+      //   ));
       ?>
-      <!--<ul id="nav">
-         Main menu 
+      <ul id="nav">
+         <!-- Main menu --> 
         <li class="has_sub"><a href="" <?php echo $a; ?>><i class="icon-list-ul"></i> Pre-Orden  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
           <ul>
             <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/requerimiento">Requerimiento</a></li>
@@ -381,17 +350,17 @@ switch($current_file)
             <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/ordenServicio">Orden de Servicios</a></li>
           </ul>
         </li> 
-        <li><a href="nea.php" <?php echo $d; ?>><i class="icon-plus"></i> N.E.A</a></li>
-        <li class="has_sub"><a href="" <?php echo $e; ?>><i class="icon-retweet"></i> Movimientos  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/nea" <?php echo $c; ?>><i class="icon-plus"></i> N.E.A</a></li>
+        <li class="has_sub"><a href="" <?php echo $d; ?>><i class="icon-retweet"></i> Movimientos  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
           <ul>
             <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/regEntrada">Registrar Entrada</a></li>
-            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/regSalida">Registrar Salida</a></li>
+            <li><a href="">Registrar Salida</a></li>
           </ul>
         </li>
-        <li><a href="kardex.php" <?php echo $f; ?>><i class="icon-table"></i>  Kardex</a></li>
-        <li><a href="adminTrabajador" <?=$g; ?>><i class="icon-user"></i> Usuarios</a></li>
-        <li><a href="reportesAdmin" <?php echo $c; ?>><i class="icon-file-alt"></i> Reportes</a></li>
-      </ul>-->
+        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/kardex" <?php echo $e; ?>><i class="icon-table"></i>  Kardex</a></li>
+        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/usuario" <?php echo $f; ?>><i class="icon-user"></i> Usuarios</a></li>
+        <li><a href="reportesAdmin" <?php echo $g; ?>><i class="icon-file-alt"></i> Reportes</a></li>
+      </ul>
     </div>
     <!-- Sidebar ends -->
 
