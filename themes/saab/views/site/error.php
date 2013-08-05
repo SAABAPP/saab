@@ -29,13 +29,13 @@ $this->breadcrumbs=array(
                 <div class="padd error center">
                   <h1><?php echo CHtml::encode($message); ?></h1>
                   
-                  
+                  <!--
                   <br />
-                  <p>¿Esta buscando algo específico?</p>
+                   <p>¿Esta buscando algo específico?</p>
                   <form method="get" id="searchform" action="#" class="form-search">
                     <input type="text" value="" name="s" id="s" class="input-medium"/>
                     <button type="submit" class="btn">Buscar</button>
-                  </form>      
+                  </form>  -->     
                  <br />
                  <div class="horizontal-links">
                   <a href="/site/index.html">Inicio</a> | <a href="javascript:history.back()">Regresar</a>
