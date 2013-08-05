@@ -11310,3 +11310,13 @@ REQUEST_URI=/saab/requerimiento/update/11.html
 in C:\wamp\www\saab\protected\views\requerimiento\_form.php (29)
 in C:\wamp\www\saab\protected\views\requerimiento\update.php (18)
 in C:\wamp\www\saab\protected\controllers\RequerimientoController.php (112)
+2013/08/05 22:20:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'El sistema no ha podido encontrar la acción "help.php" solicitada.' in C:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('help.php')
+#1 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('help.php')
+#2 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('requerimiento/h...')
+#3 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#4 C:\wamp\www\saab\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/saab/requerimiento/help.php
+---
