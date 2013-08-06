@@ -35,6 +35,14 @@ $('.search-form form').submit(function(){
 
 <div class="span8 offset2">
 <?php
+	
+	if (Yii::app()->user->checkAccess("administrador"))
+    {
+        echo 'HOLA';
+    } else {
+        echo 'ADIOS';
+    }
+
 	$this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),

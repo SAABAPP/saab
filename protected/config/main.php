@@ -102,6 +102,11 @@ return array(
 				*/
 			),
 		),
+		//Activar RBAC
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
+		),
 	),
 
 	// application-level parameters that can be accessed
