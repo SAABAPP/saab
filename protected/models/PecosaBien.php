@@ -12,8 +12,8 @@
  * The followings are the available model relations:
  * @property Kardex[] $kardexes
  * @property Kardex[] $kardexes1
- * @property Bien $iDBIEN
  * @property Pecosa $iDPECOSA
+ * @property Bien $iDBIEN
  */
 class PecosaBien extends CActiveRecord
 {
@@ -61,8 +61,8 @@ class PecosaBien extends CActiveRecord
 		return array(
 			'kardexes' => array(self::HAS_MANY, 'Kardex', 'IDPECOSABIEN'),
 			'kardexes1' => array(self::HAS_MANY, 'Kardex', 'IDPECOSA'),
-			'iDBIEN' => array(self::BELONGS_TO, 'Bien', 'IDBIEN'),
 			'iDPECOSA' => array(self::BELONGS_TO, 'Pecosa', 'IDPECOSA'),
+			'iDBIEN' => array(self::BELONGS_TO, 'Bien', 'IDBIEN'),
 		);
 	}
 

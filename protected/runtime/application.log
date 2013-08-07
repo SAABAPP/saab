@@ -11320,3 +11320,21 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/saab/requerimiento/help.php
 ---
+2013/08/07 15:40:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "ordenServicio"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ordenServicio')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/saab/ordenServicio
+HTTP_REFERER=http://localhost/saab/ordenCompra
+---
+2013/08/07 15:42:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "regEntrada"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('regEntrada')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/saab/regEntrada
+HTTP_REFERER=http://localhost/saab/nea
+---

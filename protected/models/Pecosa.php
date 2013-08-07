@@ -11,8 +11,8 @@
  * @property integer $IDREQUERIMIENTO
  *
  * The followings are the available model relations:
- * @property Requerimiento $iDREQUERIMIENTO
  * @property Usuario $iDUSUARIO
+ * @property Requerimiento $iDREQUERIMIENTO
  * @property PecosaBien[] $pecosaBiens
  */
 class Pecosa extends CActiveRecord
@@ -60,8 +60,8 @@ class Pecosa extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'iDREQUERIMIENTO' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 			'iDUSUARIO' => array(self::BELONGS_TO, 'Usuario', 'IDUSUARIO'),
+			'iDREQUERIMIENTO' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 			'pecosaBiens' => array(self::HAS_MANY, 'PecosaBien', 'IDPECOSA'),
 		);
 	}

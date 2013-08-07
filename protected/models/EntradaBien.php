@@ -11,8 +11,8 @@
  * @property integer $IDENTRADA
  *
  * The followings are the available model relations:
- * @property Entrada $iDENTRADA
  * @property Bien $iDBIEN
+ * @property Entrada $iDENTRADA
  * @property Kardex[] $kardexes
  * @property Kardex[] $kardexes1
  */
@@ -61,8 +61,8 @@ class EntradaBien extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'iDENTRADA' => array(self::BELONGS_TO, 'Entrada', 'IDENTRADA'),
 			'iDBIEN' => array(self::BELONGS_TO, 'Bien', 'IDBIEN'),
+			'iDENTRADA' => array(self::BELONGS_TO, 'Entrada', 'IDENTRADA'),
 			'kardexes' => array(self::HAS_MANY, 'Kardex', 'IDENTRADABIEN'),
 			'kardexes1' => array(self::HAS_MANY, 'Kardex', 'IDENTRADA'),
 		);

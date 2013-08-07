@@ -1,11 +1,5 @@
 <?php
-$a='';
-$b='';
-$c='';
-$d='';
-$e='';
-$f='';
-$g='';
+$a='';$b='';$c='';$d='';$e='';$f='';$g='';
 switch($this->id)
 {
   case 'requerimiento':
@@ -23,10 +17,10 @@ switch($this->id)
   case "nea":
   $c='class="open"';
   break;
-  case "regEntrada":
+  case "entrada":
   $d='class="open"';
   break;
-  case "regSalida":
+  case "pecosa":
   $d='class="open"';
   break;
   case "kardex":
@@ -297,7 +291,6 @@ switch($this->id)
       //     array('label'=>'Reportes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-file-alt'),
       //     )
       //   ));
-
       if (!Yii::app()->user->checkAccess("administrador"))
       {
           if (Yii::app()->user->checkAccess("almacen")) {
