@@ -8,8 +8,6 @@
 
 </div> -->
 
-
-
 <div class="row-fluid">
 
 	<div class="contenido-total">
@@ -19,10 +17,10 @@
 				'title'=>'',
 			));
 			
-			$this->widget('zii.widgets.CMenu', array(
-				'items'=>$this->menu,
-				'htmlOptions'=>array('class'=>'operations inline pull-right'),
-			));
+			// $this->widget('zii.widgets.CMenu', array(
+			// 	'items'=>$this->menu,
+			// 	'htmlOptions'=>array('class'=>'operations inline pull-right'),
+			// ));
 			$this->endWidget();
 		?>
 		</div><!-- sidebar -->
