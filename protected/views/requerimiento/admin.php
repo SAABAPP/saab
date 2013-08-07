@@ -4,10 +4,6 @@ $this->breadcrumbs=array(
 	'Inicio',
 );
 
-$this->menu=array(
-	array('label'=>'Create Requerimiento','url'=>array('create'),'itemOptions'=>array('class'=>'btn btn-large btn-primary'))
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -24,11 +20,20 @@ $('.search-form form').submit(function(){
 
 <div class="search-form" >
 <?php
-	$this->renderPartial('_search',array(
+$this->renderPartial('_search',array(
 	'model'=>$model,
-)); ?>
+	));
+
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Crear requerimiento',
+    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'large', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>'pull-right'),
+    'url'=>array('create'),
+    ));
+?>
 </div><!-- search-form -->
-<br/><br/><br/>
+<br/><br/>
 <hr>
 <h3>Requerimientos</h3>
 <br/>
@@ -51,6 +56,8 @@ $('.search-form form').submit(function(){
 		array(
 			'header'=>'Opciones',
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>"{view}",
+			// hacer que el boton update salga cuando estado=observado
 		),
 		
 	),

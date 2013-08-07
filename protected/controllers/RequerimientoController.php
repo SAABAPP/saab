@@ -27,18 +27,18 @@ class RequerimientoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','update'),
-				'users'=>array('@'),
+				'actions'=>array('index','admin','create','view'),
+				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','create','view'),
-				'users'=>array('@'),
+				'actions'=>array('index','admin','create','view'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('delete'),
-				'users'=>array('admin'),
-				'deniedCallback' => function() {Yii::app()->controller->redirect(array ('site/error'));},
-			),
+			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			// 	'actions'=>array('delete'),
+			// 	'users'=>array('admin'),
+			// 	'deniedCallback' => function() {Yii::app()->controller->redirect(array ('site/error'));},
+			// ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
