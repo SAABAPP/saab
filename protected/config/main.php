@@ -102,6 +102,15 @@ return array(
 				*/
 			),
 		),
+<<<<<<< HEAD
+=======
+		//Activar RBAC
+		'authManager'=>array(
+			'class'=>'CDbAuthManager',
+			'connectionID'=>'db',
+		),
+		//sincronizar
+>>>>>>> origin/saabDavid
 	),
 
 	// application-level parameters that can be accessed
