@@ -107,6 +107,7 @@ return array(
 			'class'=>'CDbAuthManager',
 			'connectionID'=>'db',
 		),
+		//sincronizar
 	),
 
 	// application-level parameters that can be accessed
