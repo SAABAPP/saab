@@ -46,6 +46,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'type'=>'bordered hover',
     'template'=>"{items}",
 	// 'filter'=>$model,
+	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
 	'columns'=>array(
 		'IDREQUERIMIENTO',
 		'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
