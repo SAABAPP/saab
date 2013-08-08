@@ -40,28 +40,29 @@ $this->widget('bootstrap.widgets.TbButton', array(
 
 <div class="span8 offset2">
 <?php
-	$this->widget('bootstrap.widgets.TbGridView',array(
+$this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
-	'type'=>'striped bordered condensed',
+	'type'=>'bordered hover',
     'template'=>"{items}",
 	// 'filter'=>$model,
+	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
 	'columns'=>array(
-
 		'IDREQUERIMIENTO',
 		'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
 		'REQ_fecha',
 		'REQ_estado',		
 		// 'REQ_presupuesto',		
 		array(
-			'header'=>'Opciones',
+			'header'=>'Detalles',
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template'=>"{view}",
 			// hacer que el boton update salga cuando estado=observado
 		),
 		
 	),
-)); ?>
+));
+?>
 
 
 </div>
