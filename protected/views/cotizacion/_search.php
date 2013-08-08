@@ -1,19 +1,21 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical'
 )); ?>
 
-	<?php echo $form->textFieldRow($model,'IDCOTIZACION',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'COT_buenaPro',array('class'=>'span5')); ?>
-
-	<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',array('class'=>'span5')); ?>
-
-	<div class="form-actions">
+	<div class="span8 input-append">
+		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
+			array(
+				'class'=>'span4',
+				'placeholder' => 'N° de Requerimiento',
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
+			)
+		); ?>
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>'Search',
+			'buttonType'=>'submit',			
+			'icon'=>'icon-search',
 		)); ?>
 	</div>
 

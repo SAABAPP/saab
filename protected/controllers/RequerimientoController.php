@@ -26,11 +26,11 @@ class RequerimientoController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+			array('allow',
 				'actions'=>array('index','admin','create','view'),
 				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			array('allow',
 				'actions'=>array('index','admin','create','view'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),

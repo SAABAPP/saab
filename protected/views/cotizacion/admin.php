@@ -1,12 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Cotizacions'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Cotizacion','url'=>array('index')),
-	array('label'=>'Create Cotizacion','url'=>array('create')),
+	'Cotizaciones'=>array('index'),
+	'Inicio',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,30 +18,53 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Cotizacions</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
+<div class="search-form" >
+<?php
+$this->renderPartial('_search',array(
 	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+	));
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Crear cotización',
+    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'large', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>'pull-right'),
+    'url'=>array('create'),
+    ));
+?>
+</div><!-- search-form -->
+<br/><br/>
+<hr>
+<h3>Requerimientos</h3>
+<br/>
+
+<div class="span8 offset2">
+<?php
+$this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'cotizacion-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'type'=>'bordered hover',
+    'template'=>"{items}",
+	// 'filter'=>$model,
+	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
 	'columns'=>array(
-		'IDCOTIZACION',
-		'COT_buenaPro',
+		// 'IDCOTIZACION',
+		// 'COT_buenaPro',
 		'IDREQUERIMIENTO',
+		// array(
+		// 	'header'=>'ciudad_id',
+		// 	'value'=>'$data->ciudad->nombre',
+		// 	'filter'=>Usuario::getListCiudad(),
+		// ),
+		'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
+		'REQ_fecha',
 		array(
+			'header'=>'Detalles',
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>"{view}",
+			// hacer que el boton update salga cuando estado=observado
 		),
 	),
-)); ?>
+));
+?>
+</div>

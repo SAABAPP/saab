@@ -4,14 +4,13 @@
 	'type'=>'vertical'
 )); ?>
 
-	
-
 	<div class="span8 input-append">
 		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
 			array(
 				'class'=>'span4',
 				'placeholder' => 'N° de Requerimiento',
-				'labelOptions' => array('label' => false)
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
 			)
 		); ?>
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -21,5 +20,3 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-
-
