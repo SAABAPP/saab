@@ -33,6 +33,7 @@ switch($this->id)
   $g='class="open"';
   break;
 }
+$usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
 ?>
 <?php /* @var $this Controller */ ?>
 
@@ -121,7 +122,7 @@ switch($this->id)
           <ul class="nav pull-right">
             <li class="dropdown pull-right">            
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="icon-user"></i> <?php echo Yii::app()->user->getName(); ?> <b class="caret"></b>              
+                <i class="icon-user"></i> <?php echo $usuario->iDPERSONAL->PER_nombres;//." ".$usuario->iDPERSONAL->PER_paterno." ".$usuario->iDPERSONAL->PER_materno ?> <b class="caret"></b>              
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
