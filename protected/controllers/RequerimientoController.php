@@ -42,6 +42,10 @@ class RequerimientoController extends Controller
 				'actions'=>array('index','admin','create','view'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
+			array('allow', 
+				'actions'=>array('buscaClasificador'),
+				'users'=>array('*'),
+			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
 			// 	'actions'=>array('delete'),
 			// 	'users'=>array('admin'),
@@ -73,8 +77,12 @@ class RequerimientoController extends Controller
 		$model=new Requerimiento;
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
- 		$usuario = Usuario::model()->findByPk($idusuario);		
-        
+ 		$usuario = Usuario::model()->findByPk($idusuario);
+ 		$bien=	new Bien('search');
+ 		
+ 		$bien->unsetAttributes();	
+        // $clasificador = new Clasificador;
+        // $clasificador= Clasificador::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -89,8 +97,43 @@ class RequerimientoController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'usuario'=>$usuario,
+			'bien'=>$bien,
 		));
 	}
+
+	public function actionBuscaClasificador() {
+
+       //$q = $_GET['busca_clasificador'];
+       $q=trim($_GET['term']);
+
+       //$q='LA';
+
+       if (isset($q)) {
+           $criteria = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+           $criteria->condition = "CLA_descripcion LIKE '%". $q ."%'";
+           //$criteria->order = 'CLA_descripcion'; // correct order-by field
+           $criteria->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$criteria->params = array(':q' => trim($q) . '%'); 
+           $clasificador= Clasificador::model()->findAll($criteria);
+
+           if (!empty($clasificador)) {
+               $returnVal = '';
+               $out = array();
+               foreach ($clasificador as $p) {
+                   $out[] = array(
+                      // expression to give the string for the autoComplete drop-down
+                       'label' => $p->CLA_descripcion,  
+                       'value' => $p->CLA_descripcion,
+                       'id' => $p->CODIGOCLASIFICADOR, // return value from autocomplete
+                   );
+                }
+              echo CJSON::encode($out);
+              Yii::app()->end();
+            }
+        }
+    }
 
 	/**
 	 * Updates a particular model.
