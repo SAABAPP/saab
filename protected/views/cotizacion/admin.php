@@ -58,11 +58,11 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 		// ),
 		'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
 		'REQ_fecha',
+		'REQ_estado',
 		array(
 			'header'=>'Detalles',
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template'=>"{view}",
-			// hacer que el boton update salga cuando estado=observado
 		),
 	),
 ));

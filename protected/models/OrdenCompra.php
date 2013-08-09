@@ -68,8 +68,8 @@ class OrdenCompra extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDORDENCOMPRA' => 'Idordencompra',
-			'IDREQUERIMIENTO' => 'Idrequerimiento',
+			'IDORDENCOMPRA' => 'N° de Orden',
+			'IDREQUERIMIENTO' => 'N° de Requerimiento',
 		);
 	}
 
@@ -86,6 +86,8 @@ class OrdenCompra extends CActiveRecord
 
 		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
+
+		$criteria->order = 'IDORDENCOMPRA DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

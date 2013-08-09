@@ -68,9 +68,8 @@ class Nea extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'NEA_referencia' => 'Nea Referencia',
-			'NEA_procedencia' => 'Nea Procedencia',
-			'IDENTRADA' => 'Identrada',
+			'NEA_referencia' => 'Referencia',
+			'NEA_procedencia' => 'Procedencia',
 		);
 	}
 
@@ -88,6 +87,8 @@ class Nea extends CActiveRecord
 		$criteria->compare('NEA_referencia',$this->NEA_referencia,true);
 		$criteria->compare('NEA_procedencia',$this->NEA_procedencia,true);
 		$criteria->compare('IDENTRADA',$this->IDENTRADA);
+
+		$criteria->order = 'IDENTRADA DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

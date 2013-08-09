@@ -186,9 +186,12 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
           if (Yii::app()->user->checkAccess("almacen")) {
             include("_menuAlmacen.php");
           } else {
-            include("_menuUsuario.php");
+            if (Yii::app()->user->checkAccess("abastecimiento")) {
+              include("_menuAbastecimiento.php");
+            } else {
+              include("_menuUsuario.php");
+            }
           }
-          
       } else {
           include("_menuAdmin.php");
       }

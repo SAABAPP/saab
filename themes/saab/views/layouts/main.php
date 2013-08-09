@@ -16,7 +16,7 @@
        	echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Cotización</h2>";
        	break;
        	case 'ordenCompra':
-       	echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Órden de Compra</h2>";
+       	echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Orden de Compra</h2>";
        	break;
        	case 'nea':
        	echo "<h2 class=\"pull-left\"><i class=\"icon-plus\"></i> Nota Entrada Almacén</h2>";

@@ -11802,3 +11802,193 @@ Stack trace:
 #11 {main}
 REQUEST_URI=/saab/cotizacion
 ---
+2013/08/09 17:31:00 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Usted no se encuentra autorizado a realizar esta acción.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:179
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Usted no se enc...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cotizacion')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\wamp\www\saab\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/saab/cotizacion
+---
+2013/08/09 17:31:30 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Usted no se encuentra autorizado a realizar esta acción.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:179
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Usted no se enc...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('update')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cotizacion/upda...')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\wamp\www\saab\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/saab/cotizacion/update
+---
+2013/08/09 17:44:34 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Usted no se encuentra autorizado a realizar esta acción.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:179
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Usted no se enc...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cotizacion')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\wamp\www\saab\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/saab/cotizacion
+---
+2013/08/09 17:48:22 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'Usted no se encuentra autorizado a realizar esta acción.' in C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php:179
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\auth\CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(CWebUser), 'Usted no se enc...')
+#1 C:\wamp\www\yii\framework\web\filters\CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#6 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('')
+#8 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('nea')
+#9 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\wamp\www\saab\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/saab/nea
+---
+2013/08/09 18:14:48 [error] [exception.CException] exception 'CException' with message 'Propiedad "Nea"."IDNEA" no se encuentra definida.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(143): CComponent->__get('IDNEA')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2255): CActiveRecord->__get('IDNEA')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1980): CHtml::resolveValue(Object(Nea), 'IDNEA')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1257): CHtml::activeInputField('text', Object(Nea), 'IDNEA', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(657): CHtml::activeTextField(Object(Nea), 'IDNEA', Array)
+#5 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): CActiveForm->textField(Object(Nea), 'IDNEA', Array)
+#6 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(173): TbInput->run()
+#8 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#9 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow('text', Object(Nea), 'IDNEA', NULL, Array)
+#10 C:\wamp\www\saab\protected\views\nea\_search.php(15): TbActiveForm->textFieldRow(Object(Nea), 'IDNEA', Array)
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\saa...')
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\saa...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\saa...', Array, true)
+#14 C:\wamp\www\saab\protected\views\nea\admin.php(25): CController->renderPartial('_search', Array)
+#15 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\saa...')
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\saa...', Array, true)
+#17 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\saa...', Array, true)
+#18 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#19 C:\wamp\www\saab\protected\controllers\NeaController.php(143): CController->render('admin', Array)
+#20 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): NeaController->actionAdmin()
+#21 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#22 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#23 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#24 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#25 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#26 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#27 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#28 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#29 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('nea/admin')
+#31 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#32 C:\wamp\www\saab\index.php(13): CApplication->run()
+#33 {main}
+REQUEST_URI=/saab/nea/admin.html
+HTTP_REFERER=http://localhost/saab/ordenCompra/admin.html
+---
+2013/08/09 18:17:06 [error] [exception.CException] exception 'CException' with message 'Propiedad "Entrada"."IDNEA" no se encuentra definida.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(143): CComponent->__get('IDNEA')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2255): CActiveRecord->__get('IDNEA')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1980): CHtml::resolveValue(Object(Entrada), 'IDNEA')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1257): CHtml::activeInputField('text', Object(Entrada), 'IDNEA', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(657): CHtml::activeTextField(Object(Entrada), 'IDNEA', Array)
+#5 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): CActiveForm->textField(Object(Entrada), 'IDNEA', Array)
+#6 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(173): TbInput->run()
+#8 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#9 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow('text', Object(Entrada), 'IDNEA', NULL, Array)
+#10 C:\wamp\www\saab\protected\views\nea\_search.php(15): TbActiveForm->textFieldRow(Object(Entrada), 'IDNEA', Array)
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\saa...')
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\saa...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\saa...', Array, true)
+#14 C:\wamp\www\saab\protected\views\nea\admin.php(25): CController->renderPartial('_search', Array)
+#15 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\saa...')
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\saa...', Array, true)
+#17 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\saa...', Array, true)
+#18 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#19 C:\wamp\www\saab\protected\controllers\NeaController.php(143): CController->render('admin', Array)
+#20 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): NeaController->actionAdmin()
+#21 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#22 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#23 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#24 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#25 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#26 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#27 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#28 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#29 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('nea/admin')
+#31 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#32 C:\wamp\www\saab\index.php(13): CApplication->run()
+#33 {main}
+REQUEST_URI=/saab/nea/admin.html
+HTTP_REFERER=http://localhost/saab/ordenCompra/admin.html
+---
+2013/08/09 18:38:03 [error] [exception.CException] exception 'CException' with message 'Propiedad "Entrada"."IDREQUERIMIENTO" no se encuentra definida.' in C:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\wamp\www\yii\framework\db\ar\CActiveRecord.php(143): CComponent->__get('IDREQUERIMIENTO')
+#1 C:\wamp\www\yii\framework\web\helpers\CHtml.php(2255): CActiveRecord->__get('IDREQUERIMIENTO')
+#2 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1980): CHtml::resolveValue(Object(Entrada), 'IDREQUERIMIENTO')
+#3 C:\wamp\www\yii\framework\web\helpers\CHtml.php(1257): CHtml::activeInputField('text', Object(Entrada), 'IDREQUERIMIENTO', Array)
+#4 C:\wamp\www\yii\framework\web\widgets\CActiveForm.php(657): CHtml::activeTextField(Object(Entrada), 'IDREQUERIMIENTO', Array)
+#5 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(142): CActiveForm->textField(Object(Entrada), 'IDREQUERIMIENTO', Array)
+#6 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\input\TbInput.php(230): TbInputVertical->textField()
+#7 C:\wamp\www\yii\framework\web\CBaseController.php(173): TbInput->run()
+#8 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(497): CBaseController->widget('bootstrap.widge...', Array)
+#9 C:\wamp\www\saab\protected\extensions\bootstrap\widgets\TbActiveForm.php(186): TbActiveForm->inputRow('text', Object(Entrada), 'IDREQUERIMIENTO', NULL, Array)
+#10 C:\wamp\www\saab\protected\views\nea\_search.php(15): TbActiveForm->textFieldRow(Object(Entrada), 'IDREQUERIMIENTO', Array)
+#11 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\saa...')
+#12 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\saa...', Array, true)
+#13 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\saa...', Array, true)
+#14 C:\wamp\www\saab\protected\views\nea\admin.php(25): CController->renderPartial('_search', Array)
+#15 C:\wamp\www\yii\framework\web\CBaseController.php(126): require('C:\wamp\www\saa...')
+#16 C:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\wamp\www\saa...', Array, true)
+#17 C:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\wamp\www\saa...', Array, true)
+#18 C:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#19 C:\wamp\www\saab\protected\controllers\NeaController.php(143): CController->render('admin', Array)
+#20 C:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): NeaController->actionAdmin()
+#21 C:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#22 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#23 C:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#24 C:\wamp\www\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#25 C:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#26 C:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#27 C:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#28 C:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#29 C:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('admin')
+#30 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('nea/admin')
+#31 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#32 C:\wamp\www\saab\index.php(13): CApplication->run()
+#33 {main}
+REQUEST_URI=/saab/nea/admin.html
+HTTP_REFERER=http://localhost/saab/ordenCompra/admin.html
+---
+2013/08/09 19:39:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "ordenServicio"' in C:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ordenServicio')
+#1 C:\wamp\www\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\wamp\www\saab\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/saab/ordenServicio
+HTTP_REFERER=http://localhost/saab/nea/admin.html
+---

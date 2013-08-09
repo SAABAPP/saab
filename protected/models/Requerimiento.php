@@ -115,6 +115,8 @@ class Requerimiento extends CActiveRecord
 		$criteria->compare('CODMETA',$this->CODMETA,true);
 		$criteria->compare('IDCUANEC',$this->IDCUANEC);
 
+		$criteria->order = 'IDREQUERIMIENTO DESC';
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
