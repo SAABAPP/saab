@@ -68,8 +68,8 @@ class Cotizacion extends CActiveRecord
 	{
 		return array(
 			'IDCOTIZACION' => 'Idcotizacion',
-			'COT_buenaPro' => 'Cot Buena Pro',
-			'IDREQUERIMIENTO' => 'Idrequerimiento',
+			'COT_buenaPro' => 'Buena Pro',
+			'IDREQUERIMIENTO' => 'N°',
 		);
 	}
 

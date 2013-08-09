@@ -1,30 +1,22 @@
-<?php
-/* @var $this OrdenCompraController */
-/* @var $model OrdenCompra */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical'
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDORDENCOMPRA'); ?>
-		<?php echo $form->textField($model,'IDORDENCOMPRA'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'IDREQUERIMIENTO'); ?>
-		<?php echo $form->textField($model,'IDREQUERIMIENTO'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="span8 input-append">
+		<?php echo $form->textFieldRow($model,'IDORDENCOMPRA',
+			array(
+				'class'=>'span4',
+				'placeholder' => 'N° de Orden de Compra',
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
+			)
+		); ?>
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',			
+			'icon'=>'icon-search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

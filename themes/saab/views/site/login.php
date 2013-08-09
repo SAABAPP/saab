@@ -39,7 +39,7 @@ $this->breadcrumbs=array(
                     <div class="control-group">
                       <label class="control-label " for="inputEmail">Usuario:</label>
                       <div class="controls ">
-                        <?php echo $form->textField($model,'username',array('placeholder' => 'Usuario')); ?>                        
+                        <?php echo $form->textField($model,'username',array('placeholder' => 'Usuario','autocomplete'=>'off')); ?>                        
                         <?php echo $form->error($model,'username',array('class'=>'text-error')); ?>
                       </div>
                     </div>

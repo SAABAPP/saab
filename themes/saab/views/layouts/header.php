@@ -39,6 +39,7 @@ switch($this->id)
   $g='class="open"';
   break;
 }
+$usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
 ?>
 <?php /* @var $this Controller */ ?>
 
@@ -127,7 +128,7 @@ switch($this->id)
           <ul class="nav pull-right">
             <li class="dropdown pull-right">            
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <i class="icon-user"></i> <?php echo Yii::app()->user->getName(); ?> <b class="caret"></b>              
+                <i class="icon-user"></i> <?php echo $usuario->iDPERSONAL->PER_nombres;//." ".$usuario->iDPERSONAL->PER_paterno." ".$usuario->iDPERSONAL->PER_materno ?> <b class="caret"></b>              
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
@@ -155,117 +156,6 @@ switch($this->id)
             <p style="margin-left:80px" class="meta">Gerencia Regional de Educación La Libertad</p>
           </div>
           <!-- Logo ends -->
-        </div>
-
-        <!-- Button section -->
-        <div class="span3">
-          <!-- Buttons -->
-          <ul class="nav nav-pills">
-            <!-- Comment button with number of latest comments count -->
-            <li class="dropdown dropdown-big">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <i class="icon-comments"></i> Conversaciones <span   class="badge badge-info">6</span> 
-              </a>
-
-              <ul class="dropdown-menu">
-                <li>
-                  <!-- Heading - h5 -->
-                  <h5><i class="icon-comments"></i> Conversaciones</h5>
-                  <!-- Use hr tag to add border -->
-                  <hr />
-                </li>
-                <li>
-                  <!-- List item heading h6 -->
-                  <h6><a href="#">Hola :)</a> <span class="label label-warning pull-right">10:42</span></h6>
-                  <div class="clearfix"></div>
-                  <hr />
-                </li>
-                <li>
-                  <h6><a href="#">¿Cómo estas?</a> <span class="label label-warning pull-right">20:42</span></h6>
-                  <div class="clearfix"></div>
-                  <hr />
-                </li>
-                <li>
-                  <h6><a href="#">¿Qué haces?</a> <span class="label label-warning pull-right">14:42</span></h6>
-                  <div class="clearfix"></div>
-                  <hr />
-                </li>                  
-                <li>
-                  <div class="drop-foot">
-                    <a href="#">Ver todos...</a>
-                  </div>
-                </li>                                    
-              </ul>
-            </li>
-
-            <!-- Message button with number of latest messages count-->
-            <li class="dropdown dropdown-big">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <i class="icon-envelope-alt"></i> Mensajes <span class="badge badge-important">6</span> 
-              </a>
-
-              <ul class="dropdown-menu">
-                <li>
-                  <!-- Heading - h5 -->
-                  <h5><i class="icon-envelope-alt"></i> Mensajes</h5>
-                  <!-- Use hr tag to add border -->
-                  <hr />
-                </li>
-                <li>
-                  <!-- List item heading h6 -->
-                  <h6><a href="#">Hola ¿Cómo estas?</a></h6>
-                  <!-- List item para -->
-                  <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                  <hr />
-                </li>
-                <li>
-                  <h6><a href="#">¿Quedamos para hoy?</a></h6>
-                  <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                  <hr />
-                </li>
-                <li>
-                  <div class="drop-foot">
-                    <a href="#">Ver todos...</a>
-                  </div>
-                </li>                                    
-              </ul>
-            </li>
-          </ul>
-
-        </div>
-
-        <!-- Data section -->
-
-        <div class="span3">
-          <div class="header-data">
-
-            <!-- Traffic data -->
-            <div class="hdata">
-              <div class="mcol-left">
-                <!-- Icon with red background -->
-                <i class="icon-signal bred"></i> 
-              </div>
-              <div class="mcol-right">
-                <!-- Number of visitors -->
-                <p>10 <em>visitas</em></p>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-
-            <!-- revenue data -->
-            <div class="hdata">
-              <div class="mcol-left">
-                <!-- Icon with green background -->
-                <i class="icon-money bgreen"></i> 
-              </div>
-              <div class="mcol-right">
-                <!-- Number of visitors -->
-                <p>23 <em>órdenes</em></p>
-              </div>
-              <div class="clearfix"></div>
-            </div>                        
-
-          </div>
         </div>
 
       </div>
@@ -297,12 +187,26 @@ switch($this->id)
       //     array('label'=>'Reportes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-file-alt'),
       //     )
       //   ));
+<<<<<<< HEAD
       if (!Yii::app()->user->checkAccess("administrador")) {
         if (Yii::app()->user->checkAccess("almacen")) {
           include("_menuAlmacen.php");
         } else {
           include("_menuUsuario.php");
         }
+=======
+      if (!Yii::app()->user->checkAccess("administrador"))
+      {
+          if (Yii::app()->user->checkAccess("almacen")) {
+            include("_menuAlmacen.php");
+          } else {
+            if (Yii::app()->user->checkAccess("abastecimiento")) {
+              include("_menuAbastecimiento.php");
+            } else {
+              include("_menuUsuario.php");
+            }
+          }
+>>>>>>> origin/saabDavid
       } else {
         include("_menuAdmin.php");
       }

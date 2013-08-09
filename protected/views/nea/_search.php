@@ -1,35 +1,22 @@
-<?php
-/* @var $this NeaController */
-/* @var $model Nea */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical'
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'NEA_referencia'); ?>
-		<?php echo $form->textField($model,'NEA_referencia',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'NEA_procedencia'); ?>
-		<?php echo $form->textField($model,'NEA_procedencia',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'IDENTRADA'); ?>
-		<?php echo $form->textField($model,'IDENTRADA'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="span8 input-append">
+		<?php echo $form->textFieldRow($model,'IDENTRADA',
+			array(
+				'class'=>'span4',
+				'placeholder' => 'N° de N.E.A.',
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
+			)
+		); ?>
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',			
+			'icon'=>'icon-search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
