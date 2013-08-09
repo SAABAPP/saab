@@ -26,7 +26,7 @@
       <label id="control-label" class="control-label" for="solicitante">Solicitante:</label>
       <div class="controls">
         <input type="text" id="solicitante" class="span5" placeholder="Su nombre..."
-        value="<?php echo $usuario->iDPERSONAL->PER_nombres." ".$usuario->iDPERSONAL->PER_paterno." ".$usuario->iDPERSONAL->PER_materno; ?>" >
+        value="<?php echo $usuario->iDPERSONAL->PER_nombres." ".$usuario->iDPERSONAL->PER_paterno." ".$usuario->iDPERSONAL->PER_materno; ?>" disabled>
       </div>
   </div>
   
@@ -45,13 +45,13 @@
   <div class="control-group">
     <label id="control-label" class="control-label " for="dependencia">Dependencia:</label>
     <div class="controls">
-      <input type="text" id="dependencia" class="span5" placeholder="Dependencia a la que pertenece...">
+      <input type="text" id="dependencia" class="span5" value="<?=$usuario->iDPERSONAL->iDAREA->ARE_nombre?>" placeholder="Dependencia a la que pertenece..." disabled>
     </div>
   </div>
   <div class="control-group">
     <label id="control-label" for="unidad" class="control-label">Unidad:</label>
     <div class="controls">
-      <input type="text" id="unidad" class="span5" placeholder="Unidad a la que pertenece...">
+      <input type="text" id="unidad" class="span5" value="Gerencia Regional de Educacion la Libertad" placeholder="Unidad a la que pertenece..." disabled>
     </div>
   </div>
   <div class="control-group">
