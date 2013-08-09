@@ -55,33 +55,103 @@
     </div>
   </div>
   <div class="control-group">
-    <label id="control-label" for="clasificador" class="control-label">Clasificador:</label>
+    <label id="control-label" for="clasificador" class="control-label">Clasificador:</label>    
+
     <div class="controls">
-      <input type="text" id="clasificador" class="span5" placeholder="A que clasificador pertenece...">
+      <?php
+
+        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                'name'=>'busca_clasificador',
+                                'id'=>'clasificador',
+                                'value'=>$clasificador->CLA_descripcion,
+                                'source'=>$this->createUrl('Requerimiento/buscaClasificador'),
+                                'options'=>array(
+                                    'minLength'=>'1',
+                                ),                                                            
+                                'htmlOptions'=>array('class'=>'span5','placeholder'=>'A que clasificador pertenece..'),  
+                                'options'=>array(
+                                        'showAnim'=>'fold',
+                                                'beforeSend' => 'js:function(){        
+                                                  //$("#loading").html("LOADING IMAGE HERE");               
+                                                }',
+                                                'complete' => 'js:function(){
+                                                  //$("#loading").html("");
+                                                }',
+                                                'select' => 'js:function(event, ui){ 
+                                                  //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
+                                                  jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]); 
+                                                }'
+
+                                        ),
+                                ));
+
+                
+                        
+
+
+     ?>
+      <input type="text" id="CODIGOCLASIFICADOR" class="span5"  placeholder="prueba...">
     </div>
   </div>
   <div class="control-group">
-    <table class="table table-bordered">
+    <table class="table tableAdd table-bordered">
       <thead>
-        <tr>
+        <!-- <tr>
           <th>N°</th><th>Bien</th><th>Marca</th><th>Característica</th><th>Unidad</th><th>Cantidad</th><th class="button-column">Opciones</th>
-        </tr>
+        </tr> -->
         <tr>
           <td></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td></td><td><div class="filter-container"><input name="" id="" type="text" style="width:40px;"></div></td><td></td>
         </tr>
       </thead>
+    </table>
+    <?php 
+
+        $gridDataProvider = new CArrayDataProvider(array(
+            array('id'=>1, 'firstName'=>'Mark', 'lastName'=>'Otto', 'language'=>'CSS'),
+            array('id'=>2, 'firstName'=>'Jacob', 'lastName'=>'Thornton', 'language'=>'JavaScript'),
+            array('id'=>3, 'firstName'=>'Stu', 'lastName'=>'Dent', 'language'=>'HTML'),
+        ));
+
+
+        $this->widget('bootstrap.widgets.TbGridView',array(
+          'id'=>'requerimiento-grid',
+          //'dataProvider'=>$bien->search(),
+          'dataProvider'=>$gridDataProvider,
+          'type'=>'bordered hover',
+          'template'=>"{items}",
+          'columns'=>array(
+            // 'IDBIEN',
+            // 'IDCATALOGO',
+            array('name'=>'id', 'header'=>false),
+            array('name'=>'firstName', 'header'=>false),
+            array('name'=>'lastName', 'header'=>false),
+            array('name'=>'language', 'header'=>false),
+
+              array(
+                'header'=>false,            
+                'class'=>'bootstrap.widgets.TbButtonColumn',
+                'template'=>"{delete}",
+
+              ),
+
+
+            
+            ),
+        ));
+    ?>
+    <table class="table table-bordered">      
       <tbody>
         <tr class="odd">
-          <td style="width: 60px">1</td><td>PAPEL BOND 80 g TAMAÑO A4.</td><td>Kerocopy</td><td>Blanco</td><td>Millares</td><td>25</td><td nowrap="nowrap"><a class="update" rel="tooltip" href="#" title="Update"><i class="icon-pencil"></i></a> <a class="delete" rel="tooltip" href="#" title="Delete"><i class="icon-trash"></i></a></td>
+          <td>PAPEL BOND 80 g TAMAÑO A4.</td><td>Kerocopy</td><td>Blanco</td><td>Millares</td><td>25</td><td nowrap="nowrap"><a class="update" rel="tooltip" href="#" title="Update"><i class="icon-pencil"></i></a> <a class="delete" rel="tooltip" href="#" title="Delete"><i class="icon-trash"></i></a></td>
         </tr>
         <tr class="even">
-          <td style="width: 60px">2</td><td>BOLIGRAFO (LAPICERO) DE TINTA SECA PUNTA FINA.</td><td>Pilot</td><td>Negro</td><td>Cajas</td><td>15</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
+          <td>BOLIGRAFO (LAPICERO) DE TINTA SECA PUNTA FINA.</td><td>Pilot</td><td>Negro</td><td>Cajas</td><td>15</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
         </tr>
         <tr class="odd">
-          <td style="width: 60px">3</td><td>PLUMON DE TINTA INDELEBLE PUNTA FINA.</td><td>Artesco</td><td>Rojo</td><td>Decenas</td><td>3</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
+          <td>PLUMON DE TINTA INDELEBLE PUNTA FINA.</td><td>Artesco</td><td>Rojo</td><td>Decenas</td><td>3</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
         </tr>
         <tr class="even">
-          <td style="width: 60px">4</td><td>CD REGRABABLE DE 700 MB.</td><td>Sony</td><td></td><td>Cuarto de ciento</td><td>20</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
+          <td>CD REGRABABLE DE 700 MB.</td><td>Sony</td><td></td><td>Cuarto de ciento</td><td>20</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
         </tr>
       </tbody>
     </table>

@@ -618,6 +618,13 @@ header .header-data .hdata em{
 	line-height: 20px;
 }
 
+/* tables */
+
+.tableAdd {
+	
+	margin-bottom: 0px !important;
+}
+
 /* Sidebar */
 
 .sidebar{
