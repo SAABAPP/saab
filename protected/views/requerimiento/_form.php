@@ -1,4 +1,3 @@
-
 <?php 
   // $usuario = Yii::app()->user->getState('idusuario');
   // $requerimiento= new Requerimiento();
@@ -17,8 +16,7 @@
 	<?php echo $form->hiddenField($model,'REQ_estado',array('class'=>'span5','maxlength'=>20,'value'=>'Requerido')); ?>
 
   <?php 
-    $fecha = date("Y-m-d"); //obtiene fecha actual
-    
+    $fecha = date("Y-m-d"); //obtiene fecha actual   
   ?>
 
 	<?php echo $form->hiddenField($model,'REQ_fecha',array('class'=>'span5','value'=>$fecha)); ?>
@@ -45,7 +43,7 @@
   <div class="control-group">
     <label id="control-label" class="control-label " for="dependencia">Dependencia:</label>
     <div class="controls">
-      <input type="text" id="dependencia" class="span5" value="<?=$usuario->iDPERSONAL->iDAREA->ARE_nombre?>" placeholder="Dependencia a la que pertenece..." disabled>
+      <input type="text" id="dependencia" class="span5" value="<?php echo $usuario->iDPERSONAL->iDAREA->ARE_nombre?>" placeholder="Dependencia a la que pertenece..." disabled>
     </div>
   </div>
   <div class="control-group">
@@ -59,36 +57,30 @@
 
     <div class="controls">
       <?php
-
-        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                'name'=>'busca_clasificador',
-                                'id'=>'clasificador',
-                                'value'=>$clasificador->CLA_descripcion,
-                                'source'=>$this->createUrl('Requerimiento/buscaClasificador'),
-                                'options'=>array(
-                                    'minLength'=>'1',
-                                ),                                                            
-                                'htmlOptions'=>array('class'=>'span5','placeholder'=>'A que clasificador pertenece..'),  
-                                'options'=>array(
-                                        'showAnim'=>'fold',
-                                                'beforeSend' => 'js:function(){        
+      $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+        'name'=>'busca_clasificador',
+        'id'=>'clasificador',
+        'value'=>$clasificador->CLA_descripcion,
+        'source'=>$this->createUrl('Requerimiento/buscaClasificador'),
+        'options'=>array(
+          'minLength'=>'1',
+          ),                                                            
+        'htmlOptions'=>array('class'=>'span5','placeholder'=>'A que clasificador pertenece..'),  
+        'options'=>array(
+          'showAnim'=>'fold',
+          'beforeSend' => 'js:function(){        
                                                   //$("#loading").html("LOADING IMAGE HERE");               
-                                                }',
-                                                'complete' => 'js:function(){
+          }',
+          'complete' => 'js:function(){
                                                   //$("#loading").html("");
-                                                }',
-                                                'select' => 'js:function(event, ui){ 
+          }',
+          'select' => 'js:function(event, ui){ 
                                                   //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-                                                  jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]); 
-                                                }'
+            jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]); 
+          }'
 
-                                        ),
-                                ));
-
-                
-                        
-
-
+          ),
+        ));
      ?>
       <input type="text" id="CODIGOCLASIFICADOR" class="span5"  placeholder="prueba...">
     </div>
@@ -106,38 +98,38 @@
     </table>
     <?php 
 
-        $gridDataProvider = new CArrayDataProvider(array(
-            array('id'=>1, 'firstName'=>'Mark', 'lastName'=>'Otto', 'language'=>'CSS'),
-            array('id'=>2, 'firstName'=>'Jacob', 'lastName'=>'Thornton', 'language'=>'JavaScript'),
-            array('id'=>3, 'firstName'=>'Stu', 'lastName'=>'Dent', 'language'=>'HTML'),
-        ));
+        // $gridDataProvider = new CArrayDataProvider(array(
+        //     array('id'=>1, 'firstName'=>'Mark', 'lastName'=>'Otto', 'language'=>'CSS'),
+        //     array('id'=>2, 'firstName'=>'Jacob', 'lastName'=>'Thornton', 'language'=>'JavaScript'),
+        //     array('id'=>3, 'firstName'=>'Stu', 'lastName'=>'Dent', 'language'=>'HTML'),
+        // ));
 
 
-        $this->widget('bootstrap.widgets.TbGridView',array(
-          'id'=>'requerimiento-grid',
-          //'dataProvider'=>$bien->search(),
-          'dataProvider'=>$gridDataProvider,
-          'type'=>'bordered hover',
-          'template'=>"{items}",
-          'columns'=>array(
-            // 'IDBIEN',
-            // 'IDCATALOGO',
-            array('name'=>'id', 'header'=>false),
-            array('name'=>'firstName', 'header'=>false),
-            array('name'=>'lastName', 'header'=>false),
-            array('name'=>'language', 'header'=>false),
+        // $this->widget('bootstrap.widgets.TbGridView',array(
+        //   'id'=>'requerimiento-grid',
+        //   //'dataProvider'=>$bien->search(),
+        //   'dataProvider'=>$gridDataProvider,
+        //   'type'=>'bordered hover',
+        //   'template'=>"{items}",
+        //   'columns'=>array(
+        //     // 'IDBIEN',
+        //     // 'IDCATALOGO',
+        //     array('name'=>'id', 'header'=>false),
+        //     array('name'=>'firstName', 'header'=>false),
+        //     array('name'=>'lastName', 'header'=>false),
+        //     array('name'=>'language', 'header'=>false),
 
-              array(
-                'header'=>false,            
-                'class'=>'bootstrap.widgets.TbButtonColumn',
-                'template'=>"{delete}",
+        //       array(
+        //         'header'=>false,            
+        //         'class'=>'bootstrap.widgets.TbButtonColumn',
+        //         'template'=>"{delete}",
 
-              ),
+        //       ),
 
 
             
-            ),
-        ));
+        //     ),
+        // ));
     ?>
     <table class="table table-bordered">      
       <tbody>

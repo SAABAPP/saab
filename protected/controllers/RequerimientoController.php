@@ -78,9 +78,9 @@ class RequerimientoController extends Controller
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
- 		$bien=	new Bien('search');
+ 		$clasificador=	new Clasificador('search');
  		
- 		$bien->unsetAttributes();	
+ 		$clasificador->unsetAttributes();	
 
 		if(isset($_POST['Requerimiento']))
 		{
@@ -93,7 +93,7 @@ class RequerimientoController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'usuario'=>$usuario,
-			'bien'=>$bien,
+			'clasificador'=>$clasificador,
 		));
 	}
 
