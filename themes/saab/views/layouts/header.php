@@ -187,14 +187,7 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
       //     array('label'=>'Reportes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-file-alt'),
       //     )
       //   ));
-<<<<<<< HEAD
-      if (!Yii::app()->user->checkAccess("administrador")) {
-        if (Yii::app()->user->checkAccess("almacen")) {
-          include("_menuAlmacen.php");
-        } else {
-          include("_menuUsuario.php");
-        }
-=======
+
       if (!Yii::app()->user->checkAccess("administrador"))
       {
           if (Yii::app()->user->checkAccess("almacen")) {
@@ -206,7 +199,7 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
               include("_menuUsuario.php");
             }
           }
->>>>>>> origin/saabDavid
+
       } else {
         include("_menuAdmin.php");
       }

@@ -51,11 +51,8 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-<<<<<<< HEAD
-				$this->addError('password','<br><br>Usuario o contraseña incorrecta.');
-=======
 				$this->addError('password','<br/>Usuario o Contraseña Incorrecta.');
->>>>>>> 07cc87d2ef4f87999bc8f05010c828d93bcdb052
+
 		}
 	}
 
