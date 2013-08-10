@@ -96,11 +96,11 @@
   <div class="control-group">
     <table class="table tableAdd table-bordered">
       <thead>
-        <!-- <tr>
-          <th>N°</th><th>Bien</th><th>Marca</th><th>Característica</th><th>Unidad</th><th>Cantidad</th><th class="button-column">Opciones</th>
-        </tr> -->
         <tr>
-          <td></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td></td><td><div class="filter-container"><input name="" id="" type="text" style="width:40px;"></div></td><td></td>
+          <!-- <th>N°</th> --><th>Bien</th><th>Marca</th><th>Característica</th><th>Unidad</th><th>Cantidad</th><th class="button-column">Opciones</th>
+        </tr>
+        <tr>
+          <td></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td></td><td></td>
         </tr>
       </thead>
     </table>

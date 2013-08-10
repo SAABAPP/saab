@@ -3,12 +3,6 @@
 <!-- Page heading -->
 <div class="page-head">
 
-<<<<<<< HEAD
-       <h2 class="pull-left"><i class="icon-list-ul"></i>
-       	
-		</h2>
-       <!-- Breadcrumb -->
-=======
 	<?php
        switch($this->id)
        {
@@ -53,18 +47,8 @@
 				);
 		endif
 		?>
->>>>>>> origin/saabDavid
+       </div>     
 
-       <div class="bread-crumb pull-right">
-       	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-			'separator'=>' / ',
-			
-			)); ?>
-		<?php endif?>
-   
-      	</div>
       <div class="clearfix"></div>
 </div>
 

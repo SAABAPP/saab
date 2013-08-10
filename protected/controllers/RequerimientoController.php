@@ -81,10 +81,6 @@ class RequerimientoController extends Controller
  		$bien=	new Bien('search');
  		
  		$bien->unsetAttributes();	
-        // $clasificador = new Clasificador;
-        // $clasificador= Clasificador::model()->findAll();
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Requerimiento']))
 		{
