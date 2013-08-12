@@ -113,7 +113,7 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
         <div class="nav-collapse collapse">
           <ul class="nav info">
             <li><span class="badge"><i class="icon-calendar"></i></span><script>mostrarFecha();</script></li>
-            <li><a id="help" href="help.php"><span id="badge-help" class="badge"><i class="icon-question-sign"></i></span> Ayuda</a></li>
+            <li><a id="help" href="<?php echo Yii::app()->request->baseUrl; ?>/site/help"><span id="badge-help" class="badge"><i class="icon-question-sign"></i></span> Ayuda</a></li>
           </ul>
 
           <!-- Search form -->

@@ -8,7 +8,11 @@
        switch($this->id)
        {
        	case 'site':
-       	echo "<h2 class=\"pull-left\"><i class=\"icon-home\"></i> Inicio</h2>";
+            if ($this->action->id=='help') {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-question-sign\"></i> Ayuda</h2>";
+            } else {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-home\"></i> Inicio</h2>";
+            };
        	break;
        	case 'requerimiento':
        	echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Requerimiento</h2>";
