@@ -226,7 +226,32 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   <div class="control-group">
     <label for="observaciones" class="control-label">Utilizado en:</label>
     <div class="controls">
-      <input type="text" name="observaciones" placeholder="Lista de metas....">
+      <?php
+      $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+        'name'=>'busca_meta',
+        'id'=>'meta',
+        'value'=>$meta->MET_descripcion,
+        'source'=>$this->createUrl('Requerimiento/buscaMeta'),
+        'options'=>array(
+          'minLength'=>'1',
+          ),                                                            
+        'htmlOptions'=>array('class'=>'span12','placeholder'=>'Ingresa el nombre de la meta...'),  
+        'options'=>array(
+          'showAnim'=>'fold',
+          'beforeSend' => 'js:function(){        
+                                                            //$("#loading").html("LOADING IMAGE HERE");               
+          }',
+          'complete' => 'js:function(){
+                                                            //$("#loading").html("");
+          }',
+          'select' => 'js:function(event, ui){ 
+                                                            //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
+            jQuery("#cod_meta").val(ui.item["id"]); 
+          }'
+          ),
+        ));
+      ?>
+      <input type="hidden" id="cod_meta" class="span1">
     </div>
   </div>
   <div class="control-group center">

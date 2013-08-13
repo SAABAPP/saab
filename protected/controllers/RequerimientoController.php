@@ -43,7 +43,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaMeta'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -85,6 +85,9 @@ class RequerimientoController extends Controller
  		$clasificador->unsetAttributes();
  		$catalogo=new Catalogo;
  		$catalogo->unsetAttributes();
+
+ 		$meta=new Meta;
+ 		$meta->unsetAttributes();
  		/*  
 
 			$requerimiento_bien= array(modelo);
@@ -109,6 +112,7 @@ class RequerimientoController extends Controller
 			'usuario'=>$usuario,
 			'clasificador'=>$clasificador,
 			'catalogo'=>$catalogo,
+			'meta'=>$meta,
 		));
 	}
 
@@ -181,6 +185,40 @@ class RequerimientoController extends Controller
            }
        }
    	}
+
+   	public function actionBuscaMeta() {
+
+       //$q = $_GET['busca_clasificador'];
+       $q=trim($_GET['term']);
+
+       //$q='LA';
+
+       if (isset($q)) {
+           $criteria = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+           $criteria->condition = "MET_descripcion LIKE '%". $q ."%'";
+           //$criteria->order = 'CLA_descripcion'; // correct order-by field
+           $criteria->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$criteria->params = array(':q' => trim($q) . '%'); 
+           $meta= Meta::model()->findAll($criteria);
+
+           if (!empty($meta)) {
+               $returnVal = '';
+               $out = array();
+               foreach ($meta as $m) {
+                   $out[] = array(
+                      // expression to give the string for the autoComplete drop-down
+                       'label' => $m->MET_descripcion,  
+                       'value' => $m->MET_descripcion,
+                       'id' => $m->CODMETA, // return value from autocomplete
+                   );
+                }
+              echo CJSON::encode($out);
+              Yii::app()->end();
+            }
+        }
+    }
 
 	/**
 	 * Updates a particular model.
