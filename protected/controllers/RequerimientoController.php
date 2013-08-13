@@ -82,7 +82,9 @@ class RequerimientoController extends Controller
 
  		$requerimiento_bien[]= new RequerimientoBien; // prueba de declaracion array
  		
- 		$clasificador->unsetAttributes();	
+ 		$clasificador->unsetAttributes();
+ 		$catalogo=new Catalogo;
+ 		$catalogo->unsetAttributes();
  		/*  
 
 			$requerimiento_bien= array(modelo);
@@ -106,6 +108,7 @@ class RequerimientoController extends Controller
 			'model'=>$model,
 			'usuario'=>$usuario,
 			'clasificador'=>$clasificador,
+			'catalogo'=>$catalogo,
 		));
 	}
 
