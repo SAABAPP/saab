@@ -43,7 +43,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador'),
+				'actions'=>array('buscaClasificador','buscaBien'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -78,9 +78,17 @@ class RequerimientoController extends Controller
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
- 		$bien=	new Bien('search');
+ 		$clasificador=	new clasificador('search');
+
+ 		$requerimiento_bien[]= new RequerimientoBien; // prueba de declaracion array
  		
- 		$bien->unsetAttributes();	
+ 		$clasificador->unsetAttributes();	
+ 		/*  
+
+			$requerimiento_bien= array(modelo);
+
+
+ 		*/
         // $clasificador = new Clasificador;
         // $clasificador= Clasificador::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
@@ -97,7 +105,7 @@ class RequerimientoController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'usuario'=>$usuario,
-			'bien'=>$bien,
+			'clasificador'=>$clasificador,
 		));
 	}
 
@@ -134,6 +142,42 @@ class RequerimientoController extends Controller
             }
         }
     }
+
+
+    public function actionBuscaBien() {
+
+       //$q = $_GET['busca_clasificador'];
+    	$q=trim($_GET['term']);
+    	//echo 'funciona el valor es:'.$_GET['term'];
+       //$q='LA';
+
+    	if (isset($q)) {
+    		$condicion = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
+           //$condicion->order = 'CLA_descripcion'; // correct order-by field
+           $condicion->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$condicion->params = array(':q' => trim($q) . '%'); 
+           $catalogo=  Catalogo::model()->findAll($condicion);
+
+           if (!empty($catalogo)) {
+           	$returnVal = '';
+           	$salida = array();
+           	foreach ($catalogo as $c) {
+           		$salida[] = array(
+                      // expression to give the string for the autoComplete drop-down
+           			'label' => $c->CAT_descripcion,  
+           			'value' => $c->CAT_descripcion,
+           			'unidad'=>$c->CAT_unidad,
+                     'id' => $c->IDCATALOGO, // return value from autocomplete
+                       );
+           	}
+           	echo CJSON::encode($salida);
+           	Yii::app()->end();
+           }
+       }
+   	}
 
 	/**
 	 * Updates a particular model.
