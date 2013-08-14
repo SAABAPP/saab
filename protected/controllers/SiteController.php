@@ -144,4 +144,10 @@ class SiteController extends Controller
 		$this->layout='//layouts/main';
 		$this->render('help');
 	}
+
+	public function actionSettings()
+	{
+		$this->layout='//layouts/main';
+		$this->render('settings');
+	}
 }

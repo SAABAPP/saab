@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Usuario <?php echo $model->IDUSUARIO; ?></h1>
-
+<h1>Cambiar contraseña <?php //echo $model->IDUSUARIO; ?></h1>
+<br>
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

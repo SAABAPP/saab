@@ -132,9 +132,9 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
-                <!-- <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li>
-                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-cogs"></i> Ajustes</a></li> -->
-                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout.html"><i class="icon-off"></i> Salir</a></li>
+                <!-- <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li> -->
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/usuario/update/<?php echo $usuario->IDUSUARIO; ?>"><i class="icon-cogs"></i> Ajustes</a></li>
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout"><i class="icon-off"></i> Salir</a></li>
               </ul>
             </li>
           </ul>
