@@ -2266,7 +2266,7 @@ table th[class*="span"],
 }
 
 .table tbody tr.finalized > td {
-  background-color: #DFE0DA;
+  background-color: #D7D9D2;
 }
 
 .table-hover tbody tr.success:hover > td {
@@ -2290,7 +2290,7 @@ table th[class*="span"],
 }
 
 .table-hover tbody tr.finalized:hover > td {
-  background-color: #D7D9D2;
+  background-color: #C8CCC0;
 }
 
 [class^="icon-"],
