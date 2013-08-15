@@ -52,6 +52,8 @@ class RequerimientoBien extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'bien' => array(self::BELONGS_TO, 'Bien', 'IDBIEN'),
+			'requerimiento' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 		);
 	}
 
@@ -61,7 +63,7 @@ class RequerimientoBien extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'RBI_cantidad' => 'Rbi Cantidad',
+			'RBI_cantidad' => 'Cantidad',
 			'IDREQUERIMIENTO' => 'Idrequerimiento',
 			'IDBIEN' => 'Idbien',
 		);

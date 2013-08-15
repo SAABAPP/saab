@@ -2,12 +2,12 @@
 
 class RequerimientoController extends Controller
 {
+
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-
 	/**
 	 * @return array action filters
 	 */
@@ -63,8 +63,15 @@ class RequerimientoController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$requerimiento_bien = new RequerimientoBien();//creo una variable con la funcion search de Requerimiento
+        $requerimiento_bien->unsetAttributes();//limpio los valores que pueda tener
+        $requerimiento_bien->IDREQUERIMIENTO = $id;
+
+		$dataProvider = $requerimiento_bien->search();
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'dataProvider'=>$dataProvider,
 		));
 	}
 

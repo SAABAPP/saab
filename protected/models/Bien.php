@@ -76,10 +76,10 @@ class Bien extends CActiveRecord
 	{
 		return array(
 			'IDBIEN' => 'Idbien',
-			'BIE_stockActual' => 'Bie Stock Actual',
-			'BIE_stockMinimo' => 'Bie Stock Minimo',
-			'BIE_caracteristica' => 'Bie Caracteristica',
-			'BIE_marca' => 'Bie Marca',
+			'BIE_stockActual' => 'Stock Actual',
+			'BIE_stockMinimo' => 'Stock Minimo',
+			'BIE_caracteristica' => 'Características',
+			'BIE_marca' => 'Marca',
 			'IDCATALOGO' => 'Idcatalogo',
 		);
 	}
