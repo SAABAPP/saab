@@ -23,14 +23,6 @@ $('.search-form form').submit(function(){
 $this->renderPartial('_search',array(
 	'model'=>$model,
 	));
-
-$this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Crear cotización',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'large', // null, 'large', 'small' or 'mini'
-    'htmlOptions'=>array('class'=>'pull-right'),
-    'url'=>array('create'),
-    ));
 ?>
 </div><!-- search-form -->
 <br/><br/>
@@ -62,7 +54,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 		array(
 			'header'=>'Detalles',
 			'class'=>'bootstrap.widgets.TbButtonColumn',
-			'template'=>"{view}",
+			'template'=>"{view} {add}",
 		),
 	),
 ));

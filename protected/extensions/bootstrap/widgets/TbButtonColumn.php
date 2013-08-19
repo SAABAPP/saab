@@ -28,6 +28,10 @@ class TbButtonColumn extends CButtonColumn
 	 * @var string the delete button icon (defaults to 'trash').
 	 */
 	public $deleteButtonIcon = 'trash';
+	/**
+	 * @var string the add button icon (defaults to 'plus').
+	 */
+	public $addButtonIcon = 'plus';
 
 	/**
 	 * Initializes the default buttons (view, update and delete).
@@ -42,6 +46,8 @@ class TbButtonColumn extends CButtonColumn
 			$this->buttons['update']['icon'] = $this->updateButtonIcon;
 		if ($this->deleteButtonIcon !== false && !isset($this->buttons['delete']['icon']))
 			$this->buttons['delete']['icon'] = $this->deleteButtonIcon;
+		if ($this->addButtonIcon !== false && !isset($this->buttons['add']['icon']))
+			$this->buttons['add']['icon'] = $this->addButtonIcon;
 	}
 
 	/**
