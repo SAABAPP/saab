@@ -27,30 +27,63 @@ $this->breadcrumbs=array(
           </div>
           <div class="control-group">
             <?php
-            // echo $cont;
-            $this->widget('bootstrap.widgets.TbGridView', array(
-            	'type'=>'bordered',
-            	'dataProvider'=>$dataProvider,
-            	'template'=>"{items}",
-            	'columns'=>array(
-            		array(
-            			'name'=>'N°',
-            			// 'value'=>array($this,'nroColumna'),
-            		),
-            		'bien.iDCATALOGO.CAT_descripcion',
-            		'bien.iDCATALOGO.CAT_unidad',
-            		'RBI_cantidad',
-            		'bien.BIE_stockActual',
-            		'bien.BIE_stockMinimo',
-            		array(
-            			'name'=> 'Diferencia a Comprar',
-            			'type' => 'raw',
-            			'value' => array($model,'crearTexto'),
-					),
-            	),
-            )
-            );
+            if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+            {
+              $this->widget('bootstrap.widgets.TbGridView', array(
+                'type'=>'bordered',
+                'dataProvider'=>$dataProvider,
+                'template'=>"{items}",
+                'columns'=>array(
+                  array(
+                    'name'=>'N°',
+                  // 'value'=>array($this,'nroColumna'),
+                    ),
+                  'bien.iDCATALOGO.CAT_descripcion',
+                  'bien.iDCATALOGO.CAT_unidad',
+                  array(
+                    'name'=>'Cantidad',
+                    'value'=>'$data->RBI_cantidad',
+                    ),
+                  'bien.BIE_stockActual',
+                  'bien.BIE_stockMinimo',
+                  array(
+                    'name'=> 'Diferencia a Comprar',
+                    'type' => 'raw',
+                    'value' => array($model,'crearTexto'),
+                    ),
+                  ),
+                )
+              );
+            }else{
+              $this->widget('bootstrap.widgets.TbGridView', array(
+                'type'=>'bordered',
+                'dataProvider'=>$dataProvider,
+                'template'=>"{items}",
+                'columns'=>array(
+                  array(
+                    'name'=>'N°',
+                  // 'value'=>array($this,'nroColumna'),
+                    ),
+                  'bien.iDCATALOGO.CAT_descripcion',
+                  'bien.iDCATALOGO.CAT_unidad',
+                  array(
+                    'name'=>'Cantidad',
+                    'value'=>'$data->RBI_cantidad',
+                    ),
+                  'bien.BIE_stockActual',
+                  'bien.BIE_stockMinimo',
+                  ),
+                )
+              );
+            }
+            
             ?>
+          </div>
+          <div class="control-group">
+            <label for="observaciones" class="control-label">Utilizado en:</label>
+            <div class="controls">
+              <p><?php echo $model->cODMETA->MET_descripcion; ?></p>
+            </div>
           </div>
           <?php
           if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
@@ -62,24 +95,33 @@ $this->breadcrumbs=array(
           </div>";
           }
           ?>
-          
-          <div class="control-group">
-            <label for="observaciones" class="control-label">Utilizado en:</label>
-            <div class="controls">
-              <p>Para programa xxxxxxxxxxxxxxxxxx.</p>
+          <?php
+          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+          {
+            echo "<div class=\"control-group\">
+            <label for=\"presupuesto\" class=\"control-label\">Presupuesto:</label>
+            <div class=\"controls\">
+              <input type=\"text\" id=\"presupuesto\" placeholder=\"El presupuesto es...\">
             </div>
-          </div>
-          <div class="control-group">
-            <label for="presupuesto" class="control-label">Presupuesto:</label>
-            <div class="controls">
-              <input type="text" id="presupuesto" placeholder="El presupuesto es...">
+          </div>";
+          }
+          ?>
+          <?php
+          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+          {
+            echo "<div class=\"control-group center\">
+            <div class=\"controls\">
+              <button class=\"btn inline\" type=\"\" onClick=\"print();\" >Guardar</button>
             </div>
-          </div>
-          <div class="control-group center">
-            <div class="controls">
-              <button class="btn inline" type="" onClick="print();" >Guardar</button>
+          </div>";
+          }else{
+            echo "<div class=\"control-group center\">
+            <div class=\"controls\">
+              <button class=\"btn inline\" type=\"\" onClick=\"print();\" >Imprimir</button>
             </div>
-          </div>
+          </div>";
+          }
+          ?>
         </form>
         <!-- Form of previsualization of requirement ends -->
       </div>

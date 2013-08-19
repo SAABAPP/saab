@@ -39,7 +39,7 @@ class UsuarioController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('admin','create','update'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
@@ -100,8 +100,9 @@ class UsuarioController extends Controller
 			if(isset($_POST['Usuario']))
 			{
 				$model->attributes=$_POST['Usuario'];
-				if($model->save())
-					$this->redirect(array('view','id'=>$model->IDUSUARIO));
+				if($model->save()){
+					$this->redirect(array('site/index'));
+				}
 			}
 
 			$this->render('update',array(

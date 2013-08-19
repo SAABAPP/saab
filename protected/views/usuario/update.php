@@ -1,8 +1,8 @@
 <?php
 $this->breadcrumbs=array(
-	'Usuarios'=>array('index'),
-	$model->IDUSUARIO=>array('view','id'=>$model->IDUSUARIO),
-	'Update',
+	'Usuarios',//=>array('index'),
+	// $model->IDUSUARIO=>array('view','id'=>$model->IDUSUARIO),
+	'Cambiar contraseña',
 );
 
 $this->menu=array(

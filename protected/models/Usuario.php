@@ -7,6 +7,7 @@
  * @property integer $IDUSUARIO
  * @property string $USU_usuario
  * @property string $USU_password
+ * @property string $USU_password2
  * @property integer $IDPERSONAL
  *
  * The followings are the available model relations:
@@ -21,6 +22,8 @@ class Usuario extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Usuario the static model class
 	 */
+
+	public $USU_password2;
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -44,10 +47,11 @@ class Usuario extends CActiveRecord
 		return array(
 			array('USU_usuario, USU_password, IDPERSONAL', 'required'),
 			array('IDPERSONAL', 'numerical', 'integerOnly'=>true),
-			array('USU_usuario, USU_password', 'length', 'max'=>150),
+			array('USU_usuario, USU_password, USU_password2', 'length', 'max'=>150),
+			array('USU_password2', 'compare', 'compareAttribute'=>'USU_password', 'on'=>'update','message'=>'Las contraseñas deben ser exactamente iguales.'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDUSUARIO, USU_usuario, USU_password, IDPERSONAL', 'safe', 'on'=>'search'),
+			array('IDUSUARIO, USU_usuario, USU_password, USU_password2, IDPERSONAL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +78,7 @@ class Usuario extends CActiveRecord
 			'IDUSUARIO' => 'Idusuario',
 			'USU_usuario' => 'Usuario',
 			'USU_password' => 'Contraseña',
+			'USU_password2' => 'Repetir contraseña',
 			'IDPERSONAL' => 'Idpersonal',
 		);
 	}
