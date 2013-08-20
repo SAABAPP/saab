@@ -78,17 +78,17 @@ class Proveedor extends CActiveRecord
 	{
 		return array(
 			'IDPROVEEDOR' => 'Idproveedor',
-			'PRO_razonSocial' => 'Pro Razon Social',
-			'PRO_ruc' => 'Pro Ruc',
-			'PRO_rubro' => 'Pro Rubro',
-			'PRO_ciudad' => 'Pro Ciudad',
-			'PRO_telefono' => 'Pro Telefono',
-			'PRO_fax' => 'Pro Fax',
-			'PRO_direccion' => 'Pro Direccion',
-			'PRO_banco' => 'Pro Banco',
-			'PRO_cci' => 'Pro Cci',
-			'PRO_contacto' => 'Pro Contacto',
-			'PRO_celular' => 'Pro Celular',
+			'PRO_razonSocial' => 'Razon Social',
+			'PRO_ruc' => 'R.U.C.',
+			'PRO_rubro' => 'Rubro',
+			'PRO_ciudad' => 'Ciudad',
+			'PRO_telefono' => 'Teléfono',
+			'PRO_fax' => 'Fax',
+			'PRO_direccion' => 'Dirección',
+			'PRO_banco' => 'Banco',
+			'PRO_cci' => 'C.C.I.',
+			'PRO_contacto' => 'Contacto',
+			'PRO_celular' => 'Celular',
 		);
 	}
 

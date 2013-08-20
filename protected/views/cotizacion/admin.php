@@ -33,12 +33,6 @@ $this->renderPartial('_search',array(
 <div class="span8 offset2">
 <?php
 $columns=array();
-$cotizado= Yii::app()->db->createCommand()
-    ->select('count(*) as cont')
-    ->from('requerimiento R')
-    ->join('cotizacion C', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
-    ->where(' R.IDREQUERIMIENTO=:id', array(':id'=>$model->IDREQUERIMIENTO))
-    ->queryRow();
 
 array_push($columns, array(
 	'header' => 'N°',
@@ -72,40 +66,32 @@ array_push($columns, array(
 
 array_push($columns, array(
     'name' => 'buttons',
-    'header' => '',
+    'header' => 'Opc',
     'type' => 'raw',
     'htmlOptions' => array('class' => 'button-column'),
-    'value' => function($data) use($cotizado) {
-
+    'value' => function($data) {
         $html = "";
-        switch ($cotizado) {
+        $cotizado= Yii::app()->db->createCommand()
+	        ->select('count(*) as cont')
+	        ->from('cotizacion C')
+	        ->join('requerimiento R', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
+	        ->where('R.IDREQUERIMIENTO=:id', array(':id'=>$data->IDREQUERIMIENTO))
+	        ->queryRow();
+        switch ($cotizado['cont']) {
             case 0:
-                $html .= CHtml::link("<i class='icon-pencil'></i>", array('update', 'id' => $data->id_pdido_tc), array(
-                            'class' => 'btnEdit',
-                            'title' => 'Editar',
-                            'rel' => 'tooltip',
-                        ));
-
-
-
-                $html .= CHtml::link("<i class='icon-remove'></i>", array('changeStatus', 'id' => $data->id_pdido_tc), array(
-                            'class' => 'null',
-                            'title' => 'Anular',
-                            'rel' => 'tooltip',
+                $html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDREQUERIMIENTO), array(
+                            'title' => 'Añadir',
                         ));
                 break;
             default:
-                $html.=CHtml::link("<i class='icon-trash'></i>", array("changeStatus", 'id' => $data->id_pdido_tc), array(
-                            'class' => 'delete',
-                            'title' => 'Eliminar',
-                            'rel' => 'tooltip',
+                $html.=CHtml::link("<i class='icon-eye-open'></i>", array("view", 'id' => $data->IDREQUERIMIENTO), array(
+                            'title' => 'Mostrar',
                         ));
                 break;
         }
         return $html;
     },
 ));
-
 
 $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'cotizacion-grid',
@@ -114,24 +100,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
     'template'=>"{items}",
 	// 'filter'=>$model,
 	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
-	'columns'=>$columns,//array(
-		// 'IDCOTIZACION',
-		// 'COT_buenaPro',
-		// 'IDREQUERIMIENTO',
-		// array(
-		// 	'header'=>'ciudad_id',
-		// 	'value'=>'$data->ciudad->nombre',
-		// 	'filter'=>Usuario::getListCiudad(),
-		// ),
-		// 'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
-		// 'REQ_fecha',
-		// 'REQ_estado',
-		// array(
-		// 	'header'=>'Detalles',
-		// 	'class'=>'bootstrap.widgets.TbButtonColumn',
-		// 	'template'=>"{view} {add}",
-		// ),
-	// ),
+	'columns'=>$columns,
 ));
 ?>
 </div>
