@@ -86,35 +86,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 
 
-<<<<<<< HEAD
-     ?>
-      <input type="text" id="CODIGOCLASIFICADOR" class="span5"  placeholder="prueba...">
-    </div>
-  </div>
-  <div class="control-group">
-    <table class="table tableAdd table-bordered">
-      <thead>
-        <tr>
-<<<<<<< HEAD
-          <!-- <th>N°</th> --><th>Bien</th><th>Marca</th><th>Característica</th><th>Unidad</th><th>Cantidad</th><th class="button-column">Opciones</th>
-        </tr>
-        <tr>
-          <td></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td><div class="filter-container"><input name="" id="" type="text"></div></td><td></td><td></td>
-=======
-          <th >N°</th>
-          <th >Bien</th>
-          <!-- <th >Marca</th> -->
-          <th >Característica</th>
-          <th >Unidad</th>
-          <th >Cantidad</th>
-          <th class="button-column">Opciones</th>
-        </tr>
-        <tr>
-          <td class="span1"></td>
-          <td class="span6">
-            <div class="filter-container">
-=======
->>>>>>> f408a27c6dabec90d80af693a29e4db8215d7571
+
 
 
           ?>
@@ -141,7 +113,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
                   <?php 
                   $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-<<<<<<< HEAD
+
                                           'name'=>'busca_bien',
                                           'id'=>'catalogoBien',
                                           'value'=>$catalogo->CAT_descripcion,
@@ -163,44 +135,18 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                                     jQuery("#unidad_catalogo").val(ui.item["unidad"]);
                                                     jQuery("#idbien").val(ui.item["id"]);  
                                                   }'
-=======
-                    'name'=>'busca_bien',
-                    'id'=>'catalogo',
-                    'value'=>$catalogo->CAT_descripcion,
-                    'source'=>$this->createUrl('Requerimiento/buscaBien'),
-                    'options'=>array(
-                      'minLength'=>'1',
-                      ),                                                            
-                    'htmlOptions'=>array('class'=>'span12','placeholder'=>'buscar bien..'),  
-                    'options'=>array(
-                      'showAnim'=>'fold',
-                      'beforeSend' => 'js:function(){        
-                                                            //$("#loading").html("LOADING IMAGE HERE");               
-                      }',
-                      'complete' => 'js:function(){
-                                                            //$("#loading").html("");
-                      }',
-                      'select' => 'js:function(event, ui){ 
-                                                            //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-                        jQuery("#unidad_catalogo").val(ui.item["unidad"]); 
-                      }'
->>>>>>> f408a27c6dabec90d80af693a29e4db8215d7571
+
 
                       ),
                     ));
 
 
-<<<<<<< HEAD
+
               ?>
               <input id="idbien" type="hidden"> 
             </div>
           </td>
-=======
-                    ?>
-                    <!-- <input name="" id="bien" type="text"> -->
-                  </div>
-                </td>
->>>>>>> f408a27c6dabec90d80af693a29e4db8215d7571
+
           <!-- <td >
             <div class="filter-container">
               <input name="" id="marca" class="span8" type="text" disabled>
@@ -260,23 +206,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     </table>
     <br/>
     <?php 
-<<<<<<< HEAD
-        global $itemRequerimiento;
-        $gridDataProvider = new CArrayDataProvider(           
-            array(
-              array('id'=>1, 'bien'=>'PAPEL BOND', 'marca'=>'Kerocopy', 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>'12'),
-              array('id'=>2, 'bien'=>'Jacob', 'marca'=>'Thornton', 'caracteristica'=>'JavaScript','unidad'=>'unidades','cantidad'=>'12'),
-              array('id'=>3, 'bien'=>'Stu', 'marca'=>'Dent', 'caracteristica'=>'HTML'),
-            )
-        );
-=======
+
 
     $gridDataProvider = new CArrayDataProvider(array(
             //array('id'=>1, 'bien'=>'PAPEL BOND', 'marca'=>'Kerocopy', 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>'12'),
             //array('id'=>2, 'bien'=>'Jacob', 'marca'=>'Thornton', 'caracteristica'=>'JavaScript','unidad'=>'unidades','cantidad'=>'12'),
             // array('id'=>3, 'bien'=>'Stu', 'marca'=>'Dent', 'caracteristica'=>'HTML'),
       ));
->>>>>>> f408a27c6dabec90d80af693a29e4db8215d7571
+
 
 
     $this->widget('bootstrap.widgets.TbGridView',array(
@@ -298,17 +235,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
         array(
                 //'header'=>false,
-<<<<<<< HEAD
+
                 'headerHtmlOptions'=>array('style'=>'display:none'),
                 'htmlOptions'=>array('style' => 'width:113px'),            
                 'class'=>'bootstrap.widgets.TbButtonColumn',
                 'template'=>"{delete}",
-=======
-          'headerHtmlOptions'=>array('style'=>'display:none'),
-          'htmlOptions'=>array('style' => 'width:113px'),            
-          'class'=>'bootstrap.widgets.TbButtonColumn',
-          'template'=>"{delete}{new}",
->>>>>>> f408a27c6dabec90d80af693a29e4db8215d7571
+
 
           ),
 
