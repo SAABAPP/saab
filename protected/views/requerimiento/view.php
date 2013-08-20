@@ -27,56 +27,67 @@ $this->breadcrumbs=array(
           </div>
           <div class="control-group">
             <?php
+            $columns=array();
+            $i=0;
+            $comprar='';
+
+            array_push($columns, array(
+              'header' => 'N°',
+              'value' => function($data) use(&$i){
+                return ++$i;
+              },
+              )
+            );
+
+            array_push($columns, array(
+              'header' => 'Bien',
+              'value'=>'$data->bien->iDCATALOGO->CAT_descripcion',
+              )
+            );
+            
+            array_push($columns, array(
+              'header' => 'Unidad',
+              'value'=>'$data->bien->iDCATALOGO->CAT_unidad',
+              )
+            );
+
+            array_push($columns, array(
+              'header' => 'Cantidad',
+              'value'=>'$data->RBI_cantidad',
+              )
+            );
+            
             if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
             {
-              $this->widget('bootstrap.widgets.TbGridView', array(
-                'type'=>'bordered',
-                'dataProvider'=>$dataProvider,
-                'template'=>"{items}",
-                'columns'=>array(
-                  array(
-                    'name'=>'N°',
-                  // 'value'=>array($this,'nroColumna'),
-                    ),
-                  'bien.iDCATALOGO.CAT_descripcion',
-                  'bien.iDCATALOGO.CAT_unidad',
-                  array(
-                    'name'=>'Cantidad',
-                    'value'=>'$data->RBI_cantidad',
-                    ),
-                  'bien.BIE_stockActual',
-                  'bien.BIE_stockMinimo',
-                  array(
-                    'name'=> 'Diferencia a Comprar',
-                    'type' => 'raw',
-                    'value' => array($model,'crearTexto'),
-                    ),
-                  ),
+              array_push($columns, array(
+                'header' => 'Stock actual',
+                'value'=>'$data->bien->BIE_stockActual',
                 )
               );
-            }else{
-              $this->widget('bootstrap.widgets.TbGridView', array(
-                'type'=>'bordered',
-                'dataProvider'=>$dataProvider,
-                'template'=>"{items}",
-                'columns'=>array(
-                  array(
-                    'name'=>'N°',
-                  // 'value'=>array($this,'nroColumna'),
-                    ),
-                  'bien.iDCATALOGO.CAT_descripcion',
-                  'bien.iDCATALOGO.CAT_unidad',
-                  array(
-                    'name'=>'Cantidad',
-                    'value'=>'$data->RBI_cantidad',
-                    ),
-                  'bien.BIE_stockActual',
-                  'bien.BIE_stockMinimo',
-                  ),
+              
+              array_push($columns, array(
+                'header' => 'Stock mínimo',
+                'value'=>'$data->bien->BIE_stockMinimo',
+                )
+              );
+              
+              array_push($columns, array(
+                'header'=>'Cantidad a comprar',
+                'type' => 'raw',
+                'value' => function($data) {
+                  return CHtml::textField('cantidad', $data->RBI_cantidad);
+                },
                 )
               );
             }
-            
+
+            $this->widget('bootstrap.widgets.TbGridView', array(
+              'type'=>'bordered',
+              'dataProvider'=>$dataProvider,
+              'template'=>"{items}",
+              'columns'=>$columns,
+              )
+            );
             ?>
           </div>
           <div class="control-group">
