@@ -63,16 +63,22 @@ class RequerimientoController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$requerimiento_bien = new RequerimientoBien();//creo una variable con la funcion search de Requerimiento
-        $requerimiento_bien->unsetAttributes();//limpio los valores que pueda tener
+		$model=$this->loadModel($id);
+		$requerimiento_bien = new RequerimientoBien();
+        $requerimiento_bien->unsetAttributes();
         $requerimiento_bien->IDREQUERIMIENTO = $id;
+        $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
 
-		$dataProvider = $requerimiento_bien->search();
-
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-			'dataProvider'=>$dataProvider,
-		));
+        $dataProvider = $requerimiento_bien->search();
+        
+        if ($usuario->IDUSUARIO==1 || $model->IDUSUARIO == $usuario->IDUSUARIO) {
+        	$this->render('view',array(
+        		'model'=>$this->loadModel($id),
+        		'dataProvider'=>$dataProvider,
+        		));
+        }else{
+        	throw new CHttpException(403,'Usted no se encuentra autorizado para acceder a requerimientos que no son suyos. Por que lo hace?');
+        }
 	}
 
 	/**
@@ -237,7 +243,7 @@ class RequerimientoController extends Controller
 		$model=new Requerimiento;
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
- 		$usuario = Usuario::model()->findByPk($idusuario);		
+ 		$usuario = Usuario::model()->findByPk($idusuario);
         
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
