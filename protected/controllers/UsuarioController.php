@@ -26,17 +26,21 @@ class UsuarioController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+			array('allow',
+				'actions'=>array('update'),
+				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+			array('allow',
+				'actions'=>array('update'),
+				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+			array('allow',
+				'actions'=>array('update'),
+				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
+			),
+			array('allow',
+				'actions'=>array('admin','create','update'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -86,29 +90,27 @@ class UsuarioController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		if ($model->IDUSUARIO == $usuario->IDUSUARIO) {
 
-		if(isset($_POST['Usuario']))
-		{
-			$model->attributes=$_POST['Usuario'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDUSUARIO));
+			// Uncomment the following line if AJAX validation is needed
+			// $this->performAjaxValidation($model);
+
+			if(isset($_POST['Usuario']))
+			{
+				$model->attributes=$_POST['Usuario'];
+				if($model->save()){
+					$this->redirect(array('site/index'));
+				}
+			}
+
+			$this->render('update',array(
+				'model'=>$model,
+			));
+		}else{
+			throw new CHttpException(403,'Usted no se encuentra autorizado para acceder a otro perfil. Por que lo hace?');
 		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-
-		$model->attributes=$_POST['Usuario'];
-		////////////////////////////////////////////////////////////
-		//////////////////LINEA A AGREGAR//////////////////////////
-		 $model->password=md5($model->password);
-		///////////////////////////////////////////////////////////
-		if($model->save()){}
-
-
 	}
 
 	/**
@@ -182,7 +184,4 @@ class UsuarioController extends Controller
 			Yii::app()->end();
 		}
 	}
-
-
-
 }

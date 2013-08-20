@@ -111,6 +111,45 @@ textarea{
 	width: 60px !important;
 }
 
+.ui-accordion-header:hover{
+	border: 1px solid #66C7F4;
+	background: #EBF5FA;
+	font-weight: bold;
+
+}
+
+.ui-accordion-header:hover>a{
+	color: #777777;
+	font-weight: bold;
+}
+
+.ui-accordion-header:focus{
+	border: 1px solid #66C7F4;
+	background: #EBF5FA;
+	font-weight: bold;
+
+}
+
+.ui-accordion-header:focus>a{
+	color: #777777;
+	font-weight: bold;
+}
+
+.ui-state-active{
+	border: 1px solid #66C7F4;
+	background: #EBF5FA;
+	font-weight: bold;
+}
+
+.ui-state-active>a:link{
+	color: #777777;
+	font-weight: bold;
+}
+
+.ui-state-default .ui-icon {
+	background-image: url(images/ui-icons_222222_256x240.png);
+}
+
 /* Responsive */
 
 @media (min-width: 768px) and (max-width: 790px){

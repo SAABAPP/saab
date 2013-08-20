@@ -113,7 +113,7 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
         <div class="nav-collapse collapse">
           <ul class="nav info">
             <li><span class="badge"><i class="icon-calendar"></i></span><script>mostrarFecha();</script></li>
-            <li><a id="help" href="help.php"><span id="badge-help" class="badge"><i class="icon-question-sign"></i></span> Ayuda</a></li>
+            <li><a id="help" href="<?php echo Yii::app()->request->baseUrl; ?>/site/help"><span id="badge-help" class="badge"><i class="icon-question-sign"></i></span> Ayuda</a></li>
           </ul>
 
           <!-- Search form -->
@@ -132,9 +132,9 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
               </a>
               <!-- Dropdown menu -->
               <ul class="dropdown-menu">
-                <!-- <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li>
-                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-cogs"></i> Ajustes</a></li> -->
-                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout.html"><i class="icon-off"></i> Salir</a></li>
+                <!-- <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/404.php"><i class="icon-user"></i> Perfil</a></li> -->
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/usuario/update/<?php echo $usuario->IDUSUARIO; ?>"><i class="icon-cogs"></i> Ajustes</a></li>
+                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/site/logout"><i class="icon-off"></i> Salir</a></li>
               </ul>
             </li>
           </ul>
@@ -152,7 +152,8 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
         <div class="span6">
           <!-- Logo. -->
           <div class="logo">
-            <img id="logo" src="<?php echo Yii::app()->theme->baseUrl; ?>/img/logo_grell _mini.png" height="60" width="60" alt="GRELL"><h2 style="margin-left:80px;padding-top:10px;"><a href="home.php"><span class="bold">Sistema Administrativo de Abastecimiento</span></a></h2 style="padding-left:5px;padding-top:10px;">
+            <img id="logo" src="<?php echo Yii::app()->theme->baseUrl; ?>/img/logo_grell _mini.png" height="60" width="60" alt="GRELL"><h2 style="margin-left:80px;padding-top:10px;">
+            <a href="<?php echo Yii::app()->request->baseUrl; ?>/site/index"><span class="bold">Sistema Administrativo de Abastecimiento</span></a></h2 style="padding-left:5px;padding-top:10px;">
             <p style="margin-left:80px" class="meta">Gerencia Regional de Educación La Libertad</p>
           </div>
           <!-- Logo ends -->

@@ -121,4 +121,9 @@ class Requerimiento extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function crearTexto(){
+		return "<form><input type=\"text\" value=\"\"></form>";
+		// ".$data->RBI_cantidad."
+	}
 }

@@ -73,9 +73,9 @@ class Catalogo extends CActiveRecord
 	{
 		return array(
 			'IDCATALOGO' => 'Idcatalogo',
-			'CAT_descripcion' => 'Cat Descripcion',
-			'CAT_codigo' => 'Cat Codigo',
-			'CAT_unidad' => 'Cat Unidad',
+			'CAT_descripcion' => 'Bien',
+			'CAT_codigo' => 'Código',
+			'CAT_unidad' => 'Unidad',
 		);
 	}
 

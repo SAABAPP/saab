@@ -2,12 +2,12 @@
 
 class RequerimientoController extends Controller
 {
+
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-
 	/**
 	 * @return array action filters
 	 */
@@ -43,7 +43,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaMeta'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -63,9 +63,22 @@ class RequerimientoController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$model=$this->loadModel($id);
+		$requerimiento_bien = new RequerimientoBien();
+        $requerimiento_bien->unsetAttributes();
+        $requerimiento_bien->IDREQUERIMIENTO = $id;
+        $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
+
+        $dataProvider = $requerimiento_bien->search();
+        
+        if ($usuario->IDUSUARIO==1 || $model->IDUSUARIO == $usuario->IDUSUARIO) {
+        	$this->render('view',array(
+        		'model'=>$model,
+        		'dataProvider'=>$dataProvider,
+        		));
+        }else{
+        	throw new CHttpException(403,'Usted no se encuentra autorizado para acceder a requerimientos que no son suyos. Por que lo hace?');
+        }
 	}
 
 	/**
@@ -82,10 +95,12 @@ class RequerimientoController extends Controller
 
  		$requerimiento_bien[]= new RequerimientoBien; // prueba de declaracion array
  		
-<<<<<<< HEAD
- 		$bien->unsetAttributes();	
-=======
- 		$clasificador->unsetAttributes();	
+ 		$clasificador->unsetAttributes();
+ 		$catalogo=new Catalogo;
+ 		$catalogo->unsetAttributes();
+
+ 		$meta=new Meta;
+ 		$meta->unsetAttributes();
  		/*  
 
 			$requerimiento_bien= array(modelo);
@@ -96,7 +111,6 @@ class RequerimientoController extends Controller
         // $clasificador= Clasificador::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
->>>>>>> origin/saabCarlos
 
 		if(isset($_POST['Requerimiento']))
 		{
@@ -110,6 +124,8 @@ class RequerimientoController extends Controller
 			'model'=>$model,
 			'usuario'=>$usuario,
 			'clasificador'=>$clasificador,
+			'catalogo'=>$catalogo,
+			'meta'=>$meta,
 		));
 	}
 
@@ -183,6 +199,40 @@ class RequerimientoController extends Controller
        }
    	}
 
+   	public function actionBuscaMeta() {
+
+       //$q = $_GET['busca_clasificador'];
+       $q=trim($_GET['term']);
+
+       //$q='LA';
+
+       if (isset($q)) {
+           $criteria = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+           $criteria->condition = "MET_descripcion LIKE '%". $q ."%'";
+           //$criteria->order = 'CLA_descripcion'; // correct order-by field
+           $criteria->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$criteria->params = array(':q' => trim($q) . '%'); 
+           $meta= Meta::model()->findAll($criteria);
+
+           if (!empty($meta)) {
+               $returnVal = '';
+               $out = array();
+               foreach ($meta as $m) {
+                   $out[] = array(
+                      // expression to give the string for the autoComplete drop-down
+                       'label' => $m->MET_descripcion,  
+                       'value' => $m->MET_descripcion,
+                       'id' => $m->CODMETA, // return value from autocomplete
+                   );
+                }
+              echo CJSON::encode($out);
+              Yii::app()->end();
+            }
+        }
+    }
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -193,7 +243,7 @@ class RequerimientoController extends Controller
 		$model=new Requerimiento;
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
- 		$usuario = Usuario::model()->findByPk($idusuario);		
+ 		$usuario = Usuario::model()->findByPk($idusuario);
         
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -270,7 +320,7 @@ class RequerimientoController extends Controller
 		if (Yii::app()->user->getState('idusuario')!=1) {
 			$model->IDUSUARIO = Yii::app()->user->getState('idusuario');
 		}
-		
+
 		if(isset($_GET['Requerimiento']))
 			$model->attributes=$_GET['Requerimiento'];
 

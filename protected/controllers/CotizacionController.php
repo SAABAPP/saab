@@ -27,13 +27,18 @@ class CotizacionController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','update'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','update'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
+			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			// 	'actions'=>array('delete'),
+			// 	'users'=>array('admin'),
+			// 	'deniedCallback' => function() {Yii::app()->controller->redirect(array ('site/error'));},
+			// ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -55,9 +60,10 @@ class CotizacionController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id)
 	{
 		$model=new Cotizacion;
+		$requerimiento=Requerimiento::model()->findByPk($id);		
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -71,6 +77,7 @@ class CotizacionController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+			'requerimiento'=>$requerimiento,
 		));
 	}
 
