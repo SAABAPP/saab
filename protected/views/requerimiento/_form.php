@@ -113,14 +113,14 @@
         </tr>
         <tr>
           <td class="span1"></td>
-          <td class="span3">
+          <td class="span6">
             <div class="filter-container">
 
 
               <?php 
                   $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                                           'name'=>'busca_bien',
-                                          'id'=>'catalogo',
+                                          'id'=>'catalogoBien',
                                           'value'=>$catalogo->CAT_descripcion,
                                           'source'=>$this->createUrl('Requerimiento/buscaBien'),
                                           'options'=>array(
@@ -129,23 +129,24 @@
                                           'htmlOptions'=>array('class'=>'span12','placeholder'=>'buscar bien..'),  
                                           'options'=>array(
                                                   'showAnim'=>'fold',
-                                                          'beforeSend' => 'js:function(){        
+                                                  'beforeSend' => 'js:function(){        
                                                             //$("#loading").html("LOADING IMAGE HERE");               
-                                                          }',
-                                                          'complete' => 'js:function(){
+                                                  }',
+                                                  'complete' => 'js:function(){
                                                             //$("#loading").html("");
-                                                          }',
-                                                          'select' => 'js:function(event, ui){ 
+                                                  }',
+                                                  'select' => 'js:function(event, ui){ 
                                                             //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-                                                            jQuery("#unidad_catalogo").val(ui.item["unidad"]); 
-                                                          }'
+                                                    jQuery("#unidad_catalogo").val(ui.item["unidad"]);
+                                                    jQuery("#idbien").val(ui.item["id"]);  
+                                                  }'
 
                                                   ),
                                           ));
 
 
               ?>
-              <!-- <input name="" id="bien" type="text"> -->
+              <input id="idbien" type="hidden"> 
             </div>
           </td>
           <!-- <td >
@@ -153,21 +154,54 @@
               <input name="" id="marca" class="span8" type="text" disabled>
             </div>
           </td> -->
-          <td >
+          <td class="span2">
             <div class="filter-container">
-              <input name="" id="caracteristica" class="span10" type="text" disabled>
+              <input name="" id="caracteristica"  type="text" disabled>
             </div>
           </td>
-          <td class="span3">
+          <td class="span2">
             <input name="" id="unidad_catalogo"  type="text" disabled>
           </td>
           <td class="span1">
             <div class="filter-container">
-              <input name="" id="cantidad" type="text" style="width:40px;">
+              <input name="" id="cantidadBien" type="text" style="width:40px;">
             </div>
           </td>
           <td >
-            <a class="btn btn-primary "><i class="icon-plus"></i></a>
+            <?php 
+              $item=array();
+               echo CHtml::link("<i class='icon-plus'></i>", 
+                   // array('create#'),
+                   array('addItem'),
+                   array(
+                      'disabled' => 'true',
+                      'id' => 'btnAdd',
+                      'class' => 'btn btn-primary',
+                      'ajax' => array(
+                          'type' => 'POST',
+                          // 'url' => $this->createUrl('Requerimiento/buscaBien'),
+                          'url' => "js:$(this).attr('href')",
+                          'data' => array(
+                              'idbien' => "js: $('#idbien').val()",
+                              'rbi_cantidad' => "js: $('#cantidadBien').val()",
+                              'descripcion' => "js: $('#catalogoBien').val()",
+                          ),
+                          'error' => "function(req, status, error) {
+                                          alert(req.responseText);
+                                      }",
+                         'success' => "function(event, data) {
+                                          alert('valores:'+data.item.idbien);
+                                          alert('valores:'+data.idbien);
+                                          //$('#order-detail-div').html(data);                                
+                                      }"
+                      ),
+                      
+                  )
+              ); 
+
+
+            ?>
+            <!-- <a class="btn btn-primary "><i class="icon-plus"></i></a> -->
           </td>
 >>>>>>> origin/saabCarlos
         </tr>
@@ -175,12 +209,14 @@
     </table>
     <br/>
     <?php 
-
-        $gridDataProvider = new CArrayDataProvider(array(
-            //array('id'=>1, 'bien'=>'PAPEL BOND', 'marca'=>'Kerocopy', 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>'12'),
-            //array('id'=>2, 'bien'=>'Jacob', 'marca'=>'Thornton', 'caracteristica'=>'JavaScript','unidad'=>'unidades','cantidad'=>'12'),
-            // array('id'=>3, 'bien'=>'Stu', 'marca'=>'Dent', 'caracteristica'=>'HTML'),
-        ));
+        global $itemRequerimiento;
+        $gridDataProvider = new CArrayDataProvider(           
+            array(
+              array('id'=>1, 'bien'=>'PAPEL BOND', 'marca'=>'Kerocopy', 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>'12'),
+              array('id'=>2, 'bien'=>'Jacob', 'marca'=>'Thornton', 'caracteristica'=>'JavaScript','unidad'=>'unidades','cantidad'=>'12'),
+              array('id'=>3, 'bien'=>'Stu', 'marca'=>'Dent', 'caracteristica'=>'HTML'),
+            )
+        );
 
 
         $this->widget('bootstrap.widgets.TbGridView',array(
@@ -205,7 +241,7 @@
                 'headerHtmlOptions'=>array('style'=>'display:none'),
                 'htmlOptions'=>array('style' => 'width:113px'),            
                 'class'=>'bootstrap.widgets.TbButtonColumn',
-                'template'=>"{delete}{new}",
+                'template'=>"{delete}",
 
               ),
 
