@@ -73,7 +73,7 @@ class RequerimientoController extends Controller
         
         if ($usuario->IDUSUARIO==1 || $model->IDUSUARIO == $usuario->IDUSUARIO) {
         	$this->render('view',array(
-        		'model'=>$this->loadModel($id),
+        		'model'=>$model,
         		'dataProvider'=>$dataProvider,
         		));
         }else{
