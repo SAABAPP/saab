@@ -33,13 +33,13 @@ $this->renderPartial('_search',array(
 <div class="span8 offset2">
 <?php
 $columns=array();
-// $cotizado= Yii::app()->db->createCommand('select count(*) from requerimiento R
-// inner join requerimiento_bien RB
-// on R.IDREQUERIMIENTO=RB.IDREQUERIMIENTO
-// where R.IDREQUERIMIENTO=11')->queryAll();
-// foreach ($cotizado as $c) {
-// 	echo $c;
-// }
+$cotizado= Yii::app()->db->createCommand()
+    ->select('count(*) as cont')
+    ->from('requerimiento R')
+    ->join('cotizacion C', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
+    ->where(' R.IDREQUERIMIENTO=:id', array(':id'=>$model->IDREQUERIMIENTO))
+    ->queryRow();
+
 array_push($columns, array(
 	'header' => 'N°',
 	'value'=>'$data->IDREQUERIMIENTO',
@@ -69,6 +69,43 @@ array_push($columns, array(
 	'value'=>'$data->REQ_fecha',
 	)
 );
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => '',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) use($cotizado) {
+
+        $html = "";
+        switch ($cotizado) {
+            case 0:
+                $html .= CHtml::link("<i class='icon-pencil'></i>", array('update', 'id' => $data->id_pdido_tc), array(
+                            'class' => 'btnEdit',
+                            'title' => 'Editar',
+                            'rel' => 'tooltip',
+                        ));
+
+
+
+                $html .= CHtml::link("<i class='icon-remove'></i>", array('changeStatus', 'id' => $data->id_pdido_tc), array(
+                            'class' => 'null',
+                            'title' => 'Anular',
+                            'rel' => 'tooltip',
+                        ));
+                break;
+            default:
+                $html.=CHtml::link("<i class='icon-trash'></i>", array("changeStatus", 'id' => $data->id_pdido_tc), array(
+                            'class' => 'delete',
+                            'title' => 'Eliminar',
+                            'rel' => 'tooltip',
+                        ));
+                break;
+        }
+        return $html;
+    },
+));
+
 
 $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'cotizacion-grid',
