@@ -88,6 +88,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 
 
+
           ?>
           <input type="text" id="CODIGOCLASIFICADOR" class="span5"  placeholder="prueba...">
         </div>
@@ -112,99 +113,114 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
                   <?php 
                   $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'name'=>'busca_bien',
-                    'id'=>'catalogo',
-                    'value'=>$catalogo->CAT_descripcion,
-                    'source'=>$this->createUrl('Requerimiento/buscaBien'),
-                    'options'=>array(
-                      'minLength'=>'1',
-                      ),                                                            
-                    'htmlOptions'=>array('class'=>'span12','placeholder'=>'buscar bien..'),  
-                    'options'=>array(
-                      'showAnim'=>'fold',
-                      'beforeSend' => 'js:function(){        
+
+                                          'name'=>'busca_bien',
+                                          'id'=>'catalogoBien',
+                                          'value'=>$catalogo->CAT_descripcion,
+                                          'source'=>$this->createUrl('Requerimiento/buscaBien'),
+                                          'options'=>array(
+                                              'minLength'=>'1',
+                                          ),                                                            
+                                          'htmlOptions'=>array('class'=>'span12','placeholder'=>'buscar bien..'),  
+                                          'options'=>array(
+                                                  'showAnim'=>'fold',
+                                                  'beforeSend' => 'js:function(){        
                                                             //$("#loading").html("LOADING IMAGE HERE");               
-                      }',
-                      'complete' => 'js:function(){
+                                                  }',
+                                                  'complete' => 'js:function(){
                                                             //$("#loading").html("");
-                      }',
-                      'select' => 'js:function(event, ui){ 
+                                                  }',
+                                                  'select' => 'js:function(event, ui){ 
                                                             //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-                        jQuery("#unidad_catalogo").val(ui.item["unidad"]); 
-                      }'
+                                                    jQuery("#unidad_catalogo").val(ui.item["unidad"]);
+                                                    jQuery("#idbien").val(ui.item["id"]);  
+                                                  }'
+
 
                       ),
                     ));
 
 
-                    ?>
-                    <!-- <input name="" id="bien" type="text"> -->
-                  </div>
-                </td>
+
+              ?>
+              <input id="idbien" type="hidden"> 
+            </div>
+          </td>
+
           <!-- <td >
             <div class="filter-container">
               <input name="" id="marca" class="span8" type="text" disabled>
             </div>
           </td> -->
-          <td >
+          <td class="span2">
             <div class="filter-container">
-              <input name="" id="caracteristica" class="span10" type="text" disabled>
+              <input name="" id="caracteristica"  type="text" disabled>
             </div>
           </td>
-          <td class="span3">
+          <td class="span2">
             <input name="" id="unidad_catalogo"  type="text" disabled>
           </td>
           <td class="span1">
             <div class="filter-container">
-              <input name="" id="cantidad" type="text" style="width:40px;">
+              <input name="" id="cantidadBien" type="text" style="width:40px;">
             </div>
           </td>
           <td >
-            <a class="btn btn-primary "><i class="icon-plus"></i></a>
+            <?php 
+              $item=array();
+              
+
+               echo CHtml::link("<i class='icon-plus'></i>", 
+                   // array('create#'),
+                   array('addItem'),
+                   array(
+                      'disabled' => 'true',
+                      'id' => 'btnAdd',
+                      'class' => 'btn btn-primary disabled',
+                      'ajax' => array(
+                          'type' => 'POST',
+                          // 'url' => $this->createUrl('Requerimiento/buscaBien'),
+                          'url' => "js:$(this).attr('href')",
+                          'data' => array(
+                              
+                              'idbien' => "js: $('#idbien').val()",
+                              'rbi_cantidad' => "js: $('#cantidadBien').val()",
+                              'descripcion' => "js: $('#catalogoBien').val()",
+                          ),
+                          'error' => "function(req, status, error) {
+                                          alert(req.responseText);
+                                      }",
+                          'success' => "function(data) {
+                                          $('#cantidadBien').val('');
+                                          $('#catalogoBien').val('');
+                                          $('#order-detail-div').html(data);                                
+                                      }"
+                      ),
+                      
+                  )
+              ); 
+
+
+            ?>
+            <!-- <a class="btn btn-primary "><i class="icon-plus"></i></a> -->
           </td>
         </tr>
       </thead>
     </table>
     <br/>
-    <?php 
 
-    $gridDataProvider = new CArrayDataProvider(array(
-            //array('id'=>1, 'bien'=>'PAPEL BOND', 'marca'=>'Kerocopy', 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>'12'),
-            //array('id'=>2, 'bien'=>'Jacob', 'marca'=>'Thornton', 'caracteristica'=>'JavaScript','unidad'=>'unidades','cantidad'=>'12'),
-            // array('id'=>3, 'bien'=>'Stu', 'marca'=>'Dent', 'caracteristica'=>'HTML'),
-      ));
+    <?php
 
-
-    $this->widget('bootstrap.widgets.TbGridView',array(
-      'id'=>'requerimiento-grid',
-          //'dataProvider'=>$bien->search(),
-      'dataProvider'=>$gridDataProvider,
-      'type'=>'bordered hover',
-      'template'=>"{items}",
-      'columns'=>array(
-
-            // 'IDBIEN',
-            // 'IDCATALOGO',
-        array('name'=>'id', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:44px')),
-        array('name'=>'bien', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:240px')),
-        array('name'=>'marca', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:196px')),
-        array('name'=>'caracteristica', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:197px')),
-        array('name'=>'unidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:204px')),
-        array('name'=>'cantidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:86px')),
-
-        array(
-                //'header'=>false,
-          'headerHtmlOptions'=>array('style'=>'display:none'),
-          'htmlOptions'=>array('style' => 'width:113px'),            
-          'class'=>'bootstrap.widgets.TbButtonColumn',
-          'template'=>"{delete}{new}",
-
-          ),
+    echo "<div id='order-detail-div'>";
+    //$this->renderPartial('_details', array(
+    //    'data' => $data,
+    //));
+    $this->actionDetails();
+    echo "</div>"; 
 
 
-
-        ),
-));
+    
+    
 ?>
     <!-- <table class="table table-bordered">      
       <tbody>
