@@ -8,6 +8,11 @@ class RequerimientoController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public $columnas=array();
+	
+
+	
+	
 	/**
 	 * @return array action filters
 	 */
@@ -43,7 +48,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien','buscaMeta'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaMeta','addItem','details'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -87,6 +92,10 @@ class RequerimientoController extends Controller
 	 */
 	public function actionCreate()
 	{
+		Yii::app()->setGlobalState('site_id', 0);
+		Yii::app()->clearGlobalState('arrays');
+
+
 		$model=new Requerimiento;
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
@@ -231,6 +240,62 @@ class RequerimientoController extends Controller
               Yii::app()->end();
             }
         }
+    }
+   
+    public function actionAddItem() {
+
+        try {
+        	
+        	$idbien= $_POST['idbien'];
+            $rbi_cantidad= $_POST['rbi_cantidad'];
+            $descripcion= $_POST['descripcion'];
+           
+            
+            // Yii::app()->params['valor']
+         
+        	//Yii::app()->setGlobalState(string $key, mixed $defaultValue=NULL);
+
+        	
+			$i=Yii::app()->getGlobalState('site_id'); //obtiene el valor de una variable global
+          	
+          if($i==0){
+          	
+          	$this->columnas[$i][0]=$idbien;
+            $this->columnas[$i][1]=$rbi_cantidad;
+            $this->columnas[$i][2]=$descripcion;
+            // array_push($this->columnas,array($i=>$idbien));
+            // array_push($this->columnas,array($i=>$rbi_cantidad));
+            // array_push($this->columnas,array($i=>$descripcion));
+            Yii::app()->setGlobalState('arrays', $this->columnas);
+          }else{
+          	$this->columnas=Yii::app()->getGlobalState('arrays');
+          	$this->columnas[$i][0]=$idbien;
+            $this->columnas[$i][1]=$rbi_cantidad;
+            $this->columnas[$i][2]=$descripcion;
+          	// array_push($this->columnas,array($i=>$idbien));
+           //  array_push($this->columnas,array($i=>$rbi_cantidad));
+           //  array_push($this->columnas,array($i=>$descripcion));
+            Yii::app()->setGlobalState('arrays', $this->columnas);
+          }
+
+            ++$i;
+
+           	Yii::app()->setGlobalState('site_id', $i);	// envia valor a una varible global
+            
+            //clearGlobalState()
+            $this->actionDetails();
+            
+            //echo 'valor uno:'.$this->columnas[0][0].'valor ahora:'.$this->columnas[1][0].'  variable '.$i;
+            
+
+            
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+    public function actionDetails() {
+        
+        $this->renderPartial('_details');
     }
 
 	/**

@@ -168,18 +168,21 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           <td >
             <?php 
               $item=array();
+              
+
                echo CHtml::link("<i class='icon-plus'></i>", 
                    // array('create#'),
                    array('addItem'),
                    array(
                       'disabled' => 'true',
                       'id' => 'btnAdd',
-                      'class' => 'btn btn-primary',
+                      'class' => 'btn btn-primary disabled',
                       'ajax' => array(
                           'type' => 'POST',
                           // 'url' => $this->createUrl('Requerimiento/buscaBien'),
                           'url' => "js:$(this).attr('href')",
                           'data' => array(
+                              
                               'idbien' => "js: $('#idbien').val()",
                               'rbi_cantidad' => "js: $('#cantidadBien').val()",
                               'descripcion' => "js: $('#catalogoBien').val()",
@@ -187,10 +190,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                           'error' => "function(req, status, error) {
                                           alert(req.responseText);
                                       }",
-                         'success' => "function(event, data) {
-                                          alert('valores:'+data.item.idbien);
-                                          alert('valores:'+data.idbien);
-                                          //$('#order-detail-div').html(data);                                
+                          'success' => "function(data) {
+                                          $('#cantidadBien').val('');
+                                          $('#catalogoBien').val('');
+                                          $('#order-detail-div').html(data);                                
                                       }"
                       ),
                       
@@ -205,49 +208,19 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
       </thead>
     </table>
     <br/>
-    <?php 
+
+    <?php
+
+    echo "<div id='order-detail-div'>";
+    //$this->renderPartial('_details', array(
+    //    'data' => $data,
+    //));
+    $this->actionDetails();
+    echo "</div>"; 
 
 
-    $gridDataProvider = new CArrayDataProvider(array(
-            //array('id'=>1, 'bien'=>'PAPEL BOND', 'marca'=>'Kerocopy', 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>'12'),
-            //array('id'=>2, 'bien'=>'Jacob', 'marca'=>'Thornton', 'caracteristica'=>'JavaScript','unidad'=>'unidades','cantidad'=>'12'),
-            // array('id'=>3, 'bien'=>'Stu', 'marca'=>'Dent', 'caracteristica'=>'HTML'),
-      ));
-
-
-
-    $this->widget('bootstrap.widgets.TbGridView',array(
-      'id'=>'requerimiento-grid',
-          //'dataProvider'=>$bien->search(),
-      'dataProvider'=>$gridDataProvider,
-      'type'=>'bordered hover',
-      'template'=>"{items}",
-      'columns'=>array(
-
-            // 'IDBIEN',
-            // 'IDCATALOGO',
-        array('name'=>'id', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:44px')),
-        array('name'=>'bien', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:240px')),
-        array('name'=>'marca', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:196px')),
-        array('name'=>'caracteristica', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:197px')),
-        array('name'=>'unidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:204px')),
-        array('name'=>'cantidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:86px')),
-
-        array(
-                //'header'=>false,
-
-                'headerHtmlOptions'=>array('style'=>'display:none'),
-                'htmlOptions'=>array('style' => 'width:113px'),            
-                'class'=>'bootstrap.widgets.TbButtonColumn',
-                'template'=>"{delete}",
-
-
-          ),
-
-
-
-        ),
-));
+    
+    
 ?>
     <!-- <table class="table table-bordered">      
       <tbody>
