@@ -1,10 +1,12 @@
 <?php 
-
+    
 
     $col=Yii::app()->getGlobalState('arrays');
     $columns=array();
       for($x=0;$x<count($col); $x++){
-        array_push($columns,array('id'=>$col[$x][0], 'bien'=>$col[$x][2], 'caracteristica'=>'Blanco','unidad'=>'unidades','cantidad'=>$col[$x][1]));
+        
+        if(!empty($col[$x][0]))
+          array_push($columns,array('id'=>$col[$x][0], 'bien'=>$col[$x][2], 'cantidad'=>$col[$x][1]));
       }
      
       
@@ -29,19 +31,99 @@
         array('name'=>'unidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:204px')),
         array('name'=>'cantidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:86px')),
 
-        array(
-                //'header'=>false,
+        
+          array(
+                'class'=>'CButtonColumn',
+                'header' => false,
+                  'headerHtmlOptions'=>array('style'=>'display:none'),
+                'template' => '{aumentar}{disminuir}{remover}',                
+                'buttons' => array(
+                    'aumentar'=>array(
+                      'title' => 'Aumentar artículo',
+                      'label'=>'<i class="icon-plus"></i>',
+                      'click'=>'js:aumentar',
+                    ),
+                    'disminuir'=>array(
+                      'title' => 'Aumentar artículo',
+                      'label'=>'&nbsp;&nbsp;<i class="icon-minus"></i>',
+                      'click'=>'js:disminuir',
+                    ),
+                    'remover'=>array(
+                      'title' => 'Aumentar artículo',
+                      'label'=>'&nbsp;&nbsp;<i class="icon-trash"></i>',
+                      'click'=>'js:remover',
+                    ),
 
-                'headerHtmlOptions'=>array('style'=>'display:none'),
-                'htmlOptions'=>array('style' => 'width:113px'),            
-                'class'=>'bootstrap.widgets.TbButtonColumn',
-                'template'=>"{delete}",
-
-
+                  ),
           ),
 
 
 
         ),
 ));
+
+
+Yii::app()->clientScript->registerScript('maintainer', "
+    function aumentar(){
+      
+      $.ajax({
+            type: 'post',
+            url: '/requerimiento/aumentarItem',
+            data: {                
+                idbien: $(this).parent().parent().find('td')[0].innerHTML 
+            },
+            error:function(req, status, error) {
+                alert(req.responseText);
+            },
+            success: function (data) {
+                $('#order-detail-div').html(data);         
+            }
+        })  
+
+        return false;
+
+    };
+
+    function disminuir(){
+      
+      $.ajax({
+            type: 'post',
+            url: '/requerimiento/disminuirItem',
+            data: {                
+                idbien: $(this).parent().parent().find('td')[0].innerHTML 
+            },
+            error:function(req, status, error) {
+                alert(req.responseText);
+            },
+            success: function (data) {
+                $('#order-detail-div').html(data);         
+            }
+        })  
+
+        return false;
+
+    };
+    function remover(){
+      
+      $.ajax({
+            type: 'post',
+            url: '/requerimiento/removeItem',
+            data: {                
+                idbien: $(this).parent().parent().find('td')[0].innerHTML 
+            },
+            error:function(req, status, error) {
+                alert(req.responseText);
+            },
+            success: function (data) {                
+                $('#order-detail-div').html(data);         
+            }
+        })  
+
+        return false;
+
+    };
+    
+    ");
+
+
 ?>
