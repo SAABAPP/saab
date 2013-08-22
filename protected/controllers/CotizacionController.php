@@ -68,23 +68,38 @@ class CotizacionController extends Controller
 	 */
 	public function actionCreate($id)
 	{
-		$model=new Cotizacion;
-		$requerimiento=Requerimiento::model()->findByPk($id);		
+		$cotizado= Yii::app()->db->createCommand()
+	        ->select('count(*) as cont')
+	        ->from('cotizacion C')
+	        ->join('requerimiento R', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
+	        ->where('R.IDREQUERIMIENTO=:id', array(':id'=>$id))
+	        ->queryRow();
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        switch ($cotizado['cont']) {
+            case 0:
+	            $model=new Cotizacion;
+	            $requerimiento=Requerimiento::model()->findByPk($id);		
 
-		if(isset($_POST['Cotizacion']))
-		{
-			$model->attributes=$_POST['Cotizacion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDCOTIZACION));
-		}
+				// Uncomment the following line if AJAX validation is needed
+				// $this->performAjaxValidation($model);
 
-		$this->render('create',array(
-			'model'=>$model,
-			'requerimiento'=>$requerimiento,
-		));
+	            if(isset($_POST['Cotizacion']))
+	            {
+	            	$model->attributes=$_POST['Cotizacion'];
+	            	if($model->save())
+	            		$this->redirect(array('view','id'=>$model->IDCOTIZACION));
+	            }
+
+	            $this->render('create',array(
+	            	'model'=>$model,
+	            	'requerimiento'=>$requerimiento,
+	            	));
+                break;
+            default:
+                throw new CHttpException(403,'No se puede acceder a la pagina.');
+                break;
+        }
+		
 	}
 
 	/**
