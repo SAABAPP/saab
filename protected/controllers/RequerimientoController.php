@@ -48,7 +48,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien','buscaMeta','addItem','details'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaMeta','addItem','details','aumentarItem','disminuirItem','removeItem'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -93,7 +93,7 @@ class RequerimientoController extends Controller
 	public function actionCreate()
 	{
 		Yii::app()->setGlobalState('site_id', 0);
-		Yii::app()->clearGlobalState('arrays');
+		
 
 
 		$model=new Requerimiento;
@@ -102,7 +102,7 @@ class RequerimientoController extends Controller
  		$usuario = Usuario::model()->findByPk($idusuario);
  		$clasificador=	new clasificador('search');
 
- 		$requerimiento_bien[]= new RequerimientoBien; // prueba de declaracion array
+ 		
  		
  		$clasificador->unsetAttributes();
  		$catalogo=new Catalogo;
@@ -110,6 +110,7 @@ class RequerimientoController extends Controller
 
  		$meta=new Meta;
  		$meta->unsetAttributes();
+
  		/*  
 
 			$requerimiento_bien= array(modelo);
@@ -125,8 +126,25 @@ class RequerimientoController extends Controller
 		{
 			$model->attributes=$_POST['Requerimiento'];
 			//$model->IDUSUARIO=Yii::app()->user->getState('idusuario');
-			if($model->save())
+			if($model->save()){
+				$col=Yii::app()->getGlobalState('arrays');
+			    
+			      for($x=0;$x<count($col); $x++){
+			        $requerimiento_bien= new RequerimientoBien; 
+			        if(!empty($col[$x][0])){
+			        	$requerimiento_bien->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+			        	$requerimiento_bien->IDBIEN=$col[$x][0];
+			        	$requerimiento_bien->RBI_cantidad=$col[$x][1];
+			        	if (!$requerimiento_bien->save()) {
+                            throw new Exception("Error al guardar items");
+                        }
+			        }
+			          
+			      }
+				Yii::app()->clearGlobalState('arrays');
 				$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+			}
+				
 		}
 
 		$this->render('create',array(
@@ -147,8 +165,13 @@ class RequerimientoController extends Controller
 
        if (isset($q)) {
            $criteria = new CDbCriteria;
+           $criteria->select = "b.IDBIEN,c.CAT_descripcion";
+   			//         $criteria->mergeWith(array(
+   			//  			'join'=>'INNER JOIN catalogo c on c.IDCATALOGO=b.IDCATALOGO',
+   				 
+			// ));
            // condition to find your data, using q as the parameter field
-           $criteria->condition = "CLA_descripcion LIKE '%". $q ."%'";
+           $criteria->condition = "c.CAT_descripcion LIKE '%". $q ."%'";
            //$criteria->order = 'CLA_descripcion'; // correct order-by field
            $criteria->limit = 10; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
@@ -190,6 +213,7 @@ class RequerimientoController extends Controller
            //$condicion->params = array(':q' => trim($q) . '%'); 
            $catalogo=  Catalogo::model()->findAll($condicion);
 
+
            if (!empty($catalogo)) {
            	$returnVal = '';
            	$salida = array();
@@ -199,7 +223,7 @@ class RequerimientoController extends Controller
            			'label' => $c->CAT_descripcion,  
            			'value' => $c->CAT_descripcion,
            			'unidad'=>$c->CAT_unidad,
-                     'id' => $c->IDCATALOGO, // return value from autocomplete
+                     'id' => Bien::model()->findByAttributes(array('IDCATALOGO'=>$c->IDCATALOGO))->IDBIEN, // return value from autocomplete
                        );
            	}
            	echo CJSON::encode($salida);
@@ -298,6 +322,68 @@ class RequerimientoController extends Controller
         $this->renderPartial('_details');
     }
 
+    public function busqueda($id){
+    	
+
+    	$this->columnas=Yii::app()->getGlobalState('arrays');
+    	// foreach ($this->columnas as $col) {
+    	for($i=0;$i<count($this->columnas); $i++){
+    		
+    		if(stristr($this->columnas[$i][0],$id))    			
+    			break;
+    		
+    	}
+    	return $i;
+    }
+    public function actionAumentarItem() {
+
+    	$id= $_POST['idbien'];
+    	$this->columnas=Yii::app()->getGlobalState('arrays');
+    	$valor=-1;
+    	
+    	$valor=$this->busqueda($id);
+        
+        ++$this->columnas[$valor][1];
+        Yii::app()->setGlobalState('arrays', $this->columnas);
+		//echo $valor.' bien:'.$id.' valor:'.$this->columnas[$valor][0];
+        $this->actionDetails();
+    }
+    public function actionDisminuirItem() {
+
+        $id= $_POST['idbien'];
+    	$valor=-1;    	
+        $valor=$this->busqueda($id);
+        $this->columnas=Yii::app()->getGlobalState('arrays');
+        if($this->columnas[$valor][1]==1){
+         	unset($this->columnas[$valor][0]);
+        	unset($this->columnas[$valor][1]);
+       		unset($this->columnas[$valor][2]);       	
+        }
+        else{
+        	--$this->columnas[$valor][1];
+        }
+        
+        Yii::app()->setGlobalState('arrays', $this->columnas);
+
+        $this->actionDetails();
+    }
+
+    public function actionRemoveItem() {
+
+    	$id= $_POST['idbien'];
+    	$valor=-1;
+        $valor=$this->busqueda($id);
+        $this->columnas=Yii::app()->getGlobalState('arrays');
+        unset($this->columnas[$valor][0]);
+        unset($this->columnas[$valor][1]);
+        unset($this->columnas[$valor][2]);
+        $this->columnas = array_values($this->columnas);
+        Yii::app()->setGlobalState('arrays', $this->columnas);
+
+        $this->actionDetails();
+
+    }
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -379,6 +465,7 @@ class RequerimientoController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		Yii::app()->clearGlobalState('arrays');
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
 		//para la accion admin, solo le cree esto, si el idusuario es diferente del admin, los filtro; sino que se muestren todos

@@ -86,11 +86,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 
 
-
-
-
           ?>
-          <input type="text" id="CODIGOCLASIFICADOR" class="span5"  placeholder="prueba...">
+          <input type="hidden" id="CODIGOCLASIFICADOR" class="span5"  placeholder="codigo...">
         </div>
       </div>
       <div class="control-group">
@@ -218,10 +215,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     $this->actionDetails();
     echo "</div>"; 
 
-
     
     
-?>
+    
+    ?>
     <!-- <table class="table table-bordered">      
       <tbody>
         <tr class="odd">
@@ -272,16 +269,16 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   </div>
   <div class="control-group center">
     <div class="controls">
-      <button class="btn inline" type="submit">Guardar</button>
-      <a class="btn inline secundario" type="button" href="requerimiento.php">Cancelar</a>
-    </div>
-  </div>
-  <div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
+      <?php $this->widget('bootstrap.widgets.TbButton', array(
       'buttonType'=>'submit',
       'type'=>'primary',
       'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
       )); ?>
+      <a class="btn inline secundario" type="button" href="admin.html">Cancelar</a>
+    </div>
+  </div>
+  <div class="form-actions">
+    
     </div>
 
     <?php $this->endWidget(); ?>
