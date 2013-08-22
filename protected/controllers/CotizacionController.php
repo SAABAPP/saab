@@ -52,10 +52,10 @@ class CotizacionController extends Controller
 	public function actionView($id)
 	{
 		$model=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id));
-		$cotizacion_proveedor=new CotizacionProveedor();
-		$cotizacion_proveedor->unsetAttributes();
-		// $cotizacion_proveedor->IDCOTIZACION=$model->IDCOTIZACION;
-		$dataProvider=$cotizacion_proveedor->search();
+		$cotizacion=new Cotizacion();
+		$cotizacion->unsetAttributes();
+		$cotizacion->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+		$dataProvider=$cotizacion->search();
 		$this->render('view',array(
 			'model'=>$model,
 			'dataProvider'=>$dataProvider,
