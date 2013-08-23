@@ -9,16 +9,15 @@
  * @property string $REQ_fecha
  * @property integer $REQ_presupuesto
  * @property integer $IDUSUARIO
- * @property string $CODMETA
+ * @property integer $CODMETA
  * @property integer $IDCUANEC
  *
  * The followings are the available model relations:
- * @property Cotizacion[] $cotizacions
  * @property OrdenCompra[] $ordenCompras
  * @property Pecosa[] $pecosas
+ * @property CuaNec $iDCUANEC
  * @property Usuario $iDUSUARIO
  * @property Meta $cODMETA
- * @property CuaNec $iDCUANEC
  * @property Bien[] $biens
  * @property Servicio[] $servicios
  */
@@ -50,11 +49,10 @@ class Requerimiento extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('REQ_estado, REQ_fecha, IDUSUARIO', 'required'),
-			array('REQ_presupuesto, IDUSUARIO, IDCUANEC', 'numerical', 'integerOnly'=>true),
+			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA', 'required'),
+			array('REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'numerical', 'integerOnly'=>true),
 			array('REQ_estado', 'length', 'max'=>20),
-			// lo siguiente daba error en el insert :)
-			// array('CODMETA', 'length', 'max'=>4),
+			array(''),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('IDREQUERIMIENTO, REQ_estado, REQ_fecha, REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'safe', 'on'=>'search'),
@@ -69,12 +67,11 @@ class Requerimiento extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cotizacions' => array(self::HAS_MANY, 'Cotizacion', 'IDREQUERIMIENTO'),
 			'ordenCompras' => array(self::HAS_MANY, 'OrdenCompra', 'IDREQUERIMIENTO'),
 			'pecosas' => array(self::HAS_MANY, 'Pecosa', 'IDREQUERIMIENTO'),
+			'iDCUANEC' => array(self::BELONGS_TO, 'CuaNec', 'IDCUANEC'),
 			'iDUSUARIO' => array(self::BELONGS_TO, 'Usuario', 'IDUSUARIO'),
 			'cODMETA' => array(self::BELONGS_TO, 'Meta', 'CODMETA'),
-			'iDCUANEC' => array(self::BELONGS_TO, 'CuaNec', 'IDCUANEC'),
 			'biens' => array(self::MANY_MANY, 'Bien', 'requerimiento_bien(IDREQUERIMIENTO, IDBIEN)'),
 			'servicios' => array(self::MANY_MANY, 'Servicio', 'requerimiento_servicio(IDREQUERIMIENTO, IDSERVICIO)'),
 		);
@@ -91,8 +88,8 @@ class Requerimiento extends CActiveRecord
 			'REQ_fecha' => 'Fecha',
 			'REQ_presupuesto' => 'Presupuesto',
 			'IDUSUARIO' => 'Idusuario',
-			'CODMETA' => 'Codmeta',
-			'IDCUANEC' => 'Idcuanec',
+			'CODMETA' => 'Meta',
+			'IDCUANEC' => 'Cuadro Necesidades',
 		);
 	}
 
@@ -112,16 +109,13 @@ class Requerimiento extends CActiveRecord
 		$criteria->compare('REQ_fecha',$this->REQ_fecha,true);
 		$criteria->compare('REQ_presupuesto',$this->REQ_presupuesto);
 		$criteria->compare('IDUSUARIO',$this->IDUSUARIO);
-		$criteria->compare('CODMETA',$this->CODMETA,true);
+		$criteria->compare('CODMETA',$this->CODMETA);
 		$criteria->compare('IDCUANEC',$this->IDCUANEC);
-
-		$criteria->order = 'IDREQUERIMIENTO DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
 	public function crearTexto(){
 		return "<form><input type=\"text\" value=\"\"></form>";
 		// ".$data->RBI_cantidad."

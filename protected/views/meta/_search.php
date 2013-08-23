@@ -1,30 +1,18 @@
-<?php
-/* @var $this MetaController */
-/* @var $model Meta */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'CODMETA'); ?>
-		<?php echo $form->textField($model,'CODMETA',array('size'=>4,'maxlength'=>4)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'CODMETA',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'MET_descripcion'); ?>
-		<?php echo $form->textField($model,'MET_descripcion',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'MET_descripcion',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
