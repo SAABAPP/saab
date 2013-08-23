@@ -150,7 +150,7 @@ class RequerimientoController extends Controller
 		}
 		else{
 			// $this->addError('Bien', 'Debe ingresar algun bien');
-			echo CActiveForm::validate($col);
+			// echo CActiveForm::validate($col);
 			//echo '<script>alert("debe ingresar algun bien")</script>';
 			
 		}

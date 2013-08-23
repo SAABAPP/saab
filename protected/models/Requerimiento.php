@@ -52,7 +52,6 @@ class Requerimiento extends CActiveRecord
 			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA', 'required'),
 			array('REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'numerical', 'integerOnly'=>true),
 			array('REQ_estado', 'length', 'max'=>20),
-			array(''),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('IDREQUERIMIENTO, REQ_estado, REQ_fecha, REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'safe', 'on'=>'search'),
@@ -114,6 +113,9 @@ class Requerimiento extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+			    'defaultOrder'=>'IDREQUERIMIENTO DESC',
+			  )
 		));
 	}
 	public function crearTexto(){
