@@ -5,7 +5,7 @@
     $columns=array();
       for($x=0;$x<count($col); $x++){
         
-        if(!empty($col[$x][0]))
+        if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]))
           array_push($columns,array('id'=>$col[$x][0], 'bien'=>$col[$x][2], 'cantidad'=>$col[$x][1]));
       }
      

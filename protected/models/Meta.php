@@ -4,7 +4,7 @@
  * This is the model class for table "meta".
  *
  * The followings are the available columns in table 'meta':
- * @property string $CODMETA
+ * @property integer $CODMETA
  * @property string $MET_descripcion
  *
  * The followings are the available model relations:
@@ -39,7 +39,7 @@ class Meta extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('CODMETA, MET_descripcion', 'required'),
-			array('CODMETA', 'length', 'max'=>4),
+			array('CODMETA', 'numerical', 'integerOnly'=>true),
 			array('MET_descripcion', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -81,7 +81,7 @@ class Meta extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('CODMETA',$this->CODMETA,true);
+		$criteria->compare('CODMETA',$this->CODMETA);
 		$criteria->compare('MET_descripcion',$this->MET_descripcion,true);
 
 		return new CActiveDataProvider($this, array(

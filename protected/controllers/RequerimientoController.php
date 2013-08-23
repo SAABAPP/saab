@@ -48,7 +48,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien','buscaMeta','addItem','details','aumentarItem','disminuirItem','removeItem'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaMeta','addItem','details','aumentarItem','disminuirItem','removeItem','idCatalogo'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -102,7 +102,7 @@ class RequerimientoController extends Controller
  		$usuario = Usuario::model()->findByPk($idusuario);
  		$clasificador=	new clasificador('search');
 
- 		
+ 		$col=Yii::app()->getGlobalState('arrays');
  		
  		$clasificador->unsetAttributes();
  		$catalogo=new Catalogo;
@@ -120,32 +120,43 @@ class RequerimientoController extends Controller
         // $clasificador = new Clasificador;
         // $clasificador= Clasificador::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		//$this->performAjaxValidation($model);
+		if(!empty($col)){
+			if(isset($_POST['Requerimiento']))
+			{
+				$model->attributes=$_POST['Requerimiento'];
 
-		if(isset($_POST['Requerimiento']))
-		{
-			$model->attributes=$_POST['Requerimiento'];
-			//$model->IDUSUARIO=Yii::app()->user->getState('idusuario');
-			if($model->save()){
-				$col=Yii::app()->getGlobalState('arrays');
-			    
-			      for($x=0;$x<count($col); $x++){
-			        $requerimiento_bien= new RequerimientoBien; 
-			        if(!empty($col[$x][0])){
-			        	$requerimiento_bien->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
-			        	$requerimiento_bien->IDBIEN=$col[$x][0];
-			        	$requerimiento_bien->RBI_cantidad=$col[$x][1];
-			        	if (!$requerimiento_bien->save()) {
-                            throw new Exception("Error al guardar items");
-                        }
-			        }
-			          
-			      }
-				Yii::app()->clearGlobalState('arrays');
-				$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+				//$model->IDUSUARIO=Yii::app()->user->getState('idusuario');
+				if($model->save()){
+					
+				    
+				      for($x=0;$x<count($col); $x++){
+				        $requerimiento_bien= new RequerimientoBien; 
+				        if(!empty($col[$x][0])){
+				        	$requerimiento_bien->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+				        	$requerimiento_bien->IDBIEN=$col[$x][0];
+				        	$requerimiento_bien->RBI_cantidad=$col[$x][1];
+				        	if (!$requerimiento_bien->save()) {
+	                            throw new Exception("Error al guardar items");
+	                        }
+				        }
+				          
+				      }
+					Yii::app()->clearGlobalState('arrays');
+					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+				}
+					
 			}
-				
 		}
+		else{
+			// $this->addError('Bien', 'Debe ingresar algun bien');
+			echo CActiveForm::validate($col);
+			//echo '<script>alert("debe ingresar algun bien")</script>';
+			
+		}
+			
+
+		
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -165,13 +176,10 @@ class RequerimientoController extends Controller
 
        if (isset($q)) {
            $criteria = new CDbCriteria;
-           $criteria->select = "b.IDBIEN,c.CAT_descripcion";
-   			//         $criteria->mergeWith(array(
-   			//  			'join'=>'INNER JOIN catalogo c on c.IDCATALOGO=b.IDCATALOGO',
-   				 
-			// ));
+           
+   			
            // condition to find your data, using q as the parameter field
-           $criteria->condition = "c.CAT_descripcion LIKE '%". $q ."%'";
+           $criteria->condition = "CLA_descripcion LIKE '%". $q ."%'";
            //$criteria->order = 'CLA_descripcion'; // correct order-by field
            $criteria->limit = 10; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
@@ -194,7 +202,10 @@ class RequerimientoController extends Controller
             }
         }
     }
-
+    public function actionIdCatalogo(){
+    	$idcat= $_POST['idclasificador'];
+    	Yii::app()->setGlobalState('idclasificador', $idcat);
+    }
 
     public function actionBuscaBien() {
 
@@ -265,6 +276,7 @@ class RequerimientoController extends Controller
             }
         }
     }
+   
    
     public function actionAddItem() {
 

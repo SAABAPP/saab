@@ -1,15 +1,12 @@
 <?php
-/* @var $this MetaController */
-/* @var $model Meta */
-
 $this->breadcrumbs=array(
 	'Metas'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Meta', 'url'=>array('index')),
-	array('label'=>'Manage Meta', 'url'=>array('admin')),
+	array('label'=>'List Meta','url'=>array('index')),
+	array('label'=>'Manage Meta','url'=>array('admin')),
 );
 ?>
 

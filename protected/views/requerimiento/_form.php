@@ -7,6 +7,10 @@
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   'id'=>'requerimiento-form',
   'enableAjaxValidation'=>false,
+  // 'enableClientValidation'=>false,
+  // 'clientOptions'=>array(
+  //     'validateOnSubmit'=>true,
+  //   )
   )); ?>
 
 
@@ -34,10 +38,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
 
-
-    <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'span5','maxlength'=>4)); ?>
-
+    <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'codmeta span5')); ?>
+    
     <?php echo $form->hiddenField($model,'IDCUANEC',array('class'=>'span5')); ?>
+    
 
 
 
@@ -77,8 +81,26 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                                   //$("#loading").html("");
             }',
             'select' => 'js:function(event, ui){ 
-                                                  //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-              jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]); 
+               
+                        jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]);
+                        $.ajax({
+                          type: "post",
+                          url: "/Requerimiento/idCatalogo",
+                          data: {                
+                            idclasificador: ui.item["id"] 
+                          },
+                          error:function(req, status, error) {
+                            alert(req.responseText);
+                          },
+                          success: function (data) {
+                            
+                              $("#catalogoBien").removeAttr("disabled");
+                              $("#cantidadBien").removeAttr("disabled");                           
+                                             
+
+                          }
+                        }) 
+
             }'
 
             ),
@@ -87,6 +109,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 
           ?>
+
+          
+
           <input type="hidden" id="CODIGOCLASIFICADOR" class="span5"  placeholder="codigo...">
         </div>
       </div>
@@ -113,12 +138,13 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
                                           'name'=>'busca_bien',
                                           'id'=>'catalogoBien',
-                                          'value'=>$catalogo->CAT_descripcion,
-                                          'source'=>$this->createUrl('Requerimiento/buscaBien'),
+                                          'value'=>$catalogo->IDCATALOGO,
+                                          'source'=>$this->createUrl('Requerimiento/buscaBien/', array('valor'=>'')),
+                                          //'sourceUrl'=>$this->createUrl(RequerimientoController::actionGetPostalCodeAction()),
                                           'options'=>array(
                                               'minLength'=>'1',
                                           ),                                                            
-                                          'htmlOptions'=>array('class'=>'span12','placeholder'=>'buscar bien..'),  
+                                          'htmlOptions'=>array('class'=>'span12 enabled','placeholder'=>'buscar bien..','disabled'=>'true'),  
                                           'options'=>array(
                                                   'showAnim'=>'fold',
                                                   'beforeSend' => 'js:function(){        
@@ -129,15 +155,16 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                                   }',
                                                   'select' => 'js:function(event, ui){ 
                                                             //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-                                                    jQuery("#unidad_catalogo").val(ui.item["unidad"]);
-                                                    jQuery("#idbien").val(ui.item["id"]);  
+                                                          jQuery("#unidad_catalogo").val(ui.item["unidad"]);
+                                                          jQuery("#idbien").val(ui.item["id"]);  
+                                                          
                                                   }'
 
 
                       ),
                     ));
 
-
+                  
 
               ?>
               <input id="idbien" type="hidden"> 
@@ -159,7 +186,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           </td>
           <td class="span1">
             <div class="filter-container">
-              <input name="" id="cantidadBien" type="text" style="width:40px;">
+              <input name="" id="cantidadBien" type="text" style="width:40px;" disabled>
             </div>
           </td>
           <td >
@@ -183,11 +210,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                               'idbien' => "js: $('#idbien').val()",
                               'rbi_cantidad' => "js: $('#cantidadBien').val()",
                               'descripcion' => "js: $('#catalogoBien').val()",
+                              'unidad'=>"js: $('#unidad_catalogo').val()",
                           ),
                           'error' => "function(req, status, error) {
                                           alert(req.responseText);
                                       }",
                           'success' => "function(data) {
+                                          $('#unidad_catalogo').val('');
+                                          $('#idbien').val('');
                                           $('#cantidadBien').val('');
                                           $('#catalogoBien').val('');
                                           $('#order-detail-div').html(data);                                
@@ -259,12 +289,15 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           }',
           'select' => 'js:function(event, ui){ 
                                                             //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-            jQuery("#cod_meta").val(ui.item["id"]); 
+            jQuery(".codmeta").val(ui.item["id"]);
+            var $codmeta= ui.item["id"];
           }'
           ),
         ));
       ?>
-      <input type="hidden" id="cod_meta" class="span1">
+     
+
+      
     </div>
   </div>
   <div class="control-group center">
