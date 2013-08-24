@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 // );
 ?>
 
-<h1>Create Requerimiento</h1>
+<h1>Crear Requerimiento</h1><br>
 
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'usuario'=>$usuario,'clasificador'=>$clasificador,'catalogo'=>$catalogo,'meta'=>$meta)); ?>
