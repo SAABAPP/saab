@@ -1,55 +1,28 @@
-<?php
-/* @var $this KardexController */
-/* @var $model Kardex */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDKARDEX'); ?>
-		<?php echo $form->textField($model,'IDKARDEX'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDKARDEX',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'KAR_fechaMovimiento'); ?>
-		<?php echo $form->textField($model,'KAR_fechaMovimiento'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'KAR_fechaMovimiento',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'KAR_detalle'); ?>
-		<?php echo $form->textField($model,'KAR_detalle',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'KAR_detalle',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDENTRADABIEN'); ?>
-		<?php echo $form->textField($model,'IDENTRADABIEN'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDENTRADABIEN',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDENTRADA'); ?>
-		<?php echo $form->textField($model,'IDENTRADA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDENTRADA',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDPECOSABIEN'); ?>
-		<?php echo $form->textField($model,'IDPECOSABIEN'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDPECOSABIEN',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDPECOSA'); ?>
-		<?php echo $form->textField($model,'IDPECOSA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDPECOSA',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

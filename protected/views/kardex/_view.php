@@ -1,12 +1,7 @@
-<?php
-/* @var $this KardexController */
-/* @var $data Kardex */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDKARDEX')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->IDKARDEX), array('view', 'id'=>$data->IDKARDEX)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->IDKARDEX),array('view','id'=>$data->IDKARDEX)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('KAR_fechaMovimiento')); ?>:</b>

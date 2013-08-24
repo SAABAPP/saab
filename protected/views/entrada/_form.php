@@ -1,36 +1,22 @@
-<?php
-/* @var $this EntradaController */
-/* @var $model Entrada */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'entrada-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'ENT_fecha'); ?>
-		<?php echo $form->textField($model,'ENT_fecha'); ?>
-		<?php echo $form->error($model,'ENT_fecha'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'ENT_fecha',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'ENT_tipo'); ?>
-		<?php echo $form->textField($model,'ENT_tipo',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'ENT_tipo'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'ENT_tipo',array('class'=>'span5','maxlength'=>1)); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

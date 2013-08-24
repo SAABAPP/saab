@@ -1,15 +1,12 @@
 <?php
-/* @var $this KardexController */
-/* @var $model Kardex */
-
 $this->breadcrumbs=array(
 	'Kardexes'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Kardex', 'url'=>array('index')),
-	array('label'=>'Manage Kardex', 'url'=>array('admin')),
+	array('label'=>'List Kardex','url'=>array('index')),
+	array('label'=>'Manage Kardex','url'=>array('admin')),
 );
 ?>
 

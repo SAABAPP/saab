@@ -1,45 +1,24 @@
-<?php
-/* @var $this PecosaController */
-/* @var $model Pecosa */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDPECOSA'); ?>
-		<?php echo $form->textField($model,'IDPECOSA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDPECOSA',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'PEC_fecha'); ?>
-		<?php echo $form->textField($model,'PEC_fecha'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PEC_fecha',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'PEC_referencia'); ?>
-		<?php echo $form->textField($model,'PEC_referencia',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PEC_referencia',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDUSUARIO'); ?>
-		<?php echo $form->textField($model,'IDUSUARIO'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDUSUARIO',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDREQUERIMIENTO'); ?>
-		<?php echo $form->textField($model,'IDREQUERIMIENTO'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

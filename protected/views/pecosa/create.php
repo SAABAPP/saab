@@ -1,15 +1,12 @@
 <?php
-/* @var $this PecosaController */
-/* @var $model Pecosa */
-
 $this->breadcrumbs=array(
 	'Pecosas'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Pecosa', 'url'=>array('index')),
-	array('label'=>'Manage Pecosa', 'url'=>array('admin')),
+	array('label'=>'List Pecosa','url'=>array('index')),
+	array('label'=>'Manage Pecosa','url'=>array('admin')),
 );
 ?>
 

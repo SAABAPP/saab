@@ -1,35 +1,20 @@
-<?php
-/* @var $this EntradaController */
-/* @var $model Entrada */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDENTRADA'); ?>
-		<?php echo $form->textField($model,'IDENTRADA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDENTRADA',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'ENT_fecha'); ?>
-		<?php echo $form->textField($model,'ENT_fecha'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'ENT_fecha',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'ENT_tipo'); ?>
-		<?php echo $form->textField($model,'ENT_tipo',array('size'=>1,'maxlength'=>1)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'ENT_tipo',array('class'=>'span5','maxlength'=>1)); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
