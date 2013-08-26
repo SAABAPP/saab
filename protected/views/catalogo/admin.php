@@ -48,6 +48,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'CAT_unidad',
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{update}{add}{view}',
 		),
 	),
 )); ?>

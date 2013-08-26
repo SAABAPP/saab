@@ -1,20 +1,25 @@
 <?php
-/* @var $this BienController */
-/* @var $dataProvider CActiveDataProvider */
+// $this->breadcrumbs=array(
+// 	'Requerimientos',
+// );
 
-$this->breadcrumbs=array(
-	'Biens',
-);
+// $this->menu=array(
+// 	array('label'=>'Create Requerimiento','url'=>array('create'),'itemOptions'=>array('class'=>'btn btn-large btn-primary')),
+// 	array('label'=>'Manage Requerimiento','url'=>array('admin'),'itemOptions'=>array('class'=>'btn btn-large btn-primary')),
+// );
 
-$this->menu=array(
-	array('label'=>'Create Bien', 'url'=>array('create')),
-	array('label'=>'Manage Bien', 'url'=>array('admin')),
-);
+
 ?>
 
-<h1>Biens</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+
+<?php 
+	// $this->widget('bootstrap.widgets.TbListView',array(
+	// 	'dataProvider'=>$dataProvider,
+	// 	'itemView'=>'_view',
+	// ));
+ ?>
+
+<?php
+	header('Location:'.Yii::app()->request->baseUrl.'/bien/admin.html');
+?>
