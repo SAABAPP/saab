@@ -151,7 +151,11 @@ class RequerimientoController extends Controller
 		else{
 			//Requerimiento::validacion();
 			// $this->addError('Bien', 'Debe ingresar algun bien');
+<<<<<<< HEAD
 			//echo CActiveForm::validate($col);
+=======
+			// echo CActiveForm::validate($col);
+>>>>>>> origin/saabDavid
 			//echo '<script>alert("debe ingresar algun bien")</script>';
 
 		}
