@@ -10,12 +10,8 @@ $this->breadcrumbs=array(
 // );
 ?>
 
-<<<<<<< HEAD
-<h1>Crear Requerimiento</h1><br>
 
-=======
 <h2 class="center">Hoja de Requerimiento</h1>
 <br>
->>>>>>> origin/saabDavid
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'usuario'=>$usuario,'clasificador'=>$clasificador,'catalogo'=>$catalogo,'meta'=>$meta)); ?>
