@@ -9,10 +9,10 @@ class RequerimientoController extends Controller
 	 */
 	public $layout='//layouts/column2';
 	public $columnas=array();
-	
 
-	
-	
+
+
+
 	/**
 	 * @return array action filters
 	 */
@@ -93,7 +93,7 @@ class RequerimientoController extends Controller
 	public function actionCreate()
 	{
 		Yii::app()->setGlobalState('site_id', 0);
-		
+
 
 
 		$model=new Requerimiento;
@@ -128,8 +128,8 @@ class RequerimientoController extends Controller
 
 				//$model->IDUSUARIO=Yii::app()->user->getState('idusuario');
 				if($model->save()){
-					
-				    
+
+
 				      for($x=0;$x<count($col); $x++){
 				        $requerimiento_bien= new RequerimientoBien; 
 				        if(!empty($col[$x][0])){
@@ -140,12 +140,12 @@ class RequerimientoController extends Controller
 	                            throw new Exception("Error al guardar items");
 	                        }
 				        }
-				          
+
 				      }
 					Yii::app()->clearGlobalState('arrays');
 					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
 				}
-					
+
 			}
 		}
 		else{
@@ -153,11 +153,11 @@ class RequerimientoController extends Controller
 			// $this->addError('Bien', 'Debe ingresar algun bien');
 			//echo CActiveForm::validate($col);
 			//echo '<script>alert("debe ingresar algun bien")</script>';
-			
-		}
-			
 
-		
+		}
+
+
+
 
 		$this->render('create',array(
 			'model'=>$model,

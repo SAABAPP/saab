@@ -7,6 +7,7 @@ class CotizacionController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public $columnas=array();
 
 	/**
 	 * @return array action filters
@@ -33,6 +34,10 @@ class CotizacionController extends Controller
 			array('allow',
 				'actions'=>array('index','admin','create','view','update'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+			),
+			array('allow', 
+				'actions'=>array('buscaProveedor','addCotizacion','details'),
+				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
 			// 	'actions'=>array('delete'),
@@ -77,8 +82,10 @@ class CotizacionController extends Controller
 
         switch ($cotizado['cont']) {
             case 0:
+            	Yii::app()->setGlobalState('cotizacion_id', 0);
 	            $model=new Cotizacion;
-	            $requerimiento=Requerimiento::model()->findByPk($id);		
+	            $requerimiento=Requerimiento::model()->findByPk($id);
+	            $proveedor=new Proveedor('search');
 
 				// Uncomment the following line if AJAX validation is needed
 				// $this->performAjaxValidation($model);
@@ -93,7 +100,9 @@ class CotizacionController extends Controller
 	            $this->render('create',array(
 	            	'model'=>$model,
 	            	'requerimiento'=>$requerimiento,
-	            	));
+	            	'proveedor'=>$proveedor,
+	            	)
+	            );
                 break;
             default:
                 throw new CHttpException(403,'No se puede acceder a la pagina.');
@@ -184,6 +193,66 @@ class CotizacionController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+
+	public function actionBuscaProveedor() {
+		$q=trim($_GET['term']);
+
+		if (isset($q)) {
+			$condicion = new CDbCriteria;
+			$condicion->condition = "PRO_razonSocial LIKE '%". $q ."%' order by PRO_razonSocial";
+			$condicion->limit = 10; ; 
+			$proveedor=  Proveedor::model()->findAll($condicion);
+
+			if (!empty($proveedor)) {
+				$returnVal = '';
+				$salida = array();
+				foreach ($proveedor as $p) {
+					$salida[] = array(
+						'label'=>$p->PRO_razonSocial,
+						'razonSocial' => $p->PRO_razonSocial,  
+						'ruc' => $p->PRO_ruc,
+                     	'idProveedor' => $p->IDPROVEEDOR, // return value from autocomplete
+                     );
+				}
+				echo CJSON::encode($salida);
+				Yii::app()->end();
+			}
+		}
+   	}
+
+   	public function actionAddCotizacion() {
+   		try {
+   			$idProveedor= $_POST['idProveedor'];
+   			$ruc= $_POST['ruc'];
+   			$monto= $_POST['monto'];
+			$i=Yii::app()->getGlobalState('cotizacion_id'); //obtiene el valor de una variable global
+
+			if($i==0){
+
+				$this->columnas[$i][0]=$idProveedor;
+				$this->columnas[$i][1]=$ruc;
+				$this->columnas[$i][2]=$monto;
+				Yii::app()->setGlobalState('arrays', $this->columnas);
+			}else{
+				$this->columnas=Yii::app()->getGlobalState('arrays');
+				$this->columnas[$i][0]=$idProveedor;
+				$this->columnas[$i][1]=$ruc;
+				$this->columnas[$i][2]=$monto;
+				Yii::app()->setGlobalState('arrays', $this->columnas);
+			}
+
+			++$i;
+			Yii::app()->setGlobalState('cotizacion_id', $i);
+			$this->actionDetails();
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+
+
+    public function actionDetails() {
+        $this->renderPartial('_details');
+    }
 
 	/**
 	 * Performs the AJAX validation.
