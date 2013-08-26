@@ -1,12 +1,7 @@
-<?php
-/* @var $this BienController */
-/* @var $data Bien */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDBIEN')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->IDBIEN), array('view', 'id'=>$data->IDBIEN)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->IDBIEN),array('view','id'=>$data->IDBIEN)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('BIE_stockActual')); ?>:</b>

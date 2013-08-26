@@ -1,54 +1,28 @@
-<?php
-/* @var $this BienController */
-/* @var $model Bien */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'bien-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'BIE_stockActual'); ?>
-		<?php echo $form->textField($model,'BIE_stockActual'); ?>
-		<?php echo $form->error($model,'BIE_stockActual'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_stockActual',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'BIE_stockMinimo'); ?>
-		<?php echo $form->textField($model,'BIE_stockMinimo'); ?>
-		<?php echo $form->error($model,'BIE_stockMinimo'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_stockMinimo',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'BIE_caracteristica'); ?>
-		<?php echo $form->textField($model,'BIE_caracteristica',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'BIE_caracteristica'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_caracteristica',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'BIE_marca'); ?>
-		<?php echo $form->textField($model,'BIE_marca',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'BIE_marca'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_marca',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'IDCATALOGO'); ?>
-		<?php echo $form->textField($model,'IDCATALOGO'); ?>
-		<?php echo $form->error($model,'IDCATALOGO'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDCATALOGO',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

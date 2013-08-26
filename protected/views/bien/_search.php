@@ -1,50 +1,26 @@
-<?php
-/* @var $this BienController */
-/* @var $model Bien */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDBIEN'); ?>
-		<?php echo $form->textField($model,'IDBIEN'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDBIEN',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'BIE_stockActual'); ?>
-		<?php echo $form->textField($model,'BIE_stockActual'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_stockActual',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'BIE_stockMinimo'); ?>
-		<?php echo $form->textField($model,'BIE_stockMinimo'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_stockMinimo',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'BIE_caracteristica'); ?>
-		<?php echo $form->textField($model,'BIE_caracteristica',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_caracteristica',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'BIE_marca'); ?>
-		<?php echo $form->textField($model,'BIE_marca',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'BIE_marca',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDCATALOGO'); ?>
-		<?php echo $form->textField($model,'IDCATALOGO'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDCATALOGO',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
