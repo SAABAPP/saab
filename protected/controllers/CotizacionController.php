@@ -82,7 +82,7 @@ class CotizacionController extends Controller
 
         switch ($cotizado['cont']) {
             case 0:
-            	Yii::app()->setGlobalState('site_id', 0);
+            	Yii::app()->setGlobalState('cotizacion_id', 0);
 	            $model=new Cotizacion;
 	            $requerimiento=Requerimiento::model()->findByPk($id);
 	            $proveedor=new Proveedor('search');
@@ -225,7 +225,7 @@ class CotizacionController extends Controller
    			$idProveedor= $_POST['idProveedor'];
    			$ruc= $_POST['ruc'];
    			$monto= $_POST['monto'];
-			$i=Yii::app()->getGlobalState('site_id'); //obtiene el valor de una variable global
+			$i=Yii::app()->getGlobalState('cotizacion_id'); //obtiene el valor de una variable global
 
 			if($i==0){
 
@@ -242,7 +242,7 @@ class CotizacionController extends Controller
 			}
 
 			++$i;
-			Yii::app()->setGlobalState('site_id', $i);
+			Yii::app()->setGlobalState('cotizacion_id', $i);
 			$this->actionDetails();
 		} catch (Exception $ex) {
 			throw $ex;
