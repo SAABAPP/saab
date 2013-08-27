@@ -34,7 +34,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     </div>
 
 
-    <?php echo $form->hiddenField($model,'REQ_presupuesto',array('class'=>'span5')); ?>
+    <?php echo $form->hiddenField($model,'REQ_presupuesto',array('class'=>'span5','value'=>'0')); ?>
 
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
 

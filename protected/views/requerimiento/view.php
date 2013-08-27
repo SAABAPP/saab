@@ -5,6 +5,23 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<?php 
+  // $usuario = Yii::app()->user->getState('idusuario');
+  // $requerimiento= new Requerimiento();
+  // $requerimiento = Requerimiento::model()->findAll($usuario);
+
+
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+  'id'=>'requerimiento-form',
+  'enableAjaxValidation'=>false,
+  // 'enableClientValidation'=>false,
+  // 'clientOptions'=>array(
+  //     'validateOnSubmit'=>true,
+  //   )
+  )); ?>
+
+<?php echo $form->errorSummary($model); ?>
+
 <h2 class ="center">Hoja de Requerimiento</h2>
 <h3 class="center">N° <?php echo $model->IDREQUERIMIENTO; ?></h3>
 <br>
@@ -113,19 +130,23 @@ $this->breadcrumbs=array(
             echo "<div class=\"control-group\">
             <label for=\"presupuesto\" class=\"control-label\">Presupuesto:</label>
             <div class=\"controls\">
-              <input type=\"text\" id=\"presupuesto\" placeholder=\"El presupuesto es...\">
+              ".$form->textField($model,'REQ_presupuesto',array('class'=>'span3','placeholder'=>'ingresar un presupuesto..'))."
             </div>
           </div>";
+
           }
           ?>
           <?php
           if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
           {
             echo "<div class=\"control-group center\">
-            <div class=\"controls\">
-              <button class=\"btn inline\" type=\"\" onClick=\"print();\" >Guardar</button>
-            </div>
-          </div>";
+            <div class=\"controls\">";
+            $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType'=>'submit',
+            'type'=>'primary',
+            'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
+            )); 
+            echo "</div></div>";
           }else{
             echo "<div class=\"control-group center\">
             <div class=\"controls\">
@@ -138,4 +159,4 @@ $this->breadcrumbs=array(
         <!-- Form of previsualization of requirement ends -->
       </div>
 </div>
-
+<?php $this->endWidget(); ?>

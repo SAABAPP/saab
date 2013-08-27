@@ -75,6 +75,12 @@ class RequerimientoController extends Controller
         $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
 
         $dataProvider = $requerimiento_bien->search();
+        if(isset($_POST['Requerimiento']))
+		{
+			$model->attributes=$_POST['Requerimiento'];
+			if($model->save())
+				$this->redirect(array('admin'));
+		}
         
         if ($usuario->IDUSUARIO==1 || $model->IDUSUARIO == $usuario->IDUSUARIO) {
         	$this->render('view',array(
