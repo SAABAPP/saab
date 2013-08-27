@@ -150,6 +150,10 @@ textarea{
 	background-image: url(images/ui-icons_222222_256x240.png);
 }
 
+div .pagination{
+	text-align: center;
+}
+
 /* Responsive */
 
 @media (min-width: 768px) and (max-width: 790px){

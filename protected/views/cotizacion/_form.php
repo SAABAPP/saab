@@ -82,7 +82,7 @@
 		        				'success' => "function(data) {
 		        					// $('#cantidadBien').val('');
 		        					// $('#catalogoBien').val('');
-		        					$('#order-detail-div').html(data);                                
+		        					$('#detalleCotizacion').html(data);                                
 		        				}"
 		        				),
 
@@ -97,7 +97,7 @@
 		<br/>
 
 <?php
-echo "<div id='order-detail-div'>";
+echo "<div id='detalleCotizacion'>";
 $this->actionDetails();
 echo "</div>";
 ?>

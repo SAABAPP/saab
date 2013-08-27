@@ -1,9 +1,11 @@
-<?php 
+<?php
+error_reporting(E_ALL ^ E_NOTICE);
 $col=Yii::app()->getGlobalState('arrays');
 $columns=array();
 for($x=0;$x<count($col); $x++){
-  if(!empty($col[$x][0]))
+  if(!empty($col[$x][0])){
     array_push($columns,array('idProveedor'=>$col[$x][0], 'ruc'=>$col[$x][1], 'monto'=>$col[$x][2]));
+  }
 }
 $gridDataProvider = new CArrayDataProvider($columns);
 
@@ -13,7 +15,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
   'type'=>'bordered hover',
   'template'=>"{items}",
   'columns'=>array(
-    // array('name'=>'idProveedor', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:44px')),
+    array('name'=>'idProveedor', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:44px')),
     array('name'=>'ruc', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:240px')),
     array('name'=>'monto', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:197px')),
     // array('name'=>'unidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:204px')),
@@ -44,6 +46,18 @@ $this->widget('bootstrap.widgets.TbGridView',array(
       ),
     ),
 ));
+
+// $this->widget('bootstrap.widgets.TbGridView', array(
+//   'id'=>'requerimiento-grid',
+//   'dataProvider'=>$gridDataProvider,
+//   'type'=>'bordered hover',
+//   'template'=>"{items}",
+//   'columns' => array(
+//     'idProveedor',
+//     'monto',
+//     'ruc',
+//     ),
+// ));
 
 
 Yii::app()->clientScript->registerScript('maintainer', "

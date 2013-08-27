@@ -7,7 +7,7 @@ class CotizacionController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $columnas=array();
+	public $cotizaciones=array();
 
 	/**
 	 * @return array action filters
@@ -97,7 +97,8 @@ class CotizacionController extends Controller
 
         switch ($cotizado['cont']) {
             case 0:
-            	Yii::app()->setGlobalState('cotizacion_id', 0);
+            	Yii::app()->setGlobalState('indiceCotizacion', 0);
+            	Yii::app()->clearGlobalState('arrays');
 	            $model=new Cotizacion;
 	            $requerimiento=Requerimiento::model()->findByPk($id);
 	            $proveedor=new Proveedor('search');
@@ -240,24 +241,24 @@ class CotizacionController extends Controller
    			$idProveedor= $_POST['idProveedor'];
    			$ruc= $_POST['ruc'];
    			$monto= $_POST['monto'];
-			$i=Yii::app()->getGlobalState('cotizacion_id'); //obtiene el valor de una variable global
+			$i=Yii::app()->getGlobalState('indiceCotizacion'); //obtiene el valor de una variable global
 
 			if($i==0){
 
-				$this->columnas[$i][0]=$idProveedor;
-				$this->columnas[$i][1]=$ruc;
-				$this->columnas[$i][2]=$monto;
-				Yii::app()->setGlobalState('arrays', $this->columnas);
+				$this->cotizaciones[$i][0]=$idProveedor;
+				$this->cotizaciones[$i][1]=$ruc;
+				$this->cotizaciones[$i][2]=$monto;
+				Yii::app()->setGlobalState('arrays', $this->cotizaciones);
 			}else{
-				$this->columnas=Yii::app()->getGlobalState('arrays');
-				$this->columnas[$i][0]=$idProveedor;
-				$this->columnas[$i][1]=$ruc;
-				$this->columnas[$i][2]=$monto;
-				Yii::app()->setGlobalState('arrays', $this->columnas);
+				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+				$this->cotizaciones[$i][0]=$idProveedor;
+				$this->cotizaciones[$i][1]=$ruc;
+				$this->cotizaciones[$i][2]=$monto;
+				Yii::app()->setGlobalState('arrays', $this->cotizaciones);
 			}
 
 			++$i;
-			Yii::app()->setGlobalState('cotizacion_id', $i);
+			Yii::app()->setGlobalState('indiceCotizacion', $i);
 			$this->actionDetails();
 		} catch (Exception $ex) {
 			throw $ex;
