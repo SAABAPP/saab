@@ -1,1 +1,1 @@
-a:4:{s:34:"Yii.CSecurityManager.validationkey";s:32:"1fdeb9a02e1e9934227008c06a6ba706";s:7:"site_id";i:0;s:10:"idcatalogo";s:9:"211010105";s:14:"idclasificador";s:9:"231050102";}
+a:6:{s:34:"Yii.CSecurityManager.validationkey";s:32:"1fdeb9a02e1e9934227008c06a6ba706";s:7:"site_id";i:0;s:10:"idcatalogo";s:9:"211010105";s:14:"idclasificador";s:9:"231050102";s:13:"cotizacion_id";i:1;s:6:"arrays";a:1:{i:0;a:3:{i:0;s:1:"2";i:1;s:8:"18064532";i:2;s:3:"123";}}}
