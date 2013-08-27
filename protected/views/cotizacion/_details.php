@@ -1,126 +1,76 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 $col=Yii::app()->getGlobalState('arrays');
-$columns=array();
+$columasCotizacion=array();
+$columnas=array();
+$i=0;
+
 for($x=0;$x<count($col); $x++){
   if(!empty($col[$x][0])){
-    array_push($columns,array('idProveedor'=>$col[$x][0], 'ruc'=>$col[$x][1], 'monto'=>$col[$x][2]));
+    array_push($columasCotizacion,array('idProveedor'=>$col[$x][0], 'ruc'=>$col[$x][1], 'monto'=>$col[$x][2], 'razonSocial'=>$col[$x][3]));
   }
 }
-$gridDataProvider = new CArrayDataProvider($columns);
+
+$gridDataProvider = new CArrayDataProvider($columasCotizacion);
+
+array_push($columnas, array(
+  'header' => 'N°',
+  'value' => function($data) use(&$i){
+    return ++$i;
+  },
+));
+
+array_push($columnas, array(
+  'header' => 'Razón Social',
+  'value'=>'$data[razonSocial]',
+  )
+);
+
+array_push($columnas, array(
+  'header' => 'Monto',
+  'value'=>'$data[monto]',
+  )
+);
+
+array_push($columnas, array(
+  'class'=>'CButtonColumn',
+  'header' => 'Opciones',
+  'headerHtmlOptions'=>array('style'=>'width:1em'),
+  'template' => '{remover}',                
+  'buttons' => array(
+    'remover'=>array(
+      'title' => 'Aumentar artículo',
+      'label'=>'<i class="icon-trash"></i>',
+      'click'=>'js:remover',
+      ),
+
+    ),
+));
 
 $this->widget('bootstrap.widgets.TbGridView',array(
   'id'=>'cotizacion-grid',
   'dataProvider'=>$gridDataProvider,
   'type'=>'bordered hover',
   'template'=>"{items}",
-  'columns'=>array(
-    array('name'=>'idProveedor', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:44px')),
-    array('name'=>'ruc', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:240px')),
-    array('name'=>'monto', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:197px')),
-    // array('name'=>'unidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:204px')),
-    // array('name'=>'cantidad', 'header'=>false,'headerHtmlOptions'=>array('style'=>'display:none'),'htmlOptions'=>array('style' => 'width:86px')),
-    array(
-      'class'=>'CButtonColumn',
-      'header' => false,
-      'headerHtmlOptions'=>array('style'=>'display:none'),
-      'template' => '{aumentar}{disminuir}{remover}',                
-      'buttons' => array(
-        'aumentar'=>array(
-          'title' => 'Aumentar artículo',
-          'label'=>'<i class="icon-plus"></i>',
-          'click'=>'js:aumentar',
-          ),
-        'disminuir'=>array(
-          'title' => 'Aumentar artículo',
-          'label'=>'&nbsp;&nbsp;<i class="icon-minus"></i>',
-          'click'=>'js:disminuir',
-          ),
-        'remover'=>array(
-          'title' => 'Aumentar artículo',
-          'label'=>'&nbsp;&nbsp;<i class="icon-trash"></i>',
-          'click'=>'js:remover',
-          ),
-
-        ),
-      ),
-    ),
+  'columns'=>$columnas,
 ));
 
-// $this->widget('bootstrap.widgets.TbGridView', array(
-//   'id'=>'requerimiento-grid',
-//   'dataProvider'=>$gridDataProvider,
-//   'type'=>'bordered hover',
-//   'template'=>"{items}",
-//   'columns' => array(
-//     'idProveedor',
-//     'monto',
-//     'ruc',
-//     ),
-// ));
-
-
 Yii::app()->clientScript->registerScript('maintainer', "
-  function aumentar(){
-
+  function remover(){
     $.ajax({
       type: 'post',
-      url: '/saab/requerimiento/aumentarItem',
+      url: '/saab/cotizacion/removeCotizacion',
       data: {                
-        idbien: $(this).parent().parent().find('td')[0].innerHTML 
+        fila: $(this).parent().parent().find('td')[0].innerHTML 
       },
       error:function(req, status, error) {
         alert(req.responseText);
       },
-      success: function (data) {
+      success: function (data) {                
         $('#order-detail-div').html(data);         
       }
     })  
-
 return false;
-
 };
-
-function disminuir(){
-
-  $.ajax({
-    type: 'post',
-    url: '/saab/requerimiento/disminuirItem',
-    data: {                
-      idbien: $(this).parent().parent().find('td')[0].innerHTML 
-    },
-    error:function(req, status, error) {
-      alert(req.responseText);
-    },
-    success: function (data) {
-      $('#order-detail-div').html(data);         
-    }
-  })  
-
-return false;
-
-};
-function remover(){
-
-  $.ajax({
-    type: 'post',
-    url: '/saab/requerimiento/removeItem',
-    data: {                
-      idbien: $(this).parent().parent().find('td')[0].innerHTML 
-    },
-    error:function(req, status, error) {
-      alert(req.responseText);
-    },
-    success: function (data) {                
-      $('#order-detail-div').html(data);         
-    }
-  })  
-
-return false;
-
-};
-
 ");
-
-
 ?>

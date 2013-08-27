@@ -42,13 +42,15 @@
                                                             //$("#loading").html("");
 									}',
 									'select' => 'js:function(event, ui){
+										jQuery("#razonSocial").val(ui.item["razonSocial"]);
 										jQuery("#ruc").val(ui.item["ruc"]);
 										jQuery("#idProveedor").val(ui.item["idProveedor"]);  
 									}'
 								),
 							));
 							?>
-							<input id="idProveedor" type="hidden"> 
+							<input id="idProveedor" type="hidden">
+							<input id="razonSocial" type="hidden">
 						</div>
 					</td>
 			        <td class="span2">
@@ -75,13 +77,15 @@
 		        					'idProveedor' => "js: $('#idProveedor').val()",
 		        					'ruc' => "js: $('#ruc').val()",
 		        					'monto' => "js: $('#monto').val()",
+		        					'razonSocial' => "js: $('#razonSocial').val()",
 		        					),
 		        				'error' => "function(req, status, error) {
 		        					alert(req.responseText);
 		        				}",
 		        				'success' => "function(data) {
-		        					// $('#cantidadBien').val('');
-		        					// $('#catalogoBien').val('');
+		        					$('#proveedor').val('');
+		        					$('#ruc').val('');
+		        					$('#monto').val('');
 		        					$('#detalleCotizacion').html(data);                                
 		        				}"
 		        				),

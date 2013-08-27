@@ -119,11 +119,10 @@ class Requerimiento extends CActiveRecord
 			'criteria'=>$criteria,
 			'sort'=>array(
 			    'defaultOrder'=>'IDREQUERIMIENTO DESC',
-			  )
+			  ),
+			'pagination'=>array(
+				'pageSize'=>15
+				),
 		));
-	}
-	public function crearTexto(){
-		return "<form><input type=\"text\" value=\"\"></form>";
-		// ".$data->RBI_cantidad."
 	}
 }

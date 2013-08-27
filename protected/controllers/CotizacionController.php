@@ -1,5 +1,6 @@
 <?php
 
+error_reporting(E_ALL ^ E_NOTICE);
 class CotizacionController extends Controller
 {
 	/**
@@ -36,7 +37,7 @@ class CotizacionController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaProveedor','addCotizacion','details'),
+				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -241,6 +242,7 @@ class CotizacionController extends Controller
    			$idProveedor= $_POST['idProveedor'];
    			$ruc= $_POST['ruc'];
    			$monto= $_POST['monto'];
+   			$razonSocial= $_POST['razonSocial'];
 			$i=Yii::app()->getGlobalState('indiceCotizacion'); //obtiene el valor de una variable global
 
 			if($i==0){
@@ -248,12 +250,14 @@ class CotizacionController extends Controller
 				$this->cotizaciones[$i][0]=$idProveedor;
 				$this->cotizaciones[$i][1]=$ruc;
 				$this->cotizaciones[$i][2]=$monto;
+				$this->cotizaciones[$i][3]=$razonSocial;
 				Yii::app()->setGlobalState('arrays', $this->cotizaciones);
 			}else{
 				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
 				$this->cotizaciones[$i][0]=$idProveedor;
 				$this->cotizaciones[$i][1]=$ruc;
 				$this->cotizaciones[$i][2]=$monto;
+				$this->cotizaciones[$i][3]=$razonSocial;
 				Yii::app()->setGlobalState('arrays', $this->cotizaciones);
 			}
 
@@ -269,6 +273,27 @@ class CotizacionController extends Controller
     public function actionDetails() {
         $this->renderPartial('_details');
     }
+
+    public function actionRemoveCotizacion() {
+    	$id= $_POST['fila'];
+        $this->cotizaciones=Yii::app()->getGlobalState('arrays');
+        unset($this->cotizaciones[$id][0]);
+        unset($this->cotizaciones[$id][1]);
+        unset($this->cotizaciones[$id][2]);
+        unset($this->cotizaciones[$id][3]);
+        $this->cotizaciones = array_values($this->cotizaciones);
+        Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+        $this->actionDetails();
+    }
+
+    // public function busqueda($id){
+    // 	$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+    // 	for($i=0;$i<count($this->cotizaciones); $i++){
+    // 		if(stristr($this->cotizaciones[$i][0],$id))    			
+    // 			break;
+    // 	}
+    // 	return $i;
+    // }
 
 	/**
 	 * Performs the AJAX validation.
