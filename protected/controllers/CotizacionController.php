@@ -100,6 +100,7 @@ class CotizacionController extends Controller
             case 0:
             	Yii::app()->setGlobalState('indiceCotizacion', 0);
             	Yii::app()->clearGlobalState('arrays');
+            	Yii::app()->clearGlobalState('cantidadCotizaciones');
 	            $model=new Cotizacion;
 	            $requerimiento=Requerimiento::model()->findByPk($id);
 	            $proveedor=new Proveedor('search');
@@ -238,35 +239,45 @@ class CotizacionController extends Controller
    	}
 
    	public function actionAddCotizacion() {
-   		try {
-   			$idProveedor= $_POST['idProveedor'];
-   			$ruc= $_POST['ruc'];
-   			$monto= $_POST['monto'];
-   			$razonSocial= $_POST['razonSocial'];
-			$i=Yii::app()->getGlobalState('indiceCotizacion'); //obtiene el valor de una variable global
+   		$cantidad=Yii::app()->getGlobalState('cantidadCotizaciones');
+   		if ($cantidad<3) {
+   			try {
+   				$idProveedor= $_POST['idProveedor'];
+   				$ruc= $_POST['ruc'];
+   				$monto= $_POST['monto'];
+   				$razonSocial= $_POST['razonSocial'];
+   				$i=Yii::app()->getGlobalState('indiceCotizacion');
 
-			if($i==0){
+   				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
 
-				$this->cotizaciones[$i][0]=$idProveedor;
-				$this->cotizaciones[$i][1]=$ruc;
-				$this->cotizaciones[$i][2]=$monto;
-				$this->cotizaciones[$i][3]=$razonSocial;
-				Yii::app()->setGlobalState('arrays', $this->cotizaciones);
-			}else{
-				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
-				$this->cotizaciones[$i][0]=$idProveedor;
-				$this->cotizaciones[$i][1]=$ruc;
-				$this->cotizaciones[$i][2]=$monto;
-				$this->cotizaciones[$i][3]=$razonSocial;
-				Yii::app()->setGlobalState('arrays', $this->cotizaciones);
-			}
+   				if($i==0){
+   					$this->cotizaciones[$i][0]=$idProveedor;
+   					$this->cotizaciones[$i][1]=$ruc;
+   					$this->cotizaciones[$i][2]=$monto;
+   					$this->cotizaciones[$i][3]=$razonSocial;
+   					Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+   				}else{
+   					$this->cotizaciones[$i][0]=$idProveedor;
+   					$this->cotizaciones[$i][1]=$ruc;
+   					$this->cotizaciones[$i][2]=$monto;
+   					$this->cotizaciones[$i][3]=$razonSocial;
+   					Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+   				}
 
-			++$i;
-			Yii::app()->setGlobalState('indiceCotizacion', $i);
-			$this->actionDetails();
-		} catch (Exception $ex) {
-			throw $ex;
-		}
+   				++$i;
+   				Yii::app()->setGlobalState('cantidadCotizaciones', ++$cantidad);
+   				Yii::app()->setGlobalState('indiceCotizacion', $i);
+   				$this->actionDetails();
+   				// echo "<script>alert('".Yii::app()->getGlobalState('cantidadCotizaciones')."');</script>";
+   			} catch (Exception $ex) {
+   				throw $ex;
+   			}
+   		} else {
+   			echo "<script>alert('No se pueden agregar mas de 3 cotizaciones');</script>";
+   			$this->actionDetails();
+   		}
+   		
+   		
 	}
 
 
@@ -275,25 +286,29 @@ class CotizacionController extends Controller
     }
 
     public function actionRemoveCotizacion() {
-    	$id= $_POST['fila'];
-        $this->cotizaciones=Yii::app()->getGlobalState('arrays');
-        unset($this->cotizaciones[$id][0]);
-        unset($this->cotizaciones[$id][1]);
-        unset($this->cotizaciones[$id][2]);
-        unset($this->cotizaciones[$id][3]);
+    	$ruc= $_POST['ruc'];
+    	$fila=-1;
+    	$fila=$this->busqueda($ruc);
+		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+		$cantidad=Yii::app()->getGlobalState('cantidadCotizaciones');
+        unset($this->cotizaciones[$fila][0]);
+        unset($this->cotizaciones[$fila][1]);
+        unset($this->cotizaciones[$fila][2]);
+        unset($this->cotizaciones[$fila][3]);
         $this->cotizaciones = array_values($this->cotizaciones);
         Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+		Yii::app()->setGlobalState('cantidadCotizaciones', --$cantidad);
         $this->actionDetails();
     }
 
-    // public function busqueda($id){
-    // 	$this->cotizaciones=Yii::app()->getGlobalState('arrays');
-    // 	for($i=0;$i<count($this->cotizaciones); $i++){
-    // 		if(stristr($this->cotizaciones[$i][0],$id))    			
-    // 			break;
-    // 	}
-    // 	return $i;
-    // }
+    public function busqueda($ruc){
+    	$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+    	for($i=0;$i<count($this->cotizaciones); $i++){
+    		if(stristr($this->cotizaciones[$i][1],$ruc))    			
+    			break;
+    	}
+    	return $i;
+    }
 
 	/**
 	 * Performs the AJAX validation.

@@ -27,6 +27,12 @@ array_push($columnas, array(
 );
 
 array_push($columnas, array(
+  'header' => 'R.U.C.',
+  'value'=>'$data[ruc]',
+  )
+);
+
+array_push($columnas, array(
   'header' => 'Monto',
   'value'=>'$data[monto]',
   )
@@ -61,13 +67,13 @@ Yii::app()->clientScript->registerScript('maintainer', "
       type: 'post',
       url: '/saab/cotizacion/removeCotizacion',
       data: {                
-        fila: $(this).parent().parent().find('td')[0].innerHTML 
+        ruc: $(this).parent().parent().find('td')[2].innerHTML 
       },
       error:function(req, status, error) {
         alert(req.responseText);
       },
       success: function (data) {                
-        $('#order-detail-div').html(data);         
+        $('#detalleCotizacion').html(data);         
       }
     })  
 return false;
