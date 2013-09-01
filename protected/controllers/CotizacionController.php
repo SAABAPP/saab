@@ -56,15 +56,30 @@ class CotizacionController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id));
-		$cotizacion=new Cotizacion();
-		$cotizacion->unsetAttributes();
-		$cotizacion->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
-		$dataProvider=$cotizacion->search();
-		$this->render('view',array(
-			'model'=>$model,
-			'dataProvider'=>$dataProvider,
-		));
+		$cotizado= Yii::app()->db->createCommand()
+	        ->select('count(*) as cont')
+	        ->from('cotizacion C')
+	        ->join('requerimiento R', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
+	        ->where('R.IDREQUERIMIENTO=:id', array(':id'=>$id))
+	        ->queryRow();
+
+        switch ($cotizado['cont']) {
+	        case 0:
+	       		throw new CHttpException(403,'El requerimiento no tiene cotizaciones.');
+        		break;
+        	default:
+	        	$model=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id));
+	        	$cotizacion=new Cotizacion();
+	        	$cotizacion->unsetAttributes();
+	        	$cotizacion->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+	        	$dataProvider=$cotizacion->search();
+	        	$this->render('view',array(
+	        		'model'=>$model,
+	        		'dataProvider'=>$dataProvider,
+	        		)
+	        	);
+	        	break;
+        }
 	}
 
 	/**

@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 // );
 ?>
 
-
 <h2 class="center">Hoja de Requerimiento</h1>
 <br>
 

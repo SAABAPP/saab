@@ -175,7 +175,6 @@ class RequerimientoController extends Controller
 		}
 		else{
 			Yii::app()->user->setFlash("bienes","Debe ingresar algun bien");
-
 		}
 
 
