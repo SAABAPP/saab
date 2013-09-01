@@ -6,6 +6,6 @@ $("#help").mouseout(function(event){
    $("#badge-help").removeClass("badge-info");
 });
 
-$('#showsd').click(function() {
-  $('#sd').show('slow');
-});
+// $('#showsd').click(function() {
+//   $('#bienes').show('slow');
+// });

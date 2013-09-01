@@ -8,9 +8,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php echo $form->textFieldRow($model,'COT_buenaPro',array('class'=>'span5')); ?>
+<?php //echo $form->textFieldRow($model,'COT_buenaPro',array('class'=>'span5')); ?>
 
-<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',array('class'=>'span5')); ?>
+<?php //echo $form->textFieldRow($model,'IDREQUERIMIENTO',array('class'=>'span5')); ?>
 
 <div class="control-group">
 	<table class="table tableAdd table-bordered">
@@ -19,7 +19,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 				<th style="width:1em;">N°</th>
 				<th style="width:30em;">Razón Social</th>
 				<th style="width:7em;">R.U.C.</th>
-				<th style="width:4em;">Monto</th>
+				<th style="width:6em;">Monto</th>
 				<th class="button-column" style="width:4em;">Añadir</th>
 			</tr>
 		</thead>
@@ -62,7 +62,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 		        	<input style="width:7em;" name="" id="ruc"  type="text" disabled>
 		        </td>
 		        <td>
-		        	<input style="width:4em;" name="" id="monto" type="text" pattern="[0-9]{1,6}">
+		        	<input style="width:6em;" name="" id="monto" type="text" pattern="[0-9]+(\.[0-9]{1,4}?)?">
 		        </td>
     			<td>
     				<?php 
@@ -70,7 +70,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     				echo CHtml::link("<i class='icon-plus'></i>",
     					array('addCotizacion'),
     					array(
-    						'disabled' => 'true',
+    						// 'disabled' => 'true',
     						'id' => 'btnAdd',
     						'class' => 'btn btn-primary',
     						'ajax' => array(
@@ -99,13 +99,33 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	        </tr>
 	        </tbody>
 	</table>
-	<br/>
+	<br>
 
 	<?php
 	echo "<div id='detalleCotizacion'>";
 	$this->actionDetails();
 	echo "</div>";
 	?>
+</div>
+<div class="control-group center">
+	<div class="controls">
+		<?php
+		$this->widget('bootstrap.widgets.TbButton',array(
+			'htmlOptions'=>array('class'=>'inline','id' => 'showsd'),
+			'label' => 'Evaluar',
+			// 'url'=>$this->evaluar(),
+			)
+		);
+		// $this->widget('bootstrap.widgets.TbButton',array(
+		// 	'label' => 'Detallar',
+		// 	'htmlOptions'=>array('class'=>'inline secundario'),
+		// 	)
+		// );
+		?>
+	</div>
+</div>
+<div id="bienes" class="oculto">
+	<?php $this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien)); ?>
 </div>
 
 <div class="form-actions">
@@ -118,3 +138,25 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 </div>
 
 <?php $this->endWidget(); ?>
+
+<script>
+
+ //XUXA
+$('body').on('click', '#showsd', function() {
+
+
+$.ajax({
+                    type: 'post',
+                    url: '<?php echo CController::createUrl('alerta');?>',
+                    data: {},
+                    error: function (request, status, error) {
+                        alert(request.responseText);
+                    },
+                    success: function (data) {
+                        alert(data);
+                    }
+                }); 
+ });
+
+$('#bienes').show('slow');
+</script>

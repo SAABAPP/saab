@@ -41,15 +41,13 @@ array_push($columnas, array(
 array_push($columnas, array(
   'class'=>'CButtonColumn',
   'header' => 'Opciones',
-  'headerHtmlOptions'=>array('style'=>'width:1em'),
-  'template' => '{remover}',                
+  'template' => '{remover}',
   'buttons' => array(
     'remover'=>array(
-      'title' => 'Aumentar artículo',
+      'options'=>array('title'=>'Remover'),
       'label'=>'<i class="icon-trash"></i>',
       'click'=>'js:remover',
       ),
-
     ),
 ));
 
@@ -58,6 +56,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
   'dataProvider'=>$gridDataProvider,
   'type'=>'bordered hover',
   'template'=>"{items}",
+  'rowCssClassExpression'=>'$data[monto]==Yii::app()->getGlobalState(\'montoBajo\')?"success":""',
   'columns'=>$columnas,
 ));
 

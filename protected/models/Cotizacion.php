@@ -5,14 +5,14 @@
  *
  * The followings are the available columns in table 'cotizacion':
  * @property integer $IDCOTIZACION
- * @property string $COT_total
+ * @property double $COT_total
  * @property integer $COT_buenaPro
  * @property integer $IDREQUERIMIENTO
  * @property integer $IDPROVEEDOR
  *
  * The followings are the available model relations:
- * @property Proveedor $iDPROVEEDOR
  * @property Requerimiento $iDREQUERIMIENTO
+ * @property Proveedor $iDPROVEEDOR
  */
 class Cotizacion extends CActiveRecord
 {
@@ -44,7 +44,7 @@ class Cotizacion extends CActiveRecord
 		return array(
 			array('COT_total, COT_buenaPro, IDREQUERIMIENTO, IDPROVEEDOR', 'required'),
 			array('COT_buenaPro, IDREQUERIMIENTO, IDPROVEEDOR', 'numerical', 'integerOnly'=>true),
-			array('COT_total', 'length', 'max'=>18),
+			array('COT_total', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('IDCOTIZACION, COT_total, COT_buenaPro, IDREQUERIMIENTO, IDPROVEEDOR', 'safe', 'on'=>'search'),
@@ -59,8 +59,8 @@ class Cotizacion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'iDPROVEEDOR' => array(self::BELONGS_TO, 'Proveedor', 'IDPROVEEDOR'),
 			'iDREQUERIMIENTO' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
+			'iDPROVEEDOR' => array(self::BELONGS_TO, 'Proveedor', 'IDPROVEEDOR'),
 		);
 	}
 
@@ -71,8 +71,8 @@ class Cotizacion extends CActiveRecord
 	{
 		return array(
 			'IDCOTIZACION' => 'Idcotizacion',
-			'COT_total' => 'Monto Total',
-			'COT_buenaPro' => 'Buena Pro',
+			'COT_total' => 'Cot Total',
+			'COT_buenaPro' => 'Cot Buena Pro',
 			'IDREQUERIMIENTO' => 'Idrequerimiento',
 			'IDPROVEEDOR' => 'Idproveedor',
 		);
@@ -90,7 +90,7 @@ class Cotizacion extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('IDCOTIZACION',$this->IDCOTIZACION);
-		$criteria->compare('COT_total',$this->COT_total,true);
+		$criteria->compare('COT_total',$this->COT_total);
 		$criteria->compare('COT_buenaPro',$this->COT_buenaPro);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
 		$criteria->compare('IDPROVEEDOR',$this->IDPROVEEDOR);

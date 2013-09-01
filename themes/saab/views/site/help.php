@@ -17,5 +17,5 @@ $this->widget('zii.widgets.jui.CJuiAccordion',array(
       'active'=>2,
   ),
 ));
-
 ?>
+<br>

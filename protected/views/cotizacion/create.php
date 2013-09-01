@@ -33,4 +33,4 @@ $this->breadcrumbs=array(
     </div>
   </div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'requerimiento'=>$requerimiento,'proveedor'=>$proveedor,)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'requerimiento'=>$requerimiento,'proveedor'=>$proveedor,'requerimiento_bien'=>$requerimiento_bien,)); ?>
