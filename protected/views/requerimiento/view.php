@@ -5,6 +5,24 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<?php 
+  // $usuario = Yii::app()->user->getState('idusuario');
+  // $requerimiento= new Requerimiento();
+  // $requerimiento = Requerimiento::model()->findAll($usuario);
+Yii::app()->clearGlobalState('comprar');
+Yii::app()->clearGlobalState('idcomprar');
+
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+  'id'=>'requerimiento-form',
+  'enableAjaxValidation'=>false,
+  // 'enableClientValidation'=>false,
+  // 'clientOptions'=>array(
+  //     'validateOnSubmit'=>true,
+  //   )
+  )); ?>
+
+<?php echo $form->errorSummary($model); ?>
+
 <h2 class ="center">Hoja de Requerimiento</h2>
 <h3 class="center">N° <?php echo $model->IDREQUERIMIENTO; ?></h3>
 <br>
@@ -28,6 +46,7 @@ $this->breadcrumbs=array(
           <div class="control-group">
             <?php
             $columns=array();
+            $col_comprar=array();
             $i=0;
             $comprar='';
 
@@ -75,8 +94,31 @@ $this->breadcrumbs=array(
               array_push($columns, array(
                 'header'=>'Cantidad a comprar',
                 'type' => 'raw',
-                'value' => function($data) {
-                  return CHtml::textField('cantidad', $data->RBI_cantidad);
+                'value' => function($data,$col_comprar) {
+                  $cant=$data->RBI_cantidad;
+                  $stock=$data->bien->BIE_stockActual;
+                  $min=$data->bien->BIE_stockMinimo;
+                  $idbien=$data->IDBIEN;
+                  $compra=0;
+
+                  if($stock >= $cant){
+                    if(($stock-$cant)<$min)
+                      $compra=2*$cant+($min - $stock);
+                    else
+                      $compra=$cant;
+                  }
+                  else
+                    $compra=$min - ($stock - $cant);
+
+                  $col_comprar=Yii::app()->getGlobalState('comprar');
+                  $id_comprar=Yii::app()->getGlobalState('idcomprar');
+                  $col_comprar=array_merge((array)$col_comprar,(array)$compra);
+                  $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
+                  Yii::app()->setGlobalState('comprar',$col_comprar);
+                  Yii::app()->setGlobalState('idcomprar',$id_comprar);
+
+
+                  return CHtml::textField('cantidad', $compra);
                 },
                 )
               );
@@ -98,7 +140,7 @@ $this->breadcrumbs=array(
             </div>
           </div>
           <?php
-          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento") )
           {
           	echo "<div class=\"control-group center\">
             <div class=\"controls\">
@@ -113,19 +155,23 @@ $this->breadcrumbs=array(
             echo "<div class=\"control-group\">
             <label for=\"presupuesto\" class=\"control-label\">Presupuesto:</label>
             <div class=\"controls\">
-              <input type=\"text\" id=\"presupuesto\" placeholder=\"El presupuesto es...\">
+              ".$form->textField($model,'REQ_presupuesto',array('class'=>'span3','placeholder'=>'ingresar un presupuesto..'))."
             </div>
           </div>";
+
           }
           ?>
           <?php
           if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
           {
             echo "<div class=\"control-group center\">
-            <div class=\"controls\">
-              <button class=\"btn inline\" type=\"\" onClick=\"print();\" >Guardar</button>
-            </div>
-          </div>";
+            <div class=\"controls\">";
+            $this->widget('bootstrap.widgets.TbButton', array(
+            'buttonType'=>'submit',
+            'type'=>'primary',
+            'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
+            )); 
+            echo "</div></div>";
           }else{
             echo "<div class=\"control-group center\">
             <div class=\"controls\">
@@ -133,9 +179,17 @@ $this->breadcrumbs=array(
             </div>
           </div>";
           }
+
+          //prueba de valores ene array
+          // $idcompra=Yii::app()->getGlobalState('idcomprar');
+          // foreach ($compra as $value) {
+          //   echo $value;
+          // }
+          // print_r($idcompra);
+
           ?>
         </form>
         <!-- Form of previsualization of requirement ends -->
       </div>
 </div>
-
+<?php $this->endWidget(); ?>

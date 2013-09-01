@@ -7,6 +7,7 @@
  * @property integer $RBI_cantidad
  * @property integer $IDREQUERIMIENTO
  * @property integer $IDBIEN
+ * @property integer $RBI_cantidadComprar
  */
 class RequerimientoBien extends CActiveRecord
 {
@@ -37,10 +38,10 @@ class RequerimientoBien extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('RBI_cantidad, IDREQUERIMIENTO, IDBIEN', 'required'),
-			array('RBI_cantidad, IDREQUERIMIENTO, IDBIEN', 'numerical', 'integerOnly'=>true),
+			array('RBI_cantidad, IDREQUERIMIENTO, IDBIEN, RBI_cantidadComprar', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('RBI_cantidad, IDREQUERIMIENTO, IDBIEN', 'safe', 'on'=>'search'),
+			array('RBI_cantidad, IDREQUERIMIENTO, IDBIEN, RBI_cantidadComprar', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +57,6 @@ class RequerimientoBien extends CActiveRecord
 			'requerimiento' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 		);
 	}
-
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -64,8 +64,9 @@ class RequerimientoBien extends CActiveRecord
 	{
 		return array(
 			'RBI_cantidad' => 'Cantidad',
-			'IDREQUERIMIENTO' => 'Idrequerimiento',
-			'IDBIEN' => 'Idbien',
+			'IDREQUERIMIENTO' => 'Id requerimiento',
+			'IDBIEN' => 'Id bien',
+			'RBI_cantidadComprar' => 'Cantidad a Comprar',
 		);
 	}
 
@@ -83,6 +84,7 @@ class RequerimientoBien extends CActiveRecord
 		$criteria->compare('RBI_cantidad',$this->RBI_cantidad);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
 		$criteria->compare('IDBIEN',$this->IDBIEN);
+		$criteria->compare('RBI_cantidadComprar',$this->RBI_cantidadComprar);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

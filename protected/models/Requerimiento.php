@@ -50,11 +50,17 @@ class Requerimiento extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+<<<<<<< HEAD
 			array('REQ_estado, REQ_fecha, IDUSUARIO', 'required'),
 			array('IDUSUARIO, IDCUANEC', 'numerical', 'integerOnly'=>true),
 			array('REQ_presupuesto', 'numerical'),
 			array('REQ_estado', 'length', 'max'=>20),
 			array('CODMETA', 'length', 'max'=>4),
+=======
+			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA, REQ_presupuesto', 'required'),
+			array('REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'numerical', 'integerOnly'=>true),
+			array('REQ_estado', 'length', 'max'=>20),
+>>>>>>> origin/master
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('IDREQUERIMIENTO, REQ_estado, REQ_fecha, REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'safe', 'on'=>'search'),
