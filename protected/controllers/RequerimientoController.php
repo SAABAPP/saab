@@ -70,6 +70,8 @@ class RequerimientoController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$requerimiento_bien = new RequerimientoBien();
+		$bienes = new RequerimientoBien();
+		//$bienes=$this->loadModel($id);
         $requerimiento_bien->unsetAttributes();
         $requerimiento_bien->IDREQUERIMIENTO = $id;
         $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
@@ -78,8 +80,25 @@ class RequerimientoController extends Controller
         if(isset($_POST['Requerimiento']))
 		{
 			$model->attributes=$_POST['Requerimiento'];
-			if($model->save())
+			if($model->save()){
+				$compra=Yii::app()->getGlobalState('comprar');
+				$idcompra=Yii::app()->getGlobalState('idcomprar');
+				$i=0;
+
+				foreach($compra as $value){
+							$bienes->RBI_cantidadComprar=$value;				        	
+				        	$bienes->attributes=$bienes;			        	
+				        	$bienes->IDBIEN=$idcompra[$i];
+				        	++$i;
+				        	if (!$bienes->save()) {
+	                            throw new Exception("Error al guardar items");
+	                        }
+				        
+
+				      }
 				$this->redirect(array('admin'));
+			}
+				
 		}
         
         if ($usuario->IDUSUARIO==1 || $model->IDUSUARIO == $usuario->IDUSUARIO) {
@@ -155,9 +174,7 @@ class RequerimientoController extends Controller
 			}
 		}
 		else{
-			//Requerimiento::validacion();
-			// $this->addError('Bien', 'Debe ingresar algun bien');
-			//echo '<script>alert("debe ingresar algun bien")</script>';
+			Yii::app()->user->setFlash("bienes","Debe ingresar algun bien");
 
 		}
 

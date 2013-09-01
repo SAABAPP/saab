@@ -9,7 +9,8 @@ $this->breadcrumbs=array(
   // $usuario = Yii::app()->user->getState('idusuario');
   // $requerimiento= new Requerimiento();
   // $requerimiento = Requerimiento::model()->findAll($usuario);
-
+Yii::app()->clearGlobalState('comprar');
+Yii::app()->clearGlobalState('idcomprar');
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   'id'=>'requerimiento-form',
@@ -45,6 +46,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           <div class="control-group">
             <?php
             $columns=array();
+            $col_comprar=array();
             $i=0;
             $comprar='';
 
@@ -92,8 +94,31 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
               array_push($columns, array(
                 'header'=>'Cantidad a comprar',
                 'type' => 'raw',
-                'value' => function($data) {
-                  return CHtml::textField('cantidad', $data->RBI_cantidad);
+                'value' => function($data,$col_comprar) {
+                  $cant=$data->RBI_cantidad;
+                  $stock=$data->bien->BIE_stockActual;
+                  $min=$data->bien->BIE_stockMinimo;
+                  $idbien=$data->IDBIEN;
+                  $compra=0;
+
+                  if($stock >= $cant){
+                    if(($stock-$cant)<$min)
+                      $compra=2*$cant+($min - $stock);
+                    else
+                      $compra=$cant;
+                  }
+                  else
+                    $compra=$min - ($stock - $cant);
+
+                  $col_comprar=Yii::app()->getGlobalState('comprar');
+                  $id_comprar=Yii::app()->getGlobalState('idcomprar');
+                  $col_comprar=array_merge((array)$col_comprar,(array)$compra);
+                  $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
+                  Yii::app()->setGlobalState('comprar',$col_comprar);
+                  Yii::app()->setGlobalState('idcomprar',$id_comprar);
+
+
+                  return CHtml::textField('cantidad', $compra);
                 },
                 )
               );
@@ -115,7 +140,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
             </div>
           </div>
           <?php
-          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento") )
           {
           	echo "<div class=\"control-group center\">
             <div class=\"controls\">
@@ -154,6 +179,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
             </div>
           </div>";
           }
+
+          //prueba de valores ene array
+          // $idcompra=Yii::app()->getGlobalState('idcomprar');
+          // foreach ($compra as $value) {
+          //   echo $value;
+          // }
+          // print_r($idcompra);
+
           ?>
         </form>
         <!-- Form of previsualization of requirement ends -->

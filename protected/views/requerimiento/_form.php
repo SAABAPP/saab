@@ -16,6 +16,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 
   <?php echo $form->errorSummary($model); ?>
+  <?php if(Yii::app()->user->hasFlash("success")){?>
+    <script>alert("<?php echo Yii::app()->user->getFlash('bienes'); ?>");</script>
+  <?php }; ?>
 
   <?php echo $form->hiddenField($model,'REQ_estado',array('class'=>'span5','maxlength'=>20,'value'=>'Requerido')); ?>
 
