@@ -58,9 +58,32 @@
 </div>
 
 <div class="container-fluid"><br/>
+<?php $this->widget('bootstrap.widgets.TbAlert', array(
+        'block'=>true, // display a larger alert block?
+        'fade'=>true, // use transitions?
+        'closeText'=>'&times;', // close link text - if set to false, no close link is displayed
+        'alerts'=>array( // configurations per alert type
+            'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'), // success, info, warning, error or danger
+            'info'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'),
+            'error'=>array('block'=>true, 'fade'=>true, 'closeText'=>'&times;'),
+            'warning'=>array('block'=>true, 'fade'=>true, 'closeText'=>'X'),
+        ),
+    )); 
+?>
 
 <?php echo $content; ?>
 
 </div>
 
 <?php include("footer.php"); ?>
+
+<?php
+Yii::app()->clientScript->registerScript(
+   'myHideEffect',
+   '$(".alert-warning").animate({opacity: 1.0}, 2000).fadeOut("slow");
+   $(".alert-error").animate({opacity: 1.0}, 2000).fadeOut("slow");
+   $(".alert-info").animate({opacity: 1.0}, 2000).fadeOut("slow");
+   $(".alert-success").animate({opacity: 1.0}, 2000).fadeOut("slow");',
+   CClientScript::POS_READY
+);
+?>

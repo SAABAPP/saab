@@ -80,6 +80,7 @@ class RequerimientoController extends Controller
         if(isset($_POST['Requerimiento']))
 		{
 			$model->attributes=$_POST['Requerimiento'];
+			//$transaction=Yii::app()->db->beginTransaction();//transacciones
 			if($model->save()){
 				$compra=Yii::app()->getGlobalState('comprar');
 				$idcompra=Yii::app()->getGlobalState('idcomprar');
@@ -91,12 +92,19 @@ class RequerimientoController extends Controller
 				        	$bienes->IDBIEN=$idcompra[$i];
 				        	++$i;
 				        	if (!$bienes->save()) {
-	                            throw new Exception("Error al guardar items");
+				        		//$transaction->rollBack();
+				        		Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+	                            //throw new Exception("Error al guardar items");
 	                        }
+	                        else{
+	                        	//$transaction->commit();
+	                        	$this->redirect(array('admin'));
+	                        }
+	                        	
 				        
 
 				      }
-				$this->redirect(array('admin'));
+				
 			}
 				
 		}
@@ -115,6 +123,8 @@ class RequerimientoController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+
+
 	public function actionCreate()
 	{
 		Yii::app()->setGlobalState('site_id', 0);
@@ -146,12 +156,12 @@ class RequerimientoController extends Controller
         // $clasificador= Clasificador::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
-		if(!empty($col)){
+		if($this->validador()){
 			if(isset($_POST['Requerimiento']))
 			{
 				$model->attributes=$_POST['Requerimiento'];
 
-				//$model->IDUSUARIO=Yii::app()->user->getState('idusuario');
+				// $transaction=Yii::app()->db->beginTransaction();//transacciones
 				if($model->save()){
 
 
@@ -162,19 +172,29 @@ class RequerimientoController extends Controller
 				        	$requerimiento_bien->IDBIEN=$col[$x][0];
 				        	$requerimiento_bien->RBI_cantidad=$col[$x][1];
 				        	if (!$requerimiento_bien->save()) {
-	                            throw new Exception("Error al guardar items");
+				        		// $transaction->rollBack();
+	                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
 	                        }
+	                        else{
+	                        	// $transaction->commit();
+	                        		
+	                        }
+	                        
 				        }
 
 				      }
-					Yii::app()->clearGlobalState('arrays');
+				    Yii::app()->clearGlobalState('arrays');
 					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+					
 				}
 
 			}
 		}
 		else{
-			Yii::app()->user->setFlash("bienes","Debe ingresar algun bien");
+			
+			// Yii::app()->user->setFlash('info', '<strong>Heyy!</strong> ');
+			Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar algun bien');
+			// Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
 		}
 
 
@@ -369,6 +389,18 @@ class RequerimientoController extends Controller
     	}
     	return $i;
     }
+    public function validador(){
+    	$col=Yii::app()->getGlobalState('arrays');
+	    $columns=array();
+	      for($x=0;$x<count($col); $x++){
+	        
+	        if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]))
+	         	return true;
+	      	else
+	      		return false;
+	      }
+	}
+
     public function actionAumentarItem() {
 
     	$id= $_POST['idbien'];

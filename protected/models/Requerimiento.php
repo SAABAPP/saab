@@ -50,7 +50,7 @@ class Requerimiento extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('REQ_estado, REQ_fecha, IDUSUARIO', 'required'),
+			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA', 'required'),
 			array('IDUSUARIO, IDCUANEC', 'numerical', 'integerOnly'=>true),
 			array('REQ_presupuesto', 'numerical'),
 			array('REQ_estado', 'length', 'max'=>20),
