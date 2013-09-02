@@ -20,7 +20,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 				<th style="width:30em;">Razón Social</th>
 				<th style="width:7em;">R.U.C.</th>
 				<th style="width:6em;">Monto</th>
-				<th class="button-column" style="width:4em;">Añadir</th>
+				<th style="width:4em;">Añadir</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -110,25 +110,66 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 <div class="control-group center">
 	<div class="controls">
 		<?php
-		$this->widget('bootstrap.widgets.TbButton',array(
-			'htmlOptions'=>array('class'=>'inline','id' => 'showsd'),
-			'buttonType' => 'ajaxSubmit',
-			'label' => 'Evaluar',
-			'url' => Yii::app() -> createUrl('Cotizacion/alerta'),
+
+		echo CHtml::link("Analizar", 
+			array('analizar'),
+			array(
+				// 'disabled' => 'true',
+				'id' => 'analizar',
+				'class' => 'btn',
+				'ajax' => array(
+					'type' => 'POST',
+                          // 'url' => $this->createUrl('Requerimiento/buscaBien'),
+					'url' => "js:$(this).attr('href')",
+					'data' => array(
+
+						// 'idbien' => "js: $('#idbien').val()",
+						// 'rbi_cantidad' => "js: $('#cantidadBien').val()",
+						// 'descripcion' => "js: $('#catalogoBien').val()",
+						// 'unidad'=>"js: $('#unidad_catalogo').val()",
+						),
+					'error' => "function(req, status, error) {
+						alert(req.responseText);
+					}",
+					'success' => "function(data) {
+						// $('#unidad_catalogo').val('');
+						// $('#idbien').val('');
+						// $('#cantidadBien').val('');
+						// $('#catalogoBien').val('');
+						// $('#order-detail-div').html(data);                                
+					}"
+					),
+
+				)
+			);
+
+		// $this->widget('bootstrap.widgets.TbButton',array(
+		// 	'htmlOptions'=>array('class'=>'inline','id' => 'showsd'),
+		// 	'buttonType' => 'ajaxSubmit',
+		// 	'label' => 'Evaluar',
+		// 	'url' => Yii::app() -> createUrl('Cotizacion/alerta'),
 			// 'ajaxOptions'=>array(
 			// 	'error'=>"function (request, status, error) {
 			// 						alert(request.responseText);
 			// 					}",
 			// 	'success'=>"function (data) {
-			// 						alert(data);
+			// 						alert(.Yii::app()->getGlobalState('montoBajo'));
 			// 					}"
 			// 	),
-			)
-		);
+		// 	)
+		// );
 		?>
 	</div>
 </div>
 <div id="bienes" class="oculto">
+	<div class="control-group pull-right">
+		<label class="control-label" for="ruc">R.U.C.:</label>
+		<div class="controls"><p>23456789012</p></div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="solicitante">Señor(es):</label>
+		<div class="controls"><p>Hipermercado Tacora</p></div>
+	</div>
 	<?php $this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien)); ?>
 </div>
 
@@ -142,3 +183,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 </div>
 
 <?php $this->endWidget(); ?>
+
+<script type="text/javascript">
+// public function test()
+// {
+// 	alert('In test Function');
+// }
+</script>

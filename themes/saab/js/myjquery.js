@@ -6,9 +6,11 @@ $("#help").mouseout(function(event){
 	$("#badge-help").removeClass("badge-info");
 });
 
-$('#showsd').click(function() {
+$('#analizar').click(function() {
 	$('#bienes').show('slow');
 	$('#razonSocial').attr('disabled','disabled');
 	$('#monto').attr('disabled','disabled');
 	$("#btnAdd").css("display", "none");
+	$('#cotizacion-grid_c4').css("display", "none");	
+	$('.button-column').css("display", "none");
 });

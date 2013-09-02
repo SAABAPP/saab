@@ -8,6 +8,7 @@ class CotizacionController extends Controller
 	 */
 	public $layout='//layouts/column2';
 	public $cotizaciones=array();
+	public $cotizacionmenor=array();
 
 	/**
 	 * @return array action filters
@@ -36,7 +37,7 @@ class CotizacionController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
 			array('allow', 
-				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','alerta'),
+				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','analizar'),
 				'users'=>array('*'),
 				),
 			array('deny',
@@ -270,6 +271,7 @@ class CotizacionController extends Controller
 				Yii::app()->setGlobalState('indiceCotizacion', $i);
 				$montobajo=$this->evaluarMenor();
 				Yii::app()->setGlobalState('montoBajo', $montobajo);
+
 				// echo "<script>alert('".Yii::app()->getGlobalState('montoBajo')."');</script>";
 				$this->actionDetails();
    				// echo "<script>alert('".Yii::app()->getGlobalState('cantidadCotizaciones')."');</script>";
@@ -329,7 +331,17 @@ class CotizacionController extends Controller
 		return $menor;
 	}
 
-	public function actionAlerta(){
+	public function asignarMenor($monto)
+	{
+		$this->cotizacionmenor=Yii::app()->clearGlobalState('menor');
+		for($i=0;$i<count($this->cotizacionmenor); $i++){
+			if(stristr($this->cotizacionmenor[$i][1],$ruc))    			
+				break;
+		}
+		return $i;
+	}
+
+	public function actionAnalizar(){
 		echo '<script type="text/javascript">'
 		, 'alert('.Yii::app()->getGlobalState('montoBajo').')'
 		, '</script>';
@@ -348,3 +360,4 @@ class CotizacionController extends Controller
 		}
 	}
 }
+?>
