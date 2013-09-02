@@ -330,7 +330,9 @@ class CotizacionController extends Controller
 	}
 
 	public function actionAlerta(){
-		echo 'No se pueden agregar mas de 3 cotizaciones. Si desea agregar otra cotizacion borre una de las ingresadas.';
+		echo '<script type="text/javascript">'
+		, 'alert('.Yii::app()->getGlobalState('montoBajo').')'
+		, '</script>';
 	}
 
 	/**

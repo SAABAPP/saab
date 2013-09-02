@@ -31,7 +31,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 						<?php 
 						$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 							'name'=>'busca_proveedor',
-							'id'=>'proveedor',
+							'id'=>'razonSocial',
 							'value'=>$proveedor->PRO_razonSocial,
 							'source'=>$this->createUrl('Cotizacion/buscaProveedor'),
 							'options'=>array(
@@ -55,7 +55,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 						));
 						?>
 						<input id="idProveedor" type="hidden">
-						<input id="razonSocial" type="hidden">
 					</div>
 				</td>
 		        <td>
@@ -80,13 +79,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     								'idProveedor' => "js: $('#idProveedor').val()",
     								'ruc' => "js: $('#ruc').val()",
     								'monto' => "js: $('#monto').val()",
-    								'razonSocial' => "js: $('#razonSocial').val()",
+    								'razonSocial' => "js: $('#razonSocial').val()",//aca
     								),
     							'error' => "function(req, status, error) {
     								alert(req.responseText);
     							}",
     							'success' => "function(data) {
-    								$('#proveedor').val('');
+    								$('#razonSocial').val('');
+    								$('#idProveedor').val('');
     								$('#ruc').val('');
     								$('#monto').val('');
     								$('#detalleCotizacion').html(data);
@@ -112,15 +112,19 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 		<?php
 		$this->widget('bootstrap.widgets.TbButton',array(
 			'htmlOptions'=>array('class'=>'inline','id' => 'showsd'),
+			'buttonType' => 'ajaxSubmit',
 			'label' => 'Evaluar',
-			// 'url'=>$this->evaluar(),
+			'url' => Yii::app() -> createUrl('Cotizacion/alerta'),
+			// 'ajaxOptions'=>array(
+			// 	'error'=>"function (request, status, error) {
+			// 						alert(request.responseText);
+			// 					}",
+			// 	'success'=>"function (data) {
+			// 						alert(data);
+			// 					}"
+			// 	),
 			)
 		);
-		// $this->widget('bootstrap.widgets.TbButton',array(
-		// 	'label' => 'Detallar',
-		// 	'htmlOptions'=>array('class'=>'inline secundario'),
-		// 	)
-		// );
 		?>
 	</div>
 </div>
@@ -138,25 +142,3 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 </div>
 
 <?php $this->endWidget(); ?>
-
-<script>
-
- //XUXA
-$('body').on('click', '#showsd', function() {
-
-
-$.ajax({
-                    type: 'post',
-                    url: '<?php echo CController::createUrl('alerta');?>',
-                    data: {},
-                    error: function (request, status, error) {
-                        alert(request.responseText);
-                    },
-                    success: function (data) {
-                        alert(data);
-                    }
-                }); 
- });
-
-$('#bienes').show('slow');
-</script>
