@@ -37,7 +37,7 @@ class CotizacionController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
 			array('allow', 
-				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','analizar'),
+				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','analizar','asignarBuenaPro'),
 				'users'=>array('*'),
 				),
 			array('deny',
@@ -96,6 +96,7 @@ class CotizacionController extends Controller
 			Yii::app()->setGlobalState('indiceCotizacion', 0);
 			Yii::app()->clearGlobalState('arrays');
 			Yii::app()->clearGlobalState('cantidadCotizaciones');
+			Yii::app()->clearGlobalState('montoBajo');
 			$model=new Cotizacion;
 			$requerimiento=Requerimiento::model()->findByPk($id);
 			$proveedor=new Proveedor('search');
@@ -271,7 +272,7 @@ class CotizacionController extends Controller
 				Yii::app()->setGlobalState('indiceCotizacion', $i);
 				$montobajo=$this->evaluarMenor();
 				Yii::app()->setGlobalState('montoBajo', $montobajo);
-
+				$this->asignarBuenaPro();
 				// echo "<script>alert('".Yii::app()->getGlobalState('montoBajo')."');</script>";
 				$this->actionDetails();
    				// echo "<script>alert('".Yii::app()->getGlobalState('cantidadCotizaciones')."');</script>";
@@ -331,14 +332,20 @@ class CotizacionController extends Controller
 		return $menor;
 	}
 
-	public function asignarMenor($monto)
+	public function asignarBuenaPro()
 	{
-		$this->cotizacionmenor=Yii::app()->clearGlobalState('menor');
-		for($i=0;$i<count($this->cotizacionmenor); $i++){
-			if(stristr($this->cotizacionmenor[$i][1],$ruc))    			
-				break;
+		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+		$menor=Yii::app()->getGlobalState('montoBajo');
+		for($i=0;$i<count($this->cotizaciones); $i++){
+			if (isset($this->cotizaciones[$i][2])) {
+				if($this->cotizaciones[$i][2]==$menor){
+					$this->cotizaciones[$i][4]=1;
+				}else{
+					$this->cotizaciones[$i][4]=0;
+				}
+			}
 		}
-		return $i;
+		Yii::app()->setGlobalState('arrays', $this->cotizaciones);
 	}
 
 	public function actionAnalizar(){

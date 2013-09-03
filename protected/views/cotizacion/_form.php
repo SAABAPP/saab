@@ -162,14 +162,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	</div>
 </div>
 <div id="bienes" class="oculto">
-	<div class="control-group pull-right">
-		<label class="control-label" for="ruc">R.U.C.:</label>
-		<div class="controls"><p>23456789012</p></div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="solicitante">Señor(es):</label>
-		<div class="controls"><p>Hipermercado Tacora</p></div>
-	</div>
 	<?php $this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien)); ?>
 </div>
 
@@ -183,10 +175,3 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 </div>
 
 <?php $this->endWidget(); ?>
-
-<script type="text/javascript">
-// public function test()
-// {
-// 	alert('In test Function');
-// }
-</script>

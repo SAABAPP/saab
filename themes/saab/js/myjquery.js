@@ -11,6 +11,6 @@ $('#analizar').click(function() {
 	$('#razonSocial').attr('disabled','disabled');
 	$('#monto').attr('disabled','disabled');
 	$("#btnAdd").css("display", "none");
-	$('#cotizacion-grid_c4').css("display", "none");	
+	$('#cotizacion-grid_c5').css("display", "none");	
 	$('.button-column').css("display", "none");
 });

@@ -44,6 +44,16 @@ array_push($columns, array(
 	'value'=>'',
 	)
 );
+?>
+<div class="control-group pull-right">
+	<label class="control-label" for="ruc">R.U.C.:</label>
+	<div class="controls"><p>gggg</p></div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="solicitante">Señor(es):</label>
+	<div class="controls"><p>11111111111</p></div>
+</div>
+<?php
 
 $this->widget('bootstrap.widgets.TbGridView', array(
 	'type'=>'bordered',
