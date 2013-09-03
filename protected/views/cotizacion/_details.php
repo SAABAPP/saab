@@ -38,11 +38,11 @@ array_push($columnas, array(
   )
 );
 
-array_push($columnas, array(
-  'header' => 'Buena Pro',
-  'value'=>'$data[buenaPro]',
-  )
-);
+// array_push($columnas, array(
+//   'header' => 'Buena Pro',
+//   'value'=>'$data[buenaPro]',
+//   )
+// );
 
 array_push($columnas, array(
   'class'=>'CButtonColumn',

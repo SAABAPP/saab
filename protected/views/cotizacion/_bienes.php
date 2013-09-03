@@ -39,20 +39,24 @@ array_push($columns, array(
 	)
 );
 
-array_push($columns, array(
-	'header' => 'Sub Total',
-	'value'=>'',
-	)
-);
+// array_push($columns, array(
+// 	'header' => 'Sub Total',
+// 	'value'=>'',
+// 	)
+// );
 ?>
-<div class="control-group pull-right">
+<hr>
+<br>
+<h3>Ingresar los precios unitarios de los bienes</h3>
+<br>
+<!-- <div class="control-group pull-right">
 	<label class="control-label" for="ruc">R.U.C.:</label>
 	<div class="controls"><p>gggg</p></div>
 </div>
 <div class="control-group">
 	<label class="control-label" for="solicitante">Señor(es):</label>
 	<div class="controls"><p>11111111111</p></div>
-</div>
+</div> -->
 <?php
 
 $this->widget('bootstrap.widgets.TbGridView', array(

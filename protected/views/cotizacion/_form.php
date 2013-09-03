@@ -114,7 +114,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 		echo CHtml::link("Analizar", 
 			array('analizar'),
 			array(
-				// 'disabled' => 'true',
+				'style'=>'visibility:hidden;',
 				'id' => 'analizar',
 				'class' => 'btn',
 				'ajax' => array(
