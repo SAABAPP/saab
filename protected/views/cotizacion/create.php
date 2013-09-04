@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
   <br>
   <div class="row-fluid">
     <div class="span12">
-      <!-- Form of previsualization of requirement begins -->
       <form class="form-horizontal">
         <div class="control-group">
           <label class="control-label" for="solicitante">Solicitante:</label>
@@ -25,7 +24,6 @@ $this->breadcrumbs=array(
           <div class="controls"><p>Gerencia Regional de Eucación La Libertad</p></div>
         </div>
       </form>
-      <!-- Form of previsualization of requirement ends -->
       <hr>
       <h4 class="pull-right">Presupuesto: S/. <?php  echo (isset($requerimiento->REQ_presupuesto)) ? $requerimiento->REQ_presupuesto : "No asignado"; ?></h4>
       <h3>Ingrese las cotizaciones:</h3>

@@ -6,6 +6,10 @@ $('#help').mouseout(function(event){
 	$('#badge-help').removeClass('badge-info');
 });
 
+$('#btnAdd').click(function() {
+	$('#divAnalizar').css('visibility','visible');
+});
+
 $('#analizar').click(function() {
 	$('#bienes').show('slow');
 	$('#razonSocial').attr('disabled','disabled');
@@ -14,8 +18,5 @@ $('#analizar').click(function() {
 	$('#cotizacion-grid_c4').css('display', 'none');	
 	$('.button-column').css('display', 'none');
 	$('#analizar').css('display', 'none');
-});
-
-$('#btnAdd').click(function() {
-	$('#analizar').css('visibility','visible');
+	$('#btnGuardarCotizacion').css('visibility','visible');
 });

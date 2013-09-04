@@ -107,14 +107,13 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	echo "</div>";
 	?>
 </div>
-<div class="control-group center">
+<div id="divAnalizar" class="control-group center">
 	<div class="controls">
 		<?php
 
 		echo CHtml::link("Analizar", 
 			array('analizar'),
 			array(
-				'style'=>'visibility:hidden;',
 				'id' => 'analizar',
 				'class' => 'btn',
 				'ajax' => array(
@@ -122,7 +121,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                           // 'url' => $this->createUrl('Requerimiento/buscaBien'),
 					'url' => "js:$(this).attr('href')",
 					'data' => array(
-
 						// 'idbien' => "js: $('#idbien').val()",
 						// 'rbi_cantidad' => "js: $('#cantidadBien').val()",
 						// 'descripcion' => "js: $('#catalogoBien').val()",
@@ -142,22 +140,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 				)
 			);
-
-		// $this->widget('bootstrap.widgets.TbButton',array(
-		// 	'htmlOptions'=>array('class'=>'inline','id' => 'showsd'),
-		// 	'buttonType' => 'ajaxSubmit',
-		// 	'label' => 'Evaluar',
-		// 	'url' => Yii::app() -> createUrl('Cotizacion/alerta'),
-			// 'ajaxOptions'=>array(
-			// 	'error'=>"function (request, status, error) {
-			// 						alert(request.responseText);
-			// 					}",
-			// 	'success'=>"function (data) {
-			// 						alert(.Yii::app()->getGlobalState('montoBajo'));
-			// 					}"
-			// 	),
-		// 	)
-		// );
 		?>
 	</div>
 </div>
@@ -165,11 +147,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	<?php $this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien)); ?>
 </div>
 
-<div class="form-actions">
+<div class="form-actions text-center">
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 		'buttonType'=>'submit',
+		'htmlOptions'   => array('id'=> 'btnGuardarCotizacion'),
 		'type'=>'primary',
-		'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
 		));
 	?>
 </div>

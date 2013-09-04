@@ -26,15 +26,17 @@ array_push($columns, array(
 
 array_push($columns, array(
 	'header' => 'Cantidad',
+	'htmlOptions'=>array('width'=>'1em'),
 	'value'=>'$data->RBI_cantidad',
 	)
 );
 
 array_push($columns, array(
 	'header'=>'Precio unitario',
+	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('precioUnitario');
+		return CHtml::textField('precioUnitario','',array('style'=>'width:6em;','pattern'=>'[0-9]+(\.[0-9]{1,4}?)?'));
 	},
 	)
 );
