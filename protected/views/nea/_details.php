@@ -69,32 +69,32 @@
 <div class="control-group">
   <label for="tipobien" class="control-label">Tipo de bien:</label>
   <div class="controls">
-        <table class="tipobien">
-          <tr>
-            <td><input class="checkb" type="checkbox" name="oficina[checkbox]" id="oficina" value="Equipo Oficina"><label class="checkl" for="oficina"> Equipo de oficina</label></td>
-            <td><input class="checkt" type="text" name="oficina[text]" id="_oficina" disabled></td>
-            <td><input class="checkb" type="checkbox" name="deposito[checkbox]" id="deposito" value="Bienes en deposito"><label class="checkl" for="deposito"> Bienes en depósito</label></td>
-            <td><input class="checkt" type="text" name="deposito[text]" id="_deposito" disabled></td>
-          </tr>
-          <tr>
-            <td><input class="checkb" type="checkbox" name="transporte[checkbox]" id="transporte" value="Equipo de transporte"><label class="checkl" for="transporte"> Equipo de transporte</label></td>
-            <td><input class="checkt" type="text" name="transporte[text]" id="_transporte" disabled></td>
-            <td><input class="checkb" type="checkbox" name="transito[checkbox]" id="transito"><label class="checkl" for="transito"> Pedidos en tránsito</label></td>
-            <td><input class="checkt" type="text" name="transito[text]"  id="_transito" disabled></td>
-          </tr>
-          <tr>
-            <td><input class="checkb" type="checkbox" name="maquinaria[checkbox]" id="maquinaria"><label class="checkl" for="maquinaria"> Maquinaria y equipo</label></td>
-            <td><input class="checkt" type="text" name="maquinaria[text]" id="_maquinaria" disabled></td>
-            <td><input class="checkb" type="checkbox" name="traspaso[checkbox]" id="traspaso"><label class="checkl" for="traspaso"> Traspaso de bienes</label></td>
-            <td><input class="checkt" type="text" name="traspaso[text]" id="_traspaso" disabled></td>
-          </tr>
-          <tr>
-            <td><input class="checkb" type="checkbox" name="operacion[checkbox]" id="operacion"><label class="checkl" for="operacion"> Gastos de operacion</label></td>
-            <td><input class="checkt" type="text" name="operacion[text]" id="_operacion" disabled></td>
-            <td><input class="checkb" type="checkbox" name="remesa[checkbox]" id="remesa"><label class="checkl" for="remesa"> Remesa de bienes</label></td>
-            <td><input class="checkt" type="text" name="remesa[text]" id="_remesa" disabled></td>
-          </tr>
-        </table>
+    <table class="tipobien">
+      <tr>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="oficina" value="Equipo Oficina"><label class="checkl" for="oficina"> Equipo de oficina</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_oficina" disabled></td>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="deposito" value="Bienes en deposito"><label class="checkl" for="deposito"> Bienes en depósito</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_deposito" disabled></td>
+      </tr>
+      <tr>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="transporte" value="Equipo de transporte"><label class="checkl" for="transporte"> Equipo de transporte</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_transporte" disabled></td>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="transito" value="Pedidos en transito"><label class="checkl" for="transito"> Pedidos en tránsito</label></td>
+        <td><input class="checkt" type="text" name="tipo[]"  id="_transito" disabled></td>
+      </tr>
+      <tr>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="maquinaria" value="Maquinaria y equipo"><label class="checkl" for="maquinaria"> Maquinaria y equipo</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_maquinaria" disabled></td>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="traspaso" value="Traspaso de bienes"><label class="checkl" for="traspaso"> Traspaso de bienes</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_traspaso" disabled></td>
+      </tr>
+      <tr>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="operacion" value="Gastos de operacion"><label class="checkl" for="operacion"> Gastos de operacion</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_operacion" disabled></td>
+        <td><input class="checkb" type="checkbox" name="tipo[]" id="remesa" value="Remesa de bienes"><label class="checkl" for="remesa"> Remesa de bienes</label></td>
+        <td><input class="checkt" type="text" name="tipo[]" id="_remesa" disabled></td>
+      </tr>
+    </table>
   </div>
 </div>
 

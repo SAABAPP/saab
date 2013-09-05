@@ -72,18 +72,40 @@ class NeaController extends Controller
 		$model=new Nea;
 		$entrada=new Entrada;
 		$col=Yii::app()->getGlobalState('arrays_nea');
+		$temporal=array();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		if($this->validador()){
-			if(isset($_POST['Nea']) && isset($_POST['Entrada']))
+			if(isset($_POST['Nea']) && isset($_POST['Entrada']) && isset($_POST['tipo']))
 			{
 				$entrada->attributes=$_POST['Entrada'];
+							
+				//$tipo = unserialize($_POST['tipo']);
+				// print_r($tipo);
 				if($entrada->save()){
 					$model->attributes=$_POST['Nea'];
 					$model->IDENTRADA=$entrada->IDENTRADA;
 					if($model->save()){
+						foreach($_POST['tipo'] as $value){
+							array_push($temporal, $value);							
+						}
+						for($x=0;$x<count($temporal)/2; $x++){
+							$detalle_nea= new DetalleNea;
+							$detalle_nea->IDENTRADA=$entrada->IDENTRADA;
+							$detalle_nea->DNE_tipoBien=$temporal[2*$x];
+							$detalle_nea->DNE_monto=$temporal[2*$x+1];
+							if (!$detalle_nea->save()) {
+					        		// $transaction->rollBack();
+		                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar los tipos');
+		                    }
+		                    else{
+		                    		Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se ha creado una nueva Nota de Entrada Nº'.$entrada->IDENTRADA);
+		                        	// $transaction->commit();
+		                        		
+		                    }
+						}
 
-					      for($x=0;$x<count($col); $x++){
+     				    for($x=0;$x<count($col); $x++){
 					        $entrada_bien= new EntradaBien; 
 					        if(!empty($col[$x][0])){
 					        	$entrada_bien->IDENTRADA=$entrada->IDENTRADA;
@@ -101,7 +123,7 @@ class NeaController extends Controller
 		                        
 					        }
 
-					      }
+					    }
 
 					}
 					$this->redirect(array('admin'));
@@ -109,6 +131,8 @@ class NeaController extends Controller
 				
 				
 			}
+			else
+				Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar tipo de bien');
 		}
 		else{
 			Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar algun bien');			
