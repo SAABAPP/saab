@@ -16,9 +16,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 
   <?php echo $form->errorSummary($model); ?>
-  <?php if(Yii::app()->user->hasFlash("success")){?>
-    <script>alert("<?php echo Yii::app()->user->getFlash('bienes'); ?>");</script>
-  <?php }; ?>
+ 
 
   <?php echo $form->hiddenField($model,'REQ_estado',array('class'=>'span5','maxlength'=>20,'value'=>'Requerido')); ?>
 
@@ -117,8 +115,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
           <input type="hidden" id="CODIGOCLASIFICADOR" class="span5"  placeholder="codigo...">
         </div>
-      </div>
-      <div class="control-group">
+    </div>
+    <div class="control-group">
         <table class="table tableAdd table-bordered">
           <thead>
             <tr>
@@ -201,9 +199,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                    // array('create#'),
                    array('addItem'),
                    array(
-                      'disabled' => 'true',
                       'id' => 'btnAdd',
-                      'class' => 'btn btn-primary disabled',
+                      'class' => 'btn btn-primary',
                       'ajax' => array(
                           'type' => 'POST',
                           // 'url' => $this->createUrl('Requerimiento/buscaBien'),
@@ -233,10 +230,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
             ?>
             <!-- <a class="btn btn-primary "><i class="icon-plus"></i></a> -->
-          </td>
-        </tr>
-      </thead>
-    </table>
+              </td>
+            </tr>
+          </thead>
+        </table>
     <br/>
 
     <?php
@@ -252,23 +249,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     
     
     ?>
-    <!-- <table class="table table-bordered">      
-      <tbody>
-        <tr class="odd">
-          <td>PAPEL BOND 80 g TAMAÑO A4.</td><td>Kerocopy</td><td>Blanco</td><td>Millares</td><td>25</td><td nowrap="nowrap"><a class="update" rel="tooltip" href="#" title="Update"><i class="icon-pencil"></i></a> <a class="delete" rel="tooltip" href="#" title="Delete"><i class="icon-trash"></i></a></td>
-        </tr>
-        <tr class="even">
-          <td>BOLIGRAFO (LAPICERO) DE TINTA SECA PUNTA FINA.</td><td>Pilot</td><td>Negro</td><td>Cajas</td><td>15</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
-        </tr>
-        <tr class="odd">
-          <td>PLUMON DE TINTA INDELEBLE PUNTA FINA.</td><td>Artesco</td><td>Rojo</td><td>Decenas</td><td>3</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
-        </tr>
-        <tr class="even">
-          <td>CD REGRABABLE DE 700 MB.</td><td>Sony</td><td></td><td>Cuarto de ciento</td><td>20</td><td nowrap="nowrap"><a class="update" title="Update" rel="tooltip" href="#"><i class="icon-pencil"></i></a> <a class="delete" title="Delete" rel="tooltip" href="#"><i class="icon-trash"></i></a></td>
-        </tr>
-      </tbody>
-    </table> -->
-  </div>
+    
+    </div>
   <div class="control-group">
     <label for="observaciones" class="control-label">Utilizado en:</label>
     <div class="controls">

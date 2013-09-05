@@ -47,8 +47,8 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	// 'filter'=>$model,
 	'columns'=>array(
 		'IDENTRADA',
-		'NEA_procedencia',
-		'iDENTRADA.ENT_fecha',
+		'nea.NEA_procedencia',
+		'ENT_fecha',
 		array(
 			'header'=>'Detalles',
 			'class'=>'bootstrap.widgets.TbButtonColumn',

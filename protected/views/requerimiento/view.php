@@ -95,30 +95,30 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                 'header'=>'Cantidad a comprar',
                 'type' => 'raw',
                 'value' => function($data,$col_comprar) {
-                  $cant=$data->RBI_cantidad;
-                  $stock=$data->bien->BIE_stockActual;
-                  $min=$data->bien->BIE_stockMinimo;
-                  $idbien=$data->IDBIEN;
-                  $compra=0;
+                        $cant=$data->RBI_cantidad;
+                        $stock=$data->bien->BIE_stockActual;
+                        $min=$data->bien->BIE_stockMinimo;
+                        $idbien=$data->IDBIEN;
+                        $compra=0;
 
-                  if($stock >= $cant){
-                    if(($stock-$cant)<$min)
-                      $compra=2*$cant+($min - $stock);
-                    else
-                      $compra=$cant;
-                  }
-                  else
-                    $compra=$min - ($stock - $cant);
+                        if($stock >= $cant){
+                          if(($stock-$cant)<$min)
+                            $compra=2*$cant+($min - $stock);
+                          else
+                            $compra=$cant;
+                        }
+                        else
+                          $compra=$min - ($stock - $cant);
 
-                  $col_comprar=Yii::app()->getGlobalState('comprar');
-                  $id_comprar=Yii::app()->getGlobalState('idcomprar');
-                  $col_comprar=array_merge((array)$col_comprar,(array)$compra);
-                  $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
-                  Yii::app()->setGlobalState('comprar',$col_comprar);
-                  Yii::app()->setGlobalState('idcomprar',$id_comprar);
+                        $col_comprar=Yii::app()->getGlobalState('comprar');
+                        $id_comprar=Yii::app()->getGlobalState('idcomprar');
+                        $col_comprar=array_merge((array)$col_comprar,(array)$compra);
+                        $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
+                        Yii::app()->setGlobalState('comprar',$col_comprar);
+                        Yii::app()->setGlobalState('idcomprar',$id_comprar);
 
 
-                  return CHtml::textField('cantidad', $compra);
+                        return CHtml::textField('cantidad', $compra);
                 },
                 )
               );
@@ -144,7 +144,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           {
           	echo "<div class=\"control-group center\">
             <div class=\"controls\">
-              <button class=\"btn inline disabled\" type=\"\">Autorizar Salida</button>
+              <a class=\"btn inline hide\" id='salida' type=\"\">Autorizar Salida</a>
             </div>
           </div>";
           }

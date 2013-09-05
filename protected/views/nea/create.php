@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Nea</h1>
+<h2 class="text-center">Nota de Entrada a Almacén</h2>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'entrada'=>$entrada)); ?>

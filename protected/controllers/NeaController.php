@@ -7,6 +7,7 @@ class NeaController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/main';
+	public $columnas=array();
 
 	/**
 	 * @return array action filters
@@ -39,6 +40,10 @@ class NeaController extends Controller
 				'actions'=>array('index','admin','create','view'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
+			array('allow', 
+				'actions'=>array('buscaBien','addItem','details','aumentarItem','disminuirItem','removeItem'),
+				'users'=>array('*'),
+			),			
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -62,20 +67,57 @@ class NeaController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Nea;
+		Yii::app()->setGlobalState('site_id', 0);
 
+		$model=new Nea;
+		$entrada=new Entrada;
+		$col=Yii::app()->getGlobalState('arrays_nea');
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		if($this->validador()){
+			if(isset($_POST['Nea']) && isset($_POST['Entrada']))
+			{
+				$entrada->attributes=$_POST['Entrada'];
+				if($entrada->save()){
+					$model->attributes=$_POST['Nea'];
+					$model->IDENTRADA=$entrada->IDENTRADA;
+					if($model->save()){
 
-		if(isset($_POST['Nea']))
-		{
-			$model->attributes=$_POST['Nea'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDENTRADA));
+					      for($x=0;$x<count($col); $x++){
+					        $entrada_bien= new EntradaBien; 
+					        if(!empty($col[$x][0])){
+					        	$entrada_bien->IDENTRADA=$entrada->IDENTRADA;
+					        	$entrada_bien->IDBIEN=$col[$x][0];
+					        	$entrada_bien->EBI_cantidad=$col[$x][3];
+					        	$entrada_bien->EBI_precioCompra=$col[$x][4];
+					        	if (!$entrada_bien->save()) {
+					        		// $transaction->rollBack();
+		                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo bienes');
+		                        }
+		                        else{
+		                        	// $transaction->commit();
+		                        		
+		                        }
+		                        
+					        }
+
+					      }
+
+					}
+					$this->redirect(array('admin'));
+				}
+				
+				
+			}
 		}
+		else{
+			Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar algun bien');			
+		}
+
 
 		$this->render('create',array(
 			'model'=>$model,
+			'entrada'=>$entrada,
 		));
 	}
 
@@ -102,6 +144,10 @@ class NeaController extends Controller
 			'model'=>$model,
 		));
 	}
+	public function actionDetails() {
+        
+        $this->renderPartial('_details');
+    }
 
 	/**
 	 * Deletes a particular model.
@@ -131,10 +177,95 @@ class NeaController extends Controller
 	/**
 	 * Manages all models.
 	 */
+    public function actionBuscaBien() {
+
+       //$q = $_GET['busca_clasificador'];
+    	$q=trim($_GET['term']);
+    	//echo 'funciona el valor es:'.$_GET['term'];
+       //$q='LA';
+
+    	if (isset($q)) {
+    		$condicion = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
+           //$condicion->order = 'CLA_descripcion'; // correct order-by field
+           $condicion->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$condicion->params = array(':q' => trim($q) . '%'); 
+           $catalogo=  Catalogo::model()->findAll($condicion);
+
+
+           if (!empty($catalogo)) {
+           	$returnVal = '';
+           	$salida = array();
+           	foreach ($catalogo as $c) {
+           		$salida[] = array(
+                      // expression to give the string for the autoComplete drop-down
+           			'label' => $c->CAT_descripcion,  
+           			'value' => $c->CAT_descripcion,
+           			'unidad'=>$c->CAT_unidad,
+                     'id' => Bien::model()->findByAttributes(array('IDCATALOGO'=>$c->IDCATALOGO))->IDBIEN, // return value from autocomplete
+                       );
+           	}
+           	echo CJSON::encode($salida);
+           	Yii::app()->end();
+           }
+       }
+   	}
+
+	public function actionAddItem() {
+
+        try {
+        	
+        	$idbien= $_POST['idbien'];
+        	$descripcion= $_POST['descripcion'];
+        	$unidad= $_POST['unidad'];
+        	$cantidad= $_POST['cantidad'];
+            $precio_unitario= $_POST['precio_unitario'];
+            $sub_total= $_POST['sub_total'];
+            
+            // Yii::app()->params['valor']
+         
+			$i=Yii::app()->getGlobalState('site_id'); //obtiene el valor de una variable global
+          	
+          if($i==0){
+          	
+          	$this->columnas[$i][0]=$idbien;
+            $this->columnas[$i][1]=$descripcion;
+            $this->columnas[$i][2]=$unidad;
+            $this->columnas[$i][3]=$cantidad;
+            $this->columnas[$i][4]=$precio_unitario;
+            $this->columnas[$i][5]=$sub_total;
+            Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+          }else{
+          	$this->columnas=Yii::app()->getGlobalState('arrays_nea');
+          	$this->columnas[$i][0]=$idbien;
+            $this->columnas[$i][1]=$descripcion;
+            $this->columnas[$i][2]=$unidad;
+            $this->columnas[$i][3]=$cantidad;
+            $this->columnas[$i][4]=$precio_unitario;
+            $this->columnas[$i][5]=$sub_total;
+            Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+          }
+
+            ++$i;
+
+           	Yii::app()->setGlobalState('site_id', $i);	// envia valor a una varible global
+            
+            //clearGlobalState()
+            $this->actionDetails();          
+
+            
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 	public function actionAdmin()
 	{
+		Yii::app()->clearGlobalState('arrays_nea');
 		$model=new Entrada('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->ENT_tipo = '1';
 		if(isset($_GET['Entrada']))
 			$model->attributes=$_GET['Entrada'];
 
@@ -142,6 +273,88 @@ class NeaController extends Controller
 			'model'=>$model,
 		));
 	}
+	public function actionAumentarItem() {
+
+    	$id= $_POST['idbien'];
+    	$this->columnas=Yii::app()->getGlobalState('arrays_nea');
+    	$valor=-1;
+    	
+    	$valor=$this->busqueda($id);
+        
+        ++$this->columnas[$valor][3];
+        $this->columnas[$valor][4];
+        $this->columnas[$valor][5]=$this->columnas[$valor][4]*$this->columnas[$valor][3];
+        Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+		//echo $valor.' bien:'.$id.' valor:'.$this->columnas[$valor][0];
+        $this->actionDetails();
+    }
+    public function actionDisminuirItem() {
+
+        $id= $_POST['idbien'];
+    	$valor=-1;    	
+        $valor=$this->busqueda($id);
+        $this->columnas=Yii::app()->getGlobalState('arrays_nea');
+        if($this->columnas[$valor][3]<=1){
+         	unset($this->columnas[$valor][0]);
+        	unset($this->columnas[$valor][1]);
+       		unset($this->columnas[$valor][2]);      
+         	unset($this->columnas[$valor][3]);
+        	unset($this->columnas[$valor][4]);
+       		unset($this->columnas[$valor][5]);       		 	
+        }
+        else{
+        	--$this->columnas[$valor][3];        	
+	        $this->columnas[$valor][4];
+	        $this->columnas[$valor][5]=$this->columnas[$valor][4]*$this->columnas[$valor][3];
+        }
+        
+        Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+
+        $this->actionDetails();
+    }
+
+    public function actionRemoveItem() {
+
+    	$id= $_POST['idbien'];
+    	$valor=-1;
+        $valor=$this->busqueda($id);
+        $this->columnas=Yii::app()->getGlobalState('arrays_nea');
+     	unset($this->columnas[$valor][0]);
+    	unset($this->columnas[$valor][1]);
+   		unset($this->columnas[$valor][2]);      
+     	unset($this->columnas[$valor][3]);
+    	unset($this->columnas[$valor][4]);
+   		unset($this->columnas[$valor][5]);  
+        $this->columnas = array_values($this->columnas);
+        Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+
+        $this->actionDetails();
+
+    }
+    public function busqueda($id){
+    	
+
+    	$this->columnas=Yii::app()->getGlobalState('arrays_nea');
+    	// foreach ($this->columnas as $col) {
+    	for($i=0;$i<count($this->columnas); $i++){
+    		
+    		if(stristr($this->columnas[$i][0],$id))    			
+    			break;
+    		
+    	}
+    	return $i;
+    }
+    public function validador(){
+    	$col=Yii::app()->getGlobalState('arrays_nea');
+	    
+	      for($x=0;$x<count($col); $x++){
+	        
+	        if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]) && !empty($col[$x][3]) && !empty($col[$x][4]))
+	         	return true;
+	      	else
+	      		return false;
+	      }
+	}    
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

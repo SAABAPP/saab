@@ -70,7 +70,7 @@ class RequerimientoController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$requerimiento_bien = new RequerimientoBien();
-		$bienes = new RequerimientoBien();
+		
 		//$bienes=$this->loadModel($id);
         $requerimiento_bien->unsetAttributes();
         $requerimiento_bien->IDREQUERIMIENTO = $id;
@@ -80,30 +80,32 @@ class RequerimientoController extends Controller
         if(isset($_POST['Requerimiento']))
 		{
 			$model->attributes=$_POST['Requerimiento'];
-			//$transaction=Yii::app()->db->beginTransaction();//transacciones
+			$transaction=Yii::app()->db->beginTransaction();//transacciones
 			if($model->save()){
 				$compra=Yii::app()->getGlobalState('comprar');
 				$idcompra=Yii::app()->getGlobalState('idcomprar');
 				$i=0;
+				
+				
 
 				foreach($compra as $value){
-							$bienes->RBI_cantidadComprar=$value;				        	
-				        	$bienes->attributes=$bienes;			        	
-				        	$bienes->IDBIEN=$idcompra[$i];
+							$bienes = new RequerimientoBien();
+							$bienes=RequerimientoBien::model()->findByAttributes(array('IDBIEN' =>$idcompra[$i],'IDREQUERIMIENTO'=>$id ));
+							$bienes->RBI_cantidadComprar=$value;			        	
+				        	//$bienes->IDBIEN=$idcompra[$i];
 				        	++$i;
 				        	if (!$bienes->save()) {
-				        		//$transaction->rollBack();
+				        		$transaction->rollBack();
 				        		Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
 	                            //throw new Exception("Error al guardar items");
 	                        }
-	                        else{
-	                        	//$transaction->commit();
-	                        	$this->redirect(array('admin'));
-	                        }
-	                        	
 				        
 
 				      }
+				$transaction->commit();
+				$this->redirect(array('admin'));
+				Yii::app()->clearGlobalState('comprar');
+				Yii::app()->clearGlobalState('idcomprar');
 				
 			}
 				
@@ -420,7 +422,7 @@ class RequerimientoController extends Controller
     	$valor=-1;    	
         $valor=$this->busqueda($id);
         $this->columnas=Yii::app()->getGlobalState('arrays');
-        if($this->columnas[$valor][1]==1){
+        if($this->columnas[$valor][1]<=1){
          	unset($this->columnas[$valor][0]);
         	unset($this->columnas[$valor][1]);
        		unset($this->columnas[$valor][2]);       	

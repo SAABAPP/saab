@@ -80,10 +80,10 @@
 <?php
 Yii::app()->clientScript->registerScript(
    'myHideEffect',
-   '$(".alert-warning").animate({opacity: 1.0}, 2000).fadeOut("slow");
-   $(".alert-error").animate({opacity: 1.0}, 2000).fadeOut("slow");
-   $(".alert-info").animate({opacity: 1.0}, 2000).fadeOut("slow");
-   $(".alert-success").animate({opacity: 1.0}, 2000).fadeOut("slow");',
+   '$(".alert-warning").animate({opacity: 1.0}, 2500).fadeOut("slow");
+   $(".alert-error").animate({opacity: 1.0}, 2500).fadeOut("slow");
+   $(".alert-info").animate({opacity: 1.0}, 2500).fadeOut("slow");
+   $(".alert-success").animate({opacity: 1.0}, 2500).fadeOut("slow");',
    CClientScript::POS_READY
 );
 ?>

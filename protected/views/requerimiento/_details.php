@@ -64,6 +64,9 @@
 
 
 Yii::app()->clientScript->registerScript('maintainer', "
+
+    $('#cantidadBien').numeric();
+    
     function aumentar(){
       
       $.ajax({

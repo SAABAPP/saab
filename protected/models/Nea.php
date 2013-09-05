@@ -40,7 +40,7 @@ class Nea extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NEA_procedencia, IDENTRADA', 'required'),
+			array('NEA_procedencia, IDENTRADA, NEA_referencia', 'required'),
 			array('IDENTRADA', 'numerical', 'integerOnly'=>true),
 			array('NEA_referencia, NEA_procedencia', 'length', 'max'=>150),
 			// The following rule is used by search().

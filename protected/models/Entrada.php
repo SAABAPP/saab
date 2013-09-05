@@ -69,9 +69,9 @@ class Entrada extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDENTRADA' => 'Identrada',
-			'ENT_fecha' => 'Ent Fecha',
-			'ENT_tipo' => 'Ent Tipo',
+			'IDENTRADA' => 'Nº',
+			'ENT_fecha' => 'Fecha',
+			'ENT_tipo' => 'Tipo',
 		);
 	}
 

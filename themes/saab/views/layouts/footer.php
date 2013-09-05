@@ -55,6 +55,8 @@
 
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/myjquery.js"></script>
 
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.numeric.js"></script>
+
 <?php
 $current_file = basename($_SERVER['PHP_SELF']);
 if ($current_file=="home.php") {
