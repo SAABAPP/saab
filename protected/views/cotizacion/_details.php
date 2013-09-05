@@ -7,7 +7,7 @@ $i=0;
 
 for($x=0;$x<count($col); $x++){
   if(!empty($col[$x][0])){
-    array_push($columasCotizacion,array('idProveedor'=>$col[$x][0], 'ruc'=>$col[$x][1], 'monto'=>$col[$x][2], 'razonSocial'=>$col[$x][3]));
+    array_push($columasCotizacion,array('idProveedor'=>$col[$x][0], 'ruc'=>$col[$x][1], 'monto'=>$col[$x][2], 'razonSocial'=>$col[$x][3], 'buenaPro'=>$col[$x][4]));
   }
 }
 
@@ -37,6 +37,12 @@ array_push($columnas, array(
   'value'=>'$data[monto]',
   )
 );
+
+// array_push($columnas, array(
+//   'header' => 'Buena Pro',
+//   'value'=>'$data[buenaPro]',
+//   )
+// );
 
 array_push($columnas, array(
   'class'=>'CButtonColumn',

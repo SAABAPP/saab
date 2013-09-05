@@ -6,6 +6,10 @@
     margin: 0 auto;
 }
 
+#divAnalizar,#btnGuardarCotizacion{
+	visibility:hidden;
+}
+
 footer a:hover{
 	color:#109FE1;
 }

@@ -84,7 +84,7 @@ class RequerimientoBien extends CActiveRecord
 		$criteria->compare('RBI_cantidad',$this->RBI_cantidad);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
 		$criteria->compare('IDBIEN',$this->IDBIEN);
-		$criteria->compare('RBI_cantidadComprar',$this->RBI_cantidadComprar);
+		// $criteria->compare('RBI_cantidadComprar',$this->RBI_cantidadComprar);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

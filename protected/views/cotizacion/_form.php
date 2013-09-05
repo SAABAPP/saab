@@ -20,7 +20,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 				<th style="width:30em;">Razón Social</th>
 				<th style="width:7em;">R.U.C.</th>
 				<th style="width:6em;">Monto</th>
-				<th class="button-column" style="width:4em;">Añadir</th>
+				<th style="width:4em;">Añadir</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,7 +31,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 						<?php 
 						$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 							'name'=>'busca_proveedor',
-							'id'=>'proveedor',
+							'id'=>'razonSocial',
 							'value'=>$proveedor->PRO_razonSocial,
 							'source'=>$this->createUrl('Cotizacion/buscaProveedor'),
 							'options'=>array(
@@ -55,7 +55,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 						));
 						?>
 						<input id="idProveedor" type="hidden">
-						<input id="razonSocial" type="hidden">
 					</div>
 				</td>
 		        <td>
@@ -80,13 +79,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     								'idProveedor' => "js: $('#idProveedor').val()",
     								'ruc' => "js: $('#ruc').val()",
     								'monto' => "js: $('#monto').val()",
-    								'razonSocial' => "js: $('#razonSocial').val()",
+    								'razonSocial' => "js: $('#razonSocial').val()",//aca
     								),
     							'error' => "function(req, status, error) {
     								alert(req.responseText);
     							}",
     							'success' => "function(data) {
-    								$('#proveedor').val('');
+    								$('#razonSocial').val('');
+    								$('#idProveedor').val('');
     								$('#ruc').val('');
     								$('#monto').val('');
     								$('#detalleCotizacion').html(data);
@@ -107,20 +107,39 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	echo "</div>";
 	?>
 </div>
-<div class="control-group center">
+<div id="divAnalizar" class="control-group center">
 	<div class="controls">
 		<?php
-		$this->widget('bootstrap.widgets.TbButton',array(
-			'htmlOptions'=>array('class'=>'inline','id' => 'showsd'),
-			'label' => 'Evaluar',
-			// 'url'=>$this->evaluar(),
-			)
-		);
-		// $this->widget('bootstrap.widgets.TbButton',array(
-		// 	'label' => 'Detallar',
-		// 	'htmlOptions'=>array('class'=>'inline secundario'),
-		// 	)
-		// );
+
+		echo CHtml::link("Analizar", 
+			array('analizar'),
+			array(
+				'id' => 'analizar',
+				'class' => 'btn',
+				'ajax' => array(
+					'type' => 'POST',
+                          // 'url' => $this->createUrl('Requerimiento/buscaBien'),
+					'url' => "js:$(this).attr('href')",
+					'data' => array(
+						// 'idbien' => "js: $('#idbien').val()",
+						// 'rbi_cantidad' => "js: $('#cantidadBien').val()",
+						// 'descripcion' => "js: $('#catalogoBien').val()",
+						// 'unidad'=>"js: $('#unidad_catalogo').val()",
+						),
+					'error' => "function(req, status, error) {
+						alert(req.responseText);
+					}",
+					'success' => "function(data) {
+						// $('#unidad_catalogo').val('');
+						// $('#idbien').val('');
+						// $('#cantidadBien').val('');
+						// $('#catalogoBien').val('');
+						// $('#order-detail-div').html(data);                                
+					}"
+					),
+
+				)
+			);
 		?>
 	</div>
 </div>
@@ -128,35 +147,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	<?php $this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien)); ?>
 </div>
 
-<div class="form-actions">
+<div class="form-actions text-center">
 	<?php $this->widget('bootstrap.widgets.TbButton', array(
 		'buttonType'=>'submit',
+		'htmlOptions'   => array('id'=> 'btnGuardarCotizacion'),
 		'type'=>'primary',
-		'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
 		));
 	?>
 </div>
 
 <?php $this->endWidget(); ?>
-
-<script>
-
- //XUXA
-$('body').on('click', '#showsd', function() {
-
-
-$.ajax({
-                    type: 'post',
-                    url: '<?php echo CController::createUrl('alerta');?>',
-                    data: {},
-                    error: function (request, status, error) {
-                        alert(request.responseText);
-                    },
-                    success: function (data) {
-                        alert(data);
-                    }
-                }); 
- });
-
-$('#bienes').show('slow');
-</script>

@@ -8,6 +8,7 @@ class CotizacionController extends Controller
 	 */
 	public $layout='//layouts/column2';
 	public $cotizaciones=array();
+	public $cotizacionmenor=array();
 
 	/**
 	 * @return array action filters
@@ -36,7 +37,7 @@ class CotizacionController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
 			array('allow', 
-				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','alerta'),
+				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','analizar','asignarBuenaPro'),
 				'users'=>array('*'),
 				),
 			array('deny',
@@ -92,37 +93,38 @@ class CotizacionController extends Controller
 
 		switch ($cotizado['cont']) {
 			case 0:
-			Yii::app()->setGlobalState('indiceCotizacion', 0);
-			Yii::app()->clearGlobalState('arrays');
-			Yii::app()->clearGlobalState('cantidadCotizaciones');
-			$model=new Cotizacion;
-			$requerimiento=Requerimiento::model()->findByPk($id);
-			$proveedor=new Proveedor('search');
-			$requerimiento_bien = new RequerimientoBien();
-			$requerimiento_bien->unsetAttributes();
-			$requerimiento_bien->IDREQUERIMIENTO = $id;
+				Yii::app()->setGlobalState('indiceCotizacion', 0);
+				Yii::app()->clearGlobalState('arrays');
+				Yii::app()->clearGlobalState('cantidadCotizaciones');
+				Yii::app()->clearGlobalState('montoBajo');
+				$model=new Cotizacion;
+				$requerimiento=Requerimiento::model()->findByPk($id);
+				$proveedor=new Proveedor('search');
+				$requerimiento_bien = new RequerimientoBien();
+				$requerimiento_bien->unsetAttributes();
+				$requerimiento_bien->IDREQUERIMIENTO = $id;
 
-				// Uncomment the following line if AJAX validation is needed
-				// $this->performAjaxValidation($model);
+					// Uncomment the following line if AJAX validation is needed
+					// $this->performAjaxValidation($model);
 
-			if(isset($_POST['Cotizacion']))
-			{
-				$model->attributes=$_POST['Cotizacion'];
-				if($model->save())
-					$this->redirect(array('view','id'=>$model->IDCOTIZACION));
-			}
+				if(isset($_POST['Cotizacion']))
+				{
+					$model->attributes=$_POST['Cotizacion'];
+					if($model->save())
+						$this->redirect(array('view','id'=>$model->IDCOTIZACION));
+				}
 
-			$this->render('create',array(
-				'model'=>$model,
-				'requerimiento'=>$requerimiento,
-				'proveedor'=>$proveedor,
-				'requerimiento_bien'=>$requerimiento_bien,
-				)
-			);
-			break;
+				$this->render('create',array(
+					'model'=>$model,
+					'requerimiento'=>$requerimiento,
+					'proveedor'=>$proveedor,
+					'requerimiento_bien'=>$requerimiento_bien,
+					)
+				);
+				break;
 			default:
-			throw new CHttpException(403,'No se puede acceder a la pagina.');
-			break;
+				throw new CHttpException(403,'No se puede acceder a la pagina.');
+				break;
 		}
 		
 	}
@@ -247,30 +249,36 @@ class CotizacionController extends Controller
 				$ruc= $_POST['ruc'];
 				$monto= $_POST['monto'];
 				$razonSocial= $_POST['razonSocial'];
-				$i=Yii::app()->getGlobalState('indiceCotizacion');
 
-				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+				if (is_numeric($monto)) {
+					$i=Yii::app()->getGlobalState('indiceCotizacion');
 
-				if($i==0){
-					$this->cotizaciones[$i][0]=$idProveedor;
-					$this->cotizaciones[$i][1]=$ruc;
-					$this->cotizaciones[$i][2]=$monto;
-					$this->cotizaciones[$i][3]=$razonSocial;
-					Yii::app()->setGlobalState('arrays', $this->cotizaciones);
-				}else{
-					$this->cotizaciones[$i][0]=$idProveedor;
-					$this->cotizaciones[$i][1]=$ruc;
-					$this->cotizaciones[$i][2]=$monto;
-					$this->cotizaciones[$i][3]=$razonSocial;
-					Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+					$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+
+					if($i==0){
+						$this->cotizaciones[$i][0]=$idProveedor;
+						$this->cotizaciones[$i][1]=$ruc;
+						$this->cotizaciones[$i][2]=$monto;
+						$this->cotizaciones[$i][3]=$razonSocial;
+						Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+					}else{
+						$this->cotizaciones[$i][0]=$idProveedor;
+						$this->cotizaciones[$i][1]=$ruc;
+						$this->cotizaciones[$i][2]=$monto;
+						$this->cotizaciones[$i][3]=$razonSocial;
+						Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+					}
+
+					++$i;
+					Yii::app()->setGlobalState('cantidadCotizaciones', ++$cantidad);
+					Yii::app()->setGlobalState('indiceCotizacion', $i);
+					$montobajo=$this->evaluarMenor();
+					Yii::app()->setGlobalState('montoBajo', $montobajo);
+					$this->asignarBuenaPro();
+				} else {
+					echo "<script>alert('El monto debe ser un numero.');</script>";
 				}
-
-				++$i;
-				Yii::app()->setGlobalState('cantidadCotizaciones', ++$cantidad);
-				Yii::app()->setGlobalState('indiceCotizacion', $i);
-				$montobajo=$this->evaluarMenor();
-				Yii::app()->setGlobalState('montoBajo', $montobajo);
-				// echo "<script>alert('".Yii::app()->getGlobalState('montoBajo')."');</script>";
+				
 				$this->actionDetails();
    				// echo "<script>alert('".Yii::app()->getGlobalState('cantidadCotizaciones')."');</script>";
 			} catch (Exception $ex) {
@@ -329,8 +337,26 @@ class CotizacionController extends Controller
 		return $menor;
 	}
 
-	public function actionAlerta(){
-		echo 'No se pueden agregar mas de 3 cotizaciones. Si desea agregar otra cotizacion borre una de las ingresadas.';
+	public function asignarBuenaPro()
+	{
+		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+		$menor=Yii::app()->getGlobalState('montoBajo');
+		for($i=0;$i<count($this->cotizaciones); $i++){
+			if (isset($this->cotizaciones[$i][2])) {
+				if($this->cotizaciones[$i][2]==$menor){
+					$this->cotizaciones[$i][4]=1;
+				}else{
+					$this->cotizaciones[$i][4]=0;
+				}
+			}
+		}
+		Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+	}
+
+	public function actionAnalizar(){
+		echo '<script type="text/javascript">'
+		, 'alert('.Yii::app()->getGlobalState('montoBajo').')'
+		, '</script>';
 	}
 
 	/**
@@ -346,3 +372,4 @@ class CotizacionController extends Controller
 		}
 	}
 }
+?>
