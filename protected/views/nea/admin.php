@@ -43,7 +43,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'nea-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
-    'template'=>"{items}",
+    'template'=>"{items}{pager}",
 	// 'filter'=>$model,
 	'columns'=>array(
 		'IDENTRADA',

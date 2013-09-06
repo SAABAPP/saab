@@ -104,8 +104,26 @@ Yii::app()->clientScript->registerScript('maintainer', "
 
    $('#cantidadBien').numeric();
    $('#precio_unitario').numeric(',');
+   $('.checkt').numeric();
 
+   $(document).ready(function() {
+      
+      $('.checkb').click(function(){
+         var valor=$(this).attr('id');
+          if (!$(this).is(':checked')) {                          
+              $('#_'+valor+'').attr('disabled',true);
+              $('#_'+valor+'').val('');              
+          }
+          else{
+              $('#_'+valor+'').removeAttr('disabled');
+              $('#_'+valor+'').focus();
+          }          
+
+      });          
+
+   });
    
+
    $('#precio_unitario').keyup(function(e){      
       var sub_total= $('#precio_unitario').val() * $('#cantidadBien').val();
       $('#sub_total').val(sub_total);

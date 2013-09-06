@@ -514,7 +514,7 @@ class RequerimientoController extends Controller
 	public function actionIndex()
 	{
 		//aca es para el index, que redirecciona a views/requerimiento/admin.php
-
+		Yii::app()->setGlobalState('arrays', $this->columnas);
         $requerimiento = new Requerimiento('search');//creo una variable con la funcion search de Requerimiento
         $requerimiento->unsetAttributes();//limpio los valores que pueda tener
         $requerimiento->IDUSUARIO = Yii::app()->user->getState('idusuario');//a la variable le asigno el IDUSUARIO igual que el que esta logeado
@@ -533,6 +533,7 @@ class RequerimientoController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		
 		Yii::app()->clearGlobalState('arrays');
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values

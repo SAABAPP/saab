@@ -44,7 +44,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
-    'template'=>"{items}",
+    'template'=>"{items}{pager}",
 	// 'filter'=>$model,
 	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
 	'columns'=>array(

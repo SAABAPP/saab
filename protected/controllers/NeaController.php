@@ -192,6 +192,7 @@ class NeaController extends Controller
 	 */
 	public function actionIndex()
 	{
+		Yii::app()->setGlobalState('arrays_nea', $this->columnas);
 		$dataProvider=new CActiveDataProvider('Nea');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -286,7 +287,9 @@ class NeaController extends Controller
     }
 	public function actionAdmin()
 	{
+		
 		Yii::app()->clearGlobalState('arrays_nea');
+
 		$model=new Entrada('search');
 		$model->unsetAttributes();  // clear any default values
 		$model->ENT_tipo = '1';
