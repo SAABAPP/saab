@@ -40,6 +40,47 @@ $this->widget('bootstrap.widgets.TbButton', array(
 
 <div class="span8 offset2">
 <?php
+$columns=array();
+
+array_push($columns, array(
+	'header' => 'N°',
+	'value'=>'$data->IDREQUERIMIENTO',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Oficina',
+	'value'=>'$data->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Fecha',
+	'value'=>'$data->REQ_fecha',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Estado',
+	'value'=>'$data->REQ_estado',
+	)
+);
+
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opc',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+        $html = "";
+        if($data->REQ_estado=='Requerido'){
+            $html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));             
+        }
+        return $html;
+    },
+));
+
 $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
@@ -47,20 +88,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
     'template'=>"{items}{pager}",
 	// 'filter'=>$model,
 	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
-	'columns'=>array(
-		'IDREQUERIMIENTO',
-		'iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
-		'REQ_fecha',
-		'REQ_estado',		
-		// 'REQ_presupuesto',		
-		array(
-			'header'=>'Detalles',
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-			'template'=>"{view}",
-			// hacer que el boton update salga cuando estado=observado
-		),
-		
-	),
+	'columns'=>$columns,
 ));
 ?>
 

@@ -109,12 +109,15 @@ Yii::app()->clientScript->registerScript('maintainer', "
    $(document).ready(function() {
       
       $('.checkb').click(function(){
+        console.log('se hiso click en un checkbox');
          var valor=$(this).attr('id');
-          if (!$(this).is(':checked')) {                          
+          if (!$(this).is(':checked')) {
+              console.log('habilitar checkbox');                          
               $('#_'+valor+'').attr('disabled',true);
               $('#_'+valor+'').val('');              
           }
           else{
+              console.log('desahabilitar checkbox');
               $('#_'+valor+'').removeAttr('disabled');
               $('#_'+valor+'').focus();
           }          

@@ -66,7 +66,7 @@ class AsientoContable extends CActiveRecord
 	{
 		return array(
 			'CODIGOCONTABLE' => 'Codigocontable',
-			'ACO_descripcion' => 'Aco Descripcion',
+			'ACO_descripcion' => 'Descripcion',
 		);
 	}
 

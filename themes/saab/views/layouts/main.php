@@ -38,6 +38,9 @@
        	case "usuario":
        	echo "<h2 class=\"pull-left\"><i class=\"icon-user\"></i> Usuarios</h2>";
        	break;
+        case "variables":
+        echo "<h2 class=\"pull-left\"><i class=\"icon-globe\"></i> Variables</h2>";
+        break;
        }
        ?>
 	<!-- Breadcrumb -->

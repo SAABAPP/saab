@@ -75,12 +75,12 @@ class Bien extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDBIEN' => 'Idbien',
+			'IDBIEN' => 'Nº Bien',
 			'BIE_stockActual' => 'Stock Actual',
 			'BIE_stockMinimo' => 'Stock Minimo',
 			'BIE_caracteristica' => 'Características',
 			'BIE_marca' => 'Marca',
-			'IDCATALOGO' => 'Idcatalogo',
+			'IDCATALOGO' => 'Nº Catalogo',
 		);
 	}
 

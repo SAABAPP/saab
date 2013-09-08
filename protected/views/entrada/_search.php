@@ -6,7 +6,7 @@
 
 
 	<div class="span8 input-append">
-		<?php echo $form->textFieldRow($model,'IDENTRADA',
+		<?php echo $form->textFieldRow($model,'IDORDENCOMPRA',
 			array(
 				'class'=>'span4',
 				'placeholder' => 'N° de Entrada',

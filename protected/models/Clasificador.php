@@ -65,8 +65,8 @@ class Clasificador extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'CODIGOCLASIFICADOR' => 'Codigoclasificador',
-			'CLA_descripcion' => 'Cla Descripcion',
+			'CODIGOCLASIFICADOR' => 'Nº clasificador',
+			'CLA_descripcion' => 'Descripcion',
 		);
 	}
 

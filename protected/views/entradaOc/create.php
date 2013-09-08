@@ -1,15 +1,12 @@
 <?php
-/* @var $this EntradaOcController */
-/* @var $model EntradaOc */
-
 $this->breadcrumbs=array(
 	'Entrada Ocs'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List EntradaOc', 'url'=>array('index')),
-	array('label'=>'Manage EntradaOc', 'url'=>array('admin')),
+	array('label'=>'List EntradaOc','url'=>array('index')),
+	array('label'=>'Manage EntradaOc','url'=>array('admin')),
 );
 ?>
 

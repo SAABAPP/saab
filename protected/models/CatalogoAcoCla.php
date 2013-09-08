@@ -70,9 +70,9 @@ class CatalogoAcoCla extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDCATALOGO' => 'Idcatalogo',
-			'CODIGOCONTABLE' => 'Codigocontable',
-			'CODIGOCLASIFICADOR' => 'Codigoclasificador',
+			'IDCATALOGO' => 'Nº Catalogo',
+			'CODIGOCONTABLE' => 'Codigoc ontable',
+			'CODIGOCLASIFICADOR' => 'Codigo clasificador',
 		);
 	}
 

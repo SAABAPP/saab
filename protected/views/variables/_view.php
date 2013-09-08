@@ -1,12 +1,7 @@
-<?php
-/* @var $this VariablesController */
-/* @var $data Variables */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDVARIABLE')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->IDVARIABLE), array('view', 'id'=>$data->IDVARIABLE)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->IDVARIABLE),array('view','id'=>$data->IDVARIABLE)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('VAR_descripcion')); ?>:</b>

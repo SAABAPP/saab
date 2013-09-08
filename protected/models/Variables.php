@@ -38,7 +38,7 @@ class Variables extends CActiveRecord
 		return array(
 			array('VAR_descripcion, VAR_valor', 'required'),
 			array('VAR_descripcion', 'length', 'max'=>150),
-			array('VAR_valor', 'length', 'max'=>20),
+			array('VAR_valor', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('IDVARIABLE, VAR_descripcion, VAR_valor', 'safe', 'on'=>'search'),
@@ -62,9 +62,9 @@ class Variables extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDVARIABLE' => 'Idvariable',
-			'VAR_descripcion' => 'Var Descripcion',
-			'VAR_valor' => 'Var Valor',
+			'IDVARIABLE' => 'Nº variable',
+			'VAR_descripcion' => 'Descripcion',
+			'VAR_valor' => 'Valor',
 		);
 	}
 

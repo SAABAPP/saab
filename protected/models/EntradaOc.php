@@ -6,10 +6,11 @@
  * The followings are the available columns in table 'entrada_oc':
  * @property integer $IDENTRADA
  * @property integer $IDORDENCOMPRA
+ * @property string $EOC_documento
  *
  * The followings are the available model relations:
- * @property OrdenCompra $iDORDENCOMPRA
  * @property Entrada $iDENTRADA
+ * @property OrdenCompra $iDORDENCOMPRA
  */
 class EntradaOc extends CActiveRecord
 {
@@ -39,11 +40,12 @@ class EntradaOc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('IDENTRADA', 'required'),
+			array('EOC_documento', 'required'),
 			array('IDENTRADA, IDORDENCOMPRA', 'numerical', 'integerOnly'=>true),
+			array('EOC_documento', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDENTRADA, IDORDENCOMPRA', 'safe', 'on'=>'search'),
+			array('IDENTRADA, IDORDENCOMPRA, EOC_documento', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,8 +57,8 @@ class EntradaOc extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'iDORDENCOMPRA' => array(self::BELONGS_TO, 'OrdenCompra', 'IDORDENCOMPRA'),
 			'iDENTRADA' => array(self::BELONGS_TO, 'Entrada', 'IDENTRADA'),
+			'iDORDENCOMPRA' => array(self::BELONGS_TO, 'OrdenCompra', 'IDORDENCOMPRA'),
 		);
 	}
 
@@ -68,6 +70,7 @@ class EntradaOc extends CActiveRecord
 		return array(
 			'IDENTRADA' => 'Identrada',
 			'IDORDENCOMPRA' => 'Idordencompra',
+			'EOC_documento' => 'Eoc Documento',
 		);
 	}
 
@@ -84,6 +87,7 @@ class EntradaOc extends CActiveRecord
 
 		$criteria->compare('IDENTRADA',$this->IDENTRADA);
 		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
+		$criteria->compare('EOC_documento',$this->EOC_documento,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -34,18 +34,57 @@ $this->renderPartial('_search',array(
 
 <div class="span8 offset2">
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+<?php 
+
+$columns=array();
+
+array_push($columns, array(
+	'header' => 'N°',
+	'value'=>'$data->IDORDENCOMPRA',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Oficina',
+	'value'=>'$data->iDREQUERIMIENTO->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Fecha',
+	'value'=>'$data->iDREQUERIMIENTO->REQ_fecha',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Estado',
+	'value'=>'$data->iDREQUERIMIENTO->REQ_estado',
+	)
+);
+
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opc',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+        $html = "";
+        if($data->iDREQUERIMIENTO->REQ_estado=='Aprobado'){
+            $html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));             
+        }
+        return $html;
+    },
+));
+
+
+
+$this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'entrada-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
-	'columns'=>array(
-		'IDENTRADA',
-		'ENT_fecha',
-		'ENT_tipo',
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
+    'rowCssClassExpression'=>'$data->iDREQUERIMIENTO->REQ_estado=="Requerido"?"info":($data->iDREQUERIMIENTO->REQ_estado=="Observado"?"warning":($data->iDREQUERIMIENTO->REQ_estado=="En almacen"?"warehouse":($data->iDREQUERIMIENTO->REQ_estado=="Aprobado"?"success":"finalized")))',
+	'columns'=>$columns,
 )); ?>
 </div>

@@ -1,35 +1,24 @@
-<?php
-/* @var $this VariablesController */
-/* @var $model Variables */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical'
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDVARIABLE'); ?>
-		<?php echo $form->textField($model,'IDVARIABLE'); ?>
+	<div class="span8 input-append">
+		<?php echo $form->textFieldRow($model,'VAR_descripcion',
+			array(
+				'class'=>'span4',
+				'placeholder' => 'Descripcion',
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
+			)
+		); ?>
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',			
+			'icon'=>'icon-search',
+		)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'VAR_descripcion'); ?>
-		<?php echo $form->textField($model,'VAR_descripcion',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'VAR_valor'); ?>
-		<?php echo $form->textField($model,'VAR_valor',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+	
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

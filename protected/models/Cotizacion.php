@@ -70,11 +70,11 @@ class Cotizacion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDCOTIZACION' => 'Idcotizacion',
-			'COT_total' => 'Cot Total',
-			'COT_buenaPro' => 'Cot Buena Pro',
-			'IDREQUERIMIENTO' => 'Idrequerimiento',
-			'IDPROVEEDOR' => 'Idproveedor',
+			'IDCOTIZACION' => 'Nº cotizacion',
+			'COT_total' => 'Total',
+			'COT_buenaPro' => 'Buena Pro',
+			'IDREQUERIMIENTO' => 'requerimiento',
+			'IDPROVEEDOR' => 'proveedor',
 		);
 	}
 

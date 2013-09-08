@@ -1,30 +1,20 @@
-<?php
-/* @var $this EntradaOcController */
-/* @var $model EntradaOc */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDENTRADA'); ?>
-		<?php echo $form->textField($model,'IDENTRADA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDENTRADA',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDORDENCOMPRA'); ?>
-		<?php echo $form->textField($model,'IDORDENCOMPRA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDORDENCOMPRA',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<?php echo $form->textFieldRow($model,'EOC_documento',array('class'=>'span5','maxlength'=>50)); ?>
+
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
