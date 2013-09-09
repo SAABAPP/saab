@@ -148,12 +148,20 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 </div>
 
 <div class="form-actions text-center">
-	<?php $this->widget('bootstrap.widgets.TbButton', array(
-		'buttonType'=>'submit',
-		'htmlOptions'   => array('id'=> 'btnGuardarCotizacion'),
-		'type'=>'primary',
-		'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
-		));
+	<?php
+	// $this->widget('bootstrap.widgets.TbButton', array(
+	// 	'buttonType'=>'submit',
+	// 	'htmlOptions'   => array('id'=> 'btnGuardarCotizacion'),
+	// 	'type'=>'primary',
+	// 	'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
+	// 	));
+	echo CHtml::link('Guardar',
+		array('grabar'),
+		array(
+			'class' => 'btn btn-primary',
+			'id'=> 'btnGuardarCotizacion',
+			)
+		);
 	?>
 </div>
 
