@@ -32,23 +32,23 @@ class RequerimientoController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien','buscaMeta','addItem','details','aumentarItem','disminuirItem','removeItem','idCatalogo'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaServicio','buscaMeta','addItem','details','aumentarItem','disminuirItem','removeItem','idCatalogo'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -210,6 +210,89 @@ class RequerimientoController extends Controller
 			'meta'=>$meta,
 		));
 	}
+	public function actionServicio()
+	{
+		Yii::app()->setGlobalState('site_id', 0);
+
+
+
+		$model=new Requerimiento;
+		$idusuario = Yii::app()->user->getState('idusuario');
+  		$usuario= new Usuario;
+ 		$usuario = Usuario::model()->findByPk($idusuario);
+ 		$clasificador=	new clasificador('search');
+
+ 		$col=Yii::app()->getGlobalState('arrays');
+ 		
+ 		$clasificador->unsetAttributes();
+ 		$catalogo=new Catalogo;
+ 		$catalogo->unsetAttributes();
+
+ 		$meta=new Meta;
+ 		$meta->unsetAttributes();
+
+ 		/*  
+
+			$requerimiento_bien= array(modelo);
+
+
+ 		*/
+        // $clasificador = new Clasificador;
+        // $clasificador= Clasificador::model()->findAll();
+		// Uncomment the following line if AJAX validation is needed
+		//$this->performAjaxValidation($model);
+		if($this->validador()){
+			if(isset($_POST['Requerimiento']))
+			{
+				$model->attributes=$_POST['Requerimiento'];
+
+				// $transaction=Yii::app()->db->beginTransaction();//transacciones
+				if($model->save()){
+
+
+				      for($x=0;$x<count($col); $x++){
+				        $requerimiento_servicio= new RequerimientoServicio; 
+				        if(!empty($col[$x][0])){
+				        	$requerimiento_bien->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+				        	$requerimiento_bien->IDBIEN=$col[$x][0];
+				        	$requerimiento_bien->RBI_cantidad=$col[$x][1];
+				        	if (!$requerimiento_bien->save()) {
+				        		// $transaction->rollBack();
+	                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+	                        }
+	                        else{
+	                        	// $transaction->commit();
+	                        		
+	                        }
+	                        
+				        }
+
+				      }
+				    Yii::app()->clearGlobalState('arrays');
+					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+					
+				}
+
+			}
+		}
+		else{
+			
+			// Yii::app()->user->setFlash('info', '<strong>Heyy!</strong> ');
+			Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar algun servicio');
+			// Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+		}
+
+
+
+
+		$this->render('servicio',array(
+			'model'=>$model,
+			'usuario'=>$usuario,
+			'clasificador'=>$clasificador,
+			'catalogo'=>$catalogo,
+			'meta'=>$meta,
+		));
+	}
 
 	public function actionBuscaClasificador() {
 
@@ -286,7 +369,41 @@ class RequerimientoController extends Controller
            }
        }
    	}
+    public function actionBuscaServicio() {
 
+       //$q = $_GET['busca_clasificador'];
+    	$q=trim($_GET['term']);
+    	//echo 'funciona el valor es:'.$_GET['term'];
+       //$q='LA';
+
+    	if (isset($q)) {
+    		$condicion = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+    		$condicion->condition = "IDCATALOGO<4898 AND length(CAT_codigo)=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
+           //$condicion->order = 'CLA_descripcion'; // correct order-by field
+           $condicion->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$condicion->params = array(':q' => trim($q) . '%'); 
+           $catalogo=  Catalogo::model()->findAll($condicion);
+
+
+           if (!empty($catalogo)) {
+           	$returnVal = '';
+           	$salida = array();
+           	foreach ($catalogo as $c) {
+           		$salida[] = array(
+                      // expression to give the string for the autoComplete drop-down
+           			'label' => $c->CAT_descripcion,  
+           			'value' => $c->CAT_descripcion,
+           			'unidad'=>$c->CAT_unidad,
+                     'id' => Bien::model()->findByAttributes(array('IDCATALOGO'=>$c->IDCATALOGO))->IDBIEN, // return value from autocomplete
+                       );
+           	}
+           	echo CJSON::encode($salida);
+           	Yii::app()->end();
+           }
+       }
+   	}
    	public function actionBuscaMeta() {
 
        //$q = $_GET['busca_clasificador'];

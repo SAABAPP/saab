@@ -71,24 +71,14 @@ array_push($columns, array(
     'htmlOptions' => array('class' => 'button-column'),
     'value' => function($data) {
         $html = "";
-        $cotizado= Yii::app()->db->createCommand()
-	        ->select('count(*) as cont')
-	        ->from('cotizacion C')
-	        ->join('requerimiento R', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
-	        ->where('R.IDREQUERIMIENTO=:id', array(':id'=>$data->IDREQUERIMIENTO))
-	        ->queryRow();
-        switch ($cotizado['cont']) {
-            case 0:
-                $html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDREQUERIMIENTO), array(
-                            'title' => 'Añadir',
-                        ));
-                break;
-            default:
-                $html.=CHtml::link("<i class='icon-eye-open'></i>", array("view", 'id' => $data->IDREQUERIMIENTO), array(
-                            'title' => 'Mostrar',
-                        ));
-                break;
+        if($data->REQ_estado=='Requerido'){
+			$html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDREQUERIMIENTO), array(
+                            'title' => 'Añadir',));
         }
+        else
+            $html.=CHtml::link("<i class='icon-eye-open'></i>", array("view", 'id' => $data->IDREQUERIMIENTO), array(
+                            'title' => 'Mostrar',));        	
+        
         return $html;
     },
 ));

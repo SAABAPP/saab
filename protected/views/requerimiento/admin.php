@@ -25,11 +25,18 @@ $this->renderPartial('_search',array(
 	));
 
 $this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Crear requerimiento',
+	'label'=>'Reque. BIEN',
     'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'large', // null, 'large', 'small' or 'mini'
-    'htmlOptions'=>array('class'=>'pull-right'),
+    'htmlOptions'=>array('class'=>'pull-right span2'),
     'url'=>array('create'),
+    ));
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Reque. SERVICIO',
+    'type'=>'secondary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'large', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>'pull-right span2'),
+    'url'=>array('servicio'),
     ));
 ?>
 </div><!-- search-form -->
