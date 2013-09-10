@@ -6,9 +6,7 @@ $this->breadcrumbs=array(
 ?>
 
 <?php 
-  // $usuario = Yii::app()->user->getState('idusuario');
-  // $requerimiento= new Requerimiento();
-  // $requerimiento = Requerimiento::model()->findAll($usuario);
+
 Yii::app()->clearGlobalState('comprar');
 Yii::app()->clearGlobalState('idcomprar');
 
@@ -50,79 +48,108 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
             $i=0;
             $comprar='';
 
-            array_push($columns, array(
-              'header' => 'N°',
-              'value' => function($data) use(&$i){
-                return ++$i;
-              },
-              )
-            );
-            
+            if($model->TIPO=='b'){
+                array_push($columns, array(
+                  'header' => 'N°',
+                  'value' => function($data) use(&$i){
+                    return ++$i;
+                  },
+                  )
+                );
+                
 
-            array_push($columns, array(
-              'header' => 'Bien',
-              'value'=>'$data->bien->iDCATALOGO->CAT_descripcion',
-              )
-            );
-            
-            array_push($columns, array(
-              'header' => 'Unidad',
-              'value'=>'$data->bien->iDCATALOGO->CAT_unidad',
-              )
-            );
+                array_push($columns, array(
+                  'header' => 'Bien',
+                  'value'=>'$data->bien->iDCATALOGO->CAT_descripcion',
+                  )
+                );
+                
+                array_push($columns, array(
+                  'header' => 'Unidad',
+                  'value'=>'$data->bien->iDCATALOGO->CAT_unidad',
+                  )
+                );
 
-            array_push($columns, array(
-              'header' => 'Cantidad',
-              'value'=>'$data->RBI_cantidad',
-              )
-            );
-            
-            if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
-            {
-              array_push($columns, array(
-                'header' => 'Stock actual',
-                'value'=>'$data->bien->BIE_stockActual',
-                )
-              );
-              
-              array_push($columns, array(
-                'header' => 'Stock mínimo',
-                'value'=>'$data->bien->BIE_stockMinimo',
-                )
-              );
-              
-              array_push($columns, array(
-                'header'=>'Cantidad a comprar',
-                'type' => 'raw',
-                'value' => function($data,$col_comprar) {
-                        $cant=$data->RBI_cantidad;
-                        $stock=$data->bien->BIE_stockActual;
-                        $min=$data->bien->BIE_stockMinimo;
-                        $idbien=$data->IDBIEN;
-                        $compra=0;
+                array_push($columns, array(
+                  'header' => 'Cantidad',
+                  'value'=>'$data->RBI_cantidad',
+                  )
+                );
+                
+                if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
+                {
+                  array_push($columns, array(
+                    'header' => 'Stock actual',
+                    'value'=>'$data->bien->BIE_stockActual',
+                    )
+                  );
+                  
+                  array_push($columns, array(
+                    'header' => 'Stock mínimo',
+                    'value'=>'$data->bien->BIE_stockMinimo',
+                    )
+                  );
+                  
+                  array_push($columns, array(
+                    'header'=>'Cantidad a comprar',
+                    'type' => 'raw',
+                    'value' => function($data,$col_comprar) {
+                            $cant=$data->RBI_cantidad;
+                            $stock=$data->bien->BIE_stockActual;
+                            $min=$data->bien->BIE_stockMinimo;
+                            $idbien=$data->IDBIEN;
+                            $compra=0;
 
-                        if($stock >= $cant){
-                          if(($stock-$cant)<$min)
-                            $compra=2*$cant+($min - $stock);
-                          else
-                            $compra=$cant;
-                        }
-                        else
-                          $compra=$min - ($stock - $cant);
+                            if($stock >= $cant){
+                              if(($stock-$cant)<$min)
+                                $compra=2*$cant+($min - $stock);
+                              else
+                                $compra=$cant;
+                            }
+                            else
+                              $compra=$min - ($stock - $cant);
 
-                        $col_comprar=Yii::app()->getGlobalState('comprar');
-                        $id_comprar=Yii::app()->getGlobalState('idcomprar');
-                        $col_comprar=array_merge((array)$col_comprar,(array)$compra);
-                        $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
-                        Yii::app()->setGlobalState('comprar',$col_comprar);
-                        Yii::app()->setGlobalState('idcomprar',$id_comprar);
+                            $col_comprar=Yii::app()->getGlobalState('comprar');
+                            $id_comprar=Yii::app()->getGlobalState('idcomprar');
+                            $col_comprar=array_merge((array)$col_comprar,(array)$compra);
+                            $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
+                            Yii::app()->setGlobalState('comprar',$col_comprar);
+                            Yii::app()->setGlobalState('idcomprar',$id_comprar);
 
 
-                        return CHtml::textField('cantidad', $compra);
-                },
-                )
-              );
+                            return CHtml::textField('cantidad', $compra);
+                    },
+                    )
+                  );
+                }              
             }
+            else{
+                array_push($columns, array(
+                  'header' => 'N°',
+                  'value' => function($data) use(&$i){
+                    return ++$i;
+                  },
+                  )
+                );
+                
+
+                array_push($columns, array(
+                  'header' => 'Servicio',
+                  'value'=>'$data->servicio->iDCATALOGO->CAT_descripcion',
+                  )
+                );
+                
+                array_push($columns, array(
+                  'header' => 'Descripcion',
+                  'value'=>'$data->RSE_detalle',
+                  )
+                );
+
+                
+                
+                             
+            }
+
 
             $this->widget('bootstrap.widgets.TbGridView', array(
               'type'=>'bordered',
@@ -140,7 +167,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
             </div>
           </div>
           <?php
-          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento") )
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
           {
           	echo "<div class=\"control-group center\">
             <div class=\"controls\">
@@ -150,7 +177,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           }
           ?>
           <?php
-          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
           {
             echo "<div class=\"control-group\">
             <label for=\"presupuesto\" class=\"control-label\">Presupuesto:</label>
@@ -162,7 +189,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           }
           ?>
           <?php
-          if (Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento"))
+
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
           {
             echo "<div class=\"control-group center\">
             <div class=\"controls\">";

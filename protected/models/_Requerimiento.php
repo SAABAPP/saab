@@ -7,18 +7,18 @@
  * @property integer $IDREQUERIMIENTO
  * @property string $REQ_estado
  * @property string $REQ_fecha
- * @property integer $REQ_presupuesto
+ * @property double $REQ_presupuesto
  * @property integer $IDUSUARIO
- * @property integer $CODMETA
+ * @property string $CODMETA
  * @property integer $IDCUANEC
- * @property string $TIPO
  *
  * The followings are the available model relations:
+ * @property Cotizacion[] $cotizacions
  * @property OrdenCompra[] $ordenCompras
  * @property Pecosa[] $pecosas
- * @property CuaNec $iDCUANEC
  * @property Usuario $iDUSUARIO
  * @property Meta $cODMETA
+ * @property CuaNec $iDCUANEC
  * @property Bien[] $biens
  * @property Servicio[] $servicios
  */
@@ -50,13 +50,14 @@ class Requerimiento extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA, TIPO', 'required'),
-			array('REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'numerical', 'integerOnly'=>true),
+			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA', 'required'),
+			array('IDUSUARIO, IDCUANEC', 'numerical', 'integerOnly'=>true),
+			array('REQ_presupuesto', 'numerical'),
 			array('REQ_estado', 'length', 'max'=>20),
-			array('TIPO', 'length', 'max'=>1),
+			array('CODMETA', 'length', 'max'=>4),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDREQUERIMIENTO, REQ_estado, REQ_fecha, REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC, TIPO', 'safe', 'on'=>'search'),
+			array('IDREQUERIMIENTO, REQ_estado, REQ_fecha, REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,9 +72,9 @@ class Requerimiento extends CActiveRecord
 			'cotizacions' => array(self::HAS_MANY, 'Cotizacion', 'IDREQUERIMIENTO'),
 			'ordenCompras' => array(self::HAS_MANY, 'OrdenCompra', 'IDREQUERIMIENTO'),
 			'pecosas' => array(self::HAS_MANY, 'Pecosa', 'IDREQUERIMIENTO'),
-			'iDCUANEC' => array(self::BELONGS_TO, 'CuaNec', 'IDCUANEC'),
 			'iDUSUARIO' => array(self::BELONGS_TO, 'Usuario', 'IDUSUARIO'),
 			'cODMETA' => array(self::BELONGS_TO, 'Meta', 'CODMETA'),
+			'iDCUANEC' => array(self::BELONGS_TO, 'CuaNec', 'IDCUANEC'),
 			'biens' => array(self::MANY_MANY, 'Bien', 'requerimiento_bien(IDREQUERIMIENTO, IDBIEN)'),
 			'servicios' => array(self::MANY_MANY, 'Servicio', 'requerimiento_servicio(IDREQUERIMIENTO, IDSERVICIO)'),
 		);
@@ -92,7 +93,6 @@ class Requerimiento extends CActiveRecord
 			'IDUSUARIO' => 'Idusuario',
 			'CODMETA' => 'Codmeta',
 			'IDCUANEC' => 'Idcuanec',
-			'TIPO' => 'Tipo',
 		);
 	}
 
@@ -112,12 +112,17 @@ class Requerimiento extends CActiveRecord
 		$criteria->compare('REQ_fecha',$this->REQ_fecha,true);
 		$criteria->compare('REQ_presupuesto',$this->REQ_presupuesto);
 		$criteria->compare('IDUSUARIO',$this->IDUSUARIO);
-		$criteria->compare('CODMETA',$this->CODMETA);
+		$criteria->compare('CODMETA',$this->CODMETA,true);
 		$criteria->compare('IDCUANEC',$this->IDCUANEC);
-		$criteria->compare('TIPO',$this->TIPO,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+			    'defaultOrder'=>'IDREQUERIMIENTO DESC',
+			  ),
+			'pagination'=>array(
+				'pageSize'=>15
+				),
 		));
 	}
 }

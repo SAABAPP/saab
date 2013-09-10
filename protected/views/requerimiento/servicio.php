@@ -50,6 +50,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <?php echo $form->hiddenField($model,'REQ_presupuesto',array('class'=>'span5','value'=>'0')); ?>
 
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
+    <?php echo $form->hiddenField($model,'TIPO',array('class'=>'span5','value'=>'s')); ?>
 
     <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'codmeta span5')); ?>
     
@@ -107,7 +108,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                           },
                           success: function (data) {
                             
-                              $("#catalogoBien").removeAttr("disabled");
+                              $("#catalogoServicio").removeAttr("disabled");
                               $("#caracteristica").removeAttr("disabled");                           
                                              
 
@@ -136,21 +137,19 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
               <th >Servicio</th>
               <!-- <th >Marca</th> -->
               <th >Descripcion</th>
-              <th >Unidad</th>
-              <th >Cantidad</th>
               <th class="button-column">Opciones</th>
             </tr>
             <tr>
               <td class="span1"></td>
-              <td class="span3">
+              <td class="span8">
                 <div class="filter-container">
 
 
                   <?php 
                   $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 
-                                          'name'=>'busca_bien',
-                                          'id'=>'catalogoBien',
+                                          'name'=>'busca_servicio',
+                                          'id'=>'catalogoServicio',
                                           'value'=>$catalogo->IDCATALOGO,
                                           'source'=>$this->createUrl('Requerimiento/buscaServicio/', array('valor'=>'')),
                                           //'sourceUrl'=>$this->createUrl(RequerimientoController::actionGetPostalCodeAction()),
@@ -168,7 +167,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                                   }',
                                                   'select' => 'js:function(event, ui){ 
                                                             //alert(ui.item.id+" "+ui.item.label + " "+ui.item.value);
-                                                          jQuery("#unidad_catalogo").val(ui.item["unidad"]);
+                                                          
                                                           jQuery("#idservicio").val(ui.item["id"]);  
                                                           
                                                   }'
@@ -184,24 +183,19 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
             </div>
           </td>
 
-          <!-- <td >
-            <div class="filter-container">
-              <input name="" id="marca" class="span8" type="text" disabled>
-            </div>
-          </td> -->
           <td class="span2">
             <div class="filter-container">
               <input name="" id="caracteristica"  placeholder="Descripcion.." type="text" disabled>
             </div>
           </td>
-          <td class="span2">
+          <!-- <td class="span2">
             <input name="" id="unidad_catalogo"  type="text" disabled>
           </td>
           <td class="span1">
             <div class="filter-container">
               <input name="" id="cantidadBien" type="text" style="width:40px;" disabled>
             </div>
-          </td>
+          </td> -->
           <td >
             <?php 
               $item=array();
@@ -209,7 +203,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
                echo CHtml::link("<i class='icon-plus'></i>", 
                    // array('create#'),
-                   array('addItem'),
+                   array('addServicio'),
                    array(
                       'id' => 'btnAdd',
                       'class' => 'btn btn-primary',
@@ -221,17 +215,16 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                               
                               'idservicio' => "js: $('#idservicio').val()",
                               'caracteristica' => "js: $('#caracteristica').val()",
-                              'descripcion' => "js: $('#catalogoBien').val()",
+                              'descripcion' => "js: $('#catalogoServicio').val()",
                               'unidad'=>"js: $('#unidad_catalogo').val()",
                           ),
                           'error' => "function(req, status, error) {
                                           alert(req.responseText);
                                       }",
-                          'success' => "function(data) {
-                                          $('#unidad_catalogo').val('');
+                          'success' => "function(data) {                                          
                                           $('#idservicio').val('');
                                           $('#caracteristica').val('');
-                                          $('#catalogoBien').val('');
+                                          $('#catalogoServicio').val('');
                                           $('#order-detail-div').html(data);                                
                                       }"
                       ),

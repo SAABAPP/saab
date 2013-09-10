@@ -38,7 +38,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <?php echo $form->hiddenField($model,'REQ_presupuesto',array('class'=>'span5','value'=>'0')); ?>
 
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
-
+    <?php echo $form->hiddenField($model,'TIPO',array('class'=>'span5','value'=>'b')); ?>
     <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'codmeta span5')); ?>
     
     <?php echo $form->hiddenField($model,'IDCUANEC',array('class'=>'span5')); ?>
@@ -123,14 +123,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
               <th >N°</th>
               <th >Bien</th>
               <!-- <th >Marca</th> -->
-              <th >Característica</th>
+              <!-- <th >Característica</th> -->
               <th >Unidad</th>
               <th >Cantidad</th>
               <th class="button-column">Opciones</th>
             </tr>
             <tr>
               <td class="span1"></td>
-              <td class="span3">
+              <td class="span8">
                 <div class="filter-container">
 
 
@@ -177,11 +177,11 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
               <input name="" id="marca" class="span8" type="text" disabled>
             </div>
           </td> -->
-          <td class="span2">
+          <!-- <td class="span2">
             <div class="filter-container">
               <input name="" id="caracteristica"  type="text" disabled>
             </div>
-          </td>
+          </td> -->
           <td class="span2">
             <input name="" id="unidad_catalogo"  type="text" disabled>
           </td>
