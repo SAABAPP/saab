@@ -63,6 +63,7 @@ $this->breadcrumbs=array(
 		'dataProvider'=>$dataProvider,
 		'template'=>"{items}",
 		'columns'=>$columns,
+		'rowCssClassExpression'=>'$data[COT_buenaPro]==1?"success":""',
 		)
 	);
 	?>

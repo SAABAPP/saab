@@ -36,7 +36,27 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('precioUnitario','',array('style'=>'width:6em;','pattern'=>'[0-9]+(\.[0-9]{1,4}?)?'));
+		return CHtml::textField('precioUnitario[]','',array('style'=>'width:6em;','pattern'=>'[0-9]+(\.[0-9]{1,4}?)?'));
+	},
+	)
+);
+
+array_push($columns, array(
+	'header'=>'Características',
+	'htmlOptions'=>array('width'=>'10em'),
+	'type' => 'raw',
+	'value' => function($data) {
+		return CHtml::textField('caracteristica[]','',array('style'=>'width:10em;'));
+	},
+	)
+);
+
+array_push($columns, array(
+	'header'=>'Marca',
+	'htmlOptions'=>array('width'=>'10em'),
+	'type' => 'raw',
+	'value' => function($data) {
+		return CHtml::textField('marca[]','',array('style'=>'width:10em;'));
 	},
 	)
 );
@@ -49,7 +69,7 @@ array_push($columns, array(
 ?>
 <hr>
 <br>
-<h3>Ingresar los precios unitarios de los bienes</h3>
+<h3>Ingresar los detalles de los bienes</h3>
 <br>
 <!-- <div class="control-group pull-right">
 	<label class="control-label" for="ruc">R.U.C.:</label>

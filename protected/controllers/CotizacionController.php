@@ -37,7 +37,7 @@ class CotizacionController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
 			array('allow', 
-				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','analizar','asignarBuenaPro'),
+				'actions'=>array('buscaProveedor','addCotizacion','details','removeCotizacion','busqueda','analizar','asignarBuenaPro','grabar'),
 				'users'=>array('*'),
 				),
 			array('deny',
@@ -93,38 +93,33 @@ class CotizacionController extends Controller
 
 		switch ($cotizado['cont']) {
 			case 0:
-				Yii::app()->setGlobalState('indiceCotizacion', 0);
-				Yii::app()->clearGlobalState('arrays');
-				Yii::app()->clearGlobalState('cantidadCotizaciones');
-				Yii::app()->clearGlobalState('montoBajo');
-				$model=new Cotizacion;
-				$requerimiento=Requerimiento::model()->findByPk($id);
-				$proveedor=new Proveedor('search');
-				$requerimiento_bien = new RequerimientoBien();
-				$requerimiento_bien->unsetAttributes();
-				$requerimiento_bien->IDREQUERIMIENTO = $id;
+			Yii::app()->setGlobalState('indiceCotizacion', 0);
+			Yii::app()->clearGlobalState('requerimientoID');
+			Yii::app()->clearGlobalState('arrays');
+			Yii::app()->clearGlobalState('cantidadCotizaciones');
+			Yii::app()->clearGlobalState('montoBajo');
+			$model=new Cotizacion;
+			$requerimiento=Requerimiento::model()->findByPk($id);
+			$proveedor=new Proveedor('search');
+			$requerimiento_bien = new RequerimientoBien();
+			$requerimiento_bien->unsetAttributes();
+			$requerimiento_bien->IDREQUERIMIENTO = $id;
+			Yii::app()->setGlobalState('requerimientoID', $id);
 
-					// Uncomment the following line if AJAX validation is needed
-					// $this->performAjaxValidation($model);
+			// Uncomment the following line if AJAX validation is needed
+			// $this->performAjaxValidation($model);
 
-				if(isset($_POST['Cotizacion']))
-				{
-					$model->attributes=$_POST['Cotizacion'];
-					if($model->save())
-						$this->redirect(array('view','id'=>$model->IDCOTIZACION));
-				}
-
-				$this->render('create',array(
-					'model'=>$model,
-					'requerimiento'=>$requerimiento,
-					'proveedor'=>$proveedor,
-					'requerimiento_bien'=>$requerimiento_bien,
-					)
-				);
-				break;
+			$this->render('create',array(
+				'model'=>$model,
+				'requerimiento'=>$requerimiento,
+				'proveedor'=>$proveedor,
+				'requerimiento_bien'=>$requerimiento_bien,
+				)
+			);
+			break;
 			default:
-				throw new CHttpException(403,'No se puede acceder a la pagina.');
-				break;
+			throw new CHttpException(403,'No se puede acceder a la pagina.');
+			break;
 		}
 		
 	}
@@ -354,9 +349,24 @@ class CotizacionController extends Controller
 	}
 
 	public function actionAnalizar(){
-		echo '<script type="text/javascript">'
-		, 'alert('.Yii::app()->getGlobalState('montoBajo').')'
-		, '</script>';
+	}
+
+	public function actionGrabar(){
+		$id=Yii::app()->getGlobalState('requerimientoID');
+		$col=Yii::app()->getGlobalState('arrays');
+		for($x=0;$x<count($col); $x++){
+			$modelNew=new Cotizacion;
+			if(!empty($col[$x][0])){
+				// echo "<script>alert('".$id."');</script>";
+				$modelNew->IDREQUERIMIENTO=$id;
+				$modelNew->IDPROVEEDOR=$col[$x][0];
+				$modelNew->COT_total=$col[$x][2];
+				$modelNew->COT_buenaPro=$col[$x][4];
+				$modelNew->save();
+			}
+
+		}
+		$this->redirect(array('view','id'=>$id));
 	}
 
 	/**
