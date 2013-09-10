@@ -84,21 +84,8 @@ class CotizacionController extends Controller
 	 */
 	public function actionCreate($id)
 	{
-		$cotizado= Yii::app()->db->createCommand()
-		->select('count(*) as cont')
-		->from('cotizacion C')
-		->join('requerimiento R', 'R.IDREQUERIMIENTO=C.IDREQUERIMIENTO')
-		->where('R.IDREQUERIMIENTO=:id', array(':id'=>$id))
-		->queryRow();
-
-		switch ($cotizado['cont']) {
-			case 0:
-			Yii::app()->setGlobalState('indiceCotizacion', 0);
-			Yii::app()->clearGlobalState('requerimientoID');
-			Yii::app()->clearGlobalState('arrays');
-			Yii::app()->clearGlobalState('detalleOC');
-			Yii::app()->clearGlobalState('cantidadCotizaciones');
-			Yii::app()->clearGlobalState('montoBajo');
+		
+			
 			$model=new Cotizacion;
 			$requerimiento=Requerimiento::model()->findByPk($id);
 			$proveedor=new Proveedor('search');
@@ -106,10 +93,82 @@ class CotizacionController extends Controller
 			$requerimiento_bien->unsetAttributes();
 			$requerimiento_bien->IDREQUERIMIENTO = $id;
 			Yii::app()->setGlobalState('requerimientoID', $id);
+			$temporal=array();
 
-			// Uncomment the following line if AJAX validation is needed
-			// $this->performAjaxValidation($model);
+			if(!empty($_POST['precioUnitario'])){				
+				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+				$ordenCompra=new ordenCompra;
+				$ordenCompra->TIPO='c';
+				$ordenCompra->IDREQUERIMIENTO=$id;
+				if (!$ordenCompra->save()) {
+					Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo guardar la Orden');
+				}
+				else{
+					$x=0;
+					$cantidad=0;
 
+					foreach($_POST['precioUnitario'] as $precio){
+						$temporal[0][$x]=$precio;
+						$x++;													
+					}
+					$x=0;
+					foreach($_POST['marca'] as $marca){
+						$temporal[1][$x]=$marca;
+						$x++;														
+					}
+					$x=0;
+					foreach ($_POST['caracteristica']  as $caracteristica) {
+						$temporal[2][$x]=$caracteristica;
+						$x++;						
+					}
+					$x=0;
+					$cantidad=0;
+					$Criteria_RB = new CDbCriteria();
+					$Criteria_RB->condition = "IDREQUERIMIENTO = $id";
+					$detalleRB=RequerimientoBien::model()->findAll($Criteria_RB);
+					foreach ($detalleRB as $value) {
+						$temporal[3][$x]=$value->IDBIEN;
+						$temporal[4][$x]=$value->RBI_cantidadComprar;
+						$x++;
+						$cantidad++;
+					}
+					// print_r($temporal);
+					// echo 'cantidad'.$cantidad;
+					for($i=0;$i<$cantidad;$i++){
+						$detalleOC=new DetalleOrdenCompra;						
+						$detalleOC->IDORDENCOMPRA=$ordenCompra->IDORDENCOMPRA;						
+						$detalleOC->DOC_precioUnitario=$temporal[0][$i];
+						$detalleOC->DOC_marca=$temporal[1][$i];;
+						$detalleOC->DOC_caracteristica=$temporal[2][$i];						
+						$detalleOC->DOC_bien=$temporal[3][$i];
+						$detalleOC->DOC_cantidad=$temporal[4][$i];
+						if(!$detalleOC->save()){
+							Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pudo guardar las detalle Orden Compra');
+						}
+					}
+
+					for($i=0;$i<count($this->cotizaciones);$i++){
+						$cotizacion=new Cotizacion;
+						$cotizacion->COT_buenaPro=$this->cotizaciones[$i][4];
+						$cotizacion->COT_total=$this->cotizaciones[$i][2];
+						$cotizacion->IDREQUERIMIENTO=$id;
+						$cotizacion->IDPROVEEDOR=$this->cotizaciones[$i][0];
+						if(!$cotizacion->save()){
+							Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pudo guardar las cotizaciones');
+						}
+
+					}
+					Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se ha generado todo correctamente');
+					$this->redirect(array('admin'));					
+				}
+
+					
+			}
+			else{
+				Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar los precios unitarios');
+			}
+
+			
 			$this->render('create',array(
 				'model'=>$model,
 				'requerimiento'=>$requerimiento,
@@ -117,11 +176,7 @@ class CotizacionController extends Controller
 				'requerimiento_bien'=>$requerimiento_bien,
 				)
 			);
-			break;
-			default:
-			throw new CHttpException(403,'No se puede acceder a la pagina.');
-			break;
-		}
+			
 		
 	}
 
@@ -185,6 +240,13 @@ class CotizacionController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		Yii::app()->setGlobalState('indiceCotizacion', 0);
+		Yii::app()->clearGlobalState('requerimientoID');
+		Yii::app()->clearGlobalState('arrays');
+		Yii::app()->clearGlobalState('detalleOC');
+		Yii::app()->clearGlobalState('cantidadCotizaciones');
+		Yii::app()->clearGlobalState('montoBajo');
+
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Requerimiento']))

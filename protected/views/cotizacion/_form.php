@@ -149,20 +149,24 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 <div class="form-actions text-center">
 	<?php
-	// $this->widget('bootstrap.widgets.TbButton', array(
-	// 	'buttonType'=>'submit',
-	// 	'htmlOptions'   => array('id'=> 'btnGuardarCotizacion'),
-	// 	'type'=>'primary',
-	// 	'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
-	// 	));
-	echo CHtml::link('Guardar',
-		array('grabar'),
-		array(
-			'class' => 'btn btn-primary',
-			'id'=> 'btnGuardarCotizacion',
-			)
-		);
+	
+	// echo CHtml::link('Guardar',
+	// 	array('grabar'),
+	// 	array(
+	// 		'class' => 'btn btn-primary',
+	// 		'id'=> 'btnGuardarCotizacion',
+	// 		)
+	// 	);
 	?>
 </div>
+
+	<div class="form-actions text-center">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'secondary',
+			'label'=>$model->isNewRecord ? 'Imprimir Acta Otorgamiento y Generar Orden de Compra' : 'Actualizar',
+		)); ?>
+
+	</div>
 
 <?php $this->endWidget(); ?>

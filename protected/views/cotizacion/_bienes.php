@@ -1,3 +1,4 @@
+
 <?php
 $columns=array();
 $i=0;
@@ -27,8 +28,9 @@ array_push($columns, array(
 array_push($columns, array(
 	'header' => 'Cantidad',
 	'htmlOptions'=>array('width'=>'1em'),
+	'type' => 'raw',
 	'value'=>function($data) {
-		return CHtml::textField('codbien[]',$data->RBI_cantidad,array('style'=>'width:5em;'));
+		return CHtml::textField('cantidad[]',$data->RBI_cantidadComprar,array('style'=>'width:5em;','disabled'=>'true'));
 	},
 	)
 );
@@ -38,7 +40,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('codbien[]',$data->bien->IDBIEN,array('style'=>'width:5em;'));
+		return CHtml::textField('codbien[]',$data->bien->IDBIEN,array('style'=>'width:5em;','disabled'=>'true'));
 	},
 	)
 );
@@ -73,24 +75,13 @@ array_push($columns, array(
 	)
 );
 
-// array_push($columns, array(
-// 	'header' => 'Sub Total',
-// 	'value'=>'',
-// 	)
-// );
+
 ?>
 <hr>
 <br>
 <h3>Ingresar los detalles de los bienes</h3>
 <br>
-<!-- <div class="control-group pull-right">
-	<label class="control-label" for="ruc">R.U.C.:</label>
-	<div class="controls"><p>gggg</p></div>
-</div>
-<div class="control-group">
-	<label class="control-label" for="solicitante">Señor(es):</label>
-	<div class="controls"><p>11111111111</p></div>
-</div> -->
+
 <?php
 
 $this->widget('bootstrap.widgets.TbGridView', array(
