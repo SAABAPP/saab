@@ -70,6 +70,7 @@ class NeaController extends Controller
 		Yii::app()->setGlobalState('site_id', 0);
 
 		$model=new Nea;
+		$catalogo=new Catalogo;
 		$entrada=new Entrada;
 		$col=Yii::app()->getGlobalState('arrays_nea');
 		$temporal=array();
@@ -142,6 +143,7 @@ class NeaController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'entrada'=>$entrada,
+			'catalogo'=>$catalogo
 		));
 	}
 

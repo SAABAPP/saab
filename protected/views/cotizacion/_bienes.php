@@ -27,7 +27,19 @@ array_push($columns, array(
 array_push($columns, array(
 	'header' => 'Cantidad',
 	'htmlOptions'=>array('width'=>'1em'),
-	'value'=>'$data->RBI_cantidad',
+	'value'=>function($data) {
+		return CHtml::textField('codbien[]',$data->RBI_cantidad,array('style'=>'width:5em;'));
+	},
+	)
+);
+
+array_push($columns, array(
+	'header'=>'Código bien',
+	'htmlOptions'=>array('width'=>'1em'),
+	'type' => 'raw',
+	'value' => function($data) {
+		return CHtml::textField('codbien[]',$data->bien->IDBIEN,array('style'=>'width:5em;'));
+	},
 	)
 );
 

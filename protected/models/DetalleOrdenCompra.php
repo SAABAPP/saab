@@ -10,6 +10,7 @@
  * @property string $DOC_caracteristica
  * @property integer $IDDETOC
  * @property integer $IDORDENCOMPRA
+ * @property integer $DOC_bien
  *
  * The followings are the available model relations:
  * @property OrdenCompra $iDORDENCOMPRA
@@ -42,14 +43,14 @@ class DetalleOrdenCompra extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('DOC_precioUnitario, IDORDENCOMPRA', 'required'),
-			array('IDORDENCOMPRA', 'numerical', 'integerOnly'=>true),
+			array('DOC_precioUnitario, IDORDENCOMPRA, DOC_bien', 'required'),
+			array('IDORDENCOMPRA, DOC_bien', 'numerical', 'integerOnly'=>true),
 			array('DOC_precioUnitario', 'length', 'max'=>12),
 			array('DOC_marca', 'length', 'max'=>150),
 			array('DOC_cantidad, DOC_caracteristica', 'length', 'max'=>18),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('DOC_precioUnitario, DOC_marca, DOC_cantidad, DOC_caracteristica, IDDETOC, IDORDENCOMPRA', 'safe', 'on'=>'search'),
+			array('DOC_precioUnitario, DOC_marca, DOC_cantidad, DOC_caracteristica, IDDETOC, IDORDENCOMPRA, DOC_bien', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +78,7 @@ class DetalleOrdenCompra extends CActiveRecord
 			'DOC_caracteristica' => 'Doc Caracteristica',
 			'IDDETOC' => 'Iddetoc',
 			'IDORDENCOMPRA' => 'Idordencompra',
+			'DOC_bien' => 'Doc Bien',
 		);
 	}
 
@@ -97,6 +99,7 @@ class DetalleOrdenCompra extends CActiveRecord
 		$criteria->compare('DOC_caracteristica',$this->DOC_caracteristica,true);
 		$criteria->compare('IDDETOC',$this->IDDETOC);
 		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
+		$criteria->compare('DOC_bien',$this->DOC_bien);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

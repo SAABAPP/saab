@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h2 class="text-center">Nota de Entrada a Almacén</h2>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'entrada'=>$entrada)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'entrada'=>$entrada,'catalogo'=>$catalogo)); ?>

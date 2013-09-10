@@ -96,6 +96,7 @@ class CotizacionController extends Controller
 			Yii::app()->setGlobalState('indiceCotizacion', 0);
 			Yii::app()->clearGlobalState('requerimientoID');
 			Yii::app()->clearGlobalState('arrays');
+			Yii::app()->clearGlobalState('detalleOC');
 			Yii::app()->clearGlobalState('cantidadCotizaciones');
 			Yii::app()->clearGlobalState('montoBajo');
 			$model=new Cotizacion;

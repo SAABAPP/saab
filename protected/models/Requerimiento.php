@@ -114,10 +114,16 @@ class Requerimiento extends CActiveRecord
 		$criteria->compare('IDUSUARIO',$this->IDUSUARIO);
 		$criteria->compare('CODMETA',$this->CODMETA);
 		$criteria->compare('IDCUANEC',$this->IDCUANEC);
-		$criteria->compare('TIPO',$this->TIPO,true);
+		//$criteria->compare('TIPO',$this->TIPO,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+			    'defaultOrder'=>'IDREQUERIMIENTO DESC',
+			  ),
+			'pagination'=>array(
+				'pageSize'=>15
+				),
 		));
 	}
 }
