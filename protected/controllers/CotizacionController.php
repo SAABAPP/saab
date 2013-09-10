@@ -100,6 +100,11 @@ class CotizacionController extends Controller
 				$ordenCompra=new ordenCompra;
 				$ordenCompra->TIPO='c';
 				$ordenCompra->IDREQUERIMIENTO=$id;
+				$_requerimiento=Requerimiento::model()->findByPk($id);
+				$_requerimiento->attributes=$_POST['Requerimiento'];
+				if(!$_requerimiento->save()){
+					Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo actualizo requerimiento');
+				}
 				if (!$ordenCompra->save()) {
 					Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo guardar la Orden');
 				}

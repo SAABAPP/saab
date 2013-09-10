@@ -8,7 +8,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php //echo $form->textFieldRow($model,'COT_buenaPro',array('class'=>'span5')); ?>
+<?php echo $form->hiddenField($requerimiento,'REQ_estado',array('class'=>'span5','value'=>'Aprobado')); ?>
 
 <?php //echo $form->textFieldRow($model,'IDREQUERIMIENTO',array('class'=>'span5')); ?>
 

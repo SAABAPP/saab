@@ -90,8 +90,11 @@ class EntradaController extends Controller
 					$entradaOC->IDENTRADA=$model->IDENTRADA;
 					$entradaOC->IDORDENCOMPRA=$id;
 					$entradaOC->EOC_documento=$_POST['EntradaOC'];
-					$requerimiento->REQ_estado='En almacen';
-					if(!$entradaOC->save() && !$requerimiento->save() )
+					$_requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
+					$_requerimiento->REQ_estado='En almacen';
+					if(!$_requerimiento->save() )
+						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> no se puede actualizar');
+					if(!$entradaOC->save())
 						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
 					else{
 						//encontrar todos los datos de detallo orden compra
