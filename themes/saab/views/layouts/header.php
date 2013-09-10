@@ -174,20 +174,7 @@ $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->u
       <div class="sidebar-dropdown"><a href="#">Módulos</a></div>
       <!--- Sidebar navigation -->
       <?php
-      // $this->widget('bootstrap.widgets.TbMenu', array(
-      //   // 'type'=>'list',
-      //   //'htmlOptions' => array('class'=>clean),
-      //   'id'=>'nav',
-      //   'items' => array(
-      //     array('label'=>'Pre-Orden','url'=>'', 'itemOptions'=>array('class'=>'has_sub'),'icon'=>'icon-list-ul'),
-      //     array('label'=>'Órdenes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-list-alt'),
-      //     array('label'=>'N.E.A.', 'url'=>Yii::app()->request->baseUrl.'/nea', 'itemOptions'=>array('class'=>''),'icon'=>'icon-plus'),
-      //     array('label'=>'Movimientos', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-retweet'),
-      //     array('label'=>'Kardex', 'url'=>Yii::app()->request->baseUrl.'/kardex', 'itemOptions'=>array('class'=>''),'icon'=>'icon-table'),
-      //     array('label'=>'Usuarios', 'url'=>Yii::app()->request->baseUrl.'/usuario', 'itemOptions'=>array('class'=>''),'icon'=>'icon-user'),
-      //     array('label'=>'Reportes', 'url'=>'', 'itemOptions'=>array('class'=>''),'icon'=>'icon-file-alt'),
-      //     )
-      //   ));
+      
 
       if (!Yii::app()->user->checkAccess("administrador"))
       {

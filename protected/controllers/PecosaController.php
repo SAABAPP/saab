@@ -138,10 +138,19 @@ class PecosaController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Pecosa('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Pecosa']))
-			$model->attributes=$_GET['Pecosa'];
+		// $model=new Pecosa('search');
+		// $model->unsetAttributes();  // clear any default values
+		// if(isset($_GET['Pecosa']))
+		// 	$model->attributes=$_GET['Pecosa'];
+
+		// $this->render('admin',array(
+		// 	'model'=>$model,
+		// ));
+		$model=new OrdenCompra('search');
+		$model->unsetAttributes();  // clear any default values 
+		
+		if(isset($_GET['OrdenCompra']))
+			$model->attributes=$_GET['OrdenCompra'];
 
 		$this->render('admin',array(
 			'model'=>$model,

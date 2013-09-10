@@ -28,11 +28,11 @@ class OrdenCompraController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
@@ -131,6 +131,7 @@ class OrdenCompraController extends Controller
 	{
 		$model=new OrdenCompra('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->TIPO='c';
 		if(isset($_GET['OrdenCompra']))
 			$model->attributes=$_GET['OrdenCompra'];
 
@@ -138,6 +139,18 @@ class OrdenCompraController extends Controller
 			'model'=>$model,
 		));
 	}
+	public function actionServicio()
+	{
+		$model=new OrdenCompra('search');
+		$model->unsetAttributes();  // clear any default values
+		$model->TIPO='s';
+		if(isset($_GET['OrdenCompra']))
+			$model->attributes=$_GET['OrdenCompra'];
+
+		$this->render('servicio',array(
+			'model'=>$model,
+		));
+	}	
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

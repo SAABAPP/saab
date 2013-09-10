@@ -21,7 +21,12 @@
        	echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Cotización</h2>";
        	break;
        	case 'ordenCompra':
-       	echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Orden de Compra</h2>";
+            if ($this->action->id=='servicio') {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Orden de Servicio</h2>";
+            } else {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Orden de Compra</h2>";
+            };        
+       	
        	break;
        	case 'nea':
        	echo "<h2 class=\"pull-left\"><i class=\"icon-plus\"></i> Nota Entrada Almacén</h2>";

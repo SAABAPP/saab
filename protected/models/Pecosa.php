@@ -72,9 +72,9 @@ class Pecosa extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDPECOSA' => 'Idpecosa',
-			'PEC_fecha' => 'Pec Fecha',
-			'PEC_referencia' => 'Pec Referencia',
+			'IDPECOSA' => 'Nº PECOSA',
+			'PEC_fecha' => 'Fecha',
+			'PEC_referencia' => 'Referencia',
 			'IDUSUARIO' => 'Idusuario',
 			'IDREQUERIMIENTO' => 'Idrequerimiento',
 		);

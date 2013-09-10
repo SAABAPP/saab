@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Ordenes de Compra'=>array('index'),
+	'Ordenes de Servicio'=>array('servicio'),
 	'Inicio',
 );
 
@@ -27,7 +27,7 @@ $this->renderPartial('_search',array(
 </div><!-- search-form -->
 <br/><br/>
 <hr>
-<h3>Órdenes de Compra</h3>
+<h3>Órdenes de Servicio</h3>
 <br/>
 
 <div class="span8 offset2">
@@ -56,7 +56,4 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 
 
 </div>
-
-
-
 

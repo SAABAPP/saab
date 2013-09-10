@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Entradas'=>array('index'),
-	'Manage',
+	'Inicio',
 );
 
 

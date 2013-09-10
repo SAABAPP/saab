@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Pecosas'=>array('index'),
-	'Manage',
+	'Inicio',
 );
 
 $this->menu=array(
@@ -23,30 +23,70 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Pecosas</h1>
 
-
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
+<div class="search-form row-fluid" >
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
+<hr>
+<h3>Lista de Pedidos en Almacén</h3>
+<br/>
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'pecosa-grid',
+<div class="span8 offset2">
+<?php 
+
+$columns=array();
+
+array_push($columns, array(
+	'header' => 'N°',
+	'value'=>'$data->IDORDENCOMPRA',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Oficina',
+	'value'=>'$data->iDREQUERIMIENTO->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Fecha',
+	'value'=>'$data->iDREQUERIMIENTO->REQ_fecha',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Estado',
+	'value'=>'$data->iDREQUERIMIENTO->REQ_estado',
+	)
+);
+
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opc',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+        $html = "";
+        if($data->iDREQUERIMIENTO->REQ_estado=='En almacen'){
+            $html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));             
+        }
+        return $html;
+    },
+));
+
+
+
+$this->widget('bootstrap.widgets.TbGridView',array(
+	'id'=>'entrada-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
-	'columns'=>array(
-		'IDPECOSA',
-		'PEC_fecha',
-		'PEC_referencia',
-		'IDUSUARIO',
-		'IDREQUERIMIENTO',
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
-)); ?>
+    'rowCssClassExpression'=>'$data->iDREQUERIMIENTO->REQ_estado=="Requerido"?"info":($data->iDREQUERIMIENTO->REQ_estado=="Observado"?"warning":($data->iDREQUERIMIENTO->REQ_estado=="En almacen"?"warehouse":($data->iDREQUERIMIENTO->REQ_estado=="Aprobado"?"success":"finalized")))',
+	'columns'=>$columns,
+)); ?>	
+
+
+</div>
