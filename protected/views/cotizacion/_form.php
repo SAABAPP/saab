@@ -144,7 +144,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	</div>
 </div>
 <div id="bienes" class="oculto">
-	<?php $this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien)); ?>
+	<?php
+		if($requerimiento->TIPO=='b'){
+			$this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien));
+		}
+		else 
+			$this->renderPartial('_servicios',array('requerimiento_bien'=>$requerimiento_bien)); 		 
+	?>
+
 </div>
 
 <div class="form-actions text-center">
