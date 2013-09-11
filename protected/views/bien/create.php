@@ -1,15 +1,14 @@
 <?php
-$this->breadcrumbs=array(
-	'Biens'=>array('index'),
-	'Create',
-);
+/* @var $this BienController */
+/* @var $model Bien */
 
-$this->menu=array(
-	array('label'=>'List Bien','url'=>array('index')),
-	array('label'=>'Manage Bien','url'=>array('admin')),
+$this->breadcrumbs=array(
+	'Bienes'=>array('index'),
+	'Crear',
 );
 ?>
 
-<h1>Create Bien</h1>
+<h2 class="center">Nuevo Bien</h1>
+<br>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'catalogoBienes'=>$catalogoBienes,)); ?>

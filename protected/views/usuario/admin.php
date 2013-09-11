@@ -1,12 +1,15 @@
 <?php
+/* @var $this UsuarioController */
+/* @var $model Usuario */
+
 $this->breadcrumbs=array(
 	'Usuarios'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Usuario','url'=>array('index')),
-	array('label'=>'Create Usuario','url'=>array('create')),
+	array('label'=>'List Usuario', 'url'=>array('index')),
+	array('label'=>'Create Usuario', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('usuario-grid', {
+	$('#usuario-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -30,14 +33,14 @@ You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&g
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
+<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'usuario-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -47,7 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'USU_password',
 		'IDPERSONAL',
 		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 )); ?>
