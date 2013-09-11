@@ -32,7 +32,7 @@ $('.search-form form').submit(function(){
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
-<br/><br/>
+<br/>
 <hr>
 <h3>Proveedores</h3>
 <br/>

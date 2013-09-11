@@ -3,7 +3,7 @@
 	'method'=>'get',
 )); ?>
 
-	<h1>Busqueda Proveedor</h1>
+	<h3>Busqueda Proveedor</h3><br>
 
 	<?php echo $form->textFieldRow($model,'PRO_razonSocial',array('class'=>'span5','maxlength'=>150)); ?>
 

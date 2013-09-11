@@ -40,7 +40,7 @@
        	case "kardex":
        	echo "<h2 class=\"pull-left\"><i class=\"icon-table\"></i> Kardex</h2>";
        	break;
-       	case "usuario":
+       	case "personal":
        	echo "<h2 class=\"pull-left\"><i class=\"icon-user\"></i> Usuarios</h2>";
        	break;
         case "variables":

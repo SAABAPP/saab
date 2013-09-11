@@ -45,12 +45,12 @@ $('.search-form form').submit(function(){
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
 	'columns'=>array(
-		'IDPERSONAL',
 		'PER_dni',
 		'PER_nombres',
 		'PER_paterno',
 		'PER_materno',
-		'PER_cargo',
+		'usuarios.USU_usuario',
+		'iDAREA.ARE_nombre',
 		/*
 		'PER_sexo',
 		'PER_direccion',
@@ -58,7 +58,7 @@ $('.search-form form').submit(function(){
 		'PER_celular',
 		
 		'PER_estado',
-		'IDAREA',
+		'iDAREA.',
 		*/
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
