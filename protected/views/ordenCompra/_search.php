@@ -8,7 +8,7 @@
 		<?php echo $form->textFieldRow($model,'IDORDENCOMPRA',
 			array(
 				'class'=>'span4',
-				'placeholder' => 'N° de Orden de Compra',
+				'placeholder' => 'N° de Orden',
 				'labelOptions' => array('label' => false),
 				'autocomplete'=>'off',
 			)

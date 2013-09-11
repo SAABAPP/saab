@@ -40,7 +40,7 @@ $columns=array();
 
 array_push($columns, array(
 	'header' => 'N°',
-	'value'=>'$data->IDORDENCOMPRA',
+	'value'=>'$data->IDREQUERIMIENTO',
 	)
 );
 

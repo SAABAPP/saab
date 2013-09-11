@@ -21,5 +21,5 @@
  ?>
 
 <?php
-	header('Location:'.Yii::app()->request->baseUrl.'/catalogo/admin.html');
+	header('Location:'.Yii::app()->request->baseUrl.'/catalogo/admin');
 ?>

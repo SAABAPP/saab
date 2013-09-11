@@ -1,5 +1,5 @@
 
 
 <?php
-	header('Location:'.Yii::app()->request->baseUrl.'/proveedor/admin.html');
+	header('Location:'.Yii::app()->request->baseUrl.'/proveedor/admin');
 ?>

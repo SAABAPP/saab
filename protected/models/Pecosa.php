@@ -74,7 +74,7 @@ class Pecosa extends CActiveRecord
 		return array(
 			'IDPECOSA' => 'Nº PECOSA',
 			'PEC_fecha' => 'Fecha',
-			'PEC_referencia' => 'Referencia',
+			'PEC_referencia' => 'Nº Documento Referencia:', 
 			'IDUSUARIO' => 'Idusuario',
 			'IDREQUERIMIENTO' => 'Idrequerimiento',
 		);

@@ -46,17 +46,17 @@ $('.search-form form').submit(function(){
     'template'=>"{items}{pager}",
 	'columns'=>array(
 		'IDPERSONAL',
-		'PER_idResponsable',
 		'PER_dni',
 		'PER_nombres',
 		'PER_paterno',
 		'PER_materno',
+		'PER_cargo',
 		/*
 		'PER_sexo',
 		'PER_direccion',
 		'PER_telefono',
 		'PER_celular',
-		'PER_cargo',
+		
 		'PER_estado',
 		'IDAREA',
 		*/

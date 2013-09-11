@@ -15,7 +15,6 @@ class UsuarioController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -27,18 +26,23 @@ class UsuarioController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+ 			array('allow',
+				'actions'=>array('update'),
+				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
+			array('allow',
+				'actions'=>array('update'),
+				'expression'=>'Yii::app()->user->checkAccess("almacen")',
+
+ 			),
+			array('allow',
+				'actions'=>array('update'),
+				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
+ 			),
+			array('allow',
+				'actions'=>array('admin','create','update'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+			),			
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -87,20 +91,28 @@ class UsuarioController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		if ($model->IDUSUARIO == $usuario->IDUSUARIO) {
 
-		if(isset($_POST['Usuario']))
-		{
-			$model->attributes=$_POST['Usuario'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDUSUARIO));
+			// Uncomment the following line if AJAX validation is needed
+			// $this->performAjaxValidation($model);
+
+			if(isset($_POST['Usuario']))
+			{
+				$model->attributes=$_POST['Usuario'];
+				if($model->save()){
+					$this->redirect(array('site/index'));
+				}
+			}
+
+			$this->render('update',array(
+				'model'=>$model,
+			));
+		}else{
+			throw new CHttpException(403,'Usted no se encuentra autorizado para acceder a otro perfil. Por que lo hace?');
+
 		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
 	}
 
 	/**
@@ -110,11 +122,17 @@ class UsuarioController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			$this->loadModel($id)->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -146,9 +164,7 @@ class UsuarioController extends Controller
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer $id the ID of the model to be loaded
-	 * @return Usuario the loaded model
-	 * @throws CHttpException
+	 * @param integer the ID of the model to be loaded
 	 */
 	public function loadModel($id)
 	{
@@ -160,7 +176,7 @@ class UsuarioController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Usuario $model the model to be validated
+	 * @param CModel the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{

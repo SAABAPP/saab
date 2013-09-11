@@ -4,10 +4,10 @@
 )); ?>
 
 	
-	  <?php 
+	<?php 
     $fecha = date("Y-m-d"); //obtiene fecha actual
     
-    ?>	
+  ?>	
 
 	<?php echo $form->errorSummary($model); ?>
 

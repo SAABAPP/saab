@@ -70,7 +70,7 @@ class EntradaOc extends CActiveRecord
 		return array(
 			'IDENTRADA' => 'Identrada',
 			'IDORDENCOMPRA' => 'Idordencompra',
-			'EOC_documento' => 'Eoc Documento',
+			'EOC_documento' => 'Documento',
 		);
 	}
 

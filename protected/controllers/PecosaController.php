@@ -30,12 +30,16 @@ class PecosaController extends Controller
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
+			array('allow',
+				'actions'=>array('index','admin','create','view'),
+				'expression'=>'Yii::app()->user->checkAccess("almacen")',
+			),					
+			// array('allow', 
+			// 	'actions'=>array('create','update'),
+			// 	'users'=>array('@'),
+			// ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','create','update'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -59,9 +63,27 @@ class PecosaController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id)
 	{
 		$model=new Pecosa;
+		$ordenCompra=new OrdenCompra;
+		$ordenCompra=OrdenCompra::model()->findByPk($id);
+		$id_requerimiento=$ordenCompra->iDREQUERIMIENTO->IDREQUERIMIENTO;
+		$cotizacion= new Cotizacion;
+		$cotizacion=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'COT_buenaPro'=>'1'));
+		$entradaOC=new EntradaOC;
+		$entradaOC=EntradaOC::model()->findByPk($id);
+		$requerimiento_bien = new RequerimientoBien();
+		$requerimiento_bien->unsetAttributes();
+		$requerimiento_bien->IDREQUERIMIENTO = $id_requerimiento;
+		$requerimiento=new Requerimiento;
+		$requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
+		$Criteria_OC = new CDbCriteria();
+		
+		$Criteria_OC->condition = "IDORDENCOMPRA = $id";
+		$detalleOC=DetalleOrdenCompra::model()->findAll($Criteria_OC);
+		
+		$temporal=array();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -69,12 +91,35 @@ class PecosaController extends Controller
 		if(isset($_POST['Pecosa']))
 		{
 			$model->attributes=$_POST['Pecosa'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDPECOSA));
+			if(!$model->save()){
+				Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida');
+			}
+			else{
+				$requerimiento->REQ_estado='Finalizado';
+				if(!$requerimiento->save()){
+					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden cambiar le estado');
+				}
+				else{
+					foreach ($detalleOC as $value) {
+						$pecosa=new PecosaBien;
+						$pecosa->IDBIEN=$value->DOC_bien;
+						$pecosa->IDPECOSA=$model->IDPECOSA;
+						$pecosa->PBI_cantidad=$value->DOC_cantidad;
+						if(!$pecosa->save())
+							Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida de los bienes');
+					}
+					
+				}
+			}
+			$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'ordenCompra'=>$ordenCompra,
+			'cotizacion'=>$cotizacion,
+			'entradaOC'=>$entradaOC,
+			'requerimiento_bien'=>$requerimiento_bien,
 		));
 	}
 

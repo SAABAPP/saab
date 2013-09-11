@@ -1,12 +1,7 @@
-<?php
-/* @var $this UsuarioController */
-/* @var $data Usuario */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDUSUARIO')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->IDUSUARIO), array('view', 'id'=>$data->IDUSUARIO)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->IDUSUARIO),array('view','id'=>$data->IDUSUARIO)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('USU_usuario')); ?>:</b>

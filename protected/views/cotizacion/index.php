@@ -14,5 +14,5 @@
 // 	'dataProvider'=>$dataProvider,
 // 	'itemView'=>'_view',
 // ));
-header('Location:'.Yii::app()->request->baseUrl.'/cotizacion/admin.html');
+header('Location:'.Yii::app()->request->baseUrl.'/cotizacion/admin');
 ?>

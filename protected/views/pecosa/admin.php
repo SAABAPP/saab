@@ -1,13 +1,9 @@
 <?php
 $this->breadcrumbs=array(
-	'Pecosas'=>array('index'),
+	'Pecosa'=>array('index'),
 	'Inicio',
 );
 
-$this->menu=array(
-	array('label'=>'List Pecosa','url'=>array('index')),
-	array('label'=>'Create Pecosa','url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -40,7 +36,7 @@ $columns=array();
 
 array_push($columns, array(
 	'header' => 'N°',
-	'value'=>'$data->IDORDENCOMPRA',
+	'value'=>'$data->IDREQUERIMIENTO',
 	)
 );
 
@@ -80,7 +76,7 @@ array_push($columns, array(
 
 
 $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'entrada-grid',
+	'id'=>'pecosa-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",

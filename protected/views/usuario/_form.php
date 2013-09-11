@@ -1,42 +1,26 @@
-<?php
-/* @var $this UsuarioController */
-/* @var $model Usuario */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'usuario-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
 
 	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->textFieldRow($model,'USU_usuario',array('class'=>'span3','maxlength'=>150,'readonly'=>true)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'USU_usuario'); ?>
-		<?php echo $form->textField($model,'USU_usuario',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'USU_usuario'); ?>
-	</div>
+	<?php echo $form->passwordFieldRow($model,'USU_password',array('class'=>'span3','maxlength'=>150,'value'=>'')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'USU_password'); ?>
-		<?php echo $form->textField($model,'USU_password',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'USU_password'); ?>
-	</div>
+	<?php echo $form->passwordFieldRow($model,'USU_password2',array('class'=>'span3','maxlength'=>150,'value'=>'')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'IDPERSONAL'); ?>
-		<?php echo $form->textField($model,'IDPERSONAL'); ?>
-		<?php echo $form->error($model,'IDPERSONAL'); ?>
-	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
+		)); ?>
+		<button type="reset" class="btn secundario">Limpiar</button>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

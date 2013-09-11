@@ -20,5 +20,5 @@
 ?>
 
 <?php
-	header('Location:'.Yii::app()->request->baseUrl.'/ordenCompra/admin.html');
+	header('Location:'.Yii::app()->request->baseUrl.'/ordenCompra/admin');
 ?>

@@ -62,7 +62,7 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
-			'urlSuffix'=>'.html',
+			// 'urlSuffix'=>'.html',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -82,6 +82,13 @@ return array(
 			'password' => '',
 			'charset' => 'utf8',
 		),
+		// 'db'=>array(
+		// 	'connectionString' => 'mysql:host=localhost;dbname=saab',
+		// 	'emulatePrepare' => true,
+		// 	'username' => 'root',
+		// 	'password' => 'ASD123',
+		// 	'charset' => 'utf8',
+		// ),		
 		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

@@ -28,11 +28,11 @@ class OrdenCompraController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio'),
+				'actions'=>array('index','admin','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio'),
+				'actions'=>array('index','admin','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users

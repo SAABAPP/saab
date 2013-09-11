@@ -30,6 +30,10 @@ class EntradaController extends Controller
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
+			array('allow',
+				'actions'=>array('index','admin','create','view'),
+				'expression'=>'Yii::app()->user->checkAccess("almacen")',
+			),			
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
