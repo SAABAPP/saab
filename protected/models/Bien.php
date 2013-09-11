@@ -45,7 +45,7 @@ class Bien extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('BIE_stockActual, BIE_stockMinimo, BIE_caracteristica, BIE_marca, IDCATALOGO', 'required'),
+			array('IDCATALOGO', 'required'),
 			array('BIE_stockActual, BIE_stockMinimo, IDCATALOGO', 'numerical', 'integerOnly'=>true),
 			array('BIE_caracteristica, BIE_marca', 'length', 'max'=>150),
 			// The following rule is used by search().
@@ -75,12 +75,12 @@ class Bien extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDBIEN' => 'Nº Bien',
+			'IDBIEN' => 'Idbien',
 			'BIE_stockActual' => 'Stock Actual',
-			'BIE_stockMinimo' => 'Stock Minimo',
-			'BIE_caracteristica' => 'Características',
+			'BIE_stockMinimo' => 'Stock Mínimo',
+			'BIE_caracteristica' => 'Característica',
 			'BIE_marca' => 'Marca',
-			'IDCATALOGO' => 'Nº Catalogo',
+			'IDCATALOGO' => 'Idcatalogo',
 		);
 	}
 

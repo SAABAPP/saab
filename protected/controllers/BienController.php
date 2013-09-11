@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL ^ E_NOTICE);
 class BienController extends Controller
 {
 	/**
@@ -15,6 +15,7 @@ class BienController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -26,22 +27,18 @@ class BienController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+			array('allow',
+				'actions'=>array('index','admin','create','view','update'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+				),
+			array('allow', 
+				'actions'=>array('buscaCatalogo'),
 				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
+				),
+			array('deny',
 				'users'=>array('*'),
-			),
-		);
+				),
+			);
 	}
 
 	/**
@@ -62,6 +59,7 @@ class BienController extends Controller
 	public function actionCreate()
 	{
 		$model=new Bien;
+		$catalogoBienes=new Catalogo('search');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -75,6 +73,7 @@ class BienController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+			'catalogoBienes'=>$catalogoBienes,
 		));
 	}
 
@@ -109,17 +108,11 @@ class BienController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+		$this->loadModel($id)->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -148,10 +141,37 @@ class BienController extends Controller
 		));
 	}
 
+	public function actionBuscaCatalogo()
+	{
+		$q=trim($_GET['term']);
+
+		if (isset($q)) {
+			$condicion = new CDbCriteria;
+			$condicion->condition = "CAT_descripcion LIKE '%". $q ."%' and IDCATALOGO between '4895' and '59664' order by CAT_descripcion";
+			$condicion->limit = 10; ; 
+			$catalogoBienes=  CatalOgo::model()->findAll($condicion);
+
+			if (!empty($catalogoBienes)) {
+				$returnVal = '';
+				$salida = array();
+				foreach ($catalogoBienes as $p) {
+					$salida[] = array(
+						'label'=>$p->CAT_descripcion,
+						'idCatalogo' => $p->IDCATALOGO,  
+						);
+				}
+				echo CJSON::encode($salida);
+				Yii::app()->end();
+			}
+		}
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
+	 * @param integer $id the ID of the model to be loaded
+	 * @return Bien the loaded model
+	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
@@ -163,7 +183,7 @@ class BienController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
+	 * @param Bien $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{

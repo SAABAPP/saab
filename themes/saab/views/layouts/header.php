@@ -23,10 +23,10 @@ switch($this->id)
   case "nea":
   $c='class="open"';
   break;
-  case "regEntrada":
+  case "entrada":
   $d='class="open"';
   break;
-  case "regSalida":
+  case "salida":
   $d='class="open"';
   break;
   case "kardex":
