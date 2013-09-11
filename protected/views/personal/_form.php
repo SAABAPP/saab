@@ -1,96 +1,42 @@
-<?php
-/* @var $this PersonalController */
-/* @var $model Personal */
-/* @var $form CActiveForm */
-?>
-
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'personal-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_idResponsable'); ?>
-		<?php echo $form->textField($model,'PER_idResponsable'); ?>
-		<?php echo $form->error($model,'PER_idResponsable'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_idResponsable',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_dni'); ?>
-		<?php echo $form->textField($model,'PER_dni',array('size'=>8,'maxlength'=>8)); ?>
-		<?php echo $form->error($model,'PER_dni'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_dni',array('class'=>'span5','maxlength'=>8)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_nombres'); ?>
-		<?php echo $form->textField($model,'PER_nombres',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'PER_nombres'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_nombres',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_paterno'); ?>
-		<?php echo $form->textField($model,'PER_paterno',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'PER_paterno'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_paterno',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_materno'); ?>
-		<?php echo $form->textField($model,'PER_materno',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'PER_materno'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_materno',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_sexo'); ?>
-		<?php echo $form->textField($model,'PER_sexo',array('size'=>1,'maxlength'=>1)); ?>
-		<?php echo $form->error($model,'PER_sexo'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_sexo',array('class'=>'span5','maxlength'=>1)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_direccion'); ?>
-		<?php echo $form->textField($model,'PER_direccion',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'PER_direccion'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_direccion',array('class'=>'span5','maxlength'=>150)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_telefono'); ?>
-		<?php echo $form->textField($model,'PER_telefono',array('size'=>12,'maxlength'=>12)); ?>
-		<?php echo $form->error($model,'PER_telefono'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_telefono',array('class'=>'span5','maxlength'=>12)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_celular'); ?>
-		<?php echo $form->textField($model,'PER_celular',array('size'=>12,'maxlength'=>12)); ?>
-		<?php echo $form->error($model,'PER_celular'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_celular',array('class'=>'span5','maxlength'=>12)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_cargo'); ?>
-		<?php echo $form->textField($model,'PER_cargo',array('size'=>60,'maxlength'=>60)); ?>
-		<?php echo $form->error($model,'PER_cargo'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_cargo',array('class'=>'span5','maxlength'=>60)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'PER_estado'); ?>
-		<?php echo $form->textField($model,'PER_estado'); ?>
-		<?php echo $form->error($model,'PER_estado'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'PER_estado',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'IDAREA'); ?>
-		<?php echo $form->textField($model,'IDAREA'); ?>
-		<?php echo $form->error($model,'IDAREA'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'IDAREA',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

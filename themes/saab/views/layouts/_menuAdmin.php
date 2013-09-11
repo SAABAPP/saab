@@ -26,6 +26,8 @@
     <ul>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/bien">Bienes</a></li>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/personal">Usuarios</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/proveedor">Proveedor</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/variables">Variables</a></li>
     </ul>
   </li>
 </ul>

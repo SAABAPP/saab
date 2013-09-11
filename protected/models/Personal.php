@@ -82,19 +82,19 @@ class Personal extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDPERSONAL' => 'Idpersonal',
-			'PER_idResponsable' => 'Per Id Responsable',
-			'PER_dni' => 'Per Dni',
-			'PER_nombres' => 'Per Nombres',
-			'PER_paterno' => 'Per Paterno',
-			'PER_materno' => 'Per Materno',
-			'PER_sexo' => 'Per Sexo',
-			'PER_direccion' => 'Per Direccion',
-			'PER_telefono' => 'Per Telefono',
-			'PER_celular' => 'Per Celular',
-			'PER_cargo' => 'Per Cargo',
-			'PER_estado' => 'Per Estado',
-			'IDAREA' => 'Idarea',
+			'IDPERSONAL' => 'Id',
+			'PER_idResponsable' => 'Responsable',
+			'PER_dni' => 'Dni',
+			'PER_nombres' => 'Nombres',
+			'PER_paterno' => 'Paterno',
+			'PER_materno' => 'Materno',
+			'PER_sexo' => 'Sexo',
+			'PER_direccion' => 'Direccion',
+			'PER_telefono' => 'Telefono',
+			'PER_celular' => 'Celular',
+			'PER_cargo' => 'Cargo',
+			'PER_estado' => 'Estado',
+			'IDAREA' => 'Id Area',
 		);
 	}
 

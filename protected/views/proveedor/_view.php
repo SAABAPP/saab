@@ -1,12 +1,7 @@
-<?php
-/* @var $this ProveedorController */
-/* @var $data Proveedor */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDPROVEEDOR')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->IDPROVEEDOR), array('view', 'id'=>$data->IDPROVEEDOR)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->IDPROVEEDOR),array('view','id'=>$data->IDPROVEEDOR)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PRO_razonSocial')); ?>:</b>
