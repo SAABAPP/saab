@@ -47,8 +47,31 @@ class OrdenCompraController extends Controller
 	 */
 	public function actionView($id)
 	{
+		
+		$model=new OrdenCompra;
+		$model=OrdenCompra::model()->findByPk($id);
+		$id_requerimiento=$model->iDREQUERIMIENTO->IDREQUERIMIENTO;
+		$requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
+		$cotizacion= new Cotizacion;
+		$cotizacion=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'COT_buenaPro'=>'1'));
+		$requerimiento_bien = new RequerimientoBien();
+		$requerimiento_bien->unsetAttributes();
+		$requerimiento_bien->IDREQUERIMIENTO = $id_requerimiento;
+		$requerimiento_servicio=new RequerimientoServicio;
+		$requerimiento_servicio->unsetAttributes();
+		$requerimiento_servicio->IDREQUERIMIENTO = $id_requerimiento;
+
+		$detalleOC=new DetalleOrdenCompra('search');
+		$detalleOC->unsetAttributes();  // clear any default values
+		$detalleOC->IDORDENCOMPRA=$id;
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'requerimiento'=>$requerimiento,
+			'cotizacion'=>$cotizacion,
+			'requerimiento_bien'=>$requerimiento_bien,
+			'requerimiento_servicio'=>$requerimiento_servicio,
+			'detalleOC'=>$detalleOC,			
 		));
 	}
 
@@ -131,7 +154,7 @@ class OrdenCompraController extends Controller
 	{
 		$model=new OrdenCompra('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->TIPO='c';
+		$model->TIPO= 'c';
 		if(isset($_GET['OrdenCompra']))
 			$model->attributes=$_GET['OrdenCompra'];
 
@@ -143,7 +166,7 @@ class OrdenCompraController extends Controller
 	{
 		$model=new OrdenCompra('search');
 		$model->unsetAttributes();  // clear any default values
-		$model->TIPO='s';
+		$model->TIPO= 's';
 		if(isset($_GET['OrdenCompra']))
 			$model->attributes=$_GET['OrdenCompra'];
 

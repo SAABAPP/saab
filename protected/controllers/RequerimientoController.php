@@ -143,7 +143,7 @@ class RequerimientoController extends Controller
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
- 		$clasificador=new clasificador('search');
+ 		$clasificador=new Clasificador('search');
 
  		$col=Yii::app()->getGlobalState('arrays');
  		
@@ -226,7 +226,7 @@ class RequerimientoController extends Controller
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
- 		$clasificador=	new clasificador('search');
+ 		$clasificador=	new Clasificador('search');
 
  		$col=Yii::app()->getGlobalState('arrays');
  		
@@ -275,7 +275,7 @@ class RequerimientoController extends Controller
 
 				      }
 				    Yii::app()->clearGlobalState('arrays');
-					$this->redirect(array('view_servicio','id'=>$model->IDREQUERIMIENTO));
+					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
 					
 				}
 

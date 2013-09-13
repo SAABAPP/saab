@@ -149,7 +149,7 @@ class BienController extends Controller
 			$condicion = new CDbCriteria;
 			$condicion->condition = "CAT_descripcion LIKE '%". $q ."%' and IDCATALOGO between '4895' and '59664' order by CAT_descripcion";
 			$condicion->limit = 10; ; 
-			$catalogoBienes=  CatalOgo::model()->findAll($condicion);
+			$catalogoBienes=  Catalogo::model()->findAll($condicion);
 
 			if (!empty($catalogoBienes)) {
 				$returnVal = '';

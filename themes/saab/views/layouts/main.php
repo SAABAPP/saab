@@ -22,9 +22,9 @@
        	break;
        	case 'ordenCompra':
             if ($this->action->id=='servicio') {
-                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Orden de Servicio</h2>";
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Ordenes</h2>";
             } else {
-                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Orden de Compra</h2>";
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-alt\"></i> Ordenes</h2>";
             };        
        	
        	break;

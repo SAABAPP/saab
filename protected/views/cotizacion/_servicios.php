@@ -2,7 +2,7 @@
 <?php
 $columns=array();
 $i=0;
-$dataProvider=$requerimiento_bien->search();
+$dataProvider=$requerimiento_servicio->search();
 
 array_push($columns, array(
 	'header' => 'N°',
@@ -15,28 +15,19 @@ array_push($columns, array(
 
 array_push($columns, array(
 	'header' => 'Servicio',
-	'value'=>'$data->bien->iDCATALOGO->CAT_descripcion',
+	'value'=>'$data->servicio->iDCATALOGO->CAT_descripcion',
 	)
 );
 
 
 
-array_push($columns, array(
-	'header' => 'Cantidad',
-	'htmlOptions'=>array('width'=>'1em'),
-	'type' => 'raw',
-	'value'=>function($data) {
-		return CHtml::textField('cantidad[]',$data->RBI_cantidadComprar,array('style'=>'width:5em;','disabled'=>'true'));
-	},
-	)
-);
 
 array_push($columns, array(
 	'header'=>'Código Servicio',
 	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('codbien[]',$data->bien->IDBIEN,array('style'=>'width:5em;','disabled'=>'true'));
+		return CHtml::textField('codbien[]',$data->servicio->IDSERVICIO,array('style'=>'width:5em;','disabled'=>'true'));
 	},
 	)
 );
@@ -56,7 +47,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'10em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('caracteristica[]','',array('style'=>'width:10em;'));
+		return CHtml::textField('caracteristica[]',$data->RSE_detalle,array('style'=>'width:10em;','disabled'=>'true'));
 	},
 	)
 );

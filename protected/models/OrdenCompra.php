@@ -6,9 +6,10 @@
  * The followings are the available columns in table 'orden_compra':
  * @property integer $IDORDENCOMPRA
  * @property integer $IDREQUERIMIENTO
+ * @property string $TIPO
  *
  * The followings are the available model relations:
- * @property DetalleOrdenCompra $detalleOrdenCompra
+ * @property DetalleOrdenCompra[] $detalleOrdenCompras
  * @property EntradaOc[] $entradaOcs
  * @property Requerimiento $iDREQUERIMIENTO
  */
@@ -40,11 +41,12 @@ class OrdenCompra extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('IDREQUERIMIENTO', 'required'),
+			array('IDREQUERIMIENTO, TIPO', 'required'),
 			array('IDREQUERIMIENTO', 'numerical', 'integerOnly'=>true),
+			array('TIPO', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDORDENCOMPRA, IDREQUERIMIENTO', 'safe', 'on'=>'search'),
+			array('IDORDENCOMPRA, IDREQUERIMIENTO, TIPO', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +58,7 @@ class OrdenCompra extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'detalleOrdenCompra' => array(self::HAS_ONE, 'DetalleOrdenCompra', 'IDORDENCOMPRA'),
+			'detalleOrdenCompras' => array(self::HAS_MANY, 'DetalleOrdenCompra', 'IDORDENCOMPRA'),
 			'entradaOcs' => array(self::HAS_MANY, 'EntradaOc', 'IDORDENCOMPRA'),
 			'iDREQUERIMIENTO' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 		);
@@ -70,6 +72,7 @@ class OrdenCompra extends CActiveRecord
 		return array(
 			'IDORDENCOMPRA' => 'N° de Orden',
 			'IDREQUERIMIENTO' => 'N° de Requerimiento',
+			'TIPO' => 'Tipo',
 		);
 	}
 
@@ -86,8 +89,7 @@ class OrdenCompra extends CActiveRecord
 
 		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
-
-		$criteria->order = 'IDORDENCOMPRA DESC';
+		$criteria->compare('TIPO',$this->TIPO,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

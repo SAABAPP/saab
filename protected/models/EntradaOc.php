@@ -40,9 +40,9 @@ class EntradaOc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('EOC_documento', 'required'),
+			array('IDENTRADA, EOC_documento', 'required'),
 			array('IDENTRADA, IDORDENCOMPRA', 'numerical', 'integerOnly'=>true),
-			array('EOC_documento', 'length', 'max'=>50),
+			array('EOC_documento', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('IDENTRADA, IDORDENCOMPRA, EOC_documento', 'safe', 'on'=>'search'),

@@ -92,86 +92,165 @@ class CotizacionController extends Controller
 			$requerimiento_bien = new RequerimientoBien();
 			$requerimiento_bien->unsetAttributes();
 			$requerimiento_bien->IDREQUERIMIENTO = $id;
+			$requerimiento_servicio=new RequerimientoServicio;
+			$requerimiento_servicio->unsetAttributes();
+			$requerimiento_servicio->IDREQUERIMIENTO = $id;
 			Yii::app()->setGlobalState('requerimientoID', $id);
 			$temporal=array();
+			if($requerimiento->REQ_estado=='Requerido'){
+				if(!empty($_POST['precioUnitario'])){				
+					$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+					$ordenCompra=new ordenCompra;
+					if($requerimiento->TIPO=='b'){
+						$ordenCompra->TIPO='c';
+						$ordenCompra->IDREQUERIMIENTO=$id;
+						$_requerimiento=Requerimiento::model()->findByPk($id);
+						$_requerimiento->attributes=$_POST['Requerimiento'];
+						if(!$_requerimiento->save()){
+							Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo actualizo requerimiento');
+						}
+						if (!$ordenCompra->save()) {
+							Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo guardar la Orden');
+						}
+						else{
+							$x=0;
+							$cantidad=0;
 
-			if(!empty($_POST['precioUnitario'])){				
-				$this->cotizaciones=Yii::app()->getGlobalState('arrays');
-				$ordenCompra=new ordenCompra;
-				$ordenCompra->TIPO='c';
-				$ordenCompra->IDREQUERIMIENTO=$id;
-				$_requerimiento=Requerimiento::model()->findByPk($id);
-				$_requerimiento->attributes=$_POST['Requerimiento'];
-				if(!$_requerimiento->save()){
-					Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo actualizo requerimiento');
-				}
-				if (!$ordenCompra->save()) {
-					Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo guardar la Orden');
+							foreach($_POST['precioUnitario'] as $precio){
+								$temporal[0][$x]=$precio;
+								$x++;													
+							}
+							$x=0;
+							foreach($_POST['marca'] as $marca){
+								$temporal[1][$x]=$marca;
+								$x++;														
+							}
+							$x=0;
+							foreach ($_POST['caracteristica']  as $caracteristica) {
+								$temporal[2][$x]=$caracteristica;
+								$x++;						
+							}
+							$x=0;
+							$cantidad=0;
+							$Criteria_RB = new CDbCriteria();
+							$Criteria_RB->condition = "IDREQUERIMIENTO = $id";
+							$detalleRB=RequerimientoBien::model()->findAll($Criteria_RB);
+							foreach ($detalleRB as $value) {
+								$temporal[3][$x]=$value->IDBIEN;
+								$temporal[4][$x]=$value->RBI_cantidadComprar;
+								$x++;
+								$cantidad++;
+							}
+							// print_r($temporal);
+							// echo 'cantidad'.$cantidad;
+							for($i=0;$i<$cantidad;$i++){
+								$detalleOC=new DetalleOrdenCompra;						
+								$detalleOC->IDORDENCOMPRA=$ordenCompra->IDORDENCOMPRA;						
+								$detalleOC->DOC_precioUnitario=$temporal[0][$i];
+								$detalleOC->DOC_marca=$temporal[1][$i];
+								$detalleOC->DOC_caracteristica=$temporal[2][$i];						
+								$detalleOC->DOC_bien=$temporal[3][$i];
+								$detalleOC->DOC_cantidad=$temporal[4][$i];
+								if(!$detalleOC->save()){
+									Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pudo guardar las detalle Orden Compra');
+								}
+							}
+
+							for($i=0;$i<count($this->cotizaciones);$i++){
+								$cotizacion=new Cotizacion;
+								$cotizacion->COT_buenaPro=$this->cotizaciones[$i][4];
+								$cotizacion->COT_total=$this->cotizaciones[$i][2];
+								$cotizacion->IDREQUERIMIENTO=$id;
+								$cotizacion->IDPROVEEDOR=$this->cotizaciones[$i][0];
+								if(!$cotizacion->save()){
+									Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pudo guardar las cotizaciones');
+								}
+
+							}
+							Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se ha generado todo correctamente');
+							$this->redirect(array('admin'));					
+						}
+
+
+					}
+					else{
+
+						$ordenCompra->TIPO='s';
+						$ordenCompra->IDREQUERIMIENTO=$id;
+						$_requerimiento=Requerimiento::model()->findByPk($id);
+						$_requerimiento->attributes=$_POST['Requerimiento'];
+						if(!$_requerimiento->save()){
+							Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo actualizo requerimiento');
+						}
+						if (!$ordenCompra->save()) {
+							Yii::app()->user->setFlash('info', '<strong>Oh Nooo!</strong> No se pudo guardar la Orden');
+						}
+						else{
+							$x=0;
+							$cantidad=0;
+
+							foreach($_POST['precioUnitario'] as $precio){
+								$temporal[0][$x]=$precio;
+								$x++;													
+							}
+													
+							
+							$x=0;
+							$cantidad=0;
+							$Criteria_RS = new CDbCriteria();
+							$Criteria_RS->condition = "IDREQUERIMIENTO = $id";
+							$detalleRS=RequerimientoServicio::model()->findAll($Criteria_RS);
+							foreach ($detalleRS as $value) {
+								$temporal[3][$x]=$value->IDSERVICIO;
+								$temporal[4][$x]=$value->RSE_detalle;
+								$x++;
+								$cantidad++;
+							}
+							// print_r($temporal);
+							// echo 'cantidad'.$cantidad;
+							for($i=0;$i<$cantidad;$i++){
+								$detalleOC=new DetalleOrdenCompra;						
+								$detalleOC->IDORDENCOMPRA=$ordenCompra->IDORDENCOMPRA;						
+								$detalleOC->DOC_precioUnitario=$temporal[0][$i];
+								$detalleOC->DOC_marca='';
+								$detalleOC->DOC_caracteristica=$temporal[4][$i];						
+								$detalleOC->DOC_bien=$temporal[3][$i];
+								$detalleOC->DOC_cantidad='1';
+								if(!$detalleOC->save()){
+									Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pudo guardar las detalle Orden Compra');
+								}
+							}
+
+							for($i=0;$i<count($this->cotizaciones);$i++){
+								$cotizacion=new Cotizacion;
+								$cotizacion->COT_buenaPro=$this->cotizaciones[$i][4];
+								$cotizacion->COT_total=$this->cotizaciones[$i][2];
+								$cotizacion->IDREQUERIMIENTO=$id;
+								$cotizacion->IDPROVEEDOR=$this->cotizaciones[$i][0];
+								if(!$cotizacion->save()){
+									Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pudo guardar las cotizaciones');
+								}
+
+							}
+							Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se ha generado todo correctamente');
+							$this->redirect(array('admin'));					
+						}					
+
+
+					}
+					
+
+						
 				}
 				else{
-					$x=0;
-					$cantidad=0;
-
-					foreach($_POST['precioUnitario'] as $precio){
-						$temporal[0][$x]=$precio;
-						$x++;													
-					}
-					$x=0;
-					foreach($_POST['marca'] as $marca){
-						$temporal[1][$x]=$marca;
-						$x++;														
-					}
-					$x=0;
-					foreach ($_POST['caracteristica']  as $caracteristica) {
-						$temporal[2][$x]=$caracteristica;
-						$x++;						
-					}
-					$x=0;
-					$cantidad=0;
-					$Criteria_RB = new CDbCriteria();
-					$Criteria_RB->condition = "IDREQUERIMIENTO = $id";
-					$detalleRB=RequerimientoBien::model()->findAll($Criteria_RB);
-					foreach ($detalleRB as $value) {
-						$temporal[3][$x]=$value->IDBIEN;
-						$temporal[4][$x]=$value->RBI_cantidadComprar;
-						$x++;
-						$cantidad++;
-					}
-					// print_r($temporal);
-					// echo 'cantidad'.$cantidad;
-					for($i=0;$i<$cantidad;$i++){
-						$detalleOC=new DetalleOrdenCompra;						
-						$detalleOC->IDORDENCOMPRA=$ordenCompra->IDORDENCOMPRA;						
-						$detalleOC->DOC_precioUnitario=$temporal[0][$i];
-						$detalleOC->DOC_marca=$temporal[1][$i];;
-						$detalleOC->DOC_caracteristica=$temporal[2][$i];						
-						$detalleOC->DOC_bien=$temporal[3][$i];
-						$detalleOC->DOC_cantidad=$temporal[4][$i];
-						if(!$detalleOC->save()){
-							Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pudo guardar las detalle Orden Compra');
-						}
-					}
-
-					for($i=0;$i<count($this->cotizaciones);$i++){
-						$cotizacion=new Cotizacion;
-						$cotizacion->COT_buenaPro=$this->cotizaciones[$i][4];
-						$cotizacion->COT_total=$this->cotizaciones[$i][2];
-						$cotizacion->IDREQUERIMIENTO=$id;
-						$cotizacion->IDPROVEEDOR=$this->cotizaciones[$i][0];
-						if(!$cotizacion->save()){
-							Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pudo guardar las cotizaciones');
-						}
-
-					}
-					Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se ha generado todo correctamente');
-					$this->redirect(array('admin'));					
+					Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar los precios unitarios');
 				}
-
-					
 			}
 			else{
-				Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar los precios unitarios');
+				$this->redirect(array('admin'));
 			}
+
+
 
 			
 			$this->render('create',array(
@@ -179,6 +258,7 @@ class CotizacionController extends Controller
 				'requerimiento'=>$requerimiento,
 				'proveedor'=>$proveedor,
 				'requerimiento_bien'=>$requerimiento_bien,
+				'requerimiento_servicio'=>$requerimiento_servicio,
 				)
 			);
 			

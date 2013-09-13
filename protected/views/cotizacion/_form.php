@@ -149,7 +149,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 			$this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien));
 		}
 		else 
-			$this->renderPartial('_servicios',array('requerimiento_bien'=>$requerimiento_bien)); 		 
+			$this->renderPartial('_servicios',array('requerimiento_servicio'=>$requerimiento_servicio)); 		 
 	?>
 
 </div>

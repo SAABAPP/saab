@@ -39,7 +39,7 @@ class PecosaController extends Controller
 			// 	'users'=>array('@'),
 			// ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update'),
+				'actions'=>array('admin','delete','create','update','view'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -54,9 +54,7 @@ class PecosaController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$this->redirect(array('//ordenCompra/'.$id));
 	}
 
 	/**
@@ -70,16 +68,16 @@ class PecosaController extends Controller
 		$ordenCompra=OrdenCompra::model()->findByPk($id);
 		$id_requerimiento=$ordenCompra->iDREQUERIMIENTO->IDREQUERIMIENTO;
 		$cotizacion= new Cotizacion;
-		$cotizacion=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'COT_buenaPro'=>'1'));
-		$entradaOC=new EntradaOC;
-		$entradaOC=EntradaOC::model()->findByPk($id);
+		$cotizacion=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'COT_buenaPro'=>'1'));		
+		$entradaOC= new EntradaOc;
+		$entradaOC=EntradaOc::model()->findByAttributes(array('IDORDENCOMPRA'=>$id));
 		$requerimiento_bien = new RequerimientoBien();
 		$requerimiento_bien->unsetAttributes();
 		$requerimiento_bien->IDREQUERIMIENTO = $id_requerimiento;
 		$requerimiento=new Requerimiento;
 		$requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
+
 		$Criteria_OC = new CDbCriteria();
-		
 		$Criteria_OC->condition = "IDORDENCOMPRA = $id";
 		$detalleOC=DetalleOrdenCompra::model()->findAll($Criteria_OC);
 		
@@ -87,40 +85,44 @@ class PecosaController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Pecosa']))
-		{
-			$model->attributes=$_POST['Pecosa'];
-			if(!$model->save()){
-				Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida');
-			}
-			else{
-				$requerimiento->REQ_estado='Finalizado';
-				if(!$requerimiento->save()){
-					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden cambiar le estado');
+		if($ordenCompra->TIPO=='s' or $requerimiento->REQ_estado!='En almacen'){
+			$this->redirect(array('admin'));
+		}else{
+			if(isset($_POST['Pecosa']))
+			{
+				$model->attributes=$_POST['Pecosa'];
+				$model->PEC_referencia=$entradaOC->EOC_documento;
+				if(!$model->save()){
+					Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida');
 				}
 				else{
-					foreach ($detalleOC as $value) {
-						$pecosa=new PecosaBien;
-						$pecosa->IDBIEN=$value->DOC_bien;
-						$pecosa->IDPECOSA=$model->IDPECOSA;
-						$pecosa->PBI_cantidad=$value->DOC_cantidad;
-						if(!$pecosa->save())
-							Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida de los bienes');
+					$requerimiento->REQ_estado='Finalizado';
+					if(!$requerimiento->save()){
+						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden cambiar le estado');
 					}
-					
+					else{
+						foreach ($detalleOC as $value) {
+							$pecosa=new PecosaBien;
+							$pecosa->IDBIEN=$value->DOC_bien;
+							$pecosa->IDPECOSA=$model->IDPECOSA;
+							$pecosa->PBI_cantidad=$value->DOC_cantidad;
+							if(!$pecosa->save())
+								Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida de los bienes');
+						}
+						
+					}
 				}
+				$this->redirect(array('admin'));
 			}
-			$this->redirect(array('admin'));
-		}
 
-		$this->render('create',array(
-			'model'=>$model,
-			'ordenCompra'=>$ordenCompra,
-			'cotizacion'=>$cotizacion,
-			'entradaOC'=>$entradaOC,
-			'requerimiento_bien'=>$requerimiento_bien,
-		));
+			$this->render('create',array(
+				'model'=>$model,
+				'ordenCompra'=>$ordenCompra,
+				'cotizacion'=>$cotizacion,
+				'entradaOC'=>$entradaOC,
+				'requerimiento_bien'=>$requerimiento_bien,
+			));
+		}
 	}
 
 	/**
@@ -183,16 +185,10 @@ class PecosaController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		// $model=new Pecosa('search');
-		// $model->unsetAttributes();  // clear any default values
-		// if(isset($_GET['Pecosa']))
-		// 	$model->attributes=$_GET['Pecosa'];
-
-		// $this->render('admin',array(
-		// 	'model'=>$model,
-		// ));
+		
 		$model=new OrdenCompra('search');
-		$model->unsetAttributes();  // clear any default values 
+		$model->unsetAttributes();  // clear any default values
+		$model->TIPO='c'; 
 		
 		if(isset($_GET['OrdenCompra']))
 			$model->attributes=$_GET['OrdenCompra'];

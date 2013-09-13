@@ -3,25 +3,70 @@
 /* @var $model OrdenCompra */
 
 $this->breadcrumbs=array(
-	'Orden Compras'=>array('index'),
-	$model->IDORDENCOMPRA,
+	'Orden'=>array('index'),
 );
 
-$this->menu=array(
-	array('label'=>'List OrdenCompra', 'url'=>array('index')),
-	array('label'=>'Create OrdenCompra', 'url'=>array('create')),
-	array('label'=>'Update OrdenCompra', 'url'=>array('update', 'id'=>$model->IDORDENCOMPRA)),
-	array('label'=>'Delete OrdenCompra', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->IDORDENCOMPRA),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage OrdenCompra', 'url'=>array('admin')),
-);
+
 ?>
 
-<h1>View OrdenCompra #<?php echo $model->IDORDENCOMPRA; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'IDORDENCOMPRA',
-		'IDREQUERIMIENTO',
-	),
-)); ?>
+<h2 class="center">Orden de <?php if($model->TIPO=='c') echo 'Compra'; else echo 'Servicio'; ?></h2>
+<h4 class="center">Recursos Directamente Recaudados</h4>
+<h3 class="center">Nº <?php echo $model->IDORDENCOMPRA?></h3>
+<br>
+
+
+	<div class="row-fluid">
+          <div class="span12">
+            <!-- Form header of check in begins -->
+            <div class="form-horizontal">
+              <div class="control-group pull-right">
+                <label class="control-label">R.U.C.:</label>
+                <div class="controls"><p><?php echo $cotizacion->iDPROVEEDOR->PRO_ruc?></p></div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Señor(es):</label>
+                <div class="controls"><p><?php echo $cotizacion->iDPROVEEDOR->PRO_razonSocial?></p></div>
+              </div>
+              <div class="control-group pull-right">
+                <label class="control-label">Teléfono:</label>
+                <div class="controls"><p><?php echo $cotizacion->iDPROVEEDOR->PRO_telefono?></p></div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Dirección:</label>
+                <div class="controls"><p><?php echo $cotizacion->iDPROVEEDOR->PRO_direccion?></p></div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Le agradecemos enviar a nuestro almacén en:</label>
+                <div class="controls"><br><br><p><?php echo Variables::model()->findByPk(3)->VAR_valor?></p></div>
+              </div>              
+             
+              <div class="control-group">
+                <label class="control-label">Facturara a nombre de:</label>
+                <div class="controls"><p><?php echo Variables::model()->findByPk(4)->VAR_valor?></p></div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Lo siguiente:</label>
+                <div class="controls"><p></p></div>
+              </div>
+            </div>
+            <!-- Form header of check in ends -->
+          </div>
+  </div>
+
+<div id="bienes">
+	<?php
+		if($model->TIPO=='c'){
+			$this->renderPartial('_bienes',array('detalleOC'=>$detalleOC));
+		}
+		else 
+			$this->renderPartial('_servicios',array('detalleOC'=>$detalleOC)); 		 
+	?>
+
+</div>
+      <div class="control-group center">
+        <div class="controls">
+          <a class="btn inline" href="#" onClick="print();">Imprimir Orden de Compra</a>
+        </div>
+      </div>
+<br>

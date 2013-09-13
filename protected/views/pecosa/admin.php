@@ -69,6 +69,8 @@ array_push($columns, array(
         if($data->iDREQUERIMIENTO->REQ_estado=='En almacen'){
             $html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));             
         }
+        else
+            $html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));          	
         return $html;
     },
 ));

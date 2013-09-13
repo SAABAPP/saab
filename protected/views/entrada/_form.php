@@ -53,8 +53,8 @@
             </div>
             <!-- Form header of check in ends -->
           </div>
-        </div>
-    <div id="bienes" >
+  </div>
+  <div id="bienes" >
 	<?php $this->renderPartial('_details',array('requerimiento_bien'=>$requerimiento_bien)); ?>
 	</div>
 	<div class="form-actions text-center">

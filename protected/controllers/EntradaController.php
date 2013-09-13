@@ -54,9 +54,7 @@ class EntradaController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+		$this->redirect(array('//ordenCompra/'.$id));
 	}
 
 	/**
@@ -68,10 +66,11 @@ class EntradaController extends Controller
 		$model=new Entrada;		
 		$ordenCompra=new OrdenCompra;
 		$ordenCompra=OrdenCompra::model()->findByPk($id);
+		
 		$id_requerimiento=$ordenCompra->iDREQUERIMIENTO->IDREQUERIMIENTO;
 		$cotizacion= new Cotizacion;
 		$cotizacion=Cotizacion::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'COT_buenaPro'=>'1'));
-		$entradaOC=new EntradaOC;
+		$entradaOC=new EntradaOc;
 		$requerimiento_bien = new RequerimientoBien();
 		$requerimiento_bien->unsetAttributes();
 		$requerimiento_bien->IDREQUERIMIENTO = $id_requerimiento;
@@ -79,84 +78,83 @@ class EntradaController extends Controller
 		$requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
 		$temporal=array();
 		
-		// if(isset($_GET['Entrada']))
-		// 	$model->attributes=$_GET['Entrada'];
 		
+		if($ordenCompra->TIPO=='s' or $requerimiento->REQ_estado!='Aprobado' ){
+			$this->redirect(array('admin'));
+		}else{
+			if(isset($_POST['Entrada']))
+			{
+				if(!empty($_POST['EntradaOC'])){
+					$model->attributes=$_POST['Entrada'];
+					if($model->save()){					
+						$entradaOC->IDENTRADA=$model->IDENTRADA;
+						$entradaOC->IDORDENCOMPRA=$id;
+						$entradaOC->EOC_documento=$_POST['EntradaOC'];
+						$_requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
+						$_requerimiento->REQ_estado='En almacen';
+						if(!$_requerimiento->save() )
+							Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> no se puede actualizar');
+						if(!$entradaOC->save())
+							Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+						else{
+							//encontrar todos los datos de detallo orden compra
+							$Criteria_OC = new CDbCriteria();
+							$Criteria_OC->condition = "IDORDENCOMPRA = $id";
+							$detalleOC=DetalleOrdenCompra::model()->findAll($Criteria_OC);
+							//encontrar todos los datos de requerimiento bien
+							$Criteria_RB = new CDbCriteria();
+							$Criteria_RB->condition = "IDREQUERIMIENTO = $id_requerimiento";
+							$detalleRB=RequerimientoBien::model()->findAll($Criteria_RB);
+							$arr = array();
+							$i=0;
+							foreach($detalleRB as $t)
+							{
+							    $arr[$i] = $t->IDBIEN;
+							    $i++;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+							}
+							
+							$i=0;
+							foreach($detalleOC as $value){							
+								$entrada_bien= new EntradaBien;
+								$entrada_bien->IDENTRADA=$model->IDENTRADA;
+					        	$entrada_bien->IDBIEN=$arr[$i]; $i++;
+					        	$entrada_bien->EBI_cantidad=$value->DOC_cantidad;
+					        	$entrada_bien->EBI_precioCompra=$value->DOC_precioUnitario;
 
-		if(isset($_POST['Entrada']))
-		{
-			if(!empty($_POST['EntradaOC'])){
-				$model->attributes=$_POST['Entrada'];
-				if($model->save()){					
-					$entradaOC->IDENTRADA=$model->IDENTRADA;
-					$entradaOC->IDORDENCOMPRA=$id;
-					$entradaOC->EOC_documento=$_POST['EntradaOC'];
-					$_requerimiento=Requerimiento::model()->findByPk($id_requerimiento);
-					$_requerimiento->REQ_estado='En almacen';
-					if(!$_requerimiento->save() )
-						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> no se puede actualizar');
-					if(!$entradaOC->save())
-						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
-					else{
-						//encontrar todos los datos de detallo orden compra
-						$Criteria_OC = new CDbCriteria();
-						$Criteria_OC->condition = "IDORDENCOMPRA = $id";
-						$detalleOC=DetalleOrdenCompra::model()->findAll($Criteria_OC);
-						//encontrar todos los datos de requerimiento bien
-						$Criteria_RB = new CDbCriteria();
-						$Criteria_RB->condition = "IDREQUERIMIENTO = $id_requerimiento";
-						$detalleRB=RequerimientoBien::model()->findAll($Criteria_RB);
-						$arr = array();
-						$i=0;
-						foreach($detalleRB as $t)
-						{
-						    $arr[$i] = $t->IDBIEN;
-						    $i++;
-
-						}
+					        	if (!$entrada_bien->save()) {
+					        		
+		                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden ingresar lo bienes');
+		                        }
+		                        else{
+		                        	Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se han ingresado los bienes satisfactoriamente');
+		                        	
+		                        		
+		                        }
+														
+							}
 						
-						$i=0;
-						foreach($detalleOC as $value){							
-							$entrada_bien= new EntradaBien;
-							$entrada_bien->IDENTRADA=$model->IDENTRADA;
-				        	$entrada_bien->IDBIEN=$arr[$i]; $i++;
-				        	$entrada_bien->EBI_cantidad=$value->DOC_cantidad;
-				        	$entrada_bien->EBI_precioCompra=$value->DOC_precioUnitario;
-
-				        	if (!$entrada_bien->save()) {
-				        		
-	                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden ingresar lo bienes');
-	                        }
-	                        else{
-	                        	Yii::app()->user->setFlash('success', '<strong>Bien!</strong> se han ingresado los bienes satisfactoriamente');
-	                        	
-	                        		
-	                        }
-													
-						}
-					
-						$this->redirect(array('admin'));
-					}	
+							$this->redirect(array('admin'));
+						}	
+					}
+						
 				}
+				else{
+					Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar Nro Documento');
 					
-			}
-			else{
-				Yii::app()->user->setFlash('warning', '<strong>Atencion!</strong> debe ingresar Nro Documento');
+				}
 				
 			}
-			
+
+			$this->render('create',array(
+				'model'=>$model,
+				'ordenCompra'=>$ordenCompra,
+				'cotizacion'=>$cotizacion,
+				'entradaOC'=>$entradaOC,
+				'requerimiento_bien'=>$requerimiento_bien,
+			));			
 		}
 
-		$this->render('create',array(
-			'model'=>$model,
-			'ordenCompra'=>$ordenCompra,
-			'cotizacion'=>$cotizacion,
-			'entradaOC'=>$entradaOC,
-			'requerimiento_bien'=>$requerimiento_bien,
-		));
 	}
 
 	/**
@@ -223,6 +221,7 @@ class EntradaController extends Controller
 		// $model->unsetAttributes();
 		$model=new OrdenCompra('search');
 		$model->unsetAttributes();  // clear any default values 
+		$model->TIPO='c';
 		
 		
 		// if(isset($_GET['Entrada']))
