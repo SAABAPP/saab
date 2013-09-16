@@ -4,18 +4,13 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Meta','url'=>array('index')),
-	array('label'=>'Create Meta','url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('meta-grid', {
+	$('#meta-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,29 +18,59 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Metas</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+<div class="search-form" >
+<?php
+	$this->renderPartial('_search',array(
+		'model'=>$model,
+		)
+	);
+	$this->widget('bootstrap.widgets.TbButton', array(
+		'label'=>'Crear Meta',
+	    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+	    'size'=>'large', // null, 'large', 'small' or 'mini'
+	    'htmlOptions'=>array('class'=>'pull-right span2'),
+	    'url'=>array('create'),
+	    )
+	);
+?>
 </div><!-- search-form -->
+<br/><br/>
+<hr>
+<h3>Mantenedor Meta</h3>
+<br/>
+<div class="span8 offset2">
+<?php
+$columns=array();
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+array_push($columns, array(
+	'header' => 'N° Meta',
+	'value'=>'$data->CODMETA',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Area',
+	'value'=>'$data->MET_descripcion',
+	)
+);
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opc',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+    	return CHtml::link("<i class='icon-eye-open'></i>", array("view", 'id' => $data->CODMETA));
+    },
+));
+
+$this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'meta-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'CODMETA',
-		'MET_descripcion',
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
-)); ?>
+	'type'=>'bordered hover',
+    'template'=>"{items}{pager}",
+	// 'filter'=>$model,
+	'columns'=>$columns,
+));
+?>
+</div>

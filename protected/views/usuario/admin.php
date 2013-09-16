@@ -1,10 +1,17 @@
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/saabCesar
 $this->breadcrumbs=array(
 	'Usuarios'=>array('index'),
 	'Inicio',
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/saabCesar
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();

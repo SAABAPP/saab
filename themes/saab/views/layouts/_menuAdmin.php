@@ -25,9 +25,11 @@
   <li class="has_sub"><a href=""><i class="icon-wrench"></i> Mantenedores  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
     <ul>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/bien">Bienes</a></li>
-      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/personal">Usuarios</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/personal">Personal</a></li>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/proveedor">Proveedor</a></li>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/variables">Variables</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/meta">Meta</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/area">Area</a></li>
     </ul>
   </li>
 </ul>

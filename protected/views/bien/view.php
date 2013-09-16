@@ -1,6 +1,4 @@
 <?php
-/* @var $this BienController */
-/* @var $model Bien */
 
 $this->breadcrumbs=array(
 	'Bienes'=>array('index'),
@@ -8,7 +6,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>View Bien #<?php echo $model->IDBIEN; ?></h1>
+<h1>Ver Bien #<?php echo $model->IDBIEN; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

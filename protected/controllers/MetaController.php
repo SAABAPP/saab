@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL ^ E_NOTICE);
 class MetaController extends Controller
 {
 	/**
@@ -15,6 +15,7 @@ class MetaController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			
 		);
 	}
 
@@ -26,10 +27,17 @@ class MetaController extends Controller
 	public function accessRules()
 	{
 		return array(
+<<<<<<< HEAD
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','update','index','view'),
 				'users'=>array('admin'),
 			),
+=======
+			array('allow',
+				'actions'=>array('index','admin','create','view','update'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+				),
+>>>>>>> origin/saabCesar
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

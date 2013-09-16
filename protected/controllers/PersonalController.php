@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL ^ E_NOTICE);
 class PersonalController extends Controller
 {
 	/**
@@ -15,6 +15,7 @@ class PersonalController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -26,6 +27,7 @@ class PersonalController extends Controller
 	public function accessRules()
 	{
 		return array(
+<<<<<<< HEAD
 			// array('allow',  // allow all users to perform 'index' and 'view' actions
 			// 	'actions'=>array('index','view'),
 			// 	'users'=>array('*'),
@@ -38,9 +40,15 @@ class PersonalController extends Controller
 				'actions'=>array('admin','delete','create','update','index','view'),
 				'users'=>array('admin'),
 			),
+=======
+			array('allow',
+				'actions'=>array('index','admin','create','view','update'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+				),
+>>>>>>> origin/saabCesar
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+				),
 		);
 	}
 

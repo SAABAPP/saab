@@ -1,7 +1,5 @@
 <?php
-/* @var $this BienController */
-/* @var $model Bien */
-/* @var $form CActiveForm */
+
 ?>
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'bien-form',

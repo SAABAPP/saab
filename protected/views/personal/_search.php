@@ -4,13 +4,15 @@
 	'type'=>'vertical'
 )); ?>
 
-
-
 	<div class="span8 input-append">
 		<?php echo $form->textFieldRow($model,'PER_dni',
 			array(
 				'class'=>'span4',
+<<<<<<< HEAD
 				'placeholder' => 'N° de DNI',
+=======
+				'placeholder' => 'N° de DNI ',
+>>>>>>> origin/saabCesar
 				'labelOptions' => array('label' => false),
 				'autocomplete'=>'off',
 			)

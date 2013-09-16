@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL ^ E_NOTICE);
 class AreaController extends Controller
 {
 	/**
@@ -27,11 +27,18 @@ class AreaController extends Controller
 	public function accessRules()
 	{
 		return array(
+<<<<<<< HEAD
 			
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','update','index','view'),
 				'users'=>array('admin'),
 			),
+=======
+			array('allow',
+				'actions'=>array('index','admin','create','view','update'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+				),
+>>>>>>> origin/saabCesar
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -56,6 +63,7 @@ class AreaController extends Controller
 	public function actionCreate()
 	{
 		$model=new Area;
+		
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

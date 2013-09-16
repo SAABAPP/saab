@@ -1,30 +1,22 @@
-<?php
-/* @var $this AreaController */
-/* @var $model Area */
-/* @var $form CActiveForm */
-?>
-
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical'
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDAREA'); ?>
-		<?php echo $form->textField($model,'IDAREA'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'ARE_nombre'); ?>
-		<?php echo $form->textField($model,'ARE_nombre',array('size'=>60,'maxlength'=>150)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="span8 input-append">
+		<?php echo $form->textFieldRow($model,'IDAREA',
+			array(
+				'class'=>'span4',
+				'placeholder' => 'N° de Area',
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
+			)
+		); ?>
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',			
+			'icon'=>'icon-search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
