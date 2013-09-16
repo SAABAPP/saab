@@ -42,6 +42,7 @@ $('.search-form form').submit(function(){
 <div class="span10 offset1">
 <?php
 $columns=array();
+<<<<<<< HEAD
 
 array_push($columns, array(
 	'header' => 'N°',
@@ -68,6 +69,34 @@ array_push($columns, array(
 );
 
 array_push($columns, array(
+=======
+
+array_push($columns, array(
+	'header' => 'N°',
+	'value'=>'$data->IDPROVEEDOR',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Catalogo',
+	'value'=>'$data->PRO_razonSocial',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Unidad',
+	'value'=>'$data->PRO_ruc',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Catalogo',
+	'value'=>'$data->PRO_rubro',
+	)
+);
+
+array_push($columns, array(
+>>>>>>> origin/saabCesar
 	'header' => 'Unidad',
 	'value'=>'$data->PRO_telefono',
 	)

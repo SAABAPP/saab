@@ -1,6 +1,9 @@
 <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/saabCesar
 
 >>>>>>> origin/saabCesar
 $this->breadcrumbs=array(
@@ -9,7 +12,10 @@ $this->breadcrumbs=array(
 );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/saabCesar
 =======
 >>>>>>> origin/saabCesar
 Yii::app()->clientScript->registerScript('search', "

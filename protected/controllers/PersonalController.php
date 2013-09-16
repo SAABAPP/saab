@@ -28,6 +28,7 @@ class PersonalController extends Controller
 	{
 		return array(
 <<<<<<< HEAD
+<<<<<<< HEAD
 			// array('allow',  // allow all users to perform 'index' and 'view' actions
 			// 	'actions'=>array('index','view'),
 			// 	'users'=>array('*'),
@@ -41,10 +42,15 @@ class PersonalController extends Controller
 				'users'=>array('admin'),
 			),
 =======
+=======
+>>>>>>> origin/saabCesar
 			array('allow',
 				'actions'=>array('index','admin','create','view','update'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
+<<<<<<< HEAD
+>>>>>>> origin/saabCesar
+=======
 >>>>>>> origin/saabCesar
 			array('deny',  // deny all users
 				'users'=>array('*'),

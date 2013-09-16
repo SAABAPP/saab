@@ -28,15 +28,21 @@ class MetaController extends Controller
 	{
 		return array(
 <<<<<<< HEAD
+<<<<<<< HEAD
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','update','index','view'),
 				'users'=>array('admin'),
 			),
 =======
+=======
+>>>>>>> origin/saabCesar
 			array('allow',
 				'actions'=>array('index','admin','create','view','update'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
+<<<<<<< HEAD
+>>>>>>> origin/saabCesar
+=======
 >>>>>>> origin/saabCesar
 			array('deny',  // deny all users
 				'users'=>array('*'),

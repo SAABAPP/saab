@@ -9,7 +9,11 @@
 			array(
 				'class'=>'span4',
 <<<<<<< HEAD
+<<<<<<< HEAD
 				'placeholder' => 'N° de DNI',
+=======
+				'placeholder' => 'N° de DNI ',
+>>>>>>> origin/saabCesar
 =======
 				'placeholder' => 'N° de DNI ',
 >>>>>>> origin/saabCesar

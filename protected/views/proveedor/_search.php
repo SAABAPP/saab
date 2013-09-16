@@ -5,6 +5,7 @@
 )); ?>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<h3>Busqueda Proveedor</h3><br>
 
 	<?php echo $form->textFieldRow($model,'PRO_razonSocial',array('class'=>'span5','maxlength'=>150)); ?>
@@ -15,6 +16,8 @@
 
 	<div class="form-actions">
 =======
+=======
+>>>>>>> origin/saabCesar
 	<div class="span8 input-append">
 		<?php echo $form->textFieldRow($model,'IDPROVEEDOR',
 			array(
@@ -24,6 +27,9 @@
 				'autocomplete'=>'off',
 			)
 		); ?>
+<<<<<<< HEAD
+>>>>>>> origin/saabCesar
+=======
 >>>>>>> origin/saabCesar
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',			

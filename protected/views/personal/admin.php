@@ -76,6 +76,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	'columns'=>array(
 		'PER_dni',
 		'PER_nombres',
@@ -98,9 +99,14 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	),
 )); ?>
 =======
+=======
+>>>>>>> origin/saabCesar
 	// 'filter'=>$model,
 	'columns'=>$columns,
 ));
 ?>
+<<<<<<< HEAD
+>>>>>>> origin/saabCesar
+=======
 >>>>>>> origin/saabCesar
 </div>
