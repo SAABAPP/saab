@@ -12,11 +12,15 @@
 				'labelOptions' => array('label' => false),
 				'autocomplete'=>'off',
 			)
-		); ?>
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-			'buttonType'=>'submit',			
-			'icon'=>'icon-search',
-		)); ?>
+		);
+		?>
+		<?php 
+			$this->widget('bootstrap.widgets.TbButton', array(
+				'buttonType'=>'submit',			
+				'icon'=>'icon-search',
+				)
+			);
+		?>
 	</div>
 
 <?php $this->endWidget(); ?>

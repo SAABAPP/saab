@@ -1,15 +1,8 @@
 <?php
-/* @var $this UsuarioController */
-/* @var $model Usuario */
 
 $this->breadcrumbs=array(
 	'Usuarios'=>array('index'),
 	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Usuario', 'url'=>array('index')),
-	array('label'=>'Create Usuario', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

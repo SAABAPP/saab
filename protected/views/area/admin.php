@@ -1,15 +1,8 @@
 <?php
-/* @var $this AreaController */
-/* @var $model Area */
 
 $this->breadcrumbs=array(
 	'Areas'=>array('index'),
 	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Area', 'url'=>array('index')),
-	array('label'=>'Create Area', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,29 +19,59 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Areas</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+<div class="search-form" >
+<?php
+	$this->renderPartial('_search',array(
+		'model'=>$model,
+		)
+	);
+	$this->widget('bootstrap.widgets.TbButton', array(
+		'label'=>'Crear Area',
+	    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+	    'size'=>'large', // null, 'large', 'small' or 'mini'
+	    'htmlOptions'=>array('class'=>'pull-right span2'),
+	    'url'=>array('create'),
+	    )
+	);
+?>
 </div><!-- search-form -->
+<br/><br/>
+<hr>
+<h3>Mantenedor AreA</h3>
+<br/>
+<div class="span8 offset2">
+<?php
+$columns=array();
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'area-grid',
+array_push($columns, array(
+	'header' => 'Codigo de Area',
+	'value'=>'$data->IDAREA',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Area',
+	'value'=>'$data->ARE_nombre',
+	)
+);
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opc',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+    	return CHtml::link("<i class='icon-eye-open'></i>", array("view", 'id' => $data->IDAREA));
+    },
+));
+
+$this->widget('bootstrap.widgets.TbGridView',array(
+	'id'=>'meta-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'IDAREA',
-		'ARE_nombre',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+	'type'=>'bordered hover',
+    'template'=>"{items}{pager}",
+	// 'filter'=>$model,
+	'columns'=>$columns,
+));
+?>
+</div>

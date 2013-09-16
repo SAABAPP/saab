@@ -1,4 +1,5 @@
 <?php
+
 $this->breadcrumbs=array(
 	'Bienes'=>array('index'),
 	'Inicio',
@@ -20,24 +21,24 @@ $('.search-form form').submit(function(){
 
 <div class="search-form" >
 <?php
-$this->renderPartial('_search',array(
-	'model'=>$model,
-	));
-
-$this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Crear bien',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'large', // null, 'large', 'small' or 'mini'
-    'htmlOptions'=>array('class'=>'pull-right span2'),
-    'url'=>array('create'),
-    ));
+	$this->renderPartial('_search',array(
+		'model'=>$model,
+		)
+	);
+	$this->widget('bootstrap.widgets.TbButton', array(
+		'label'=>'Crear bien',
+	    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+	    'size'=>'large', // null, 'large', 'small' or 'mini'
+	    'htmlOptions'=>array('class'=>'pull-right span2'),
+	    'url'=>array('create'),
+	    )
+	);
 ?>
 </div><!-- search-form -->
 <br/><br/>
 <hr>
-<h3>Bienes</h3>
+<h3>Mnatenedor Bienes</h3>
 <br/>
-
 <div class="span10 offset1">
 <?php
 $columns=array();

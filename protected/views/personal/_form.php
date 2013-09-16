@@ -3,7 +3,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+	<p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
