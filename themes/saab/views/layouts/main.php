@@ -46,6 +46,9 @@
         case "variables":
         echo "<h2 class=\"pull-left\"><i class=\"icon-globe\"></i> Variables</h2>";
         break;
+        case "cuaNec":
+        echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Cuadro de Necesidades</h2>";
+        break;
        }
        ?>
 	<!-- Breadcrumb -->

@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 
 <?php 
 
-Yii::app()->clearGlobalState('comprar');
-Yii::app()->clearGlobalState('idcomprar');
+  Yii::app()->user->setState('comprar',null);
+  Yii::app()->user->setState('idcomprar',0);
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   'id'=>'requerimiento-form',
@@ -76,7 +76,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                   )
                 );
                 
-                if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
+                if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
                 {
                   array_push($columns, array(
                     'header' => 'Stock actual',
@@ -109,12 +109,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                             else
                               $compra=$min - ($stock - $cant);
 
-                            $col_comprar=Yii::app()->getGlobalState('comprar');
-                            $id_comprar=Yii::app()->getGlobalState('idcomprar');
+                            $col_comprar=Yii::app()->user->getState('comprar');
+                            $id_comprar=Yii::app()->user->getState('idcomprar');
                             $col_comprar=array_merge((array)$col_comprar,(array)$compra);
                             $id_comprar=array_merge((array)$id_comprar,(array)$idbien);
-                            Yii::app()->setGlobalState('comprar',$col_comprar);
-                            Yii::app()->setGlobalState('idcomprar',$id_comprar);
+                            Yii::app()->user->setState('comprar',$col_comprar);
+                            Yii::app()->user->setState('idcomprar',$id_comprar);
 
 
                             return CHtml::textField('cantidad', $compra);
@@ -166,18 +166,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
               <p><?php echo $model->cODMETA->MET_descripcion; ?></p>
             </div>
           </div>
+          
           <?php
-          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
-          {
-          	echo "<div class=\"control-group center\">
-            <div class=\"controls\">
-              <a class=\"btn inline hide\" id='salida' type=\"\">Autorizar Salida</a>
-            </div>
-          </div>";
-          }
-          ?>
-          <?php
-          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
           {
             echo "<div class=\"control-group\">
             <label for=\"presupuesto\" class=\"control-label\">Presupuesto:</label>
@@ -190,33 +181,34 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           ?>
           <?php
 
-          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && $model->REQ_estado=='Requerido')
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
           {
-            echo "<div class=\"control-group center\">
+            
+            echo "<div class=\"control-group offset3\">
             <div class=\"controls\">";
+            if ($model->TIPO=='b') {
+                echo "<a href='salida/".$model->IDREQUERIMIENTO."' class=\"btn inline\" type=\"\" >Autorizar Salida</a>&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            
             $this->widget('bootstrap.widgets.TbButton', array(
             'buttonType'=>'submit',
             'type'=>'primary',
-            'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
+            'label'=>$model->isNewRecord ? 'Guardar' : 'Asignar Presupuesto',
             )); 
             echo "</div></div>";
           }else{
             echo "<div class=\"control-group center\">
             <div class=\"controls\">
-              <button class=\"btn inline\" type=\"\" onClick=\"print();\" >Imprimir</button>
+              <a id='imprimir' href='?imprimir' target='_blank' class=\"btn inline\" type=\"\" >Imprimir Requerimiento</a>
             </div>
           </div>";
           }
 
-          //prueba de valores ene array
-          // $idcompra=Yii::app()->getGlobalState('idcomprar');
-          // foreach ($compra as $value) {
-          //   echo $value;
-          // }
-          // print_r($idcompra);
+
 
           ?>
         </form>
+        <br><br>
         <!-- Form of previsualization of requirement ends -->
       </div>
 </div>

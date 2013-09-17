@@ -13,7 +13,8 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Catalogo #<?php echo $model->IDCATALOGO; ?></h1>
+<h2>Catalogo <?php echo $model->IDCATALOGO; ?></h2>
+<br>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(
 	'data'=>$model,

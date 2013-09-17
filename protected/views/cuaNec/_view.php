@@ -1,12 +1,7 @@
-<?php
-/* @var $this CuaNecController */
-/* @var $data CuaNec */
-?>
-
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('IDCUANEC')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->IDCUANEC), array('view', 'id'=>$data->IDCUANEC)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->IDCUANEC),array('view','id'=>$data->IDCUANEC)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('CNE_anio')); ?>:</b>

@@ -68,7 +68,7 @@ class BienController extends Controller
 		{
 			$model->attributes=$_POST['Bien'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDBIEN));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -147,7 +147,7 @@ class BienController extends Controller
 
 		if (isset($q)) {
 			$condicion = new CDbCriteria;
-			$condicion->condition = "CAT_descripcion LIKE '%". $q ."%' and IDCATALOGO between '4895' and '59664' order by CAT_descripcion";
+			$condicion->condition = "CAT_descripcion LIKE '%". $q ."%' and IDCATALOGO>=4898 AND length(CAT_codigo)>=12 order by CAT_descripcion";
 			$condicion->limit = 10; ; 
 			$catalogoBienes=  Catalogo::model()->findAll($condicion);
 

@@ -1,30 +1,25 @@
-<?php
-/* @var $this CuaNecController */
-/* @var $model CuaNec */
-/* @var $form CActiveForm */
-?>
 
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical'
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'IDCUANEC'); ?>
-		<?php echo $form->textField($model,'IDCUANEC'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'CNE_anio'); ?>
-		<?php echo $form->textField($model,'CNE_anio',array('size'=>4,'maxlength'=>4)); ?>
-	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="span8 input-append">
+		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
+			array(
+				'class'=>'span4',
+				'placeholder' => 'N° de Requerimiento',
+				'labelOptions' => array('label' => false),
+				'autocomplete'=>'off',
+			)
+		); ?>
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',			
+			'icon'=>'icon-search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

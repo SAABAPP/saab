@@ -63,7 +63,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
       <div class="controls">
         <?php
-
         $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
           'name'=>'busca_clasificador',
           'id'=>'clasificador',
@@ -86,7 +85,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                         jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]);
                         $.ajax({
                           type: "post",
-                          url: "/Requerimiento/idCatalogo",
+                          url: "'.Yii::app()->request->baseUrl.'/Requerimiento/idCatalogo",
                           data: {                
                             idclasificador: ui.item["id"] 
                           },
@@ -216,6 +215,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                           alert(req.responseText);
                                       }",
                           'success' => "function(data) {
+                                          $('#clasificador').attr('disabled',true);
                                           $('#unidad_catalogo').val('');
                                           $('#idbien').val('');
                                           $('#cantidadBien').val('');
@@ -292,7 +292,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
       'type'=>'primary',
       'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
       )); ?>
-      <a class="btn inline secundario" type="button" href="admin.html">Cancelar</a>
+      <a class="btn inline secundario" type="button" href="admin">Cancelar</a>
     </div>
   </div>
   <div class="form-actions">

@@ -28,6 +28,10 @@ class OrdenCompraController extends Controller
 	{
 		return array(
 			array('allow',
+				'actions'=>array('view','servicio'),
+				'expression'=>'Yii::app()->user->checkAccess("almacen")',
+			),
+			array('allow',
 				'actions'=>array('index','admin','view','servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
@@ -65,6 +69,23 @@ class OrdenCompraController extends Controller
 		$detalleOC->unsetAttributes();  // clear any default values
 		$detalleOC->IDORDENCOMPRA=$id;
 
+		
+		if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/pdf'; 
+			// $mPDF1 = Yii::app()->ePdf->mpdf();
+			// 	$mPDF1->WriteHTML($this->render('view',array(
+			// 		'model'=>$this->loadModel($id),
+			// 		'requerimiento'=>$requerimiento,
+			// 		'cotizacion'=>$cotizacion,
+			// 		'requerimiento_bien'=>$requerimiento_bien,
+			// 		'requerimiento_servicio'=>$requerimiento_servicio,
+			// 		'detalleOC'=>$detalleOC,			
+			// 	),true));
+			// 	$mPDF1->Output('OrdenCompra','I');	
+					
+
+		}
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 			'requerimiento'=>$requerimiento,

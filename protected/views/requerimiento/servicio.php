@@ -99,7 +99,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                         jQuery("#CODIGOCLASIFICADOR").val(ui.item["id"]);
                         $.ajax({
                           type: "post",
-                          url: "/Requerimiento/idCatalogo",
+                          url: "'.Yii::app()->request->baseUrl.'/requerimiento/idCatalogo",
                           data: {                
                             idclasificador: ui.item["id"] 
                           },
@@ -221,7 +221,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                           'error' => "function(req, status, error) {
                                           alert(req.responseText);
                                       }",
-                          'success' => "function(data) {                                          
+                          'success' => "function(data) {
+                                          $('#clasificador').attr('disabled',true);                                          
                                           $('#idservicio').val('');
                                           $('#caracteristica').val('');
                                           $('#catalogoServicio').val('');
@@ -295,7 +296,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
       'type'=>'primary',
       'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
       )); ?>
-      <a class="btn inline secundario" type="button" href="admin.html">Cancelar</a>
+      <a class="btn inline secundario" type="button" href="admin">Cancelar</a>
     </div>
   </div>
   <div class="form-actions">

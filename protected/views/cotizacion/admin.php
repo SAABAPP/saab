@@ -71,7 +71,7 @@ array_push($columns, array(
     'htmlOptions' => array('class' => 'button-column'),
     'value' => function($data) {
         $html = "";
-        if($data->REQ_estado=='Requerido'){
+        if($data->REQ_estado=='Requerido' || $data->REQ_estado=='Necesitado'){
 			$html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDREQUERIMIENTO), array(
                             'title' => 'Añadir',));
         }
@@ -89,7 +89,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
 	// 'filter'=>$model,
-	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
+	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Necesitado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
 	'columns'=>$columns,
 ));
 ?>

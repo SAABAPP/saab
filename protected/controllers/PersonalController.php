@@ -26,16 +26,9 @@ class PersonalController extends Controller
 	public function accessRules()
 	{
 		return array(
-			// array('allow',  // allow all users to perform 'index' and 'view' actions
-			// 	'actions'=>array('index','view'),
-			// 	'users'=>array('*'),
-			// ),
-			// array('allow', // allow authenticated user to perform 'create' and 'update' actions
-			// 	'actions'=>array('create','update'),
-			// 	'users'=>array('@'),
-			// ),
+			
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','index','view'),
+				'actions'=>array('admin','delete','create','update','index','view','buscaArea'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -62,20 +55,68 @@ class PersonalController extends Controller
 	public function actionCreate()
 	{
 		$model=new Personal;
+		$usuario=new Usuario;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation(array($model,$usuario));
 
-		if(isset($_POST['Personal']))
+		if(isset($_POST['Personal'],$_POST['Usuario']))
 		{
-			$model->attributes=$_POST['Personal'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDPERSONAL));
+			$model->attributes=$_POST['Personal'];			
+			if(!$model->save()){
+				Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar el personal');
+			}
+			else{
+				$usuario->attributes=$_POST['Usuario'];
+				$usuario->IDPERSONAL=$model->IDPERSONAL;
+				if(!$usuario->save()){
+					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el usuario');
+				}
+				else{
+					Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
+				}	
+			}
+
+			
+			$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'usuario'=>$usuario,
 		));
+	}
+	public function actionBuscaArea(){
+		       //$q = $_GET['busca_clasificador'];
+    	$q=trim($_GET['term']);
+    	//echo 'funciona el valor es:'.$_GET['term'];
+       //$q='LA';
+
+    	if (isset($q)) {
+    		$condicion = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+    		$condicion->condition = "ARE_nombre LIKE '%". $q ."%' ";
+           //$condicion->order = 'CLA_descripcion'; // correct order-by field
+           $condicion->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$condicion->params = array(':q' => trim($q) . '%'); 
+           $area=  Area::model()->findAll($condicion);
+
+
+           if (!empty($area)) {
+           	
+           	$salida = array();
+           	foreach ($area as $a) {
+           		$salida[] = array(
+                      // expression to give the string for the autoComplete drop-down
+           			'label' => $a->ARE_nombre,  
+           			'id' => $a->IDAREA,
+                       );
+           	}
+           	echo CJSON::encode($salida);
+           	Yii::app()->end();
+           }
+       }
 	}
 
 	/**
@@ -86,19 +127,32 @@ class PersonalController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$usuario=Usuario::model()->findByAttributes(array('IDPERSONAL'=>$id));
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Personal']))
+		if(isset($_POST['Personal']) && isset($_POST['Usuario']))
 		{
-			$model->attributes=$_POST['Personal'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDPERSONAL));
+			$model->attributes=$_POST['Personal'];			
+			if(!$model->save()){
+				Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden actualizar el personal');
+			}
+			else{
+				$usuario->attributes=$_POST['Usuario'];
+				if(!$usuario->save()){
+					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden actualizar el usuario');
+				}
+				else{
+					Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
+				}	
+			}
+
+			
+			$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'usuario'=>$usuario,
 		));
 	}
 

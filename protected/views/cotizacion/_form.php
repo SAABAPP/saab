@@ -33,7 +33,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 							'name'=>'busca_proveedor',
 							'id'=>'razonSocial',
 							'value'=>$proveedor->PRO_razonSocial,
-							'source'=>$this->createUrl('Cotizacion/buscaProveedor'),
+							'source'=>$this->createUrl('cotizacion/buscaProveedor'),
 							'options'=>array(
 								'minLength'=>'1',
 								),                                                            

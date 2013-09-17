@@ -1,8 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Personals'=>array('index'),
-	$model->IDPERSONAL=>array('view','id'=>$model->IDPERSONAL),
-	'Update',
+	'Personal'=>array('index'),
+	'Actualizar',
 );
 
 $this->menu=array(
@@ -13,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Personal <?php echo $model->IDPERSONAL; ?></h1>
+<h2 class="text-center">Actualizar Personal</h2><br>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form',array('model'=>$model,'usuario'=>$usuario)); ?>

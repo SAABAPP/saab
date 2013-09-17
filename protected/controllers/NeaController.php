@@ -67,12 +67,12 @@ class NeaController extends Controller
 	 */
 	public function actionCreate()
 	{
-		Yii::app()->setGlobalState('site_id', 0);
+		Yii::app()->user->setState('site_id', 0);
 
 		$model=new Nea;
 		$catalogo=new Catalogo;
 		$entrada=new Entrada;
-		$col=Yii::app()->getGlobalState('arrays_nea');
+		$col=Yii::app()->user->getState('arrays_nea');
 		$temporal=array();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -108,7 +108,7 @@ class NeaController extends Controller
 
      				    for($x=0;$x<count($col); $x++){
 					        $entrada_bien= new EntradaBien; 
-					        if(!empty($col[$x][0])){
+					        if(!empty($col[$x][1])){
 					        	$entrada_bien->IDENTRADA=$entrada->IDENTRADA;
 					        	$entrada_bien->IDBIEN=$col[$x][0];
 					        	$entrada_bien->EBI_cantidad=$col[$x][3];
@@ -194,7 +194,7 @@ class NeaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+		Yii::app()->user->setState('arrays_nea', $this->columnas);
 		$dataProvider=new CActiveDataProvider('Nea');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -253,7 +253,7 @@ class NeaController extends Controller
             
             // Yii::app()->params['valor']
          
-			$i=Yii::app()->getGlobalState('site_id'); //obtiene el valor de una variable global
+			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
           	
           if($i==0){
           	
@@ -263,23 +263,23 @@ class NeaController extends Controller
             $this->columnas[$i][3]=$cantidad;
             $this->columnas[$i][4]=$precio_unitario;
             $this->columnas[$i][5]=$sub_total;
-            Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+            Yii::app()->user->setState('arrays_nea', $this->columnas);
           }else{
-          	$this->columnas=Yii::app()->getGlobalState('arrays_nea');
+          	$this->columnas=Yii::app()->user->getState('arrays_nea');
           	$this->columnas[$i][0]=$idbien;
             $this->columnas[$i][1]=$descripcion;
             $this->columnas[$i][2]=$unidad;
             $this->columnas[$i][3]=$cantidad;
             $this->columnas[$i][4]=$precio_unitario;
             $this->columnas[$i][5]=$sub_total;
-            Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+            Yii::app()->user->setState('arrays_nea', $this->columnas);
           }
 
             ++$i;
 
-           	Yii::app()->setGlobalState('site_id', $i);	// envia valor a una varible global
+           	Yii::app()->user->setState('site_id', $i);	// envia valor a una varible global
             
-            //clearGlobalState()
+            //user->setState()
             $this->actionDetails();          
 
             
@@ -290,7 +290,7 @@ class NeaController extends Controller
 	public function actionAdmin()
 	{
 		
-		Yii::app()->clearGlobalState('arrays_nea');
+		Yii::app()->user->setState('arrays_nea',null);
 
 		$model=new Entrada('search');
 		$model->unsetAttributes();  // clear any default values
@@ -305,7 +305,7 @@ class NeaController extends Controller
 	public function actionAumentarItem() {
 
     	$id= $_POST['idbien'];
-    	$this->columnas=Yii::app()->getGlobalState('arrays_nea');
+    	$this->columnas=Yii::app()->user->getState('arrays_nea');
     	$valor=-1;
     	
     	$valor=$this->busqueda($id);
@@ -313,7 +313,7 @@ class NeaController extends Controller
         ++$this->columnas[$valor][3];
         $this->columnas[$valor][4];
         $this->columnas[$valor][5]=$this->columnas[$valor][4]*$this->columnas[$valor][3];
-        Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+        Yii::app()->user->setState('arrays_nea', $this->columnas);
 		//echo $valor.' bien:'.$id.' valor:'.$this->columnas[$valor][0];
         $this->actionDetails();
     }
@@ -322,9 +322,9 @@ class NeaController extends Controller
         $id= $_POST['idbien'];
     	$valor=-1;    	
         $valor=$this->busqueda($id);
-        $this->columnas=Yii::app()->getGlobalState('arrays_nea');
+        $this->columnas=Yii::app()->user->getState('arrays_nea');
         if($this->columnas[$valor][3]<=1){
-         	unset($this->columnas[$valor][0]);
+         	//unset($this->columnas[$valor][0]);
         	unset($this->columnas[$valor][1]);
        		unset($this->columnas[$valor][2]);      
          	unset($this->columnas[$valor][3]);
@@ -337,7 +337,7 @@ class NeaController extends Controller
 	        $this->columnas[$valor][5]=$this->columnas[$valor][4]*$this->columnas[$valor][3];
         }
         
-        Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+        Yii::app()->user->setState('arrays_nea', $this->columnas);
 
         $this->actionDetails();
     }
@@ -347,42 +347,50 @@ class NeaController extends Controller
     	$id= $_POST['idbien'];
     	$valor=-1;
         $valor=$this->busqueda($id);
-        $this->columnas=Yii::app()->getGlobalState('arrays_nea');
-     	unset($this->columnas[$valor][0]);
+        $this->columnas=Yii::app()->user->getState('arrays_nea');
+     	//unset($this->columnas[$valor][0]);
     	unset($this->columnas[$valor][1]);
    		unset($this->columnas[$valor][2]);      
      	unset($this->columnas[$valor][3]);
     	unset($this->columnas[$valor][4]);
    		unset($this->columnas[$valor][5]);  
         $this->columnas = array_values($this->columnas);
-        Yii::app()->setGlobalState('arrays_nea', $this->columnas);
+        Yii::app()->user->setState('arrays_nea', $this->columnas);
 
         $this->actionDetails();
 
     }
     public function busqueda($id){
     	
-
-    	$this->columnas=Yii::app()->getGlobalState('arrays_nea');
+    	$columna=array();
+    	$columna=Yii::app()->user->getState('arrays_nea');
     	// foreach ($this->columnas as $col) {
-    	for($i=0;$i<count($this->columnas); $i++){
+    	for($i=0;$i<count($columna); $i++){
     		
-    		if(stristr($this->columnas[$i][0],$id))    			
+    		if(stristr($columna[$i][0],$id))
+    		{
+    			return $i;
     			break;
+    		}   		
+
+    			
     		
     	}
-    	return $i;
+    	return null;
     }
     public function validador(){
-    	$col=Yii::app()->getGlobalState('arrays_nea');
+    	$col=Yii::app()->user->getState('arrays_nea');
 	    
-	      for($x=0;$x<count($col); $x++){
-	        
+	    $valor=0;
+	      for($x=0;$x<count($col); $x++){	        
 	        if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]) && !empty($col[$x][3]) && !empty($col[$x][4]))
-	         	return true;
-	      	else
-	      		return false;
+	         	$valor=1;
+	      	
 	      }
+	      if($valor==1)
+	      	return true;
+	      else
+	      	return false;	      
 	}    
 
 	/**
