@@ -119,11 +119,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=pruebasaab',
 			'emulatePrepare' => true,
 			'username' => 'root',
-<<<<<<< HEAD
-			'password' => '123456',
-=======
 			'password' => '150189',
->>>>>>> saabCarlos
 			'charset' => 'utf8',
 		),
 		// 'db'=>array(
