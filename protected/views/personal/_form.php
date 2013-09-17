@@ -47,11 +47,9 @@
 	
 	</div>
 
-<<<<<<< HEAD
-	<p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
-=======
+
 	<div class="control-group">
->>>>>>> saabCarlos
+
 
 	</div>
 
