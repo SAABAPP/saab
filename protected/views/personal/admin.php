@@ -19,21 +19,7 @@ $('.search-form form').submit(function(){
 ?>
 
 <div class="search-form" >
-<<<<<<< HEAD
-<?php
-	$this->renderPartial('_search',array(
-		'model'=>$model,
-		)
-	);
-	$this->widget('bootstrap.widgets.TbButton', array(
-		'label'=>'Crear personal',
-	    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-	    'size'=>'large', // null, 'large', 'small' or 'mini'
-	    'htmlOptions'=>array('class'=>'pull-right span2'),
-	    'url'=>array('create'),
-	    )
-	);
-=======
+
 <?php 
 	$this->renderPartial('_search',array(
 	'model'=>$model,
@@ -46,7 +32,7 @@ $('.search-form form').submit(function(){
     'htmlOptions'=>array('class'=>'pull-right span2'),
     'url'=>array('create'),
     ));
->>>>>>> saabCarlos
+
 ?>
 </div><!-- search-form -->
 <br/><br/>
@@ -89,9 +75,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'personal-grid',
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
-    'template'=>"{items}{pager}",
-<<<<<<< HEAD
-<<<<<<< HEAD
+        'template'=>"{items}{pager}",
 	'columns'=>array(
 		'PER_dni',
 		'PER_nombres',
@@ -115,15 +99,5 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 		),
 	),
 )); ?>
-=======
-=======
->>>>>>> origin/saabCesar
-	// 'filter'=>$model,
-	'columns'=>$columns,
-));
-?>
-<<<<<<< HEAD
->>>>>>> origin/saabCesar
-=======
->>>>>>> origin/saabCesar
+
 </div>
