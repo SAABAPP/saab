@@ -1,5 +1,5 @@
 <?php
 /* @var $this BienController */
 /* @var $dataProvider CActiveDataProvider */
-	header('Location:'.Yii::app()->request->baseUrl.'/meta/admin.html');
+	header('Location:'.Yii::app()->request->baseUrl.'/meta/admin');
 ?>
