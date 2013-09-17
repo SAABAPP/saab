@@ -69,7 +69,7 @@ $this->breadcrumbs=array(
 	?>
 	<div class="control-group center">
 		<div class="controls">
-			<button class="btn inline" type="" onClick="print();" >Imprimir</button>
+			<a id='imprimir' href='?imprimir' target='_blank' class="btn inline" >Imprimir Cotizacion</a>
 		</div>
 	</div>
 </form>

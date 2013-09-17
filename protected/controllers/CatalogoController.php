@@ -60,6 +60,9 @@ class CatalogoController extends Controller
 
 		if(isset($_POST['Catalogo']))
 		{
+			// $condicion = new CDbCriteria;
+			// $condicion->select='max(CAT_codigo)';
+			// $codigo=Catalogo::model()->find($condicion);
 			$model->attributes=$_POST['Catalogo'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->IDCATALOGO));
@@ -130,8 +133,13 @@ class CatalogoController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Catalogo('search');
-		$model->unsetAttributes();  // clear any default values
+
+		// $condicion = new CDbCriteria;
+  //  		$condicion->condition = "where IDCATALOGO>=4898 AND length(CAT_codigo)=12";
+  //       $model=  Catalogo::model()->findBySql($condicion);
+        $model=new Catalogo('search');
+		$model->unsetAttributes();
+
 		if(isset($_GET['Catalogo']))
 			$model->attributes=$_GET['Catalogo'];
 

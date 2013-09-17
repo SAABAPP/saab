@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-$col=Yii::app()->getGlobalState('arrays');
+$col=Yii::app()->user->getState('arrays');
 $columasCotizacion=array();
 $columnas=array();
 $i=0;
@@ -62,15 +62,21 @@ $this->widget('bootstrap.widgets.TbGridView',array(
   'dataProvider'=>$gridDataProvider,
   'type'=>'bordered hover',
   'template'=>"{items}",
-  'rowCssClassExpression'=>'$data[monto]==Yii::app()->getGlobalState(\'montoBajo\')?"success":""',
+  'rowCssClassExpression'=>'$data[monto]==Yii::app()->user->getState(\'montoBajo\')?"success":""',
   'columns'=>$columnas,
 ));
 
 Yii::app()->clientScript->registerScript('maintainer', "
+
+  $('#monto').numeric();
+  $('#precioUnitario').numeric();
+  $('#cantidad').numeric(); 
+  
+    
   function remover(){
     $.ajax({
       type: 'post',
-      url: '/saab/cotizacion/removeCotizacion',
+      url: '".Yii::app()->request->baseUrl."/cotizacion/removeCotizacion',
       data: {                
         ruc: $(this).parent().parent().find('td')[2].innerHTML 
       },

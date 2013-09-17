@@ -1,1 +1,1 @@
-a:3:{s:16:"indiceCotizacion";i:0;s:7:"site_id";i:0;s:14:"idclasificador";s:9:"211010101";}
+a:8:{s:16:"indiceCotizacion";i:1;s:7:"site_id";i:0;s:14:"idclasificador";s:9:"231050102";s:10:"CAT_codigo";i:6;s:15:"requerimientoID";s:2:"23";s:20:"cantidadCotizaciones";i:1;s:9:"montoBajo";s:2:"44";s:6:"arrays";a:2:{i:0;a:0:{}i:1;a:0:{}}}

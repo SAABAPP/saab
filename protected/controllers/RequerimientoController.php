@@ -32,11 +32,11 @@ class RequerimientoController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio'),
+				'actions'=>array('index','admin','create','view','servicio','view_servicio','autorizacion'),
 				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio'),
+				'actions'=>array('index','admin','create','view','servicio','view_servicio','autorizacion','generarSalida'),
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
@@ -44,11 +44,11 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio'),
+				'actions'=>array('index','admin','create','view','servicio','view_servicio','salida','autorizacion','generarSalida'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
-				'actions'=>array('buscaClasificador','buscaBien','buscaServicio','buscaMeta','addItem','addServicio','details','aumentarItem','disminuirItem','removeItem','idCatalogo'),
+				'actions'=>array('buscaClasificador','buscaBien','buscaServicio','buscaMeta','addItem','addServicio','details','aumentarItem','disminuirItem','removeItem','removeItemServicio','idCatalogo'),
 				'users'=>array('*'),
 			),
 			// array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -87,23 +87,23 @@ class RequerimientoController extends Controller
         if(isset($_POST['Requerimiento']))
 		{
 			$model->attributes=$_POST['Requerimiento'];
-			$transaction=Yii::app()->db->beginTransaction();//transacciones
+			//$transaction=Yii::app()->db->beginTransaction();//transacciones
 			if($model->save()){
 				if($model->TIPO=='b'){
-					$compra=Yii::app()->getGlobalState('comprar');
-					$idcompra=Yii::app()->getGlobalState('idcomprar');
-					$i=0;
-					
+					$compra=Yii::app()->user->getState('comprar');
+					$idcompra=Yii::app()->user->getState('idcomprar');
+					$i=0;			
 					
 
-					foreach($compra as $value){
+					foreach($compra as $value){								
+								++$i;
 								$bienes = new RequerimientoBien();
-								$bienes=RequerimientoBien::model()->findByAttributes(array('IDBIEN' =>$idcompra[$i],'IDREQUERIMIENTO'=>$id ));
+								$bienes = RequerimientoBien::model()->findByAttributes(array('IDBIEN' =>$idcompra[$i],'IDREQUERIMIENTO'=>$id ));
 								$bienes->RBI_cantidadComprar=$value;			        	
 					        	//$bienes->IDBIEN=$idcompra[$i];
-					        	++$i;
+					        	
 					        	if (!$bienes->save()) {
-					        		$transaction->rollBack();
+					        		//$transaction->rollBack();
 					        		Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
 		                            //throw new Exception("Error al guardar items");
 		                        }				        
@@ -111,17 +111,21 @@ class RequerimientoController extends Controller
 					}
 
 					
-					Yii::app()->clearGlobalState('comprar');
-					Yii::app()->clearGlobalState('idcomprar');
+					Yii::app()->user->setState('comprar',null);
+					Yii::app()->user->setState('idcomprar',0);
 					
 				}
-				$transaction->commit();
+				//$transaction->commit();
+
 				$this->redirect(array('admin'));
 			}
 				
 		}
         
-        if ($usuario->IDUSUARIO==1 || $model->IDUSUARIO == $usuario->IDUSUARIO) {
+        if ($model->IDUSUARIO == $usuario->IDUSUARIO || Yii::app()->user->checkAccess("administrador") || Yii::app()->user->checkAccess("abastecimiento")) {
+        	if(isset($_GET['imprimir'])){
+				$this->layout='//layouts/pdf'; 
+			}
         	$this->render('view',array(
         		'model'=>$model,
         		'dataProvider'=>$dataProvider,
@@ -130,14 +134,101 @@ class RequerimientoController extends Controller
         	throw new CHttpException(403,'Usted no se encuentra autorizado para acceder a requerimientos que no son suyos. Por que lo hace?');
         }
 	}
+	public function actionSalida($id){
+		$model=$this->loadModel($id);
+		$model->REQ_estado='Autorizado';
+		$model->save();
+		$this->redirect(array('admin'));
+		
+	}
+	public function actionAutorizacion(){
+		
+		$model=new Requerimiento('search');
+		$model->unsetAttributes();  // clear any default values
+		$model->REQ_estado="Autorizado";
+		//para la accion admin, solo le cree esto, si el idusuario es diferente del admin, los filtro; sino que se muestren todos
+		
 
 
+		if(isset($_GET['Requerimiento']))
+			$model->attributes=$_GET['Requerimiento'];
+
+		$this->render('autorizacion',array(
+			'model'=>$model,
+		));
+		
+	}
+	public function actionGenerarSalida($id){
+		$model=$this->loadModel($id);
+		if($model->TIPO=='b'){
+			$requerimiento_bien = new RequerimientoBien();		
+	        $requerimiento_bien->unsetAttributes();
+	        $requerimiento_bien->IDREQUERIMIENTO = $id;  
+	        $dataProvider = $requerimiento_bien->search();	
+		}
+		
+        $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
+        
+        if(isset($_POST['Requerimiento']))
+		{
+			$model->attributes=$_POST['Requerimiento'];
+			//$transaction=Yii::app()->db->beginTransaction();//transacciones
+			if($model->save()){
+				if($model->TIPO=='b'){
+					$compra=Yii::app()->user->getState('comprar');
+					$idcompra=Yii::app()->user->getState('idcomprar');
+					$i=0;			
+					
+					$pecosa= new Pecosa;
+					$pecosa->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+					$pecosa->PEC_referencia='Requerimiento N° '.$model->IDREQUERIMIENTO;
+					$pecosa->PEC_fecha=date("Y-m-d");
+					$pecosa->IDUSUARIO=Yii::app()->user->getState('idusuario');
+					if(!$pecosa->save()){
+					Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida');
+					}
+					else{
+						
+							foreach ($compra as $value) {
+								++$i;
+								$pecosaBien=new PecosaBien;
+								$pecosaBien->IDBIEN=$idcompra[$i];
+								$pecosaBien->IDPECOSA=$pecosa->IDPECOSA;
+								$pecosaBien->PBI_cantidad=$value;
+								if(!$pecosaBien->save())
+									Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida de los bienes');
+							}
+							
+						
+					}
+					
+
+					
+					Yii::app()->user->setState('comprar',null);
+					Yii::app()->user->setState('idcomprar',0);
+					
+				}
+				//$transaction->commit();
+
+				$this->redirect(array('admin'));
+			}
+				
+		}
+        
+        
+        if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/pdf'; 
+		}
+        $this->render('salida',array(
+        		'model'=>$model,
+        		'dataProvider'=>$dataProvider,
+        	));
+       
+	}
 
 	public function actionCreate()
 	{
-		Yii::app()->setGlobalState('site_id', 0);
-
-
+		
 
 		$model=new Requerimiento;
 		$idusuario = Yii::app()->user->getState('idusuario');
@@ -145,7 +236,7 @@ class RequerimientoController extends Controller
  		$usuario = Usuario::model()->findByPk($idusuario);
  		$clasificador=new Clasificador('search');
 
- 		$col=Yii::app()->getGlobalState('arrays');
+ 		$col=Yii::app()->user->getState('arrays');
  		
  		$clasificador->unsetAttributes();
  		$catalogo=new Catalogo;
@@ -154,28 +245,17 @@ class RequerimientoController extends Controller
  		$meta=new Meta;
  		$meta->unsetAttributes();
 
- 		/*  
-
-			$requerimiento_bien= array(modelo);
-
-
- 		*/
-        // $clasificador = new Clasificador;
-        // $clasificador= Clasificador::model()->findAll();
-		// Uncomment the following line if AJAX validation is needed
-		//$this->performAjaxValidation($model);
+ 		
 		if($this->validador()){
 			if(isset($_POST['Requerimiento']))
 			{
 				$model->attributes=$_POST['Requerimiento'];
-
-				// $transaction=Yii::app()->db->beginTransaction();//transacciones
+				//$transaction=Yii::app()->db->beginTransaction();//transacciones
 				if($model->save()){
-
 
 				      for($x=0;$x<count($col); $x++){
 				        $requerimiento_bien= new RequerimientoBien; 
-				        if(!empty($col[$x][0])){
+				        if(!empty($col[$x][1])){
 				        	$requerimiento_bien->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
 				        	$requerimiento_bien->IDBIEN=$col[$x][0];
 				        	$requerimiento_bien->RBI_cantidad=$col[$x][1];
@@ -191,12 +271,15 @@ class RequerimientoController extends Controller
 				        }
 
 				      }
-				    Yii::app()->clearGlobalState('arrays');
+				    
+				    Yii::app()->user->setState('arrays',null);
 					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
 					
 				}
 
 			}
+			else
+				$transaction->rollBack();
 		}
 		else{
 			
@@ -218,8 +301,6 @@ class RequerimientoController extends Controller
 	}
 	public function actionServicio()
 	{
-		Yii::app()->setGlobalState('site_id', 0);
-
 
 
 		$model=new Requerimiento;
@@ -228,7 +309,7 @@ class RequerimientoController extends Controller
  		$usuario = Usuario::model()->findByPk($idusuario);
  		$clasificador=	new Clasificador('search');
 
- 		$col=Yii::app()->getGlobalState('arrays');
+ 		$col=Yii::app()->user->getState('arrays');
  		
  		$clasificador->unsetAttributes();
  		$catalogo=new Catalogo;
@@ -258,7 +339,7 @@ class RequerimientoController extends Controller
 
 				      for($x=0;$x<count($col); $x++){
 				        $requerimiento_servicio= new RequerimientoServicio; 
-				        if(!empty($col[$x][0])){
+				        if(!empty($col[$x][1])){
 				        	$requerimiento_servicio->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
 				        	$requerimiento_servicio->IDSERVICIO=$col[$x][0];
 				        	$requerimiento_servicio->RSE_detalle=$col[$x][2];
@@ -274,7 +355,8 @@ class RequerimientoController extends Controller
 				        }
 
 				      }
-				    Yii::app()->clearGlobalState('arrays');
+				    
+				    Yii::app()->user->setState('arrays',null);
 					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
 					
 				}
@@ -337,7 +419,7 @@ class RequerimientoController extends Controller
     }
     public function actionIdCatalogo(){
     	$idcat= $_POST['idclasificador'];
-    	Yii::app()->setGlobalState('idclasificador', $idcat);
+    	Yii::app()->user->setState('idclasificador', $idcat);
     }
 
     public function actionBuscaBien() {
@@ -350,7 +432,7 @@ class RequerimientoController extends Controller
     	if (isset($q)) {
     		$condicion = new CDbCriteria;
            // condition to find your data, using q as the parameter field
-    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
+    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)>=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
            //$condicion->order = 'CLA_descripcion'; // correct order-by field
            $condicion->limit = 10; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
@@ -454,38 +536,41 @@ class RequerimientoController extends Controller
             $descripcion= $_POST['descripcion'];
            
             
-            // Yii::app()->params['valor']
-         
-        	//Yii::app()->setGlobalState(string $key, mixed $defaultValue=NULL);
-
-        	
-			$i=Yii::app()->getGlobalState('site_id'); //obtiene el valor de una variable global
+			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
           	
           if($i==0){
           	
           	$this->columnas[$i][0]=$idbien;
             $this->columnas[$i][1]=$rbi_cantidad;
             $this->columnas[$i][2]=$descripcion;
-            // array_push($this->columnas,array($i=>$idbien));
-            // array_push($this->columnas,array($i=>$rbi_cantidad));
-            // array_push($this->columnas,array($i=>$descripcion));
-            Yii::app()->setGlobalState('arrays', $this->columnas);
+            Yii::app()->user->setState('arrays', $this->columnas);
+            ++$i;
+           	Yii::app()->user->setState('site_id', $i);
           }else{
-          	$this->columnas=Yii::app()->getGlobalState('arrays');
-          	$this->columnas[$i][0]=$idbien;
-            $this->columnas[$i][1]=$rbi_cantidad;
-            $this->columnas[$i][2]=$descripcion;
-          	// array_push($this->columnas,array($i=>$idbien));
-           //  array_push($this->columnas,array($i=>$rbi_cantidad));
-           //  array_push($this->columnas,array($i=>$descripcion));
-            Yii::app()->setGlobalState('arrays', $this->columnas);
+
+          	$pos=$this->busqueda($idbien);
+          	$this->columnas=Yii::app()->user->getState('arrays');
+          	if($pos!=null){
+ 				$this->columnas[$pos][0]=$idbien;
+           		$this->columnas[$pos][1]=$rbi_cantidad;
+            	$this->columnas[$pos][2]=$descripcion;         		
+          	}
+          	else{
+          		$this->columnas[$i][0]=$idbien;
+           		$this->columnas[$i][1]=$rbi_cantidad;
+            	$this->columnas[$i][2]=$descripcion;
+            	++$i;
+           		Yii::app()->user->setState('site_id', $i);
+          	}
+          	
+          	
+            Yii::app()->user->setState('arrays', $this->columnas);
           }
 
-            ++$i;
 
-           	Yii::app()->setGlobalState('site_id', $i);	// envia valor a una varible global
+            // envia valor a una varible global
             
-            //clearGlobalState()
+            //setState()
             $this->actionDetails();
             
             //echo 'valor uno:'.$this->columnas[0][0].'valor ahora:'.$this->columnas[1][0].'  variable '.$i;
@@ -502,43 +587,45 @@ class RequerimientoController extends Controller
         	
         	$idservicio= $_POST['idservicio'];
             $caracteristica= $_POST['caracteristica'];
-            $descripcion= $_POST['descripcion'];
-           
-            
-            // Yii::app()->params['valor']
-         
-        	//Yii::app()->setGlobalState(string $key, mixed $defaultValue=NULL);
+            $descripcion= $_POST['descripcion'];           
+
 
         	
-			$i=Yii::app()->getGlobalState('site_id'); //obtiene el valor de una variable global
+			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
           	
           if($i==0){
           	
           	$this->columnas[$i][0]=$idservicio;
             $this->columnas[$i][1]=$descripcion;
             $this->columnas[$i][2]=$caracteristica;
-            // array_push($this->columnas,array($i=>$idbien));
-            // array_push($this->columnas,array($i=>$rbi_cantidad));
-            // array_push($this->columnas,array($i=>$descripcion));
-            Yii::app()->setGlobalState('arrays', $this->columnas);
+           
+            ++$i;
+           	Yii::app()->user->setState('site_id', $i);	// envia valor a una varible global
+
           }else{
-          	$this->columnas=Yii::app()->getGlobalState('arrays');
-          	$this->columnas[$i][0]=$idservicio;
-            $this->columnas[$i][1]=$descripcion;
-            $this->columnas[$i][2]=$caracteristica;
-          	// array_push($this->columnas,array($i=>$idbien));
-           //  array_push($this->columnas,array($i=>$rbi_cantidad));
-           //  array_push($this->columnas,array($i=>$descripcion));
-            Yii::app()->setGlobalState('arrays', $this->columnas);
+
+         	$pos=$this->busqueda($idservicio);
+          	$this->columnas=Yii::app()->user->getState('arrays');
+          	if($pos!=null){
+	          	$this->columnas[$pos][0]=$idservicio;
+	            $this->columnas[$pos][1]=$descripcion;
+	            $this->columnas[$pos][2]=$caracteristica;        		
+          	}
+          	else{
+	          	$this->columnas[$i][0]=$idservicio;
+	            $this->columnas[$i][1]=$descripcion;
+	            $this->columnas[$i][2]=$caracteristica;
+            	++$i;
+           		Yii::app()->user->setState('site_id', $i);
+           	}
+            
+            
+            
           }
 
-            ++$i;
-
-           	Yii::app()->setGlobalState('site_id', $i);	// envia valor a una varible global
-            
-            //clearGlobalState()
+            Yii::app()->user->setState('arrays', $this->columnas);
+            //setState()
             $this->renderPartial('_services'); 
-            //echo 'valor uno:'.$this->columnas[0][0].'valor ahora:'.$this->columnas[1][0].'  variable '.$i;
             
 
             
@@ -553,39 +640,47 @@ class RequerimientoController extends Controller
 
     public function busqueda($id){
     	
-
-    	$this->columnas=Yii::app()->getGlobalState('arrays');
+    	$columna=array();
+    	$columna=Yii::app()->user->getState('arrays');
     	// foreach ($this->columnas as $col) {
-    	for($i=0;$i<count($this->columnas); $i++){
+    	for($i=0;$i<count($columna); $i++){
     		
-    		if(stristr($this->columnas[$i][0],$id))    			
+    		if(stristr($columna[$i][0],$id))
+    		{
+    			return $i;
     			break;
+    		}   		
+
+    			
     		
     	}
-    	return $i;
+    	return null; 
     }
     public function validador(){
-    	$col=Yii::app()->getGlobalState('arrays');
-	    $columns=array();
-	      for($x=0;$x<count($col); $x++){
-	        
+    	$col=Yii::app()->user->getState('arrays');
+	    $valor=0;
+	      for($x=0;$x<count($col); $x++){	        
 	        if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]))
-	         	return true;
-	      	else
-	      		return false;
+	         	$valor=1;
+	      	
 	      }
+	      if($valor==1)
+	      	return true;
+	      else
+	      	return false;
+
 	}
 
     public function actionAumentarItem() {
 
     	$id= $_POST['idbien'];
-    	$this->columnas=Yii::app()->getGlobalState('arrays');
+    	$this->columnas=Yii::app()->user->getState('arrays');
     	$valor=-1;
     	
     	$valor=$this->busqueda($id);
         
         ++$this->columnas[$valor][1];
-        Yii::app()->setGlobalState('arrays', $this->columnas);
+        Yii::app()->user->setState('arrays', $this->columnas);
 		//echo $valor.' bien:'.$id.' valor:'.$this->columnas[$valor][0];
         $this->actionDetails();
     }
@@ -594,9 +689,9 @@ class RequerimientoController extends Controller
         $id= $_POST['idbien'];
     	$valor=-1;    	
         $valor=$this->busqueda($id);
-        $this->columnas=Yii::app()->getGlobalState('arrays');
+        $this->columnas=Yii::app()->user->getState('arrays');
         if($this->columnas[$valor][1]<=1){
-         	unset($this->columnas[$valor][0]);
+         	$this->columnas[$valor][0]=0;
         	unset($this->columnas[$valor][1]);
        		unset($this->columnas[$valor][2]);       	
         }
@@ -604,7 +699,7 @@ class RequerimientoController extends Controller
         	--$this->columnas[$valor][1];
         }
         
-        Yii::app()->setGlobalState('arrays', $this->columnas);
+        Yii::app()->user->setState('arrays', $this->columnas);
 
         $this->actionDetails();
     }
@@ -614,16 +709,32 @@ class RequerimientoController extends Controller
     	$id= $_POST['idbien'];
     	$valor=-1;
         $valor=$this->busqueda($id);
-        $this->columnas=Yii::app()->getGlobalState('arrays');
-        unset($this->columnas[$valor][0]);
+        $this->columnas=Yii::app()->user->getState('arrays');
+        $this->columnas[$valor][0]=0;
         unset($this->columnas[$valor][1]);
         unset($this->columnas[$valor][2]);
         $this->columnas = array_values($this->columnas);
-        Yii::app()->setGlobalState('arrays', $this->columnas);
+        Yii::app()->user->setState('arrays', $this->columnas);
 
         $this->actionDetails();
 
     }
+
+    public function actionRemoveItemServicio() {
+
+    	$id= $_POST['idbien'];
+    	$valor=-1;
+        $valor=$this->busqueda($id);
+        $this->columnas=Yii::app()->user->getState('arrays');
+        $this->columnas[$valor][0]=0;
+        unset($this->columnas[$valor][1]);
+        unset($this->columnas[$valor][2]);
+        $this->columnas = array_values($this->columnas);
+        Yii::app()->user->setState('arrays', $this->columnas);
+       
+        $this->renderPartial('_services');
+
+    }   
 
 	/**
 	 * Updates a particular model.
@@ -687,7 +798,7 @@ class RequerimientoController extends Controller
 	public function actionIndex()
 	{
 		//aca es para el index, que redirecciona a views/requerimiento/admin.php
-		Yii::app()->setGlobalState('arrays', $this->columnas);
+		Yii::app()->user->setState('arrays', $this->columnas);
         $requerimiento = new Requerimiento('search');//creo una variable con la funcion search de Requerimiento
         $requerimiento->unsetAttributes();//limpio los valores que pueda tener
         $requerimiento->IDUSUARIO = Yii::app()->user->getState('idusuario');//a la variable le asigno el IDUSUARIO igual que el que esta logeado
@@ -706,12 +817,12 @@ class RequerimientoController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		
-		Yii::app()->clearGlobalState('arrays');
+		Yii::app()->user->setState('site_id', 0);
+		Yii::app()->user->setState('arrays',null);
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
 		//para la accion admin, solo le cree esto, si el idusuario es diferente del admin, los filtro; sino que se muestren todos
-		if (Yii::app()->user->getState('idusuario')!=1) {
+		if (!Yii::app()->user->checkAccess("abastecimiento") && !Yii::app()->user->checkAccess("administrador")) {
 			$model->IDUSUARIO = Yii::app()->user->getState('idusuario');
 		}
 

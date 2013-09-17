@@ -69,6 +69,9 @@ class CotizacionController extends Controller
 			$cotizacion->unsetAttributes();
 			$cotizacion->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
 			$dataProvider=$cotizacion->search();
+			if(isset($_GET['imprimir'])){
+				$this->layout='//layouts/pdf'; 
+			}
 			$this->render('view',array(
 				'model'=>$model,
 				'dataProvider'=>$dataProvider,
@@ -95,12 +98,12 @@ class CotizacionController extends Controller
 			$requerimiento_servicio=new RequerimientoServicio;
 			$requerimiento_servicio->unsetAttributes();
 			$requerimiento_servicio->IDREQUERIMIENTO = $id;
-			Yii::app()->setGlobalState('requerimientoID', $id);
+			Yii::app()->user->setState('requerimientoID', $id);
 			$temporal=array();
-			if($requerimiento->REQ_estado=='Requerido'){
+			if($requerimiento->REQ_estado=='Requerido' || $requerimiento->REQ_estado=='Necesitado'){
 				if(!empty($_POST['precioUnitario'])){				
-					$this->cotizaciones=Yii::app()->getGlobalState('arrays');
-					$ordenCompra=new ordenCompra;
+					$this->cotizaciones=Yii::app()->user->getState('arrays');
+					$ordenCompra=new OrdenCompra;
 					if($requerimiento->TIPO=='b'){
 						$ordenCompra->TIPO='c';
 						$ordenCompra->IDREQUERIMIENTO=$id;
@@ -265,6 +268,8 @@ class CotizacionController extends Controller
 		
 	}
 
+
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -325,12 +330,12 @@ class CotizacionController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		Yii::app()->setGlobalState('indiceCotizacion', 0);
-		Yii::app()->clearGlobalState('requerimientoID');
-		Yii::app()->clearGlobalState('arrays');
-		Yii::app()->clearGlobalState('detalleOC');
-		Yii::app()->clearGlobalState('cantidadCotizaciones');
-		Yii::app()->clearGlobalState('montoBajo');
+		Yii::app()->user->setState('indiceCotizacion', 0);
+		Yii::app()->user->setState('requerimientoID',null);
+		Yii::app()->user->setState('arrays',null);
+		Yii::app()->user->setState('detalleOC',null);
+		Yii::app()->user->setState('cantidadCotizaciones',null);
+		Yii::app()->user->setState('montoBajo',null);
 
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
@@ -384,8 +389,8 @@ class CotizacionController extends Controller
 
 	public function actionAddCotizacion()
 	{
-		$cantidad=Yii::app()->getGlobalState('cantidadCotizaciones');
-		$montobajo=Yii::app()->getGlobalState('montoBajo');
+		$cantidad=Yii::app()->user->getState('cantidadCotizaciones');
+		$montobajo=Yii::app()->user->getState('montoBajo');
 		if ($cantidad<3) {
 			try {
 				$idProveedor= $_POST['idProveedor'];
@@ -394,36 +399,36 @@ class CotizacionController extends Controller
 				$razonSocial= $_POST['razonSocial'];
 
 				if (is_numeric($monto)) {
-					$i=Yii::app()->getGlobalState('indiceCotizacion');
+					$i=Yii::app()->user->getState('indiceCotizacion');
 
-					$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+					$this->cotizaciones=Yii::app()->user->getState('arrays');
 
 					if($i==0){
 						$this->cotizaciones[$i][0]=$idProveedor;
 						$this->cotizaciones[$i][1]=$ruc;
 						$this->cotizaciones[$i][2]=$monto;
 						$this->cotizaciones[$i][3]=$razonSocial;
-						Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+						Yii::app()->user->setState('arrays', $this->cotizaciones);
 					}else{
 						$this->cotizaciones[$i][0]=$idProveedor;
 						$this->cotizaciones[$i][1]=$ruc;
 						$this->cotizaciones[$i][2]=$monto;
 						$this->cotizaciones[$i][3]=$razonSocial;
-						Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+						Yii::app()->user->setState('arrays', $this->cotizaciones);
 					}
 
 					++$i;
-					Yii::app()->setGlobalState('cantidadCotizaciones', ++$cantidad);
-					Yii::app()->setGlobalState('indiceCotizacion', $i);
+					Yii::app()->user->setState('cantidadCotizaciones', ++$cantidad);
+					Yii::app()->user->setState('indiceCotizacion', $i);
 					$montobajo=$this->evaluarMenor();
-					Yii::app()->setGlobalState('montoBajo', $montobajo);
+					Yii::app()->user->setState('montoBajo', $montobajo);
 					$this->asignarBuenaPro();
 				} else {
 					echo "<script>alert('El monto debe ser un numero.');</script>";
 				}
 				
 				$this->actionDetails();
-   				// echo "<script>alert('".Yii::app()->getGlobalState('cantidadCotizaciones')."');</script>";
+   				// echo "<script>alert('".Yii::app()->user->getState('cantidadCotizaciones')."');</script>";
 			} catch (Exception $ex) {
 				throw $ex;
 			}
@@ -444,21 +449,21 @@ class CotizacionController extends Controller
 		$ruc= $_POST['ruc'];
 		$fila=-1;
 		$fila=$this->busqueda($ruc);
-		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
-		$cantidad=Yii::app()->getGlobalState('cantidadCotizaciones');
+		$this->cotizaciones=Yii::app()->user->getState('arrays');
+		$cantidad=Yii::app()->user->getState('cantidadCotizaciones');
 		unset($this->cotizaciones[$fila][0]);
 		unset($this->cotizaciones[$fila][1]);
 		unset($this->cotizaciones[$fila][2]);
 		unset($this->cotizaciones[$fila][3]);
 		$this->cotizaciones = array_values($this->cotizaciones);
-		Yii::app()->setGlobalState('arrays', $this->cotizaciones);
-		Yii::app()->setGlobalState('cantidadCotizaciones', --$cantidad);
+		Yii::app()->user->setState('arrays', $this->cotizaciones);
+		Yii::app()->user->setState('cantidadCotizaciones', --$cantidad);
 		$this->actionDetails();
 	}
 
 	public function busqueda($ruc)
 	{
-		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+		$this->cotizaciones=Yii::app()->user->getState('arrays');
 		for($i=0;$i<count($this->cotizaciones); $i++){
 			if(stristr($this->cotizaciones[$i][1],$ruc))    			
 				break;
@@ -469,7 +474,7 @@ class CotizacionController extends Controller
 	public function evaluarMenor()
 	{
 		$menor=9999999999999;
-		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
+		$this->cotizaciones=Yii::app()->user->getState('arrays');
 		for($i=0;$i<count($this->cotizaciones); $i++){
 			if (isset($this->cotizaciones[$i][2])) {
 				if($this->cotizaciones[$i][2]<$menor){
@@ -482,8 +487,8 @@ class CotizacionController extends Controller
 
 	public function asignarBuenaPro()
 	{
-		$this->cotizaciones=Yii::app()->getGlobalState('arrays');
-		$menor=Yii::app()->getGlobalState('montoBajo');
+		$this->cotizaciones=Yii::app()->user->getState('arrays');
+		$menor=Yii::app()->user->getState('montoBajo');
 		for($i=0;$i<count($this->cotizaciones); $i++){
 			if (isset($this->cotizaciones[$i][2])) {
 				if($this->cotizaciones[$i][2]==$menor){
@@ -493,15 +498,15 @@ class CotizacionController extends Controller
 				}
 			}
 		}
-		Yii::app()->setGlobalState('arrays', $this->cotizaciones);
+		Yii::app()->user->setState('arrays', $this->cotizaciones);
 	}
 
 	public function actionAnalizar(){
 	}
 
 	public function actionGrabar(){
-		$id=Yii::app()->getGlobalState('requerimientoID');
-		$col=Yii::app()->getGlobalState('arrays');
+		$id=Yii::app()->user->getState('requerimientoID');
+		$col=Yii::app()->user->getState('arrays');
 		for($x=0;$x<count($col); $x++){
 			$modelNew=new Cotizacion;
 			if(!empty($col[$x][0])){

@@ -157,6 +157,15 @@ textarea{
 div .pagination{
 	text-align: center;
 }
+.radio{
+	padding-left: 20px;
+}
+.form-horizontal>div>label,p{
+	font-size: 10px;
+}
+.form-horizontal .control-group {
+	margin-bottom: 5px !important;
+}
 
 /* Responsive */
 

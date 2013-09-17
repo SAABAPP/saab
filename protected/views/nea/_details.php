@@ -1,7 +1,7 @@
 <?php 
     
 
-    $col=Yii::app()->getGlobalState('arrays_nea');
+    $col=Yii::app()->user->getState('arrays_nea');
     $columns=array();
       for($x=0;$x<count($col); $x++){
         
@@ -66,37 +66,7 @@
 ?>
 
 
-<div class="control-group">
-  <label for="tipobien" class="control-label">Tipo de bien:</label>
-  <div class="controls">
-    <table class="tipobien">
-      <tr>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="oficina" value="Equipo Oficina"><label class="checkl" for="oficina"> Equipo de oficina</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_oficina" disabled></td>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="deposito" value="Bienes en deposito"><label class="checkl" for="deposito"> Bienes en depósito</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_deposito" disabled></td>
-      </tr>
-      <tr>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="transporte" value="Equipo de transporte"><label class="checkl" for="transporte"> Equipo de transporte</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_transporte" disabled></td>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="transito" value="Pedidos en transito"><label class="checkl" for="transito"> Pedidos en tránsito</label></td>
-        <td><input class="checkt" type="text" name="tipo[]"  id="_transito" disabled></td>
-      </tr>
-      <tr>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="maquinaria" value="Maquinaria y equipo"><label class="checkl" for="maquinaria"> Maquinaria y equipo</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_maquinaria" disabled></td>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="traspaso" value="Traspaso de bienes"><label class="checkl" for="traspaso"> Traspaso de bienes</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_traspaso" disabled></td>
-      </tr>
-      <tr>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="operacion" value="Gastos de operacion"><label class="checkl" for="operacion"> Gastos de operacion</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_operacion" disabled></td>
-        <td><input class="checkb" type="checkbox" name="tipo[]" id="remesa" value="Remesa de bienes"><label class="checkl" for="remesa"> Remesa de bienes</label></td>
-        <td><input class="checkt" type="text" name="tipo[]" id="_remesa" disabled></td>
-      </tr>
-    </table>
-  </div>
-</div>
+
 
 <?php 
 Yii::app()->clientScript->registerScript('maintainer', "
@@ -140,7 +110,7 @@ Yii::app()->clientScript->registerScript('maintainer', "
       
       $.ajax({
             type: 'post',
-            url: '/nea/aumentarItem',
+            url: '".Yii::app()->request->baseUrl."/nea/aumentarItem',
             data: {                
                 idbien: $(this).parent().parent().find('td')[0].innerHTML 
             },
@@ -160,7 +130,7 @@ Yii::app()->clientScript->registerScript('maintainer', "
       
       $.ajax({
             type: 'post',
-            url: '/nea/disminuirItem',
+            url: '".Yii::app()->request->baseUrl."/nea/disminuirItem',
             data: {                
                 idbien: $(this).parent().parent().find('td')[0].innerHTML 
             },
@@ -179,7 +149,7 @@ Yii::app()->clientScript->registerScript('maintainer', "
       
       $.ajax({
             type: 'post',
-            url: '/nea/removeItem',
+            url: '".Yii::app()->request->baseUrl."/nea/removeItem',
             data: {                
                 idbien: $(this).parent().parent().find('td')[0].innerHTML 
             },

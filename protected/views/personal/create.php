@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Personals'=>array('index'),
-	'Create',
+	'Personal'=>array('index'),
+	'Nuevo',
 );
 
 $this->menu=array(
@@ -10,6 +10,11 @@ $this->menu=array(
 );
 ?>
 
+<<<<<<< HEAD
 <h1>Crear Personal</h1>
+=======
+<h2 class="text-center">Nuevo Personal</h2>
+<br>
+>>>>>>> saabCarlos
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'usuario'=>$usuario)); ?>

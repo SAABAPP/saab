@@ -1,16 +1,9 @@
 <?php
-/* @var $this CuaNecController */
-/* @var $model CuaNec */
-
 $this->breadcrumbs=array(
-	'Cua Necs'=>array('index'),
-	'Manage',
+	'Cuadro Necesidades'=>array('index'),
+	'Inicio',
 );
 
-$this->menu=array(
-	array('label'=>'List CuaNec', 'url'=>array('index')),
-	array('label'=>'Create CuaNec', 'url'=>array('create')),
-);
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -18,7 +11,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#cua-nec-grid').yiiGridView('update', {
+	$.fn.yiiGridView.update('cua-nec-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,29 +19,93 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Cua Necs</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
+<h3>Necesidades</h3><br>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
+<div class="search-form" >
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+)); 
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'cua-nec-grid',
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Necesidad BIEN',
+    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'large', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>'pull-right span2'),
+    'url'=>array('create'),
+    ));
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Necesidad SERVICIO',
+    'type'=>'secondary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'large', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>'pull-right span2'),
+    'url'=>array('servicio'),
+    ));
+
+
+
+?>
+
+</div><!-- search-form -->
+<br><br><hr>
+
+<div class="span8 offset2">
+<?php
+$columns=array();
+
+array_push($columns, array(
+	'header' => 'N°',
+	'value'=>'$data->IDREQUERIMIENTO',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Oficina',
+	'value'=>'$data->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Fecha',
+	'value'=>'$data->REQ_fecha',
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Estado',
+	'value'=>'$data->REQ_estado',
+	)
+);
+
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opc',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+        $html = "";
+        if($data->REQ_estado=='Requerido'){
+            $html .= CHtml::link("<i class='icon-pencil'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));             
+        }
+        else{
+        	$html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',)); 
+        	
+        }
+        return $html;
+    },
+));
+
+$this->widget('bootstrap.widgets.TbGridView',array(
+	'id'=>'requerimiento-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'IDCUANEC',
-		'CNE_anio',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+	'type'=>'bordered hover',
+    'template'=>"{items}{pager}",
+	// 'filter'=>$model,
+	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
+	'columns'=>$columns,
+));
+?>
+
+
+</div>

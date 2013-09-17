@@ -65,7 +65,7 @@ class CuaNec extends CActiveRecord
 	{
 		return array(
 			'IDCUANEC' => 'Idcuanec',
-			'CNE_anio' => 'Cne Anio',
+			'CNE_anio' => 'Año',
 		);
 	}
 
