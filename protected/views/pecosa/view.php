@@ -1,27 +1,57 @@
 <?php
 $this->breadcrumbs=array(
-	'Pecosas'=>array('index'),
+	'PECOSA'=>array('index'),
 	$model->IDPECOSA,
 );
 
-$this->menu=array(
-	array('label'=>'List Pecosa','url'=>array('index')),
-	array('label'=>'Create Pecosa','url'=>array('create')),
-	array('label'=>'Update Pecosa','url'=>array('update','id'=>$model->IDPECOSA)),
-	array('label'=>'Delete Pecosa','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->IDPECOSA),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Pecosa','url'=>array('admin')),
-);
+
 ?>
 
-<h1>View Pecosa #<?php echo $model->IDPECOSA; ?></h1>
+<h2 class="center">PECOSA </h2>
+<h4 class="center">Pedido Comprobantes de Salida</h4>
+<h3 class="center">Nº<?php echo $model->PEC_NroPecosa; ?></h3>
+<br>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'IDPECOSA',
-		'PEC_fecha',
-		'PEC_referencia',
-		'IDUSUARIO',
-		'IDREQUERIMIENTO',
-	),
-)); ?>
+
+	<div class="row-fluid">
+          <div class="span12">
+            <!-- Form header of check in begins -->
+            <div class="form-horizontal">
+            	<div class="control-group pull-right">
+                	<label class="control-label">Fecha:</label>
+                	<div class="controls"><p><?php echo $model->PEC_fecha?></p></div>            		
+            	</div>
+            	<div class="control-group">
+                	<label class="control-label">Unidad Ejecutora:</label>
+                	<div class="controls"><p><?php echo Variables::model()->findByPk(4)->VAR_valor?></p></div>
+              	</div>
+              	<div class="control-group">
+                	<label class="control-label">Documento Referencia:</label>
+                	<div class="controls"><p><?php echo $model->PEC_referencia?></p></div>
+              	</div>
+            	<div class="control-group ">
+                	<label class="control-label">Con destino a:</label>
+                	<div class="controls"><p><?php echo $model->iDREQUERIMIENTO->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre; ?></p></div>
+              	</div>              
+             
+              </div>
+            <!-- Form header of check in ends -->
+          </div>
+  </div>
+
+<div id="bienes">
+	<?php
+
+		$this->renderPartial('_bienes',array('pecosaBien'=>$pecosaBien));
+ 
+	?>
+
+
+</div>
+      <div class="control-group center">
+        <div class="controls">
+          <a id='imprimir' href='?imprimir' target='_blank' class="btn inline" >Imprimir PECOSA</a>
+          
+        </div>
+      </div>
+<br>

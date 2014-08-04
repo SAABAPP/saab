@@ -1,6 +1,8 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
+	'type'=>'vertical',
+
 )); ?>
 
 	<?php echo $form->textFieldRow($model,'IDKARDEX',array('class'=>'span5')); ?>

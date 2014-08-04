@@ -90,6 +90,7 @@ class CotizacionController extends Controller
 		
 			
 			$model=new Cotizacion;
+			$ordenCompra=new OrdenCompra;
 			$requerimiento=Requerimiento::model()->findByPk($id);
 			$proveedor=new Proveedor('search');
 			$requerimiento_bien = new RequerimientoBien();
@@ -105,6 +106,7 @@ class CotizacionController extends Controller
 					$this->cotizaciones=Yii::app()->user->getState('arrays');
 					$ordenCompra=new OrdenCompra;
 					if($requerimiento->TIPO=='b'){
+						$ordenCompra->attributes=$_POST['OrdenCompra'];
 						$ordenCompra->TIPO='c';
 						$ordenCompra->IDREQUERIMIENTO=$id;
 						$_requerimiento=Requerimiento::model()->findByPk($id);
@@ -177,7 +179,7 @@ class CotizacionController extends Controller
 
 					}
 					else{
-
+						$ordenCompra->attributes=$_POST['OrdenCompra'];
 						$ordenCompra->TIPO='s';
 						$ordenCompra->IDREQUERIMIENTO=$id;
 						$_requerimiento=Requerimiento::model()->findByPk($id);
@@ -262,6 +264,7 @@ class CotizacionController extends Controller
 				'proveedor'=>$proveedor,
 				'requerimiento_bien'=>$requerimiento_bien,
 				'requerimiento_servicio'=>$requerimiento_servicio,
+				'ordenCompra'=>$ordenCompra,
 				)
 			);
 			
@@ -339,6 +342,7 @@ class CotizacionController extends Controller
 
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->REQ_estado='Requerido';
 		if(isset($_GET['Requerimiento']))
 			$model->attributes=$_GET['Requerimiento'];
 

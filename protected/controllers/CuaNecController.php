@@ -87,12 +87,12 @@ class CuaNecController extends Controller
 					
 
 					foreach($compra as $value){
-								++$i;
+								
 								$bienes = new RequerimientoBien();
 								$bienes=RequerimientoBien::model()->findByAttributes(array('IDBIEN' =>$idcompra[$i],'IDREQUERIMIENTO'=>$id ));
 								$bienes->RBI_cantidadComprar=$value;			        	
 					        	//$bienes->IDBIEN=$idcompra[$i];
-					        	
+					        	++$i;
 					        	if (!$bienes->save()) {
 					        		$transaction->rollBack();
 					        		Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
@@ -176,7 +176,7 @@ class CuaNecController extends Controller
 				      }
 				    
 				    Yii::app()->user->setState('arrays',null);
-					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+					$this->redirect(array('//requerimiento/view','id'=>$model->IDREQUERIMIENTO));
 					
 				}
 
@@ -709,7 +709,7 @@ class CuaNecController extends Controller
 	public function actionIndex()
 	{
 
-		
+		Yii::app()->user->setState('arrays', $this->columnas);
 		if(!Yii::app()->user->checkAccess("abastecimiento") && !Yii::app()->user->checkAccess("administrador")){
 			$this->redirect(array('admin'));
 		}
@@ -754,13 +754,14 @@ class CuaNecController extends Controller
 
 		Yii::app()->user->setState('site_id', 0);
 		Yii::app()->user->setState('arrays',null);
-		$model=new Requerimiento('search');
+		$model=new Requerimiento('searchN');
 		$model->unsetAttributes();  // clear any default values
 		//para la accion admin, solo le cree esto, si el idusuario es diferente del admin, los filtro; sino que se muestren todos
 		if (!Yii::app()->user->checkAccess("abastecimiento") && !Yii::app()->user->checkAccess("administrador")) {
 			$model->IDUSUARIO = Yii::app()->user->getState('idusuario');
 		}
 		$model->REQ_estado='Necesitado';
+		$model->IDCUANEC=Variables::model()->findByPk(6)->VAR_valor;
 		if(isset($_GET['Requerimiento']))
 			$model->attributes=$_GET['Requerimiento'];
 		

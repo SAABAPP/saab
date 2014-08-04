@@ -40,7 +40,7 @@ $columns=array();
 
 array_push($columns, array(
 	'header' => 'N°',
-	'value'=>'$data->IDREQUERIMIENTO',
+	'value'=>'$data->OC_NroOrdenCompra',
 	)
 );
 
@@ -83,7 +83,7 @@ array_push($columns, array(
 
 $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'entrada-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->searchE(),
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
     'rowCssClassExpression'=>'$data->iDREQUERIMIENTO->REQ_estado=="Requerido"?"info":($data->iDREQUERIMIENTO->REQ_estado=="Observado"?"warning":($data->iDREQUERIMIENTO->REQ_estado=="En almacen"?"warehouse":($data->iDREQUERIMIENTO->REQ_estado=="Aprobado"?"success":"finalized")))',

@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Requerimientos'=>array('index'),
+	'Autorizacion Salida'=>array('index'),
 	'Inicio',
 );
 

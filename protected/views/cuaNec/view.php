@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 
 <?php 
 
-Yii::app()->clearGlobalState('comprar');
-Yii::app()->clearGlobalState('idcomprar');
+Yii::app()->user->setState('comprar',null);
+Yii::app()->user->setState('idcomprar',0);
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   'id'=>'requerimiento-form',

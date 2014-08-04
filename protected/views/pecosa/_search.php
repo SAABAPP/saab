@@ -6,10 +6,10 @@
 
 
 	<div class="span8 input-append">
-		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
+		<?php echo $form->textFieldRow($model,'OC_NroOrdenCompra',
 			array(
 				'class'=>'span4',
-				'placeholder' => 'N° de Requerimiento',
+				'placeholder' => 'N° de Orden Compra',
 				'labelOptions' => array('label' => false),
 				'autocomplete'=>'off',
 			)

@@ -15,7 +15,12 @@
             };
        	break;
        	case 'requerimiento':
-       	echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Requerimiento</h2>";
+            if ($this->action->id=='autorizacion') {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-arrow-up\"></i> Autorizacion Salida</h2>";
+            } else {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Requerimiento</h2>";
+            };        
+
        	break;
        	case 'cotizacion':
        	echo "<h2 class=\"pull-left\"><i class=\"icon-list-ul\"></i> Cotización</h2>";
@@ -35,7 +40,12 @@
        	echo "<h2 class=\"pull-left\"><i class=\"icon-arrow-down\"></i> Registrar Entrada</h2>";
        	break;
        	case "pecosa":
-       	echo "<h2 class=\"pull-left\"><i class=\"icon-arrow-up\"></i> Registrar Salida</h2>";
+            if ($this->action->id=='index') {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-arrow-up\"></i> PECOSA</h2>";
+            } else {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-arrow-up\"></i> Registrar Salida</h2>";
+            };           
+
        	break;
        	case "kardex":
        	echo "<h2 class=\"pull-left\"><i class=\"icon-table\"></i> Kardex</h2>";
@@ -91,9 +101,9 @@
 <?php
 Yii::app()->clientScript->registerScript(
    'myHideEffect',
-   '$(".alert-warning").animate({opacity: 1.0}, 2500).fadeOut("slow");
-   $(".alert-error").animate({opacity: 1.0}, 3000).fadeOut("slow");
-   $(".alert-info").animate({opacity: 1.0}, 3000).fadeOut("slow");
+   '$(".alert-warning").animate({opacity: 1.0}, 3500).fadeOut("slow");
+   $(".alert-error").animate({opacity: 1.0}, 5000).fadeOut("slow");
+   $(".alert-info").animate({opacity: 1.0}, 5000).fadeOut("slow");
    $(".alert-success").animate({opacity: 1.0}, 3500).fadeOut("slow");',
    CClientScript::POS_READY
 );

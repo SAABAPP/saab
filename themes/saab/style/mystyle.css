@@ -166,6 +166,9 @@ div .pagination{
 .form-horizontal .control-group {
 	margin-bottom: 5px !important;
 }
+tr label{
+	font-size: 8px !important;
+}
 
 /* Responsive */
 

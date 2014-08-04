@@ -102,12 +102,16 @@ class Kardex extends CActiveRecord
 		$criteria->compare('KAR_fechaMovimiento',$this->KAR_fechaMovimiento,true);
 		$criteria->compare('KAR_detalle',$this->KAR_detalle,true);
 		$criteria->compare('IDENTRADABIEN',$this->IDENTRADABIEN);
+		$criteria->condition="IDENTRADABIEN!=0 or IDPECOSABIEN!=0";
 		$criteria->compare('IDENTRADA',$this->IDENTRADA);
 		$criteria->compare('IDPECOSABIEN',$this->IDPECOSABIEN);
 		$criteria->compare('IDPECOSA',$this->IDPECOSA);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+                'pageSize'=>10000000000000,
+        	)
 		));
 	}
 }

@@ -43,6 +43,29 @@
 		<h2 class="center">Usuario del Sistema</h2><br>
 		<?php echo $form->textFieldRow($usuario,'USU_usuario',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Usuario..')); ?>
 		<?php echo $form->passwordFieldRow($usuario,'USU_password',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Password..')); ?>
+		<label id="control-label" for="tipo" class="control-label">Tipo Usuario*</label>
+		<div class="controls">
+			<?php 
+			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+				'name'=>'busca_tipo',
+				'id'=>'tipo',
+				'value'=>$asignacion->itemname,
+				'source'=>$this->createUrl('personal/buscaAutorizacion'),
+				'options'=>array(
+					'minLength'=>'1',
+					),                                                            
+				'htmlOptions'=>array('class'=>'span3','placeholder'=>'Asignar Tipo Usuario...'),  
+				'options'=>array(
+					'showAnim'=>'fold',
+					'select' => 'js:function(event, ui){
+						jQuery("#AuthAssignment_itemname").val(ui.item["id"]); 
+					}'
+					),
+				));
+			?>
+
+		<?php echo $form->hiddenField($asignacion,'itemname',array('class'=>'span5')); ?>	
+		</div>
 		
 	
 	</div>
@@ -59,12 +82,13 @@
 			<?php $this->widget('bootstrap.widgets.TbButton', array(
 				'buttonType'=>'submit',
 				'type'=>'primary',
-				'label'=>$model->isNewRecord ? 'Nuevo' : 'Guardar',
+				'label'=>$model->isNewRecord ? 'Crear Nuevo' : 'Actualizar',
 			)); ?>
-			<a class="btn inline secundario" type="button" href="/personal/admin">Cancelar</a>
+			<a class="btn inline secundario" type="button" href="<?php echo Yii::app()->request->baseUrl; ?>/personal/admin">Cancelar</a>
 			
 		</div>
 	</div>
+	<br><br>
 
 	
 

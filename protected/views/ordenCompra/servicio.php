@@ -40,10 +40,10 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	// 'filter'=>$model,
 	// 'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Observado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
 	'columns'=>array(
-		'IDORDENCOMPRA',
+		'OC_NroOrdenCompra',
 		'IDREQUERIMIENTO',
 		'iDREQUERIMIENTO.iDUSUARIO.iDPERSONAL.iDAREA.ARE_nombre',
-		'iDREQUERIMIENTO.REQ_fecha',	
+		'OC_fecha',	
 		// 'REQ_presupuesto',
 		array(
 			'header'=>'Detalles',

@@ -103,6 +103,13 @@
   <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/myjquery.js"></script>
   <script type="text/javascript">
      $("#imprimir").attr('style','display:none');
+     $(".search-form").attr('style','display:none');
+      valor=$('#kardex-grid td').text(function(){   
+          v=$(this).text();
+          if(v=='ocultar')
+            $(this).parent().remove();
+        }); 
+
   </script>
   <?php
   $current_file = basename($_SERVER['PHP_SELF']);

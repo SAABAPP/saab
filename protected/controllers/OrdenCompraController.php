@@ -94,6 +94,7 @@ class OrdenCompraController extends Controller
 			'requerimiento_servicio'=>$requerimiento_servicio,
 			'detalleOC'=>$detalleOC,			
 		));
+		
 	}
 
 	/**

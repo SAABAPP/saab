@@ -3,7 +3,7 @@
 $columns=array();
 $i=0;
 $dataProvider=$detalleOC->search();
-
+Yii::app()->user->setState('total',0);
 array_push($columns, array(
 	'header' => 'N°',
 	'value' => function($data) use(&$i){
@@ -27,21 +27,6 @@ array_push($columns, array(
 
 
 
-// array_push($columns, array(
-// 	'header'=>'Código Servicio',
-// 	'htmlOptions'=>array('width'=>'1em'),
-// 	'value' => '$data->DOC_bien'
-// 	)
-// );
-
-array_push($columns, array(
-	'header'=>'P. Unitario (S/.)',
-	'htmlOptions'=>array('width'=>'5em'),
-	'type' => 'raw',
-	'value' => '$data->DOC_precioUnitario'
-	)
-);
-
 array_push($columns, array(
 	'header'=>'Características',
 	'htmlOptions'=>array('width'=>'10em'),
@@ -49,12 +34,26 @@ array_push($columns, array(
 	)
 );
 
+array_push($columns, array(
+	'header'=>'P. Unitario (S/.)',
+	'htmlOptions'=>array('width'=>'5em'),
+	'type' => 'raw',
+	'value' => function($data){
+		$total=$data->DOC_precioUnitario;
+		$total=$total + Yii::app()->user->getState('total');
+		Yii::app()->user->setState('total',$total);
+		return $data->DOC_precioUnitario;
+	},
+	)
+);
+
+
+
 
 
 
 ?>
 <hr>
-<br>
 <h3>detalles de los servicios</h3>
 <br>
 

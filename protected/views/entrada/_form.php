@@ -3,15 +3,29 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	
-	<?php 
-    $fecha = date("Y-m-d"); //obtiene fecha actual
-    
-  ?>	
 
-	<?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->hiddenField($model,'ENT_fecha',array('class'=>'span5','value'=>$fecha)); ?>
+<?php echo $form->errorSummary($model); ?>
+
+<div class="control-group pull-right">
+            <label class="control-label">Fecha:</label>
+            <div class="controls"><p>  <?php 
+
+                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                'model' => $model,
+                                'language' => 'es',
+                                'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..'),
+                                'attribute' => 'ENT_fecha',
+                                'options' => array(
+                                    'showAnim' => 'fold',
+                                    'dateFormat' => 'yy-m-d',
+                                ),
+                    ));
+                
+                ?>
+              </p></div>
+</div>
+	<?php echo $form->textFieldRow($model,'ENT_NroEntrada',array('class'=>'span3','placeholder'=>'Nro de Entrada')); ?>
 
 	<?php echo $form->hiddenField($model,'ENT_tipo',array('class'=>'span5','maxlength'=>1,'value'=>'0')); ?>
 	<div class="row-fluid">
@@ -36,7 +50,7 @@
               </div>
               <div class="control-group">
                 <label class="control-label">Le agradecemos enviar a nuestro almacén en:</label>
-                <div class="controls"><br><br><p><?php echo Variables::model()->findByPk(3)->VAR_valor?></p></div>
+                <div class="controls"><br><p><?php echo Variables::model()->findByPk(3)->VAR_valor?></p></div>
               </div>              
               <div class="control-group">
                 <label class="control-label">Nº Documento Referencia:</label>

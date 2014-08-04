@@ -4,6 +4,7 @@
     $col=Yii::app()->user->getState('arrays');
 
     $columns=array();
+    
       for($x=0;$x<count($col); $x++){
         
         if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]))
@@ -12,13 +13,15 @@
      
       
     
-    $gridDataProvider = new CArrayDataProvider($columns);
+    $gridDataProvider = new CArrayDataProvider($columns,array(
+       'pagination'=>array('pageSize'=>100),
+      ));
 
 
 
     $this->widget('bootstrap.widgets.TbGridView',array(
       'id'=>'requerimiento-grid',
-          //'dataProvider'=>$bien->search(),
+
       'dataProvider'=>$gridDataProvider,
       'type'=>'bordered hover',
       'template'=>"{items}",

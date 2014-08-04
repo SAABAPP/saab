@@ -29,8 +29,8 @@ class PersonalController extends Controller
 		return array(
 
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','index','view','buscaArea'),
-				'users'=>array('admin'),
+				'actions'=>array('admin','delete','create','update','index','view','buscaArea','buscaAutorizacion'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 
 			array('allow',
@@ -63,6 +63,7 @@ class PersonalController extends Controller
 	{
 		$model=new Personal;
 		$usuario=new Usuario;
+		$asignacion= new AuthAssignment;
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation(array($model,$usuario));
@@ -75,12 +76,22 @@ class PersonalController extends Controller
 			}
 			else{
 				$usuario->attributes=$_POST['Usuario'];
+				$usuario->USU_password=md5($usuario->USU_password);
 				$usuario->IDPERSONAL=$model->IDPERSONAL;
+
+				
 				if(!$usuario->save()){
 					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el usuario');
 				}
 				else{
-					Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
+					$asignacion->attributes=$_POST['AuthAssignment'];
+					$asignacion->userid=$usuario->USU_usuario;
+					
+					if(!$asignacion->save()){
+						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el permiso');
+					}
+					else
+						Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
 				}	
 			}
 
@@ -91,7 +102,39 @@ class PersonalController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'usuario'=>$usuario,
+			'asignacion'=>$asignacion,
 		));
+	}
+	public function actionBuscaAutorizacion(){
+    	$q=trim($_GET['term']);
+    	//echo 'funciona el valor es:'.$_GET['term'];
+       //$q='LA';
+
+    	if (isset($q)) {
+    		$condicion = new CDbCriteria;
+           // condition to find your data, using q as the parameter field
+    		$condicion->condition = "name LIKE '%". $q ."%' ";
+           //$condicion->order = 'CLA_descripcion'; // correct order-by field
+           $condicion->limit = 10; // probably a good idea to limit the results
+           // with trailing wildcard only; probably a good idea for large volumes of data
+           //$condicion->params = array(':q' => trim($q) . '%'); 
+           $autorizacion=  AuthItem::model()->findAll($condicion);
+
+
+           if (!empty($autorizacion)) {
+           	
+           	$salida = array();
+           	foreach ($autorizacion as $a) {
+           		$salida[] = array(
+                      // expression to give the string for the autoComplete drop-down
+           			'label' => $a->name,  
+           			'id' => $a->name,
+                       );
+           	}
+           	echo CJSON::encode($salida);
+           	Yii::app()->end();
+           }
+       }		
 	}
 	public function actionBuscaArea(){
 		       //$q = $_GET['busca_clasificador'];
@@ -135,7 +178,7 @@ class PersonalController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$usuario=Usuario::model()->findByAttributes(array('IDPERSONAL'=>$id));
-
+		$asignacion= AuthAssignment::model()->findByAttributes(array('userid'=>$usuario->USU_usuario));
 
 		if(isset($_POST['Personal']) && isset($_POST['Usuario']))
 		{
@@ -144,13 +187,20 @@ class PersonalController extends Controller
 				Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden actualizar el personal');
 			}
 			else{
-				$usuario->attributes=$_POST['Usuario'];
-				if(!$usuario->save()){
-					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden actualizar el usuario');
+				try{
+					$usu=Usuario::model()->findByPk($usuario->IDUSUARIO);
+					$usu->attributes=$_POST['Usuario'];
+					$usu->USU_password=md5($usuario->USU_password);
+					if(!$usu->save()){
+						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden actualizar el usuario');
+					}
+					else{
+						Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
+					}	
+				}catch(exception $e){
+					Yii::app()->user->setFlash('error', $e);
 				}
-				else{
-					Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
-				}	
+				
 			}
 
 			
@@ -160,6 +210,7 @@ class PersonalController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'usuario'=>$usuario,
+			'asignacion'=>$asignacion,
 		));
 	}
 

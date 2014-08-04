@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Pecosa'=>array('index'),
+	'Salida'=>array('index'),
 	'Inicio',
 );
 
@@ -11,7 +11,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('pecosa-grid', {
+	$.fn.yiiGridView.update('salida-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -36,7 +36,7 @@ $columns=array();
 
 array_push($columns, array(
 	'header' => 'N°',
-	'value'=>'$data->IDREQUERIMIENTO',
+	'value'=>'$data->OC_NroOrdenCompra',
 	)
 );
 
@@ -69,8 +69,8 @@ array_push($columns, array(
         if($data->iDREQUERIMIENTO->REQ_estado=='En almacen'){
             $html .= CHtml::link("<i class='icon-plus'></i>", array('create', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));             
         }
-        else
-            $html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));          	
+        // else
+        //     $html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDORDENCOMPRA), array('title' => 'Añadir',));          	
         return $html;
     },
 ));
@@ -78,8 +78,8 @@ array_push($columns, array(
 
 
 $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'pecosa-grid',
-	'dataProvider'=>$model->search(),
+	'id'=>'salida-grid',
+	'dataProvider'=>$model->searchS(),
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
     'rowCssClassExpression'=>'$data->iDREQUERIMIENTO->REQ_estado=="Requerido"?"info":($data->iDREQUERIMIENTO->REQ_estado=="Observado"?"warning":($data->iDREQUERIMIENTO->REQ_estado=="En almacen"?"warehouse":($data->iDREQUERIMIENTO->REQ_estado=="Aprobado"?"success":"finalized")))',

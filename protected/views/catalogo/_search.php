@@ -5,7 +5,7 @@
 )); ?>
 
 	<div class="span8 input-append">
-		<?php echo $form->textFieldRow($model,'CAT_descripcion',
+		<?php echo $form->textFieldRow($catalogo,'CAT_descripcion',
 			array(
 				'class'=>'span4',
 				'placeholder' => 'Descripcion',

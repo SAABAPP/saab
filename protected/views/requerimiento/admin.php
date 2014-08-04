@@ -38,6 +38,7 @@ $this->widget('bootstrap.widgets.TbButton', array(
     'htmlOptions'=>array('class'=>'pull-right span2'),
     'url'=>array('servicio'),
     ));
+echo '<br><br>';
 ?>
 </div><!-- search-form -->
 <br/><br/>
@@ -46,6 +47,47 @@ $this->widget('bootstrap.widgets.TbButton', array(
 <br/>
 
 <div class="span8 offset2">
+<div class="offset2">
+<?php 
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Requeridos',
+    'type'=>'info', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'small', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>' span2'),
+    'url'=>array('admin?Requerimiento[REQ_estado]=Requerido'),
+    ));
+$this->widget('bootstrap.widgets.TbButton', array(
+    'label'=>'Observados',
+    'type'=>'warning', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'small', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>' span2'),
+    'url'=>array('admin?Requerimiento[REQ_estado]=Observado'),
+    ));
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Aprobados',
+    'type'=>'success', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'small', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>' span2'),
+    'url'=>array('admin?Requerimiento[REQ_estado]=Aprobado'),
+    ));
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Almacenado',
+    'type'=>'danger', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'small', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>' span2'),
+    'url'=>array('admin?Requerimiento[REQ_estado]=En almacen'),
+    ));
+$this->widget('bootstrap.widgets.TbButton', array(
+	'label'=>'Finalizados',
+    'type'=>'inverse', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'size'=>'small', // null, 'large', 'small' or 'mini'
+    'htmlOptions'=>array('class'=>' span2'),
+    'url'=>array('admin?Requerimiento[REQ_estado]=Finalizado'),
+    ));
+echo '<br><br>';
+?>
+</div>
+<br>
 <?php
 $columns=array();
 
@@ -82,7 +124,8 @@ array_push($columns, array(
     'value' => function($data) {
         $html = "";
         if($data->REQ_estado=='Requerido' || $data->REQ_estado=='Necesitado'){
-            $html .= CHtml::link("<i class='icon-pencil'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));             
+            $html .= CHtml::link("<i class='icon-plus'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));
+            $html.='&nbsp;'.CHtml::link("<i class='icon-pencil'></i>", array('update', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Actualizar',));             
         }
         else{
         	$html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',)); 

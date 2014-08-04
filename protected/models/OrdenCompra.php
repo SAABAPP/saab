@@ -7,6 +7,8 @@
  * @property integer $IDORDENCOMPRA
  * @property integer $IDREQUERIMIENTO
  * @property string $TIPO
+ * @property string $OC_fecha
+ * @property string $OC_NroOrdenCompra
  *
  * The followings are the available model relations:
  * @property DetalleOrdenCompra[] $detalleOrdenCompras
@@ -41,12 +43,13 @@ class OrdenCompra extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('IDREQUERIMIENTO, TIPO', 'required'),
+			array('IDREQUERIMIENTO, TIPO, OC_fecha, OC_NroOrdenCompra', 'required'),
 			array('IDREQUERIMIENTO', 'numerical', 'integerOnly'=>true),
 			array('TIPO', 'length', 'max'=>1),
+			array('OC_NroOrdenCompra', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDORDENCOMPRA, IDREQUERIMIENTO, TIPO', 'safe', 'on'=>'search'),
+			array('IDORDENCOMPRA, IDREQUERIMIENTO, TIPO, OC_fecha, OC_NroOrdenCompra', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,9 +73,11 @@ class OrdenCompra extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDORDENCOMPRA' => 'N° de Orden',
+			'IDORDENCOMPRA' => 'ID',
 			'IDREQUERIMIENTO' => 'N° de Requerimiento',
 			'TIPO' => 'Tipo',
+			'OC_fecha' => 'Fecha',
+			'OC_NroOrdenCompra' => 'Nro Orden',
 		);
 	}
 
@@ -89,10 +94,51 @@ class OrdenCompra extends CActiveRecord
 
 		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
-		$criteria->compare('TIPO',$this->TIPO,true);
+		$criteria->compare('t.TIPO',$this->TIPO,true);
+		$criteria->compare('OC_fecha',$this->OC_fecha,true);
+		$criteria->compare('OC_NroOrdenCompra',$this->OC_NroOrdenCompra,true);
+		
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria'=>$criteria,			
+		));
+	}
+	public function searchE()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
+		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
+		$criteria->compare('t.TIPO',$this->TIPO,true);
+		$criteria->compare('OC_fecha',$this->OC_fecha,true);
+		$criteria->compare('OC_NroOrdenCompra',$this->OC_NroOrdenCompra,true);
+		$criteria->join='inner join requerimiento r on r.iDREQUERIMIENTO=t.IDREQUERIMIENTO';
+		$criteria->compare('r.REQ_estado','Aprobado',true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,			
+		));
+	}
+	public function searchS()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('IDORDENCOMPRA',$this->IDORDENCOMPRA);
+		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
+		$criteria->compare('t.TIPO',$this->TIPO,true);
+		$criteria->compare('OC_fecha',$this->OC_fecha,true);
+		$criteria->compare('OC_NroOrdenCompra',$this->OC_NroOrdenCompra,true);
+		$criteria->join='inner join requerimiento r on r.iDREQUERIMIENTO=t.IDREQUERIMIENTO';
+		$criteria->compare('r.REQ_estado','En almacen',true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,			
 		));
 	}
 }

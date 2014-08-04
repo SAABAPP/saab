@@ -86,10 +86,10 @@ array_push($columns, array(
     'value' => function($data) {
         $html = "";
         if($data->REQ_estado=='Requerido'){
-            $html .= CHtml::link("<i class='icon-pencil'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));             
+            $html .= CHtml::link("<i class='icon-pencil'></i>", array('//requerimiento/view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));             
         }
         else{
-        	$html .= CHtml::link("<i class='icon-eye-open'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',)); 
+        	$html .= CHtml::link("<i class='icon-eye-open'></i>", array('//requerimiento/view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',)); 
         	
         }
         return $html;
@@ -98,7 +98,7 @@ array_push($columns, array(
 
 $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'requerimiento-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->searchN(),
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
 	// 'filter'=>$model,

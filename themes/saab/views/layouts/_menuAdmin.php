@@ -17,8 +17,9 @@
   <li class="has_sub"><a href="" <?php echo $d; ?>><i class="icon-retweet"></i> Movimientos  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
     <ul>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/entrada">Registrar Entrada</a></li>
-      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/pecosa">Registrar Salida</a></li>
-      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/requerimiento/autorizacion">Autorización de Salida</a></li>         
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/pecosa/admin">Registrar Salida</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/requerimiento/autorizacion">Autorizacion de Salida</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/pecosa">PECOSA</a></li>       
     </ul>
   </li>
   <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/kardex" <?php echo $e; ?>><i class="icon-table"></i>  Kardex</a></li>

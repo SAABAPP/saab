@@ -32,19 +32,19 @@ class RequerimientoController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio','autorizacion'),
+				'actions'=>array('index','admin','create','update','view','servicio','view_servicio','autorizacion'),
 				'expression'=>'Yii::app()->user->checkAccess("usuario")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio','autorizacion','generarSalida'),
+				'actions'=>array('index','admin','create','update','view','servicio','view_servicio','autorizacion','generarSalida'),
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio'),
+				'actions'=>array('index','admin','create','update','view','servicio','view_servicio'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','servicio','view_servicio','salida','autorizacion','generarSalida'),
+				'actions'=>array('index','admin','create','update','view','servicio','view_servicio','salida','autorizacion','generarSalida'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('allow', 
@@ -160,6 +160,7 @@ class RequerimientoController extends Controller
 	}
 	public function actionGenerarSalida($id){
 		$model=$this->loadModel($id);
+		$pecosa= new Pecosa;
 		if($model->TIPO=='b'){
 			$requerimiento_bien = new RequerimientoBien();		
 	        $requerimiento_bien->unsetAttributes();
@@ -180,9 +181,9 @@ class RequerimientoController extends Controller
 					$i=0;			
 					
 					$pecosa= new Pecosa;
+					$pecosa->attributes=$_POST['Pecosa'];
 					$pecosa->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
-					$pecosa->PEC_referencia='Requerimiento N° '.$model->IDREQUERIMIENTO;
-					$pecosa->PEC_fecha=date("Y-m-d");
+					$pecosa->PEC_referencia='Requerimiento N° '.$model->IDREQUERIMIENTO;					
 					$pecosa->IDUSUARIO=Yii::app()->user->getState('idusuario');
 					if(!$pecosa->save()){
 					Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida');
@@ -222,6 +223,7 @@ class RequerimientoController extends Controller
         $this->render('salida',array(
         		'model'=>$model,
         		'dataProvider'=>$dataProvider,
+        		'pecosa'=>$pecosa,
         	));
        
 	}
@@ -244,7 +246,8 @@ class RequerimientoController extends Controller
 
  		$meta=new Meta;
  		$meta->unsetAttributes();
-
+ 		if(isset($_GET['Catalogo']))
+			$model->attributes=$_GET['Catalogo'];
  		
 		if($this->validador()){
 			if(isset($_POST['Requerimiento']))
@@ -278,8 +281,7 @@ class RequerimientoController extends Controller
 				}
 
 			}
-			else
-				$transaction->rollBack();
+			
 		}
 		else{
 			
@@ -288,7 +290,7 @@ class RequerimientoController extends Controller
 			// Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
 		}
 
-
+		
 
 
 		$this->render('create',array(
@@ -396,7 +398,7 @@ class RequerimientoController extends Controller
            // condition to find your data, using q as the parameter field
            $criteria->condition = "CLA_descripcion LIKE '%". $q ."%'";
            //$criteria->order = 'CLA_descripcion'; // correct order-by field
-           $criteria->limit = 10; // probably a good idea to limit the results
+           $criteria->limit = 20; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
            //$criteria->params = array(':q' => trim($q) . '%'); 
            $clasificador= Clasificador::model()->findAll($criteria);
@@ -432,9 +434,9 @@ class RequerimientoController extends Controller
     	if (isset($q)) {
     		$condicion = new CDbCriteria;
            // condition to find your data, using q as the parameter field
-    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)>=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
+    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)>=12  AND CAT_descripcion LIKE '". $q ."%' order by CAT_descripcion";
            //$condicion->order = 'CLA_descripcion'; // correct order-by field
-           $condicion->limit = 10; // probably a good idea to limit the results
+           $condicion->limit = 20; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
            //$condicion->params = array(':q' => trim($q) . '%'); 
            $catalogo=  Catalogo::model()->findAll($condicion);
@@ -467,9 +469,9 @@ class RequerimientoController extends Controller
     	if (isset($q)) {
     		$condicion = new CDbCriteria;
            // condition to find your data, using q as the parameter field
-    		$condicion->condition = "IDCATALOGO<4898 AND length(CAT_codigo)=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
+    		$condicion->condition = "IDCATALOGO<4898 AND length(CAT_codigo)=12  AND CAT_descripcion LIKE '". $q ."%' order by CAT_descripcion";
            //$condicion->order = 'CLA_descripcion'; // correct order-by field
-           $condicion->limit = 10; // probably a good idea to limit the results
+           $condicion->limit = 20; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
            //$condicion->params = array(':q' => trim($q) . '%'); 
            $catalogo=  Catalogo::model()->findAll($condicion);
@@ -532,21 +534,24 @@ class RequerimientoController extends Controller
         try {
         	
         	$idbien= $_POST['idbien'];
+        	if ($idbien==null) {
+        		$idbien=0;
+        	}
             $rbi_cantidad= $_POST['rbi_cantidad'];
             $descripcion= $_POST['descripcion'];
            
             
 			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
           	
-          if($i==0){
+          // if($i==0){
           	
-          	$this->columnas[$i][0]=$idbien;
-            $this->columnas[$i][1]=$rbi_cantidad;
-            $this->columnas[$i][2]=$descripcion;
-            Yii::app()->user->setState('arrays', $this->columnas);
-            ++$i;
-           	Yii::app()->user->setState('site_id', $i);
-          }else{
+          // 	$this->columnas[$i][0]=$idbien;
+          //   $this->columnas[$i][1]=$rbi_cantidad;
+          //   $this->columnas[$i][2]=$descripcion;
+          //   Yii::app()->user->setState('arrays', $this->columnas);
+          //   ++$i;
+          //  	Yii::app()->user->setState('site_id', $i);
+          // }else{
 
           	$pos=$this->busqueda($idbien);
           	$this->columnas=Yii::app()->user->getState('arrays');
@@ -565,7 +570,7 @@ class RequerimientoController extends Controller
           	
           	
             Yii::app()->user->setState('arrays', $this->columnas);
-          }
+          // }
 
 
             // envia valor a una varible global
@@ -588,9 +593,10 @@ class RequerimientoController extends Controller
         	$idservicio= $_POST['idservicio'];
             $caracteristica= $_POST['caracteristica'];
             $descripcion= $_POST['descripcion'];           
+        	if ($idservicio==null) {
+        		$idservicio=0;
+        	}
 
-
-        	
 			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
           	
           if($i==0){
@@ -685,7 +691,7 @@ class RequerimientoController extends Controller
         $this->actionDetails();
     }
     public function actionDisminuirItem() {
-
+    	$id_requerimiento=Yii::app()->user->getState('requerimiento');
         $id= $_POST['idbien'];
     	$valor=-1;    	
         $valor=$this->busqueda($id);
@@ -693,7 +699,11 @@ class RequerimientoController extends Controller
         if($this->columnas[$valor][1]<=1){
          	$this->columnas[$valor][0]=0;
         	unset($this->columnas[$valor][1]);
-       		unset($this->columnas[$valor][2]);       	
+       		unset($this->columnas[$valor][2]);
+       		$requerimiento_bien= RequerimientoBien::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'IDBIEN'=>$id));
+	        if(!empty($requerimiento_bien)){
+	        	$requerimiento_bien->delete();
+	        }       	
         }
         else{
         	--$this->columnas[$valor][1];
@@ -705,7 +715,7 @@ class RequerimientoController extends Controller
     }
 
     public function actionRemoveItem() {
-
+    	$id_requerimiento=Yii::app()->user->getState('requerimiento');
     	$id= $_POST['idbien'];
     	$valor=-1;
         $valor=$this->busqueda($id);
@@ -715,13 +725,16 @@ class RequerimientoController extends Controller
         unset($this->columnas[$valor][2]);
         $this->columnas = array_values($this->columnas);
         Yii::app()->user->setState('arrays', $this->columnas);
-
+        $requerimiento_bien= RequerimientoBien::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'IDBIEN'=>$id));
+        if(!empty($requerimiento_bien)){
+        	$requerimiento_bien->delete();
+        }
         $this->actionDetails();
 
     }
 
     public function actionRemoveItemServicio() {
-
+    	$id_requerimiento=Yii::app()->user->getState('requerimiento');
     	$id= $_POST['idbien'];
     	$valor=-1;
         $valor=$this->busqueda($id);
@@ -731,7 +744,10 @@ class RequerimientoController extends Controller
         unset($this->columnas[$valor][2]);
         $this->columnas = array_values($this->columnas);
         Yii::app()->user->setState('arrays', $this->columnas);
-       
+       $requerimiento_servicio= RequerimientoServicio::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id_requerimiento,'IDSERVICIO'=>$id));
+        if(!empty($requerimiento_servicio)){
+        	$requerimiento_servicio->delete();
+        }
         $this->renderPartial('_services');
 
     }   
@@ -743,24 +759,147 @@ class RequerimientoController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=new Requerimiento;
+
+
+		$model= $this->loadModel($id);
+
+
+
 		$idusuario = Yii::app()->user->getState('idusuario');
+		Yii::app()->user->setState('requerimiento',$id);
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
-        
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+ 		$clasificador=new Clasificador('search');
 
-		if(isset($_POST['Requerimiento']))
-		{
-			$model->attributes=$_POST['Requerimiento'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+ 		$col=Yii::app()->user->getState('arrays');
+ 		
+ 		$clasificador->unsetAttributes();
+ 		$catalogo=new Catalogo;
+ 		$catalogo->unsetAttributes();
+
+ 		$meta=new Meta;
+ 		$meta->unsetAttributes();
+
+ 		
+ 		$Criteria_RB = new CDbCriteria();
+		$Criteria_RB->condition = "IDREQUERIMIENTO = $id";
+		$bienDetalle=RequerimientoBien::model()->findAll($Criteria_RB);
+		$servicioDetalle=RequerimientoServicio::model()->findAll($Criteria_RB);
+		$x=0;
+		if ($model->TIPO=='b') {
+	 		foreach ($bienDetalle as $valor) { 			
+	 			$this->columnas[$x][0]=$valor->IDBIEN;
+	 			$this->columnas[$x][1]=$valor->RBI_cantidad;	 			
+	 			$this->columnas[$x][2]=$valor->bien->iDCATALOGO->CAT_descripcion;
+	 			
+	 			$x++;
+	 		}
+
+
+
 		}
+		else{
+	 		foreach ($servicioDetalle as $valor) { 			
+	 			$this->columnas[$x][0]=$valor->IDSERVICIO;
+	 			$this->columnas[$x][1]=$valor->servicio->iDCATALOGO->CAT_descripcion;
+	 			$this->columnas[$x][2]=$valor->RSE_detalle;
+	 			$x++;
+	 			
+	 		}
+		}
+		Yii::app()->user->setState('site_id',count($this->columnas));
+ 		if($this->validador()){
+				if(isset($_POST['Requerimiento']))
+				{
+					$model->attributes=$_POST['Requerimiento'];
+					
+					if($model->save()){
+						if ($model->TIPO=='b') {
+							
+							for($x=0;$x<count($col); $x++){
+						         
+						        if(!empty($col[$x][1])){
+						        	$requerimiento_bien= RequerimientoBien::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id,'IDBIEN'=>$col[$x][0]));
+						        	if(!empty($requerimiento_bien)){
+						        		$requerimiento_bien->RBI_cantidad=$col[$x][1];
+						        	}
+						        	else{
+						        		$requerimiento_bien= new RequerimientoBien;
+						        		$requerimiento_bien->unsetAttributes();
+							        	$requerimiento_bien->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+							        	$requerimiento_bien->IDBIEN=$col[$x][0];
+							        	$requerimiento_bien->RBI_cantidad=$col[$x][1];	
+						        	}
+						        	
+						        	
+						        	if (!$requerimiento_bien->save()) {
+						        		// $transaction->rollBack();
+			                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+			                        }
+			                        
+			                        
+						        }
+
+							}
+						}
+						else{
+							
+					    	for($x=0;$x<count($col); $x++){
+					        	
+						        if(!empty($col[$x][1])){
+						        	$requerimiento_servicio= RequerimientoServicio::model()->findByAttributes(array('IDREQUERIMIENTO'=>$id,'IDSERVICIO'=>$col[$x][0]));
+						        	if (!empty($requerimiento_servicio)) {
+						        		$requerimiento_servicio->RSE_detalle=$col[$x][2];
+						        	}
+						        	else{
+						        		$requerimiento_servicio= new RequerimientoServicio;
+						        		$requerimiento_servicio->unsetAttributes();
+							        	$requerimiento_servicio->IDREQUERIMIENTO=$model->IDREQUERIMIENTO;
+							        	$requerimiento_servicio->IDSERVICIO=$col[$x][0];
+							        	$requerimiento_servicio->RSE_detalle=$col[$x][2];	
+						        	}
+						        	
+						        	if (!$requerimiento_servicio->save()) {
+						        		// $transaction->rollBack();
+			                            Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+			                        }
+			                        
+						        }
+
+					      	}	
+						}
+
+					    
+					Yii::app()->user->setState('arrays',null);
+					$this->redirect(array('view','id'=>$model->IDREQUERIMIENTO));
+						
+					}
+
+				}
+				
+			}
+			else{
+				
+				// Yii::app()->user->setFlash('info', '<strong>Heyy!</strong> ');
+				Yii::app()->user->setFlash('info', '<strong>Atencion!</strong> No olvide de ingresar datos requeridos');
+				// Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar lo items');
+			}
+
+
+ 		Yii::app()->user->setState('arrays',$this->columnas);
+ 		if ($model->REQ_estado!='Requerido' and $model->REQ_estado!='Observado' and $model->REQ_estado!='Necesitado' ) {
+ 			throw new CHttpException(400,'No puede modificar este requerimiento ya que ya ha sido aprobado');
+ 			
+ 		}
+
+
 
 		$this->render('update',array(
 			'model'=>$model,
 			'usuario'=>$usuario,
+			'clasificador'=>$clasificador,
+			'catalogo'=>$catalogo,
+			'meta'=>$meta,
 		));
 	}
 

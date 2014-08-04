@@ -9,10 +9,11 @@
  * @property string $PEC_referencia
  * @property integer $IDUSUARIO
  * @property integer $IDREQUERIMIENTO
+ * @property string $PEC_NroPecosa
  *
  * The followings are the available model relations:
- * @property Requerimiento $iDREQUERIMIENTO
  * @property Usuario $iDUSUARIO
+ * @property Requerimiento $iDREQUERIMIENTO
  * @property PecosaBien[] $pecosaBiens
  */
 class Pecosa extends CActiveRecord
@@ -43,12 +44,13 @@ class Pecosa extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PEC_fecha, PEC_referencia', 'required'),
+			array('PEC_fecha, PEC_NroPecosa', 'required'),
 			array('IDUSUARIO, IDREQUERIMIENTO', 'numerical', 'integerOnly'=>true),
 			array('PEC_referencia', 'length', 'max'=>150),
+			array('PEC_NroPecosa', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDPECOSA, PEC_fecha, PEC_referencia, IDUSUARIO, IDREQUERIMIENTO', 'safe', 'on'=>'search'),
+			array('IDPECOSA, PEC_fecha, PEC_referencia, IDUSUARIO, IDREQUERIMIENTO, PEC_NroPecosa', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,8 +62,8 @@ class Pecosa extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'iDREQUERIMIENTO' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 			'iDUSUARIO' => array(self::BELONGS_TO, 'Usuario', 'IDUSUARIO'),
+			'iDREQUERIMIENTO' => array(self::BELONGS_TO, 'Requerimiento', 'IDREQUERIMIENTO'),
 			'pecosaBiens' => array(self::HAS_MANY, 'PecosaBien', 'IDPECOSA'),
 		);
 	}
@@ -72,11 +74,12 @@ class Pecosa extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDPECOSA' => 'Nº PECOSA',
+			'IDPECOSA' => 'ID',
 			'PEC_fecha' => 'Fecha',
-			'PEC_referencia' => 'Nº Documento Referencia:', 
+			'PEC_referencia' => 'Nº Documento Referencia:',
 			'IDUSUARIO' => 'Idusuario',
 			'IDREQUERIMIENTO' => 'Idrequerimiento',
+			'PEC_NroPecosa' => 'Nº PECOSA',
 		);
 	}
 
@@ -96,6 +99,7 @@ class Pecosa extends CActiveRecord
 		$criteria->compare('PEC_referencia',$this->PEC_referencia,true);
 		$criteria->compare('IDUSUARIO',$this->IDUSUARIO);
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
+		$criteria->compare('PEC_NroPecosa',$this->PEC_NroPecosa,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

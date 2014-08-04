@@ -14,4 +14,4 @@ $this->menu=array(
 
 <h2 class="text-center">Actualizar Personal</h2><br>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model,'usuario'=>$usuario)); ?>
+<?php echo $this->renderPartial('_form',array('model'=>$model,'usuario'=>$usuario,'asignacion'=>$asignacion,)); ?>

@@ -58,8 +58,33 @@ array_push($columns, array(
 ?>
 <hr>
 <br>
+
 <h3>Ingresar los detalles de los servicios</h3>
-<br>
+<br><br>
+<div class="control-group pull-right">
+            <label class="control-label">Nro Orden Compra:</label>           
+            <div class="controls"><p><input placeholder="Nro Orden" name="OrdenCompra[OC_NroOrdenCompra]" type="text" class="span12">
+              </p></div>
+</div>
+
+<div class="control-group pull-right">
+            <label class="control-label">Fecha:</label>
+            <div class="controls"><p>  <?php 
+
+                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                'model' => $ordenCompra,
+                                'language' => 'es',
+                                'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
+                                'attribute' => 'OC_fecha',
+                                'options' => array(
+                                    'showAnim' => 'fold',
+                                    'dateFormat' => 'yy-m-d',
+                                ),
+                    ));
+                
+                ?>
+              </p></div>
+</div>
 
 <?php
 

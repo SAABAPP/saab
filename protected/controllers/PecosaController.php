@@ -39,8 +39,8 @@ class PecosaController extends Controller
 			// 	'users'=>array('@'),
 			// ),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','view'),
-				'users'=>array('admin'),
+				'actions'=>array('index','admin','create','view'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -54,7 +54,17 @@ class PecosaController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->redirect(array('//ordenCompra/'.$id));
+		$pecosaBien=new PecosaBien('search');
+		$pecosaBien->unsetAttributes();
+		$pecosaBien->IDPECOSA=$id;
+        if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/pdf'; 
+		}		
+		
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+			'pecosaBien'=>$pecosaBien,
+		));
 	}
 
 	/**
@@ -102,11 +112,11 @@ class PecosaController extends Controller
 					}
 					else{
 						foreach ($detalleOC as $value) {
-							$pecosa=new PecosaBien;
-							$pecosa->IDBIEN=$value->DOC_bien;
-							$pecosa->IDPECOSA=$model->IDPECOSA;
-							$pecosa->PBI_cantidad=$value->DOC_cantidad;
-							if(!$pecosa->save())
+							$pecosaBien=new PecosaBien;
+							$pecosaBien->IDBIEN=$value->DOC_bien;
+							$pecosaBien->IDPECOSA=$model->IDPECOSA;
+							$pecosaBien->PBI_cantidad=$value->DOC_cantidad;
+							if(!$pecosaBien->save())
 								Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida de los bienes');
 						}
 						
@@ -174,9 +184,14 @@ class PecosaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Pecosa');
+		$model=new Pecosa('search');
+		$model->unsetAttributes(); 
+
+		if(isset($_GET['Pecosa']))
+			$model->attributes=$_GET['Pecosa'];		
+		
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
@@ -186,9 +201,10 @@ class PecosaController extends Controller
 	public function actionAdmin()
 	{
 		
-		$model=new OrdenCompra('search');
+		$model=new OrdenCompra('searchS');
 		$model->unsetAttributes();  // clear any default values
-		$model->TIPO='c'; 
+		$model->TIPO='c';
+
 		
 		if(isset($_GET['OrdenCompra']))
 			$model->attributes=$_GET['OrdenCompra'];

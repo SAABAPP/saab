@@ -3,7 +3,7 @@
 $columns=array();
 $i=0;
 $dataProvider=$detalleOC->search();
-
+Yii::app()->user->setState('total',0);
 array_push($columns, array(
 	'header' => 'N°',
 	'value' => function($data) use(&$i){
@@ -33,26 +33,7 @@ array_push($columns, array(
 	)
 );
 
-array_push($columns, array(
-	'header' => 'Cantidad',
-	'htmlOptions'=>array('width'=>'1em'),
-	'value' => '$data->DOC_cantidad',
-	)
-);
 
-// array_push($columns, array(
-// 	'header'=>'Código bien',
-// 	'htmlOptions'=>array('width'=>'1em'),
-// 	'value' => '$data->DOC_bien',
-// 	)
-// );
-
-array_push($columns, array(
-	'header'=>'P. Unitario (S/.)',
-	'htmlOptions'=>array('width'=>'5em'),
-	'value' => '$data->DOC_precioUnitario',
-	)
-);
 
 array_push($columns, array(
 	'header'=>'Características',
@@ -67,13 +48,45 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'10em'),
 	'type' => 'raw',
 	'value' => '$data->DOC_marca',
+
+	)
+);
+
+array_push($columns, array(
+	'header' => 'Cantidad',
+	'htmlOptions'=>array('width'=>'1em'),
+	'value' => '$data->DOC_cantidad',
+
 	)
 );
 
 
+
+
+array_push($columns, array(
+	'header'=>'P. Unitario (S/.)',
+	'htmlOptions'=>array('width'=>'5em'),
+	'value' => '$data->DOC_precioUnitario',
+	'type' => 'raw',
+	// 'footer'=>$valor,
+	)
+);
+array_push($columns, array(
+	'header'=>'Total (S/.)',
+	'htmlOptions'=>array('width'=>'5em'),
+	'value' => function($data){
+		$total=$data->DOC_precioUnitario*$data->DOC_cantidad;
+		$total=$total+ Yii::app()->user->getState('total');
+		Yii::app()->user->setState('total',$total);
+		return $data->DOC_precioUnitario*$data->DOC_cantidad;
+	},
+	'type' => 'raw',
+	// 'footer'=>$valor,
+	)
+);
+
 ?>
 <hr>
-<br>
 <h3>detalles de los bienes</h3>
 <br>
 

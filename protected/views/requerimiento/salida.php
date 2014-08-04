@@ -29,6 +29,25 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
         <div class="span12">
         <!-- Form of previsualization of requirement begins -->
         <form class="form-horizontal">
+           <div class="control-group pull-right">
+              <label class="control-label">Fecha:</label>
+              <div class="controls"><p>  <?php 
+
+                  $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                  'model' => $pecosa,
+                                  'language' => 'es',
+                                  'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..'),
+                                  'attribute' => 'PEC_fecha',
+                                  'options' => array(
+                                      'showAnim' => 'fold',
+                                      'dateFormat' => 'yy-m-d',
+                                  ),
+                      ));
+                  
+                  ?>
+                </p></div>
+          </div>  
+          <?php echo $form->textFieldRow($pecosa,'PEC_NroPecosa',array('class'=>'span3','placeholder'=>'Nro de Pecosa')); ?>
           <div class="control-group">
             <label class="control-label" for="solicitante">Solicitante:</label>
             <div class="controls"><p><?php echo $model->iDUSUARIO->iDPERSONAL->PER_nombres." ".$model->iDUSUARIO->iDPERSONAL->PER_paterno." ".$model->iDUSUARIO->iDPERSONAL->PER_materno; ?></p></div>

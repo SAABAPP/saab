@@ -39,8 +39,8 @@ class EntradaController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('index','admin','create','view'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -219,9 +219,10 @@ class EntradaController extends Controller
 	{
 		// $model=new Entrada('search');
 		// $model->unsetAttributes();
-		$model=new OrdenCompra('search');
+		$model=new OrdenCompra('searchE');
 		$model->unsetAttributes();  // clear any default values 
 		$model->TIPO='c';
+		// $model->iDREQUERIMIENTO->TIPO='Aprobado';
 		
 		
 		// if(isset($_GET['Entrada']))

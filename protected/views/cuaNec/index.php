@@ -29,7 +29,7 @@ $this->breadcrumbs=array(
 			'buttonType'=>'submit',
 			'type'=>'submit',
 			'label'=>$model->isNewRecord ? 'Crear y Autorizar' : 'Guardar',
-	)); ?> <a class="span3 btn btn-info btn-large pull-right" href="<?php echo Yii::app()->request->baseUrl; ?>/cuaNec/admin">Mostrar Cuadro Necesidades Actual</a>
+	)); ?> <a class="span3 btn btn-info btn-large pull-right" href="<?php echo Yii::app()->request->baseUrl; ?>/cuaNec/admin"><i class="icon-th-large"></i>  Mostrar Cuadro Necesidades Actual</a>
 	
 	
 
@@ -38,7 +38,7 @@ $this->breadcrumbs=array(
 <?php }
 	else{
 ?>	<div class="offset3">
-		<a class="span4 btn btn-secondary btn-large" href="<?php echo Yii::app()->request->baseUrl; ?>/cuaNec/cerrar">Cerrar Cuadro Necesidades Actual</a>&nbsp;&nbsp;<a class="span4 btn btn-info btn-large " href="<?php echo Yii::app()->request->baseUrl; ?>/cuaNec/admin">Mostrar Cuadro Necesidades Actual</a>
+		<a class="span4 btn btn-secondary btn-large" href="<?php echo Yii::app()->request->baseUrl; ?>/cuaNec/cerrar"><i class="icon-remove"></i>   Cerrar Cuadro Necesidades Actual</a>&nbsp;&nbsp;<a class="span4 btn btn-info btn-large " href="<?php echo Yii::app()->request->baseUrl; ?>/cuaNec/admin"><i class="icon-th-large"></i>  Mostrar Cuadro Necesidades Actual</a>
 	</div>
 <br><br>
 <?php }?>  

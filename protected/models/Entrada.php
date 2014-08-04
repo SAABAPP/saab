@@ -7,6 +7,7 @@
  * @property integer $IDENTRADA
  * @property string $ENT_fecha
  * @property string $ENT_tipo
+ * @property string $ENT_NroEntrada
  *
  * The followings are the available model relations:
  * @property EntradaBien[] $entradaBiens
@@ -41,11 +42,12 @@ class Entrada extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('ENT_fecha, ENT_tipo', 'required'),
+			array('ENT_fecha, ENT_tipo, ENT_NroEntrada', 'required'),
 			array('ENT_tipo', 'length', 'max'=>1),
+			array('ENT_NroEntrada', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDENTRADA, ENT_fecha, ENT_tipo', 'safe', 'on'=>'search'),
+			array('IDENTRADA, ENT_fecha, ENT_tipo, ENT_NroEntrada', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,9 +71,10 @@ class Entrada extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'IDENTRADA' => 'Nº',
+			'IDENTRADA' => 'ID',
 			'ENT_fecha' => 'Fecha',
 			'ENT_tipo' => 'Tipo',
+			'ENT_NroEntrada' => 'Nº Entrada',
 		);
 	}
 
@@ -89,6 +92,7 @@ class Entrada extends CActiveRecord
 		$criteria->compare('IDENTRADA',$this->IDENTRADA);
 		$criteria->compare('ENT_fecha',$this->ENT_fecha,true);
 		$criteria->compare('ENT_tipo',$this->ENT_tipo,true);
+		$criteria->compare('ENT_NroEntrada',$this->ENT_NroEntrada,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

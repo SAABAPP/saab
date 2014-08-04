@@ -25,10 +25,10 @@ $this->breadcrumbs=array(
         </div>
       </form>
       <hr>
-      <h4 class="pull-right">Presupuesto: S/. <?php  echo (isset($requerimiento->REQ_presupuesto)) ? $requerimiento->REQ_presupuesto : "No asignado"; ?></h4>
+      <h4 class="pull-right">Presupuesto: S/. <?php  echo (($requerimiento->REQ_presupuesto)!=0) ? $requerimiento->REQ_presupuesto : 'Sin Presupuesto' ?></h4>
       <h3>Ingrese las cotizaciones:</h3>
       <br>
     </div>
   </div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'requerimiento'=>$requerimiento,'proveedor'=>$proveedor,'requerimiento_bien'=>$requerimiento_bien,'requerimiento_servicio'=>$requerimiento_servicio)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'requerimiento'=>$requerimiento,'proveedor'=>$proveedor,'requerimiento_bien'=>$requerimiento_bien,'requerimiento_servicio'=>$requerimiento_servicio,'ordenCompra'=>$ordenCompra)); ?>

@@ -5,14 +5,27 @@
 
 
 
-	<?php 
-    $fecha = date("Y-m-d"); //obtiene fecha actual
-    
-  ?>	
-
 	<?php echo $form->errorSummary($model); ?>
+  <div class="control-group pull-right">
+              <label class="control-label">Fecha:</label>
+              <div class="controls"><p>  <?php 
 
-	<?php echo $form->hiddenField($model,'PEC_fecha',array('class'=>'span5','value'=>$fecha)); ?>
+                  $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                  'model' => $model,
+                                  'language' => 'es',
+                                  'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..'),
+                                  'attribute' => 'PEC_fecha',
+                                  'options' => array(
+                                      'showAnim' => 'fold',
+                                      'dateFormat' => 'yy-m-d',
+                                  ),
+                      ));
+                  
+                  ?>
+                </p></div>
+  </div>  
+  <?php echo $form->textFieldRow($model,'PEC_NroPecosa',array('class'=>'span3','placeholder'=>'Nro de Pecosa')); ?>
+
 
 	<?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>Yii::app()->user->getState('idusuario'))); ?>
 
@@ -41,11 +54,11 @@
               </div>
               <div class="control-group">
                 <label class="control-label">Le agradecemos enviar a nuestro almacén en:</label>
-                <div class="controls"><br><br><p><?php echo Variables::model()->findByPk(3)->VAR_valor?></p></div>
+                <div class="controls"><br><p><?php echo Variables::model()->findByPk(3)->VAR_valor?></p></div>
               </div>              
               <div class="control-group">
                 <!-- <label class="control-label">Nº Documento Referencia:</label> -->
-                <?php echo $form->textFieldRow($model,'PEC_referencia',array('class'=>'span5','disabled'=>true,'maxlength'=>150,'value'=>$entradaOC->EOC_documento)); ?>                
+                <?php echo $form->textFieldRow($model,'PEC_referencia',array('class'=>'span3','disabled'=>true,'maxlength'=>150,'value'=>$entradaOC->EOC_documento)); ?>                
               </div>
               <div class="control-group">
                 <label class="control-label">Facturara a nombre de:</label>

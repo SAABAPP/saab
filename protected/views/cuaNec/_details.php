@@ -12,7 +12,9 @@
      
       
     
-    $gridDataProvider = new CArrayDataProvider($columns);
+    $gridDataProvider = new CArrayDataProvider($columns,array(
+       'pagination'=>array('pageSize'=>100),
+      ));
 
 
 

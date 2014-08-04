@@ -1,13 +1,18 @@
 <?php
+
+if($model->isNewRecord){
 $this->breadcrumbs=array(
   'Requerimientos'=>array('index'),
   'Crear',
-);
+);  
+}
+
+
 
 
 ?>
 
-<h2 class="center">Hoja de Requerimiento Servicio</h1>
+<h2 class="center">Hoja de Requerimiento Servicio <?php echo $model->isNewRecord?' ':'N°'.$model->IDREQUERIMIENTO?></h1>
 <br>
 
 <?php 
@@ -32,12 +37,24 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
   <?php echo $form->hiddenField($model,'REQ_estado',array('class'=>'span5','maxlength'=>20,'value'=>'Requerido')); ?>
 
-  <?php 
-    $fecha = date("Y-m-d"); //obtiene fecha actual
-    
-    ?>
-
-    <?php echo $form->hiddenField($model,'REQ_fecha',array('class'=>'span5','value'=>$fecha)); ?>
+    <div class="control-group pull-right">
+                <label class="control-label">Fecha:</label>
+                <div class="controls"><p>  <?php 
+ 
+                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                    'model' => $model,
+                                    'language' => 'es',
+                                    'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
+                                    'attribute' => 'REQ_fecha',
+                                    'options' => array(
+                                        'showAnim' => 'fold',
+                                        'dateFormat' => 'yy-m-d',
+                                    ),
+                        ));
+                    
+                    ?>
+                  </p></div>
+    </div>
     <div class="control-group">
       <label id="control-label" class="control-label" for="solicitante">Solicitante:</label>
       <div class="controls">
@@ -47,7 +64,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     </div>
 
 
-    <?php echo $form->hiddenField($model,'REQ_presupuesto',array('class'=>'span5','value'=>'0')); ?>
+    <?php if($model->isNewRecord){
+          echo $form->hiddenField($model,'REQ_presupuesto',array('class'=>'span5','value'=>'0'));      
+        }
+    ?>
 
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
     <?php echo $form->hiddenField($model,'TIPO',array('class'=>'span5','value'=>'s')); ?>
@@ -85,7 +105,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           'options'=>array(
             'minLength'=>'1',
             ),                                                            
-          'htmlOptions'=>array('class'=>'span5','placeholder'=>'A que clasificador pertenece..'),  
+          'htmlOptions'=>array('class'=>'span5 hide','placeholder'=>'A que clasificador pertenece..'),  
           'options'=>array(
             'showAnim'=>'fold',
             'beforeSend' => 'js:function(){        
@@ -156,7 +176,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                           'options'=>array(
                                               'minLength'=>'1',
                                           ),                                                            
-                                          'htmlOptions'=>array('class'=>'span12 enabled','placeholder'=>'buscar bien..','disabled'=>'true'),  
+                                          'htmlOptions'=>array('class'=>'span12 enabled','placeholder'=>'buscar bien..'),  
                                           'options'=>array(
                                                   'showAnim'=>'fold',
                                                   'beforeSend' => 'js:function(){        
@@ -185,7 +205,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
           <td class="span2">
             <div class="filter-container">
-              <input name="" id="caracteristica"  placeholder="Descripcion.." type="text" disabled>
+              <input name="" id="caracteristica"  placeholder="Descripcion.." type="text" >
             </div>
           </td>
           <!-- <td class="span2">
@@ -262,7 +282,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
       $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
         'name'=>'busca_meta',
         'id'=>'meta',
-        'value'=>$meta->MET_descripcion,
+        'value'=>$model->isNewRecord?$model->CODMETA:$model->cODMETA->MET_descripcion,
         'source'=>$this->createUrl('Requerimiento/buscaMeta'),
         'options'=>array(
           'minLength'=>'1',

@@ -44,11 +44,12 @@ class Catalogo extends CActiveRecord
 		return array(
 			array('CAT_descripcion, CAT_codigo, CAT_unidad', 'required'),
 			array('CAT_descripcion', 'length', 'max'=>150),
+			array('CAT_existencia', 'numerical', 'integerOnly'=>true),
 			array('CAT_codigo', 'length', 'max'=>20),
 			array('CAT_unidad', 'length', 'max'=>25),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDCATALOGO, CAT_descripcion, CAT_codigo, CAT_unidad', 'safe', 'on'=>'search'),
+			array('IDCATALOGO, CAT_descripcion, CAT_codigo, CAT_unidad, CAT_existencia', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +77,7 @@ class Catalogo extends CActiveRecord
 			'CAT_descripcion' => 'Bien',
 			'CAT_codigo' => 'Código',
 			'CAT_unidad' => 'Unidad',
+			'CAT_existencia' => 'Existencia',
 		);
 	}
 
@@ -94,9 +96,13 @@ class Catalogo extends CActiveRecord
 		$criteria->compare('CAT_descripcion',$this->CAT_descripcion,true);
 		$criteria->compare('CAT_codigo',$this->CAT_codigo,true);
 		$criteria->compare('CAT_unidad',$this->CAT_unidad,true);
+		$criteria->compare('CAT_existencia',$this->CAT_existencia);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+                'pageSize'=>100,
+        	)
 		));
 	}
 }

@@ -7,7 +7,7 @@
  * @property integer $IDREQUERIMIENTO
  * @property string $REQ_estado
  * @property string $REQ_fecha
- * @property integer $REQ_presupuesto
+ * @property double $REQ_presupuesto
  * @property integer $IDUSUARIO
  * @property integer $CODMETA
  * @property integer $IDCUANEC
@@ -51,7 +51,8 @@ class Requerimiento extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('REQ_estado, REQ_fecha, IDUSUARIO, CODMETA, TIPO', 'required'),
-			array('REQ_presupuesto, IDUSUARIO, CODMETA, IDCUANEC', 'numerical', 'integerOnly'=>true),
+			array('IDUSUARIO, CODMETA, IDCUANEC', 'numerical', 'integerOnly'=>true),
+			array('REQ_presupuesto', 'numerical'),
 			array('REQ_estado', 'length', 'max'=>20),
 			array('TIPO', 'length', 'max'=>1),
 			// The following rule is used by search().
@@ -90,7 +91,7 @@ class Requerimiento extends CActiveRecord
 			'REQ_fecha' => 'Fecha',
 			'REQ_presupuesto' => 'Presupuesto',
 			'IDUSUARIO' => 'Idusuario',
-			'CODMETA' => 'Codmeta',
+			'CODMETA' => 'Meta',
 			'IDCUANEC' => 'Idcuanec',
 			'TIPO' => 'Tipo',
 		);
@@ -108,12 +109,43 @@ class Requerimiento extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
+		$criteria->condition="t.REQ_estado != 'Necesitado' ";
 		$criteria->compare('REQ_estado',$this->REQ_estado,true);
 		$criteria->compare('REQ_fecha',$this->REQ_fecha,true);
 		$criteria->compare('REQ_presupuesto',$this->REQ_presupuesto);
 		$criteria->compare('IDUSUARIO',$this->IDUSUARIO);
 		$criteria->compare('CODMETA',$this->CODMETA);
 		$criteria->compare('IDCUANEC',$this->IDCUANEC);
+
+
+		//$criteria->compare('TIPO',$this->TIPO,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'sort'=>array(
+			    'defaultOrder'=>'IDREQUERIMIENTO DESC',
+			  ),
+			'pagination'=>array(
+				'pageSize'=>15
+				),
+		));
+	}
+	public function searchN()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);		
+		$criteria->compare('REQ_estado',$this->REQ_estado,true);
+		$criteria->compare('REQ_fecha',$this->REQ_fecha,true);
+		$criteria->compare('REQ_presupuesto',$this->REQ_presupuesto);
+		$criteria->compare('IDUSUARIO',$this->IDUSUARIO);
+		$criteria->compare('CODMETA',$this->CODMETA);
+		$criteria->compare('IDCUANEC',$this->IDCUANEC);
+
+
 		//$criteria->compare('TIPO',$this->TIPO,true);
 
 		return new CActiveDataProvider($this, array(

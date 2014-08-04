@@ -56,8 +56,16 @@ class NeaController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$entradaBien=new EntradaBien('search');
+		$entradaBien->unsetAttributes();
+		$entradaBien->IDENTRADA=$id;
+        if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/pdf'; 
+		}		
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'entradaBien'=>$entradaBien,
 		));
 	}
 

@@ -101,8 +101,10 @@ class UsuarioController extends Controller
 			if(isset($_POST['Usuario']))
 			{
 				$model->attributes=$_POST['Usuario'];
+				$model->USU_password=md5($model->USU_password);
+				$model->USU_password2=md5($model->USU_password2);
 				if($model->save()){
-					$this->redirect(array('site/index'));
+					$this->redirect(array('site/logout'));
 				}
 			}
 

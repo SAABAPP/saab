@@ -15,6 +15,7 @@ class CatalogoController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', 
 		);
 	}
 
@@ -28,8 +29,12 @@ class CatalogoController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','update','index','view'),
-				'users'=>array('admin'),
+				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete','create','update','index','view'),
+				'expression'=>'Yii::app()->user->checkAccess("administrador")',
+			),			
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -137,14 +142,14 @@ class CatalogoController extends Controller
 		// $condicion = new CDbCriteria;
   //  		$condicion->condition = "where IDCATALOGO>=4898 AND length(CAT_codigo)=12";
   //       $model=  Catalogo::model()->findBySql($condicion);
-        $model=new Catalogo('search');
-		$model->unsetAttributes();
+        $catalogo=new Catalogo('search');
+		$catalogo->unsetAttributes();
 
 		if(isset($_GET['Catalogo']))
-			$model->attributes=$_GET['Catalogo'];
+			$catalogo->attributes=$_GET['Catalogo'];
 
 		$this->render('admin',array(
-			'model'=>$model,
+			'catalogo'=>$catalogo,
 		));
 	}
 

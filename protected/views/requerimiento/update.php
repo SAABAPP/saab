@@ -5,14 +5,22 @@ $this->breadcrumbs=array(
 	'Modificar',
 );
 
-$this->menu=array(
-	array('label'=>'List Requerimiento','url'=>array('index')),
-	array('label'=>'Create Requerimiento','url'=>array('create')),
-	array('label'=>'View Requerimiento','url'=>array('view','id'=>$model->IDREQUERIMIENTO)),
-	array('label'=>'Manage Requerimiento','url'=>array('admin')),
-);
+
 ?>
 
-<h1>Update Requerimiento <?php echo $model->IDREQUERIMIENTO; ?></h1>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model,'usuario'=>$usuario)); ?>
+
+<?php 
+
+if ($model->TIPO=='b') {
+	echo '<h2 class="center">Hoja de Requerimiento Bien N°'.$model->IDREQUERIMIENTO .' </h1><br>';
+echo $this->renderPartial('_form', array('model'=>$model,'usuario'=>$usuario,'clasificador'=>$clasificador,'catalogo'=>$catalogo,'meta'=>$meta)); 	
+}
+else{
+
+echo $this->renderPartial('servicio', array('model'=>$model,'usuario'=>$usuario,'clasificador'=>$clasificador,'catalogo'=>$catalogo,'meta'=>$meta)); 	
+}
+
+
+
+?>

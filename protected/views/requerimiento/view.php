@@ -29,6 +29,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
         <div class="span12">
         <!-- Form of previsualization of requirement begins -->
         <form class="form-horizontal">
+          <div class="control-group pull-right">
+            <label class="control-label" for="fecha">Fecha:</label>
+            <div class="controls"><h4><?php echo $model->REQ_fecha; ?></h4></div>
+          </div>
           <div class="control-group">
             <label class="control-label" for="solicitante">Solicitante:</label>
             <div class="controls"><p><?php echo $model->iDUSUARIO->iDPERSONAL->PER_nombres." ".$model->iDUSUARIO->iDPERSONAL->PER_paterno." ".$model->iDUSUARIO->iDPERSONAL->PER_materno; ?></p></div>
@@ -166,7 +170,28 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
               <p><?php echo $model->cODMETA->MET_descripcion; ?></p>
             </div>
           </div>
-          
+          <br>
+
+          <div class="offset3">
+
+            <table>
+              <thead>
+                <tr>
+                  <td>________________</td>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td>________________</td>
+                </tr>
+              </thead>
+              <tbody>
+                  <td>firma del solicitante</td>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td>visto bueno</td>
+              </tbody>
+            </table><br><br>
+
+          </div>          
           <?php
           if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
           {
