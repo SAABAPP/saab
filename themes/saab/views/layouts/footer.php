@@ -11,7 +11,7 @@
     <div class="row-fluid">
       <div class="span4">
         <!-- Copyright info -->
-        <p class="copy">Copyright &copy; 2013 | <a href="http://pe.linkedin.com/pub/daniel-alburquerque/73/b9a/b8/" target="_blank" >Alburquerque</a> - <a href="#">Lopez</a> - <a href="http://www.linkedin.com/pub/carlos-manay-ramal/54/445/490" target="_blank" >Manay</a> - <a href="#">Quevedo</a></p>
+        <p class="copy">Copyright &copy; 2014 | <a href="http://pe.linkedin.com/pub/daniel-alburquerque/73/b9a/b8/" target="_blank" >Alburquerque</a> - <a href="http://www.linkedin.com/pub/carlos-manay-ramal/54/445/490" target="_blank" >Manay</a></p>
       </div>
       <div class="span4">
       	<div id="reloj"></div>

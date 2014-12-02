@@ -108,8 +108,9 @@ class Requerimiento extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
+		
 		$criteria->condition="t.REQ_estado != 'Necesitado' ";
+		$criteria->compare('IDREQUERIMIENTO',$this->IDREQUERIMIENTO);
 		$criteria->compare('REQ_estado',$this->REQ_estado,true);
 		$criteria->compare('REQ_fecha',$this->REQ_fecha,true);
 		$criteria->compare('REQ_presupuesto',$this->REQ_presupuesto);

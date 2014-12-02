@@ -434,7 +434,7 @@ class RequerimientoController extends Controller
     	if (isset($q)) {
     		$condicion = new CDbCriteria;
            // condition to find your data, using q as the parameter field
-    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)>=12  AND CAT_descripcion LIKE '". $q ."%' order by CAT_descripcion";
+    		$condicion->condition = "IDCATALOGO>=4898 AND length(CAT_codigo)>=12  AND CAT_descripcion LIKE '%". $q ."%' order by CAT_descripcion";
            //$condicion->order = 'CLA_descripcion'; // correct order-by field
            $condicion->limit = 20; // probably a good idea to limit the results
            // with trailing wildcard only; probably a good idea for large volumes of data
@@ -960,13 +960,15 @@ class RequerimientoController extends Controller
 		Yii::app()->user->setState('arrays',null);
 		$model=new Requerimiento('search');
 		$model->unsetAttributes();  // clear any default values
-		//para la accion admin, solo le cree esto, si el idusuario es diferente del admin, los filtro; sino que se muestren todos
+		//para la accion admin, si el idusuario es diferente del admin o al jefe abastecimiento, los filtro; sino se muestran todos
 		if (!Yii::app()->user->checkAccess("abastecimiento") && !Yii::app()->user->checkAccess("administrador")) {
 			$model->IDUSUARIO = Yii::app()->user->getState('idusuario');
 		}
 
 		if(isset($_GET['Requerimiento']))
 			$model->attributes=$_GET['Requerimiento'];
+
+	
 
 		$this->render('admin',array(
 			'model'=>$model,
