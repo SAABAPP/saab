@@ -20,7 +20,7 @@
         <div class="row-fluid">
           <div class="span8 input-append">
             <input class="span4" id="appendedInputButton" type="text" placeholder="Buscar...">
-            <button class="btn" type="button"><i class="icon-search"></i></button>
+            <!-- <button class="btn" type="button"><i class="icon-search"></i></button> -->
           </div>
           <div class="span4">
             <a class="btn btn-large btn-primary pull-right" href="requerimiento/create">Crear requerimiento</a>

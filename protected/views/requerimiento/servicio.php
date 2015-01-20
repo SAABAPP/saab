@@ -39,21 +39,24 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
     <div class="control-group pull-right">
                 <label class="control-label">Fecha:</label>
-                <div class="controls"><p>  <?php 
- 
-                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                                    'model' => $model,
-                                    'language' => 'es',
-                                    'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
-                                    'attribute' => 'REQ_fecha',
-                                    'options' => array(
-                                        'showAnim' => 'fold',
-                                        'dateFormat' => 'yy-m-d',
-                                    ),
-                        ));
+                <div class="controls"><b>  
+                  <?php 
+                    $currentDate=date('Y-m-d');
+                      echo $currentDate;
+
+                    // $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                    //                 'model' => $model,
+                    //                 'language' => 'es',
+                    //                 'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
+                    //                 'attribute' => 'REQ_fecha',
+                    //                 'options' => array(
+                    //                     'showAnim' => 'fold',
+                    //                     'dateFormat' => 'yy-m-d',
+                    //                 ),
+                    //     ));
                     
                     ?>
-                  </p></div>
+                  </b></div>
     </div>
     <div class="control-group">
       <label id="control-label" class="control-label" for="solicitante">Solicitante:</label>
@@ -73,6 +76,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <?php echo $form->hiddenField($model,'TIPO',array('class'=>'span5','value'=>'s')); ?>
 
     <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'codmeta span5')); ?>
+    <?php echo $form->hiddenField($model,'REQ_fecha',array('class'=>'span5','value'=>$currentDate)); ?> 
     
     <?php echo $form->hiddenField($model,'IDCUANEC',array('class'=>'span5')); ?>
     
@@ -82,7 +86,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <div class="control-group">
       <label id="control-label" class="control-label " for="dependencia">Dependencia:</label>
       <div class="controls">
-        <input type="text" id="dependencia" class="span5" value="<?php echo $usuario->iDPERSONAL->iDAREA->ARE_nombre; ?>" placeholder="Dependencia a la que pertenece..." disabled>
+        <input type="text" id="dependencia" class="span5" value="<?php echo $model->REQ_oficina; ?>" placeholder="Dependencia a la que pertenece..." disabled>
       </div>
     </div>
     <div class="control-group">

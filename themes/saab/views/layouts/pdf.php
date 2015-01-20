@@ -42,6 +42,39 @@
   <!-- My Style -->
   <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/style/mystyle.css">
 
+
+  <style type="text/css">
+    @media print {
+      .table thead th {
+          font-size: 7px !important;
+          line-height: 0.2;
+      }
+      .table td {
+          text-align: center;
+          font-size: 6px !important;
+          line-height: 0.2;
+      }
+      h2 {
+          font-size: 13px;
+          line-height: 25px;
+      }
+      h4 {
+          font-size: 8px;
+          /*line-height: 25px;*/
+      }
+      form .control-label {
+          /*float: none !important;*/
+          /*width: auto !important;*/
+          text-align: left !important;
+      }    
+      .form-horizontal .controls {
+          padding-top: 0px;
+          text-align: left !important;
+      }  
+    }
+    
+  </style>
+
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -59,12 +92,12 @@
     print();
 
   </script>
-<label class="text-center" style="position:absolute;top:110px;font-size:10px;">Gerencia Regional de Educacion <br>
-  de La Libertad</label><br>
-  <img id="logo" src="/saab/themes/saab/img/logo_grell _mini.png" height="90" width="90" alt="GRELL" style="position:absolute;top:-2px">
+
+  <img id="logo" src="/saab/themes/saab/img/logo_grell _mini.png" height="55" width="55" alt="GRELL" style="position:absolute;top:-2px;left:40px">
+  <label class="text-center" style="position:absolute;top:80px;font-size:10px;">Gerencia Regional de Educacion <br>
+  de La Libertad</label>
   <div class="container">
             
-  <br/>
     <div class="offset2 span9">
         <br><br><br>
 

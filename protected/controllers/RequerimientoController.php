@@ -246,6 +246,7 @@ class RequerimientoController extends Controller
 
  		$meta=new Meta;
  		$meta->unsetAttributes();
+
  		if(isset($_GET['Catalogo']))
 			$model->attributes=$_GET['Catalogo'];
  		
@@ -254,6 +255,8 @@ class RequerimientoController extends Controller
 			{
 				$model->attributes=$_POST['Requerimiento'];
 				//$transaction=Yii::app()->db->beginTransaction();//transacciones
+				$model->REQ_oficina=$usuario->iDPERSONAL->iDAREA->ARE_nombre;
+
 				if($model->save()){
 
 				      for($x=0;$x<count($col); $x++){
@@ -539,6 +542,7 @@ class RequerimientoController extends Controller
         	}
             $rbi_cantidad= $_POST['rbi_cantidad'];
             $descripcion= $_POST['descripcion'];
+            $unidad=$_POST['unidad'];
            
             
 			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
@@ -558,12 +562,14 @@ class RequerimientoController extends Controller
           	if($pos!=null){
  				$this->columnas[$pos][0]=$idbien;
            		$this->columnas[$pos][1]=$rbi_cantidad;
-            	$this->columnas[$pos][2]=$descripcion;         		
+            	$this->columnas[$pos][2]=$descripcion; 
+            	$this->columnas[$pos][3]=$unidad;         		
           	}
           	else{
           		$this->columnas[$i][0]=$idbien;
            		$this->columnas[$i][1]=$rbi_cantidad;
             	$this->columnas[$i][2]=$descripcion;
+            	$this->columnas[$i][3]=$unidad; 
             	++$i;
            		Yii::app()->user->setState('site_id', $i);
           	}

@@ -4,10 +4,10 @@
 	'type'=>'vertical'
 )); ?>
 
-	<div class="span8 input-append">
+	<div class="span6 input-append">
 		<?php echo $form->textFieldRow($model,'IDREQUERIMIENTO',
 			array(
-				'class'=>'span4',
+				'class'=>'span6',
 				'placeholder' => 'N° de Requerimiento',
 				'labelOptions' => array('label' => false),
 				'autocomplete'=>'off',

@@ -20,8 +20,13 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
     <div class="control-group pull-right">
                 <label class="control-label">Fecha:</label>
-                <div class="controls"><p> <?php 
- 
+                <div class="controls"><b> 
+
+                  <?php 
+                  $currentDate=date('Y-m-d');
+                      echo $currentDate;
+
+                      /*
                     $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                     'model' => $model,
                                     'language' => 'es',
@@ -32,9 +37,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                         'dateFormat' => 'yy-m-d',
                                     ),
                         ));
+                        */
                     
                     ?>
-                  </p></div>
+                  </b></div>
     </div>
     <div class="control-group">
       <label id="control-label" class="control-label" for="solicitante">Solicitante:</label>
@@ -54,7 +60,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
     <?php echo $form->hiddenField($model,'TIPO',array('class'=>'span5','value'=>'b')); ?>
     <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'codmeta span5')); ?>
-    
+    <?php echo $form->hiddenField($model,'REQ_fecha',array('class'=>'span5','value'=>$currentDate)); ?>    
     <?php echo $form->hiddenField($model,'IDCUANEC',array('class'=>'span5')); ?>
     
 
@@ -63,7 +69,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <div class="control-group">
       <label id="control-label" class="control-label " for="dependencia">Dependencia:</label>
       <div class="controls">
-        <input type="text" id="dependencia" class="span5" value="<?php echo $usuario->iDPERSONAL->iDAREA->ARE_nombre; ?>" placeholder="Dependencia a la que pertenece..." disabled>
+        <input type="text" id="dependencia" class="span5" value="<?php echo $model->REQ_oficina; ?>" placeholder="Dependencia a la que pertenece..." disabled>
       </div>
     </div>
     <div class="control-group">
@@ -144,7 +150,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
             </tr>
             <tr>
               <td class="span1">
-                <a href="#buscador_modal" role="button" class="btn" data-toggle="modal" title="buscador mas detallado..."><i class="icon-search"></i></a>
+                <!-- <a href="#buscador_modal" role="button" class="btn" data-toggle="modal" title="buscador mas detallado..."><i class="icon-search"></i></a> -->
               </td>
               <td class="span8">
                 <div class="filter-container">

@@ -27,7 +27,7 @@
   <li><a href="reportesAdmin" <?php echo $g; ?>><i class="icon-file-alt"></i> Reportes</a></li>
   <li class="has_sub"><a href=""><i class="icon-wrench"></i> Mantenedores  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
     <ul>
-      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/catalogo">Catalogo</a></li>
+      <!-- <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/catalogo">Catalogo</a></li> -->
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/bien">Bienes</a></li>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/personal">Personal</a></li>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/proveedor">Proveedor</a></li>

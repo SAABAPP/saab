@@ -87,6 +87,7 @@ class Requerimiento extends CActiveRecord
 	{
 		return array(
 			'IDREQUERIMIENTO' => 'N°',
+			'REQ_oficina' => 'Oficina',
 			'REQ_estado' => 'Estado',
 			'REQ_fecha' => 'Fecha',
 			'REQ_presupuesto' => 'Presupuesto',

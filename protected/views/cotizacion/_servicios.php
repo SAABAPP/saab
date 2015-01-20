@@ -69,22 +69,30 @@ array_push($columns, array(
 
 <div class="control-group pull-right">
             <label class="control-label">Fecha:</label>
-            <div class="controls"><p>  <?php 
+            <div class="controls"><b>  <?php 
+            	
+            	$currentDate=date('Y-m-d');
+                echo $currentDate;
 
-                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                                'model' => $ordenCompra,
-                                'language' => 'es',
-                                'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
-                                'attribute' => 'OC_fecha',
-                                'options' => array(
-                                    'showAnim' => 'fold',
-                                    'dateFormat' => 'yy-m-d',
-                                ),
-                    ));
+                // $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                //                 'model' => $ordenCompra,
+                //                 'language' => 'es',
+                //                 'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
+                //                 'attribute' => 'OC_fecha',
+                //                 'options' => array(
+                //                     'showAnim' => 'fold',
+                //                     'dateFormat' => 'yy-m-d',
+                //                 ),
+                //     ));
                 
                 ?>
-              </p></div>
+
+                <input value="<?=$currentDate?>" id="OrdenCompra_OC_fecha" name="OrdenCompra[OC_fecha]" type="hidden">
+              </b>
+             
+          	</div>
 </div>
+<br><br>
 
 <?php
 

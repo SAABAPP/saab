@@ -2,13 +2,13 @@
     
     error_reporting(E_ALL ^ E_NOTICE);
     $col=Yii::app()->user->getState('arrays');
-
+    // print_r($col);
     $columns=array();
     
       for($x=0;$x<count($col); $x++){
         
         if(!empty($col[$x][0]) && !empty($col[$x][1]) && !empty($col[$x][2]))
-          array_push($columns,array('id'=>$col[$x][0], 'bien'=>$col[$x][2], 'cantidad'=>$col[$x][1]));
+          array_push($columns,array('id'=>$col[$x][0], 'bien'=>$col[$x][2],'unidad'=>$col[$x][3], 'cantidad'=>$col[$x][1]));
       }
      
       

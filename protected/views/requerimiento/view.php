@@ -39,7 +39,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           </div>
           <div class="control-group">
             <label class="control-label" for="dependencia">Dependencia:</label>
-            <div class="controls"><p><?php echo $model->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre; ?></p></div>
+            <div class="controls"><p><?php echo $model->REQ_oficina; ?></p></div>
           </div>
           <div class="control-group">
             <label for="unidad" class="control-label">Unidad:</label>

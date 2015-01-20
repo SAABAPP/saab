@@ -24,22 +24,36 @@ $this->renderPartial('_search',array(
 	'model'=>$model,
 	));
 
-$this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Reque. BIEN',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'large', // null, 'large', 'small' or 'mini'
-    'htmlOptions'=>array('class'=>'pull-right span2'),
-    'url'=>array('create'),
-    ));
-$this->widget('bootstrap.widgets.TbButton', array(
-	'label'=>'Reque. SERVICIO',
-    'type'=>'secondary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'large', // null, 'large', 'small' or 'mini'
-    'htmlOptions'=>array('class'=>'pull-right span2'),
-    'url'=>array('servicio'),
-    ));
-echo '<br><br>';
 ?>
+
+<ul class="pull-right inline">
+    <li>
+        <?php 
+
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'label'=>'Nuevo Requerimiento BIEN',
+            'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'size'=>'large', // null, 'large', 'small' or 'mini'
+            'htmlOptions'=>array('class'=>'text-bolder'),
+            'url'=>array('create'),
+            ));
+        ?>
+    </li>
+    <li>
+        <?php
+        $this->widget('bootstrap.widgets.TbButton', array(
+            'label'=>'Nuevo Requerimiento SERVICIO',
+            'type'=>'secondary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'size'=>'large', // null, 'large', 'small' or 'mini'
+            'htmlOptions'=>array('class'=>'text-bolder'),
+            'url'=>array('servicio'),
+            ));
+
+        ?>
+    </li>
+</ul>
+
+
 </div><!-- search-form -->
 <br/><br/>
 <hr>
@@ -97,10 +111,16 @@ array_push($columns, array(
 	)
 );
 
+// array_push($columns, array(
+// 	'header' => 'Oficina',
+// 	'value'=>'$data->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre',
+// 	)
+// );
+
 array_push($columns, array(
-	'header' => 'Oficina',
-	'value'=>'$data->iDUSUARIO->iDPERSONAL->iDAREA->ARE_nombre',
-	)
+    'header' => 'Oficina',
+    'value'=>'$data->REQ_oficina',
+    )
 );
 
 array_push($columns, array(

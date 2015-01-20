@@ -13,105 +13,108 @@ $this->breadcrumbs=array(
           <div class="row-fluid">
             <div class="span12">
 
-              <!-- Bar Chart -->
-              <div class="widget">
-
-                <div class="widget-head">
-                  <div class="pull-left">Gráfico de barras</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>  
-                  <div class="clearfix"></div>
-                </div>             
-
+              <div class="widget">                          
 
                 <div class="widget-content">
                   <div class="padd">
-                    <!-- Barchart. jQuery Flot plugin used. -->
-                    <div id="bar-chart"></div>
+                    <div id="">
+                      <h4>Welcome Back, {{Usuario}}</h4>
+                      
+                      <br>
+                      <ul class="inline text-center">
 
-                    <hr />
+                        <li>
 
-                    <!--Bar chart stuffs -->
-                    <div class="btn-group stackControls">
-                        <input type="button" value="Con Stock" class="btn">
-                        <input type="button" value="Sin Stock" class="btn">
-                    </div>            
-
-                    <div class="btn-group graphControls">
-
-                        <input type="button" value="Barras" class="btn">
-                        <input type="button" value="Lineas" class="btn">
-                        <input type="button" value="Lineas con paso" class="btn">
-                    </div>
+                          <a class="hdata" href="#">
+                            <i class="icon-user bblue"></i> 
+                            <p>Modificar mis Datos y Contraseña</p>
+                          </a>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>
+                          <a class="hdata" href="#">
+                            <i class="icon-list-ul byellow"></i> 
+                            <p>Crear un Requerimiento de Bien</p>
+                          </a>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>
+                          <a class="hdata" href="#">
+                            <i class="icon-list-ul bgreen"></i> 
+                            <p>Crear un Requerimiento de Servicio</p>
+                          </a>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>
+                          <a class="hdata" href="#">
+                            <i class="icon-off bred"></i> 
+                            <p>Cerrar Sesion</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>                    
 
                   </div>
                 </div>
 
               </div>
-              <!-- Bar chart ends -->
 
-              <!-- Realtime chart starts -->
+              <div class="widget">                          
 
-                <div class="widget">
-
-                <div class="widget-head">
-                  <div class="pull-left">Gráfico en tiempo real</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>  
-                  <div class="clearfix"></div>
-                </div>             
-
-                  <div class="widget-content ">
-                    <div class="padd">
-
-                      <div id="live-chart"></div>
-                      <hr />
-                      <div class="input-append">
-                        <label>Intervalo de tiempo: </label><input id="updateInterval" type="text" class="span3" value="">
-                        <span class="add-on">ms</span>
+                <div class="widget-content">
+                  <div class="padd">
+                    <h3>Mantenedores del Sistema</h3>
+                    <br>
+                    <div class="row-fluid text-center">
+                      <div class="span4">
+                        <a class="hdata" href="#">
+                            <i class="icon-book icon-manten"></i> 
+                            <p>Administrar Bienes</p>
+                        </a>
+                      </div>
+                      <div class="span4">
+                        <a class="hdata" href="#">
+                            <i class="icon-group icon-manten"></i> 
+                            <p>Administrar Personal</p>
+                        </a>
+                      </div>
+                      <div class="span4">
+                        <a class="hdata" href="#">
+                            <i class="icon-truck icon-manten"></i> 
+                            <p>Administrar Proveedor</p>
+                        </a>
                       </div>
                     </div>
+                    <br>
+                    <div class="row-fluid text-center">
+                      <div class="span4">
+                        <a class="hdata" href="#">
+                            <i class="icon-desktop icon-manten"></i> 
+                            <p>Administrar Variables</p>
+                        </a>
+                      </div>
+                      <div class="span4">
+                        <a class="hdata" href="#">
+                            <i class="icon-tags icon-manten"></i> 
+                            <p>Administrar Metas</p>
+                        </a>
+                      </div>
+                      <div class="span4">
+                        <a class="hdata" href="#">
+                            <i class="icon-building icon-manten"></i> 
+                            <p>Administrar Areas</p>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+
+
                   </div>
                 </div>
 
-                <!-- Realtime chart ends -->
+              </div>
 
-                <!-- Pie chart starts -->
-
-                <div class="widget">
-
-                <div class="widget-head">
-                  <div class="pull-left">Pie Chart</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>  
-                  <div class="clearfix"></div>
-                </div>
-
-                  <div class="widget-content">
-                    <div class="padd">
-
-                      <div class="row-fluid">
-                        <div class="span4">
-                          <div id="pie-chart"></div>
-                        </div>
-                        <div class="span4">
-                          <div id="pie-chart2"></div>
-                        </div>
-                        <div class="span4">
-                          <div id="pie-chart3"></div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <!-- Pie chart ends -->
 
             </div>
           </div>
