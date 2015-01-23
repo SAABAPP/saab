@@ -79,7 +79,9 @@ height:0px;
 .center{
 text-align:center;
 }
-
+.text-danger{
+	color: #B94A48;
+}
 a:hover,a:active,a:focus {
 outline: 0;
 }

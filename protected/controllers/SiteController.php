@@ -56,7 +56,15 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->layout='//layouts/main';
-		$this->render('index');
+
+		// $this->render('index');
+		$idusuario = Yii::app()->user->getState('idusuario');
+  		$usuario= new Usuario;
+ 		$usuario = Usuario::model()->findByPk($idusuario);
+ 		
+		$this->render('index',array(
+			'usuario'=>$usuario,
+		));
 	}
 
 	/**
@@ -118,6 +126,11 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
+
+			$idusuario = Yii::app()->user->getState('idusuario');
+  			$usuario= new Usuario;
+ 			$usuario = Usuario::model()->findByPk($idusuario);
+
 			if($model->validate() && $model->login())
 			{
 				//$this->redirect(Yii::app()->user->returnUrl);//CUANDO EL LOGEO ES EXITOSO TE MANDA A LA ULTIMA PAGINA QUE VISITASTE, SIEMPRE Y CUANDO SE GUARDO,

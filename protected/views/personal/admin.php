@@ -44,8 +44,8 @@ $('.search-form form').submit(function(){
 $columns=array();
 
 array_push($columns, array(
-	'header' => 'N° Personal',
-	'value'=>'$data->IDPERSONAL',
+	'header' => 'N° DNI',
+	'value'=>'$data->PER_dni',
 	)
 );
 
@@ -56,18 +56,59 @@ array_push($columns, array(
 );
 
 array_push($columns, array(
-	'header' => 'nombre',
+	'header' => 'Nombres',
 	'value'=>'$data->PER_nombres',
+	)
+);
+array_push($columns, array(
+	'header' => 'Apellido Paterno',
+	'value'=>'$data->PER_paterno',
+	)
+);
+array_push($columns, array(
+	'header' => 'Apellido Materno',
+	'value'=>'$data->PER_materno',
 	)
 );
 
 array_push($columns, array(
     'name' => 'buttons',
-    'header' => 'Opc',
+    'header' => 'Estado',
     'type' => 'raw',
     'htmlOptions' => array('class' => 'button-column'),
     'value' => function($data) {
-    	return CHtml::link("<i class='icon-eye-open'></i>", array("view", 'id' => $data->IDPERSONAL));
+
+    	$estado=$data->PER_estado;
+
+    	if (!$estado) {
+    		$html="<i class='icon-user text-danger' style='font-size:16px'></i>";
+    	}else{
+    		$html="<i class='icon-user text-success' style='font-size:16px'></i>";
+    	}
+    	
+    	
+    	return $html;
+    },
+));
+
+array_push($columns, array(
+    'name' => 'buttons',
+    'header' => 'Opciones',
+    'type' => 'raw',
+    'htmlOptions' => array('class' => 'button-column'),
+    'value' => function($data) {
+
+    	$html=CHtml::link("<i class='icon-pencil' style='font-size:16px'></i>", array("update", 'id' => $data->IDPERSONAL));
+
+    	$estado=$data->PER_estado;
+
+    	if (!$estado) {
+    		$html.=CHtml::link("&nbsp;&nbsp;<i class='icon-check text-success' style='font-size:16px'></i>", array("on", 'id' => $data->IDPERSONAL));
+    	}else{
+    		$html.=CHtml::link("&nbsp;&nbsp;<i class='icon-ban-circle text-danger' style='font-size:16px'></i>", array("off", 'id' => $data->IDPERSONAL));
+    	}
+
+    	return $html;
     },
 ));
 
@@ -76,28 +117,29 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'dataProvider'=>$model->search(),
 	'type'=>'bordered hover',
         'template'=>"{items}{pager}",
-	'columns'=>array(
-		'PER_dni',
-		'PER_nombres',
-		'PER_paterno',
-		'PER_materno',
-		'iDAREA.ARE_nombre',
-		/*
-		'PER_sexo',
-		'PER_direccion',
-		'PER_telefono',
-		'PER_celular',
+        'columns'=>$columns,
+	// 'columns'=>array(
+	// 	'PER_dni',
+	// 	'PER_nombres',
+	// 	'PER_paterno',
+	// 	'PER_materno',
+	// 	'iDAREA.ARE_nombre',
 		
-		'PER_estado',
-		'iDAREA.',
-		*/
-		array(
-			'header'=>'Detalles',
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-			'template'=>"{update}&nbsp;{add}",
+	// 	'PER_sexo',
+	// 	'PER_direccion',
+	// 	'PER_telefono',
+	// 	'PER_celular',
+		
+	// 	'PER_estado',
+	// 	'iDAREA.',
+		
+	// 	array(
+	// 		'header'=>'Detalles',
+	// 		'class'=>'bootstrap.widgets.TbButtonColumn',
+	// 		'template'=>"{update}&nbsp;{add}",
 
-		),
-	),
+	// 	),
+	// ),
 )); ?>
 
 </div>

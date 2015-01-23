@@ -17,9 +17,18 @@ class UserIdentity extends CUserIdentity {
      */
     public function authenticate() {
         $usuario = Usuario::model()->findByAttributes(array('USU_usuario' => $this->username));
-        //aca busco el usuario que se esta logeando
+        //busco el usuario que se esta logeando
+        // $estado=1;
+        // print_r($usuario);
+        $estado=$usuario->iDPERSONAL->PER_estado;
+
+        //verifico si el personal esta deshabilitado
+
         if (!isset($usuario))
             $this->errorCode = self::ERROR_USERNAME_INVALID;
+        elseif (!$estado) {
+           $this->errorCode = self::ERROR_USERNAME_INVALID;
+        }
         elseif ($usuario->USU_password !== $this->password)
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else {

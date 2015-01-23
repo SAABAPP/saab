@@ -29,7 +29,7 @@ class PersonalController extends Controller
 		return array(
 
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','create','update','index','view','buscaArea','buscaAutorizacion'),
+				'actions'=>array('admin','delete','create','update','index','view','buscaArea','buscaAutorizacion','on','off'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 
@@ -70,30 +70,41 @@ class PersonalController extends Controller
 
 		if(isset($_POST['Personal'],$_POST['Usuario']))
 		{
-			$model->attributes=$_POST['Personal'];			
-			if(!$model->save()){
-				Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar el personal');
-			}
-			else{
-				$usuario->attributes=$_POST['Usuario'];
-				$usuario->USU_password=md5($usuario->USU_password);
-				$usuario->IDPERSONAL=$model->IDPERSONAL;
-
-				
-				if(!$usuario->save()){
-					Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el usuario');
+			$usuario->attributes=$_POST['Usuario'];
+			if (!$this->BuscaUsuario($usuario->USU_usuario)) {
+				$model->attributes=$_POST['Personal'];			
+				if(!$model->save()){
+					Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden guardar el personal');
+					$this->redirect(array('create'));
 				}
 				else{
-					$asignacion->attributes=$_POST['AuthAssignment'];
-					$asignacion->userid=$usuario->USU_usuario;
+					$usuario->attributes=$_POST['Usuario'];
+					$usuario->USU_password=md5($usuario->USU_password);
+					$usuario->IDPERSONAL=$model->IDPERSONAL;
+
 					
-					if(!$asignacion->save()){
-						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el permiso');
+					if(!$usuario->save()){
+						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el usuario');
 					}
-					else
-						Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
-				}	
+					else{
+						$asignacion->attributes=$_POST['AuthAssignment'];
+						$asignacion->userid=$usuario->USU_usuario;
+						
+						if(!$asignacion->save()){
+							Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el permiso');
+						}
+						else{
+							Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');					
+						}
+
+					}	
+				}
 			}
+			else{
+				Yii::app()->user->setFlash('error', '<strong>Upps!</strong>Usuario Ya existe intente otro nombre');
+				$this->redirect(array('create'));
+			}
+			
 
 			
 			$this->redirect(array('admin'));
@@ -104,6 +115,51 @@ class PersonalController extends Controller
 			'usuario'=>$usuario,
 			'asignacion'=>$asignacion,
 		));
+	}
+	public function BuscaUsuario($username){
+
+
+  			
+  			$exists = Usuario::model()->exists('USU_usuario = "'.$username.'"');
+
+  			return $exists;
+
+	}
+	public function actionOff($id){
+		$model=$this->loadModel($id);
+
+
+		$model->PER_estado=0;			
+		if(!$model->save()){
+			Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pudo actualizar el personal');
+		}
+		else{
+			Yii::app()->user->setFlash('success', '<strong>Bien!</strong> Se Actualizó Correctamente el personal');
+		}
+
+		$this->redirect(Yii::app()->user->returnUrl);
+
+		// $this->redirect(array('admin'));
+
+
+	}
+	public function actionOn($id){
+
+		$model=$this->loadModel($id);
+
+
+		$model->PER_estado=1;			
+		if(!$model->save()){
+			Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pudo actualizar el personal');
+		}
+		else{
+			Yii::app()->user->setFlash('success', '<strong>Bien!</strong> Se Actualizó Correctamente el personal');
+		}
+
+		$this->redirect(Yii::app()->user->returnUrl);
+		// $this->redirect(array('admin'));
+
+		
 	}
 	public function actionBuscaAutorizacion(){
     	$q=trim($_GET['term']);
@@ -252,6 +308,9 @@ class PersonalController extends Controller
 	{
 		$model=new Personal('search');
 		$model->unsetAttributes();  // clear any default values
+
+		Yii::app()->user->setReturnUrl(Yii::app()->request->url);
+
 		if(isset($_GET['Personal']))
 			$model->attributes=$_GET['Personal'];
 
