@@ -38,9 +38,6 @@ class ApiController extends Controller
                 'actions'=>array('buscaCatalogo'),
                 'users'=>array('*'),
                 ),
-            array('deny',
-                'users'=>array('*'),
-                ),
             );
     }
 
@@ -54,38 +51,89 @@ class ApiController extends Controller
     }
 
 
-    public function actionList()
+    public function actionIndex()
+    {
+        $model=ucfirst($this->uri(4));
+
+        $called=$_SERVER['REQUEST_METHOD'];
+
+        switch ($called) {
+            case 'GET':
+                if ($this->uri(6)) {
+                    $this->actionList($model,$this->uri(6)); 
+                }else{
+                    if ($this->uri(5)) {
+                        $this->actionView($model,$this->uri(5));
+                    }
+                    else{                        
+                       $this->actionList($model,null); 
+                    }
+                    
+                }
+                
+                
+                break;
+
+            case 'POST':
+
+                    $requestBody = Yii::app()->request->getRawBody();
+
+                    $parsedRequest = CJSON::decode($requestBody);
+                  
+                    $this->actionCreate($model,$parsedRequest);
+                
+                break;
+            case 'PUT':
+
+                $requestBody = Yii::app()->request->getRawBody();
+
+                $parsedRequest = CJSON::decode($requestBody);
+              
+                $this->actionUpdate($model,$this->uri(5),$parsedRequest);
+            case 'DELETE':
+              
+                $this->actionDelete($model,$this->uri(5));
+            
+            break;
+            default:
+                break;
+        }
+    }
+
+
+    private function actionList($model,$filter)
     {   
-        
         
         // $this->_checkAuth();
         
-        
-
         $model=ucfirst($this->uri(4));
-        $condicion = new CDbCriteria;
-        $condicion->limit = 1000;
-        $models=  $model::model()->findAll($condicion);
+        $criteria = new CDbCriteria;
 
-
-
+        if ($filter!=null) {
+            $condition=$this->uri(5);
+            if ( preg_match( '/_like/',$condition,$matches)){
+                $condition=explode("_like",$condition); 
+                $filter=$condition[0]." LIKE '%".$filter."%'";
+                $criteria->condition=$filter;
+            }else{
+                $filter=$condition."='".$filter."'";
+                $criteria->condition=$filter;
+            }
+            
+        }
         
-        // // switch($_GET['model'])
-        // // {
-        // //     case 'posts': // {{{ 
-        // //         $models=  Catalogo::model()->findAll($condicion);
-        // //         break; // }}} 
-        // //     default: // {{{ 
-        // //         $this->_sendResponse(501, sprintf('Error: Mode <b>list</b> is not implemented for model <b>%s</b>',$_GET['model']) );
-        // //         exit; // }}} 
-        // // }
+        $criteria->limit = 1000;
+        $models=  $model::model()->findAll($criteria);
+
 
         if(is_null($models)) {
              $this->_sendResponse(200, sprintf('No items where found for model <b>%s</b>', $_GET['model']) );
         } else {
              $rows = array();
-             foreach($models as $model)
-                 $rows[] = $model->attributes;
+             foreach($models as $model){
+                $rows[] = $model->attributes;
+             }
+                 
 
              $this->_sendResponse(200, CJSON::encode($rows));
         }
@@ -95,13 +143,13 @@ class ApiController extends Controller
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView()
+    private function actionView($model,$id)
     {
         // Check if id was submitted via GET
-        if(!isset($_GET['id']))
-            $this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
+        // if(!isset($_GET['id']))
+        //     $this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
 
-        $model = Catalogo::model()->findByPk($_GET['id']);
+        $model = $model::model()->findByPk($id);
 
         // switch($_GET['model'])
         // {
@@ -128,30 +176,36 @@ class ApiController extends Controller
      * @access public
      * @return void
      */
-    public function actionCreate()
+    private function actionCreate($model,$attributes)
     {
-        $this->_checkAuth();
+        // $this->_checkAuth();
 
-        switch($_GET['model'])
-        {
-            // Get an instance of the respective model
-            case 'posts': // {{{ 
-                $model = new Post;                    
-                break; // }}} 
-            default: // {{{ 
-                $this->_sendResponse(501, sprintf('Mode <b>create</b> is not implemented for model <b>%s</b>',$_GET['model']) );
-                exit; // }}} 
-        }
+        $model = new $model();  
+
+        // switch($_GET['model'])
+        // {
+        //     // Get an instance of the respective model
+        //     case 'posts': // {{{ 
+        //         $model = new Post;                    
+        //         break; // }}} 
+        //     default: // {{{ 
+        //         $this->_sendResponse(501, sprintf('Mode <b>create</b> is not implemented for model <b>%s</b>',$_GET['model']) );
+        //         exit; // }}} 
+        // }
         // Try to assign POST values to attributes
-        foreach($_POST as $var=>$value) {
-            // Does the model have this attribute?
+        // $_POST=$attributes;
+
+        foreach($attributes as $var=>$value) {
+            
             if($model->hasAttribute($var)) {
                 $model->$var = $value;
             } else {
                 // No, raise an error
                 $this->_sendResponse(500, sprintf('Parameter <b>%s</b> is not allowed for model <b>%s</b>', $var, $_GET['model']) );
             }
+
         }
+
         // Try to save the model
         if($model->save()) {
             // Saving was OK
@@ -173,7 +227,7 @@ class ApiController extends Controller
             $this->_sendResponse(500, $msg );
         }
 
-        var_dump($_REQUEST);
+        // var_dump($_REQUEST);
     } // }}}     
     // {{{ actionUpdate
     /**
@@ -182,23 +236,26 @@ class ApiController extends Controller
      * @access public
      * @return void
      */
-    public function actionUpdate()
+    private function actionUpdate($model,$id,$put_vars)
     {
-        $this->_checkAuth();
+        // $this->_checkAuth();
 
         // Get PUT parameters
-        parse_str(file_get_contents('php://input'), $put_vars);
+        // parse_str(file_get_contents('php://input'), $put_vars);
 
-        switch($_GET['model'])
-        {
-            // Find respective model
-            case 'posts': // {{{ 
-                $model = Post::model()->findByPk($_GET['id']);                    
-                break; // }}} 
-            default: // {{{ 
-                $this->_sendResponse(501, sprintf('Error: Mode <b>update</b> is not implemented for model <b>%s</b>',$_GET['model']) );
-                exit; // }}} 
-        }
+        $model = $model::model()->findByPk($id);    
+
+        // switch($_GET['model'])
+        // {
+        //     // Find respective model
+        //     case 'posts': // {{{ 
+                                
+        //         break; // }}} 
+        //     default: // {{{ 
+        //         $this->_sendResponse(501, sprintf('Error: Mode <b>update</b> is not implemented for model <b>%s</b>',$_GET['model']) );
+        //         exit; // }}} 
+        // }
+
         if(is_null($model))
             $this->_sendResponse(400, sprintf("Error: Didn't find any model <b>%s</b> with ID <b>%s</b>.",$_GET['model'], $_GET['id']) );
         
@@ -207,14 +264,15 @@ class ApiController extends Controller
             // Does model have this attribute?
             if($model->hasAttribute($var)) {
                 $model->$var = $value;
-            } else {
-                // No, raise error
-                $this->_sendResponse(500, sprintf('Parameter <b>%s</b> is not allowed for model <b>%s</b>', $var, $_GET['model']) );
-            }
+            } 
+            // else {
+            //     // No, raise error
+            //     $this->_sendResponse(500, sprintf('Parameter <b>%s</b> is not allowed for model <b>%s</b>', $var, $_GET['model']) );
+            // }
         }
         // Try to save the model
         if($model->save()) {
-            $this->_sendResponse(200, sprintf('The model <b>%s</b> with id <b>%s</b> has been updated.', $_GET['model'], $_GET['id']) );
+            $this->_sendResponse(200, $this->_getObjectEncoded($_GET['model'], $model->attributes) );
         } else {
             $msg = "<h1>Error</h1>";
             $msg .= sprintf("Couldn't update model <b>%s</b>", $_GET['model']);
@@ -238,20 +296,22 @@ class ApiController extends Controller
      * @access public
      * @return void
      */
-    public function actionDelete()
+    private function actionDelete($model,$id)
     {
-        $this->_checkAuth();
+        // $this->_checkAuth();
 
-        switch($_GET['model'])
-        {
-            // Load the respective model
-            case 'posts': // {{{ 
-                $model = Post::model()->findByPk($_GET['id']);                    
-                break; // }}} 
-            default: // {{{ 
-                $this->_sendResponse(501, sprintf('Error: Mode <b>delete</b> is not implemented for model <b>%s</b>',$_GET['model']) );
-                exit; // }}} 
-        }
+        $model = $model::model()->findByPk($id);   
+
+        // switch($_GET['model'])
+        // {
+        //     // Load the respective model
+        //     case 'posts': // {{{ 
+        //         $model = Post::model()->findByPk($_GET['id']);                    
+        //         break; // }}} 
+        //     default: // {{{ 
+        //         $this->_sendResponse(501, sprintf('Error: Mode <b>delete</b> is not implemented for model <b>%s</b>',$_GET['model']) );
+        //         exit; // }}} 
+        // }
         // Was a model found?
         if(is_null($model)) {
             // No, raise an error
@@ -261,7 +321,7 @@ class ApiController extends Controller
         // Delete the model
         $num = $model->delete();
         if($num>0)
-            $this->_sendResponse(200, sprintf("Model <b>%s</b> with ID <b>%s</b> has been deleted.",$_GET['model'], $_GET['id']) );
+            echo 1;
         else
             $this->_sendResponse(500, sprintf("Error: Couldn't delete model <b>%s</b> with ID <b>%s</b>.",$_GET['model'], $_GET['id']) );
     }
@@ -269,10 +329,7 @@ class ApiController extends Controller
     /**
      * Lists all models.
      */
-    public function actionIndex()
-    {
-        echo CJSON::encode(array(1, 2, 3));
-    }
+
 
     /**
      * Manages all models.
@@ -289,28 +346,35 @@ class ApiController extends Controller
         ));
     }
 
-    public function actionBuscaCatalogo()
+    public function actionBusca($model)
     {
         $q=trim($_GET['term']);
 
         if (isset($q)) {
             $condicion = new CDbCriteria;
-            $condicion->condition = "CAT_descripcion LIKE '%". $q ."%' and IDCATALOGO>=4898 AND length(CAT_codigo)>=12 order by CAT_descripcion";
-            $condicion->limit = 10; ; 
-            $catalogoBienes=  Catalogo::model()->findAll($condicion);
+            $condicion->condition = "CAT_descripcion LIKE '%". $q ."%'  order by CAT_descripcion";
+            $condicion->limit = 10; 
+            $models=  $model::model()->findAll($condicion);
 
-            if (!empty($catalogoBienes)) {
-                $returnVal = '';
-                $salida = array();
-                foreach ($catalogoBienes as $p) {
-                    $salida[] = array(
-                        'label'=>$p->CAT_descripcion,
-                        'idCatalogo' => $p->IDCATALOGO,  
-                        );
-                }
-                echo CJSON::encode($salida);
-                Yii::app()->end();
-            }
+
+            $rows = array();
+            foreach($models as $model)
+                $rows[] = $model->attributes;
+
+            $this->_sendResponse(200, CJSON::encode($rows));
+
+            // if (!empty($catalogoBienes)) {
+            //     $returnVal = '';
+            //     $salida = array();
+            //     foreach ($catalogoBienes as $p) {
+            //         $salida[] = array(
+            //             'label'=>$p->CAT_descripcion,
+            //             'idCatalogo' => $p->IDCATALOGO,  
+            //             );
+            //     }
+            //     echo CJSON::encode($salida);
+            //     Yii::app()->end();
+            // }
         }
     }
 
@@ -342,7 +406,7 @@ class ApiController extends Controller
         }
     }
 
-    private function _sendResponse($status = 200, $body = '', $content_type = 'text/html')
+    private function _sendResponse($status = 200, $body = '', $content_type = 'application/json')
     {
         $status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
         // set the status
