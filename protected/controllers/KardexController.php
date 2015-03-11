@@ -139,30 +139,34 @@ class KardexController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$id='8806';
+	
 		$model=new Kardex('search');
 		$model->unsetAttributes();
-		Yii::app()->user->setState('entrada_cantidad',0);
-
 
 		$bien= new Bien('search');		
 		$bien->unsetAttributes();  // clear any default values
-		$bien->IDBIEN='8806';
+
+		$idbien="8806";
+
 		if(isset($_GET['Kardex'])){
 			$model->attributes=$_GET['Kardex'];	
 						
 		}
+
+		if(isset($_GET['Bien'])){
+			$bien->attributes=$_GET['Bien'];
+			$idbien=$bien->IDBIEN;
+						
+		}
+
 		if(isset($_GET['imprimir'])){
-			$this->layout='//layouts/pdf';
-			// Yii::app()->request->sendFile('kardex.xls',$this->render('admin',array(
-			// 	'model'=>$model,
-			// 	'bien'=>$bien,
-			// ),true)); 
+			$this->layout='//layouts/pdf';		
 		}
 
 		$this->render('admin',array(
 			'model'=>$model,
 			'bien'=>$bien,
+			'idbien'=>$idbien
 		));
 	}
 

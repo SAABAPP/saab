@@ -729,7 +729,7 @@ a.text-success:focus {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 h1,
