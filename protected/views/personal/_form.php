@@ -42,7 +42,7 @@
 		</div>
 		<h2 class="center">Usuario del Sistema</h2><br>
 		<?php echo $form->textFieldRow($usuario,'USU_usuario',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Usuario..')); ?>
-		<?php echo $form->passwordFieldRow($usuario,'USU_password',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Password..')); ?>
+		<?php echo $form->passwordFieldRow($usuario,'USU_password',array('class'=>'span3','maxlength'=>150,'placeholder'=>'En Blanco para no cambiar..','value'=>'')); ?>
 		<label id="control-label" for="tipo" class="control-label">Tipo Usuario*</label>
 		<div class="controls">
 			<?php 

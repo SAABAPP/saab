@@ -48,8 +48,14 @@
 
        	break;
        	case "kardex":
-       	echo "<h2 class=\"pull-left\"><i class=\"icon-table\"></i> Kardex</h2>";
+            if ($this->action->id=='reportesAdmin') {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-file-alt\"></i> Reporte Gerencial</h2>";
+            } else {
+                  echo "<h2 class=\"pull-left\"><i class=\"icon-table\"></i> Kardex</h2>";
+            };   
+       	
        	break;
+
        	case "personal":
        	echo "<h2 class=\"pull-left\"><i class=\"icon-user\"></i> Usuarios</h2>";
        	break;

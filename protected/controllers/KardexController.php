@@ -135,30 +135,55 @@ class KardexController extends Controller
 	}
 
 	public function actionReportesAdmin(){
-		$model=new Kardex('search');
-		$model->unsetAttributes();
 
-		$bien= new Bien('search');		
-		$bien->unsetAttributes();  // clear any default values
+
+		
+		
+		$criteria = new CDbCriteria;
 
 		
 
-		if(isset($_GET['Kardex'])){
-			$model->attributes=$_GET['Kardex'];	
-						
+		$model=new Area('search');
+		$area=$model->search()->getData();
+
+		if(isset($_GET['Fechas'])){
+			$min=$_GET['Fechas']['min'];
+			$max=$_GET['Fechas']['max'];
+			
+			$rango=[
+				"min"=>$min,
+				"max"=>$max
+			];
+
+		}else{
+			$rango=[
+				"min"=>date('Y-m-d'),
+				"max"=>date('Y-m-d')
+			];
 		}
 
-		if(isset($_GET['Bien'])){
-			$bien->attributes=$_GET['Bien'];
-						
+		foreach ($area as $value) {
+			$requerimiento = array();
+			$criteria->condition="REQ_oficina='".$value->ARE_nombre."'";
+			$requerimientos=  Requerimiento::model()->findAll($criteria);
+			
+			$rows = array();
+             foreach($requerimientos as $model){
+                $rows[] = $model->attributes;
+             }
+			if (!empty($requerimientos)) {
+				$counter[]=["area"=>$rows[0]['REQ_oficina'],"count"=>Requerimiento::model()->count($criteria)];						
+			}			
+
 		}
+
 		if(isset($_GET['imprimir'])){
-			$this->layout='//layouts/pdf';		
+			$this->layout='//layouts/reportes';		
 		}
 
 		$this->render('reportes',array(
-			'model'=>$model,
-			'bien'=>$bien
+			'rango'=>$rango,
+			'counter'=>$counter
 		));
 	}
 
@@ -175,6 +200,7 @@ class KardexController extends Controller
 		$bien->unsetAttributes();  // clear any default values
 
 		
+
 
 		if(isset($_GET['Kardex'])){
 			$model->attributes=$_GET['Kardex'];	

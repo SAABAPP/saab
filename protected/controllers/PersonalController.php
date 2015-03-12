@@ -84,7 +84,20 @@ class PersonalController extends Controller
 
 					
 					if(!$usuario->save()){
-						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el usuario');
+						 // Errors occurred
+			            $msg = "<h1>Error</h1>";
+			            $msg .= "<ul>";
+			            foreach($usuario->errors as $attribute=>$attr_errors) {
+			                $msg .= "<li>Attribute: $attribute</li>";
+			                $msg .= "<ul>";
+			                foreach($attr_errors as $attr_error) {
+			                    $msg .= "<li>$attr_error</li>";
+			                }        
+			                $msg .= "</ul>";
+			            }
+			            $msg .= "</ul>";
+
+						Yii::app()->user->setFlash('warning', $msg);
 					}
 					else{
 						$asignacion->attributes=$_POST['AuthAssignment'];
@@ -246,13 +259,38 @@ class PersonalController extends Controller
 				try{
 					$usu=Usuario::model()->findByPk($usuario->IDUSUARIO);
 					$usu->attributes=$_POST['Usuario'];
-					$usu->USU_password=md5($usuario->USU_password);
+					$password=$usu->USU_password;
+					$usu->USU_password=$password==""?$usuario->USU_password:md5($password);
+					$usu->USU_password2=$password==""?$usuario->USU_password:md5($password);
 					if(!$usu->save()){
-						Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden actualizar el usuario');
+						// Errors occurred
+			            $msg = "<h1>Error</h1>";
+			            $msg .= "<ul>";
+			            foreach($usu->errors as $attribute=>$attr_errors) {
+			                $msg .= "<li>Attribute: $attribute</li>";
+			                $msg .= "<ul>";
+			                foreach($attr_errors as $attr_error) {
+			                    $msg .= "<li>$attr_error</li>";
+			                }        
+			                $msg .= "</ul>";
+			            }
+			            $msg .= "</ul>";
+
+						Yii::app()->user->setFlash('warning', $msg);
 					}
 					else{
-						Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se creo el nuevo usuario');
-					}	
+						$asignacion->attributes=$_POST['AuthAssignment'];
+						$asignacion->userid=$usu->USU_usuario;
+						
+						if(!$asignacion->save()){
+							Yii::app()->user->setFlash('warning', '<strong>Oh Nooo!</strong> No se pueden guardar el permiso');
+						}
+						else{
+							Yii::app()->user->setFlash('success', '<strong>Bien!!</strong> se Actualizo el usuario');	
+							$this->redirect(array('admin'));				
+						}
+
+					}
 				}catch(exception $e){
 					Yii::app()->user->setFlash('error', $e);
 				}
@@ -260,7 +298,7 @@ class PersonalController extends Controller
 			}
 
 			
-			$this->redirect(array('admin'));
+			
 		}
 
 		$this->render('update',array(

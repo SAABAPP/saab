@@ -8,7 +8,7 @@
 	<?php echo $form->errorSummary($model); ?>
 	<?php echo $form->textFieldRow($model,'USU_usuario',array('class'=>'span3','maxlength'=>150,'readonly'=>true)); ?>
 
-	<?php echo $form->passwordFieldRow($model,'USU_password',array('class'=>'span3','maxlength'=>150,'value'=>'')); ?>
+	<?php echo $form->passwordFieldRow($model,'USU_password',array('class'=>'span3','maxlength'=>150,'value'=>'','autoComplete'=>'off')); ?>
 
 	<?php echo $form->passwordFieldRow($model,'USU_password2',array('class'=>'span3','maxlength'=>150,'value'=>'')); ?>
 
@@ -20,7 +20,8 @@
 			'type'=>'primary',
 			'label'=>$model->isNewRecord ? 'Crear' : 'Guardar',
 		)); ?>
-		<button type="reset" class="btn secundario">Limpiar</button>
+		<a class="btn inline secundario" type="button" href="<?php echo Yii::app()->request->baseUrl; ?>/site/index">Cancelar</a>
+		
 	</div>
 
 <?php $this->endWidget(); ?>
