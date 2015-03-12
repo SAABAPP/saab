@@ -140,11 +140,11 @@ class KardexController extends Controller
 		
 		
 		$criteria = new CDbCriteria;
-
+		$counter=array();
 		
-
 		$model=new Area('search');
 		$area=$model->search()->getData();
+		
 
 		if(isset($_GET['Fechas'])){
 			$min=$_GET['Fechas']['min'];

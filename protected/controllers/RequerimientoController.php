@@ -233,6 +233,8 @@ class RequerimientoController extends Controller
 		
 
 		$model=new Requerimiento;
+		Yii::app()->user->setState('site_id', 0);
+
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
@@ -247,8 +249,8 @@ class RequerimientoController extends Controller
  		$meta=new Meta;
  		$meta->unsetAttributes();
 
- 		if(isset($_GET['Catalogo']))
-			$model->attributes=$_GET['Catalogo'];
+ 		// if(isset($_GET['Catalogo']))
+			// $model->attributes=$_GET['Catalogo'];
  		
 		if($this->validador()){
 			if(isset($_POST['Requerimiento']))
@@ -309,6 +311,8 @@ class RequerimientoController extends Controller
 
 
 		$model=new Requerimiento;
+		Yii::app()->user->setState('site_id', 0);
+		
 		$idusuario = Yii::app()->user->getState('idusuario');
   		$usuario= new Usuario;
  		$usuario = Usuario::model()->findByPk($idusuario);
@@ -547,18 +551,20 @@ class RequerimientoController extends Controller
             
 			$i=Yii::app()->user->getState('site_id'); //obtiene el valor de una variable global
           	
-          // if($i==0){
+          if($i==0){
           	
-          // 	$this->columnas[$i][0]=$idbien;
-          //   $this->columnas[$i][1]=$rbi_cantidad;
-          //   $this->columnas[$i][2]=$descripcion;
-          //   Yii::app()->user->setState('arrays', $this->columnas);
-          //   ++$i;
-          //  	Yii::app()->user->setState('site_id', $i);
-          // }else{
+          	$this->columnas[$i][0]=$idbien;
+            $this->columnas[$i][1]=$rbi_cantidad;
+            $this->columnas[$i][2]=$descripcion;
+            Yii::app()->user->setState('arrays', $this->columnas);
+            ++$i;
+           	Yii::app()->user->setState('site_id', $i);
+          }else{
 
-          	$pos=$this->busqueda($idbien);
+          	
           	$this->columnas=Yii::app()->user->getState('arrays');
+          	$pos=$this->busqueda($idbien);
+
           	if($pos!=null){
  				$this->columnas[$pos][0]=$idbien;
            		$this->columnas[$pos][1]=$rbi_cantidad;
@@ -575,9 +581,9 @@ class RequerimientoController extends Controller
           	}
           	
           	
-            Yii::app()->user->setState('arrays', $this->columnas);
-          // }
-
+            
+          }
+          Yii::app()->user->setState('arrays', $this->columnas);
 
             // envia valor a una varible global
             
@@ -655,18 +661,24 @@ class RequerimientoController extends Controller
     	$columna=array();
     	$columna=Yii::app()->user->getState('arrays');
     	// foreach ($this->columnas as $col) {
-    	for($i=0;$i<count($columna); $i++){
-    		
-    		if(stristr($columna[$i][0],$id))
-    		{
-    			return $i;
-    			break;
-    		}   		
 
-    			
-    		
+    	if (count($columna)==0) {
+    		return null;
+    	}else{
+    		for($i=0;$i<count($columna); $i++){
+	    		
+	    		if(stristr($columna[$i][0],$id))
+	    		{
+	    			return $i;
+	    			break;
+	    		}   		
+
+	    			
+	    		
+	    	}
+	    	return null; 
     	}
-    	return null; 
+    	
     }
     public function validador(){
     	$col=Yii::app()->user->getState('arrays');
