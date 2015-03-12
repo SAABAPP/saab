@@ -30,15 +30,39 @@ $this->renderPartial('_search',array(
 	'model'=>$model,
 	'bien'=>$bien,
 	));
+	
+	
+	$data=$model->search()->getData();
+	$_bien=$bien->search()->getData();
 ?>
 </div><!-- search-form -->
-<br/><br/>
 <hr>
-<h3>Kardex</h3>
+<h2 class="text-center">Kardex Fisico Valorado</h2>
 <br/>
 
 <div class="span11">
 
+<div class="span12" style="margin-bottom:20px">
+
+	<div class="span8">
+		<h4>Articulo: 
+			<small><?php 
+			foreach ($_bien as $value) {
+				echo $value->iDCATALOGO->CAT_descripcion;
+			}
+			?></small>
+		</h4>
+	</div>
+	<div class="span4">
+		<h4>Unidad de Medida: <small><?php 
+			foreach ($_bien as $value) {
+				echo $value->iDCATALOGO->CAT_unidad;
+			}
+			?></small>
+		</h4>
+	</div>
+
+</div>
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -63,7 +87,7 @@ $this->renderPartial('_search',array(
 	<tbody>
 		<?php 
 		
-		$data=$model->search()->getData();
+
 
 
 		foreach ($data as $value) {
@@ -161,6 +185,9 @@ $this->renderPartial('_search',array(
 	</tbody>
 
 </table>
+<div class="text-center" style="padding-bottom:20px">
+	<a id='imprimir' href='?imprimir' target='_blank' class="btn inline" type="\" >Imprimir Kardex</a>
+</div>
 
 
 </div>

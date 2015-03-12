@@ -186,11 +186,12 @@ class KardexController extends Controller
 			$idbien=$bien->IDBIEN?$bien->IDBIEN:'8806';
 						
 		}else{
+			$bien->IDBIEN="8806";
 			$idbien="8806";
 		}
 
 		if(isset($_GET['imprimir'])){
-			$this->layout='//layouts/pdf';		
+			$this->layout='//layouts/reportes';		
 		}
 
 		$this->render('admin',array(

@@ -67,6 +67,11 @@ a:hover,a:active,a:focus {
 	font-weight: bold;
 }
 
+input.disabled{
+	pointer-events: none; 
+	cursor: not-allowed;
+	background-color: #EEE;
+}
 
 hr{
 margin:15px 0px 10px 0px;

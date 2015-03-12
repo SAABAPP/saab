@@ -88,7 +88,8 @@ class NeaController extends Controller
 			if(isset($_POST['Nea']) && isset($_POST['Entrada']) && isset($_POST['tipo']))
 			{
 				$entrada->attributes=$_POST['Entrada'];
-							
+				$entrada->ENT_NroEntrada=$_POST['Nea']['NEA_referencia'];
+
 				//$tipo = unserialize($_POST['tipo']);
 				// print_r($tipo);
 				if($entrada->save()){
@@ -136,6 +137,23 @@ class NeaController extends Controller
 
 					}
 					$this->redirect(array('admin'));
+				}
+				else{
+					 // Errors occurred
+		            $msg = "<h1>Error</h1>";
+		            // $msg .= sprintf("Couldn't create model <b>%s</b>", $_POST['Entrada']);
+		            $msg .= "<ul>";
+		            foreach($entrada->errors as $attribute=>$attr_errors) {
+		                $msg .= "<li>Attribute: $attribute</li>";
+		                $msg .= "<ul>";
+		                foreach($attr_errors as $attr_error) {
+		                    $msg .= "<li>$attr_error</li>";
+		                }        
+		                $msg .= "</ul>";
+		            }
+		            $msg .= "</ul>";
+
+		            Yii::app()->user->setFlash('warning', $msg);
 				}
 				
 				
