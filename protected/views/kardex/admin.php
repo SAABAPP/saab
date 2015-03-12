@@ -63,16 +63,17 @@ $this->renderPartial('_search',array(
 	<tbody>
 		<?php 
 		
+		$data=$model->search()->getData();
 
 
-		foreach ($model->search()->getData() as $value) {
+		foreach ($data as $value) {
 
 			$entrada_cantidad=0;
 			$entrada=EntradaBien::model()->findByAttributes(array('IDENTRADABIEN'=>$value->IDENTRADABIEN,'IDBIEN'=>$idbien));
 			$salida=PecosaBien::model()->findByAttributes(array('IDPECOSABIEN'=>$value->IDPECOSABIEN,'IDBIEN'=>$idbien));
 
 			if (!empty($entrada) or !empty($salida)){
-
+				
 			?>
 		<tr >
 			<?php
@@ -148,7 +149,13 @@ $this->renderPartial('_search',array(
 		</tr>
 		<?php 
 			}
+
+			// if (empty($entrada) or empty($salida)) {
+			// 	echo 'vacio';
+			// }
 		}
+
+
 		
 		?>
 	</tbody>

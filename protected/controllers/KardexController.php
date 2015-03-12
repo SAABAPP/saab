@@ -32,11 +32,11 @@ class KardexController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','reportesAdmin'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','reportesAdmin'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
@@ -134,6 +134,34 @@ class KardexController extends Controller
 		));
 	}
 
+	public function actionReportesAdmin(){
+		$model=new Kardex('search');
+		$model->unsetAttributes();
+
+		$bien= new Bien('search');		
+		$bien->unsetAttributes();  // clear any default values
+
+		
+
+		if(isset($_GET['Kardex'])){
+			$model->attributes=$_GET['Kardex'];	
+						
+		}
+
+		if(isset($_GET['Bien'])){
+			$bien->attributes=$_GET['Bien'];
+						
+		}
+		if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/pdf';		
+		}
+
+		$this->render('reportes',array(
+			'model'=>$model,
+			'bien'=>$bien
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */
@@ -146,7 +174,7 @@ class KardexController extends Controller
 		$bien= new Bien('search');		
 		$bien->unsetAttributes();  // clear any default values
 
-		$idbien="8806";
+		
 
 		if(isset($_GET['Kardex'])){
 			$model->attributes=$_GET['Kardex'];	
@@ -155,8 +183,10 @@ class KardexController extends Controller
 
 		if(isset($_GET['Bien'])){
 			$bien->attributes=$_GET['Bien'];
-			$idbien=$bien->IDBIEN;
+			$idbien=$bien->IDBIEN?$bien->IDBIEN:'8806';
 						
+		}else{
+			$idbien="8806";
 		}
 
 		if(isset($_GET['imprimir'])){
