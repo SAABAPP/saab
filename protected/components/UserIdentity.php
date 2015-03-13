@@ -20,7 +20,11 @@ class UserIdentity extends CUserIdentity {
         //busco el usuario que se esta logeando
         // $estado=1;
         // print_r($usuario);
-        $estado=$usuario->iDPERSONAL->PER_estado;
+
+        if (isset($usuario)) {
+            $estado=$usuario->iDPERSONAL->PER_estado;
+        }
+        
 
         //verifico si el personal esta deshabilitado
 
