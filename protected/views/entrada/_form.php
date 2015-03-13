@@ -14,18 +14,19 @@
                 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                 'model' => $model,
                                 'language' => 'es',
-                                'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..'),
+                                'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..','required'=>'required'),
                                 'attribute' => 'ENT_fecha',
                                 'options' => array(
                                     'showAnim' => 'fold',
                                     'dateFormat' => 'yy-m-d',
+                                    'minDate'=>'date("Y-m-d")',
                                 ),
                     ));
                 
                 ?>
               </p></div>
 </div>
-	<?php echo $form->textFieldRow($model,'ENT_NroEntrada',array('class'=>'span3','placeholder'=>'Nro de Entrada')); ?>
+	<?php echo $form->textFieldRow($model,'ENT_NroEntrada',array('class'=>'span3','placeholder'=>'Nro de Entrada','required'=>'required')); ?>
 
 	<?php echo $form->hiddenField($model,'ENT_tipo',array('class'=>'span5','maxlength'=>1,'value'=>'0')); ?>
 	<div class="row-fluid">
@@ -54,7 +55,7 @@
               </div>              
               <div class="control-group">
                 <label class="control-label">Nº Documento Referencia:</label>
-                <div class="controls"><input type="text" id="Documento" class="span3"  name="EntradaOC" placeholder="Nº Documento Referencia.." ></div>
+                <div class="controls"><input type="text" id="Documento" class="span3"  name="EntradaOC" placeholder="Nº Documento Referencia.." required ></div>
               </div>
               <div class="control-group">
                 <label class="control-label">Facturara a nombre de:</label>

@@ -13,18 +13,19 @@
                   $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                   'model' => $model,
                                   'language' => 'es',
-                                  'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..'),
+                                  'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha..','required'=>'required'),
                                   'attribute' => 'PEC_fecha',
                                   'options' => array(
                                       'showAnim' => 'fold',
                                       'dateFormat' => 'yy-m-d',
+                                      'minDate'=>'date("Y-m-d")'
                                   ),
                       ));
                   
                   ?>
                 </p></div>
   </div>  
-  <?php echo $form->textFieldRow($model,'PEC_NroPecosa',array('class'=>'span3','placeholder'=>'Nro de Pecosa')); ?>
+  <?php echo $form->textFieldRow($model,'PEC_NroPecosa',array('class'=>'span3','placeholder'=>'Nro de Pecosa','required'=>'required')); ?>
 
 
 	<?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>Yii::app()->user->getState('idusuario'))); ?>
@@ -58,7 +59,7 @@
               </div>              
               <div class="control-group">
                 <!-- <label class="control-label">Nº Documento Referencia:</label> -->
-                <?php echo $form->textFieldRow($model,'PEC_referencia',array('class'=>'span3','disabled'=>true,'maxlength'=>150,'value'=>$entradaOC->EOC_documento)); ?>                
+                <?php echo $form->textFieldRow($model,'PEC_referencia',array('class'=>'span3','disabled'=>true,'maxlength'=>150,'value'=>$entradaOC->EOC_documento,'required'=>'required')); ?>                
               </div>
               <div class="control-group">
                 <label class="control-label">Facturara a nombre de:</label>

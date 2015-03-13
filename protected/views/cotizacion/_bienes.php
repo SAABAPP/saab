@@ -30,7 +30,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value'=>function($data) {
-		return CHtml::textField('cantidad[]',$data->RBI_cantidadComprar,array('style'=>'width:5em;','disabled'=>'true'));
+		return CHtml::textField('cantidad[]',$data->RBI_cantidadComprar,array('style'=>'width:5em;','disabled'=>'true','required'=>'required'));
 	},
 	)
 );
@@ -40,7 +40,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('codbien[]',$data->bien->IDBIEN,array('style'=>'width:5em;','disabled'=>'true'));
+		return CHtml::textField('codbien[]',$data->bien->IDBIEN,array('style'=>'width:5em;','disabled'=>'true','required'=>'required'));
 	},
 	)
 );
@@ -50,7 +50,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'1em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('precioUnitario[]','',array('style'=>'width:6em;','pattern'=>'[0-9]+(\.[0-9]{1,4}?)?'));
+		return CHtml::textField('precioUnitario[]','',array('style'=>'width:6em;','pattern'=>'[0-9]+(\.[0-9]{1,4}?)?','required'=>'required'));
 	},
 	)
 );
@@ -60,7 +60,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'10em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('caracteristica[]','',array('style'=>'width:10em;'));
+		return CHtml::textField('caracteristica[]','',array('style'=>'width:10em;','required'=>'required'));
 	},
 	)
 );
@@ -70,7 +70,7 @@ array_push($columns, array(
 	'htmlOptions'=>array('width'=>'10em'),
 	'type' => 'raw',
 	'value' => function($data) {
-		return CHtml::textField('marca[]','',array('style'=>'width:10em;'));
+		return CHtml::textField('marca[]','',array('style'=>'width:10em;','required'=>'required'));
 	},
 	)
 );
@@ -84,7 +84,7 @@ array_push($columns, array(
 <br><br>
 <div class="control-group pull-right">
             <label class="control-label">Nro Orden Compra:</label>           
-            <div class="controls"><p><input placeholder="Nro Orden" name="OrdenCompra[OC_NroOrdenCompra]" type="text" class="span12">
+            <div class="controls"><p><input placeholder="Nro Orden" name="OrdenCompra[OC_NroOrdenCompra]" type="text" class="span12" required>
               </p></div>
 </div>
 

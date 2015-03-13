@@ -11,9 +11,9 @@
     
     ?>
 
-	<?php echo $form->textFieldRow($model,'NEA_referencia',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Nro Documento o Referencia..')); ?>
+	<?php echo $form->textFieldRow($model,'NEA_referencia',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Nro Documento o Referencia..','required'=>'required')); ?>
 
-	<?php echo $form->textFieldRow($model,'NEA_procedencia',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Empresa..')); ?>
+	<?php echo $form->textFieldRow($model,'NEA_procedencia',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Empresa..','required'=>'required')); ?>
 
 	<?php echo $form->hiddenField($model,'IDENTRADA',array('class'=>'span5')); ?>
 
