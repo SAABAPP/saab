@@ -193,13 +193,10 @@ class KardexController extends Controller
 	public function actionAdmin()
 	{
 	
-		$model=new Kardex('search');
-		$model->unsetAttributes();
+		
 
 		$bien= new Bien('search');		
 		$bien->unsetAttributes();  // clear any default values
-
-		
 
 
 		if(isset($_GET['Kardex'])){
@@ -209,12 +206,26 @@ class KardexController extends Controller
 
 		if(isset($_GET['Bien'])){
 			$bien->attributes=$_GET['Bien'];
-			$idbien=$bien->IDBIEN?$bien->IDBIEN:'8806';
+			$idbien=$bien->IDBIEN?$bien->IDBIEN:'5474';
+			$min=$_GET['Bien']['min'];
+			$max=$_GET['Bien']['max'];
+			
+			$rango=[
+				"min"=>$min,
+				"max"=>$max
+			];
 						
 		}else{
-			$bien->IDBIEN="8806";
-			$idbien="8806";
+			$rango=[
+				"min"=>date('Y-m-d'),
+				"max"=>date('Y-m-d')
+			];
+			$bien->IDBIEN="5474";
+			$idbien="5474";
 		}
+
+		$model=new Kardex('search');
+		
 
 		if(isset($_GET['imprimir'])){
 			$this->layout='//layouts/reportes';		
@@ -223,7 +234,8 @@ class KardexController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 			'bien'=>$bien,
-			'idbien'=>$idbien
+			'idbien'=>$idbien,
+			'rango'=>$rango
 		));
 	}
 

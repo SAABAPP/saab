@@ -42,7 +42,16 @@
 		</div>
 		<h2 class="center">Usuario del Sistema</h2><br>
 		<?php echo $form->textFieldRow($usuario,'USU_usuario',array('class'=>'span3','maxlength'=>150,'placeholder'=>'Usuario..','required'=>'required')); ?>
-		<?php echo $form->passwordFieldRow($usuario,'USU_password',array('class'=>'span3','maxlength'=>150,'autocomplete'=>'off','placeholder'=>$model->isNewRecord?'Ingresar Contraseña':'En Blanco para no cambiar..','value'=>'')); ?>
+		<?php 
+			$html_option = array();
+			$html_option=array('class'=>'span3','maxlength'=>150,'autocomplete'=>'off','placeholder'=>'En Blanco para no cambiar..','value'=>'');
+			if ($model->isNewRecord) {
+				$html_option=array('class'=>'span3','maxlength'=>150,'autocomplete'=>'off','placeholder'=>'Ingresar Contraseña','value'=>'','required'=>'required');	
+			}
+
+			echo $form->passwordFieldRow($usuario,'USU_password',$html_option); 
+
+			?>
 		<label id="control-label" for="tipo" class="control-label">Tipo Usuario*</label>
 		<div class="controls">
 			<?php 

@@ -291,7 +291,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
         'options'=>array(
           'minLength'=>'1',
           ),                                                            
-        'htmlOptions'=>array('class'=>'span12','placeholder'=>'Ingresa el nombre de la meta...'),  
+        'htmlOptions'=>array('class'=>'span12','placeholder'=>'Ingresa el nombre de la meta...','required'=>'required'),  
         'options'=>array(
           'showAnim'=>'fold',
           'beforeSend' => 'js:function(){        

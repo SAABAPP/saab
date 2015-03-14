@@ -114,4 +114,18 @@ class Kardex extends CActiveRecord
         	)
 		));
 	}
+
+	public function filtrar($min,$max){
+		$criteria=new CDbCriteria;
+
+		$criteria->condition="KAR_fechaMovimiento between '".$min."' and '".$max."'";
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+                'pageSize'=>1000,
+        	)
+		));
+
+	}
 }

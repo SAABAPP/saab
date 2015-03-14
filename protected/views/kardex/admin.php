@@ -29,10 +29,11 @@ $('.search-form form').submit(function(){
 $this->renderPartial('_search',array(
 	'model'=>$model,
 	'bien'=>$bien,
+	'rango'=>$rango
 	));
 	
-	
-	$data=$model->search()->getData();
+	$data=$model->filtrar($rango['min'],$rango['max'])->getData();
+	// $data=$model->search()->getData();
 	$_bien=$bien->search()->getData();
 ?>
 </div><!-- search-form -->
@@ -41,7 +42,9 @@ $this->renderPartial('_search',array(
 <br/>
 
 <div class="span11">
+<?="<h5 class='text-center'>Desde la Fecha: <small>".$rango['min']."</small> Hasta la Fecha :<small> ".$rango['max']."</small></h5>"?>
 
+<br>
 <div class="span12" style="margin-bottom:20px">
 
 	<div class="span8">
@@ -62,7 +65,11 @@ $this->renderPartial('_search',array(
 		</h4>
 	</div>
 
+
 </div>
+
+		
+
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -84,18 +91,18 @@ $this->renderPartial('_search',array(
 			<th>Importe</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="color: #999;">
 		<?php 
 		
 
 
-
+		$costo_anterior=0;
 		foreach ($data as $value) {
 
 			$entrada_cantidad=0;
 			$entrada=EntradaBien::model()->findByAttributes(array('IDENTRADABIEN'=>$value->IDENTRADABIEN,'IDBIEN'=>$idbien));
 			$salida=PecosaBien::model()->findByAttributes(array('IDPECOSABIEN'=>$value->IDPECOSABIEN,'IDBIEN'=>$idbien));
-
+			
 			if (!empty($entrada) or !empty($salida)){
 				
 			?>
@@ -106,10 +113,10 @@ $this->renderPartial('_search',array(
 			<th class="text-center"><?=$value->KAR_fechaMovimiento;?></th>
 			<th class="text-center"><?php 
 				if(!empty($salida))
-					echo 'Pec/'.$value->iDPECOSABIEN->iDPECOSA->PEC_NroPecosa;
+					echo 'Pec: '.$value->iDPECOSABIEN->iDPECOSA->PEC_NroPecosa;
 				else
 					if(!empty($entrada))
-						echo 'Ent/'.$value->iDENTRADABIEN->iDENTRADA->ENT_NroEntrada;
+						echo 'Ent: '.$value->iDENTRADABIEN->iDENTRADA->ENT_NroEntrada;
 			?></th>
 			<!--ENTRADA-->
 			<th class="text-center"><?php 
@@ -120,8 +127,11 @@ $this->renderPartial('_search',array(
 				}
 			?></th>
 			<th class="text-center"><?php
-				if(!empty($entrada))
-					echo "S/.".$entrada->EBI_precioCompra;
+				if(!empty($entrada)){
+					$costo_anterior=$entrada->EBI_precioCompra;
+					echo "S/.".$costo_anterior;
+				}
+					
 			?></th>
 			<th class="text-center"><?php 
 			if(!empty($entrada))
@@ -135,7 +145,7 @@ $this->renderPartial('_search',array(
 			<th class="text-center"><?php
 
 			if(!empty($salida))
-				echo "S/.2";
+				echo 'S/.'.$costo_anterior;
 				// echo $entrada->EBI_precioCompra;
 			?></th>
 			<th class="text-center"><?php
@@ -153,20 +163,18 @@ $this->renderPartial('_search',array(
 			?></th>
 			<th class="text-center"><?php
 				if(!empty($salida))
-					echo 2;
+					echo  'S/.'.$costo_anterior;
 				else{
-					$entrada_bien=EntradaBien::model()->findByAttributes(array('IDENTRADABIEN'=>$value->IDENTRADABIEN,'IDBIEN'=>$idbien));
-					if(!empty($entrada_bien))
-						echo $entrada_bien->EBI_precioCompra;
+					if(!empty($entrada))
+						echo  'S/.'.$entrada->EBI_precioCompra;
 				}
 			?></th>
 			<th class="text-center"><?php
 				if(!empty($salida))
-					echo ($cantidad - $salida->PBI_cantidad)*2;
+					echo  'S/.'.($cantidad - $salida->PBI_cantidad)*2;
 				else{
-					$entrada_bien=EntradaBien::model()->findByAttributes(array('IDENTRADABIEN'=>$value->IDENTRADABIEN,'IDBIEN'=>$idbien));
-					if(!empty($entrada_bien))
-						echo $cantidad*$entrada_bien->EBI_precioCompra;
+					if(!empty($entrada))
+						echo  'S/.'.$cantidad*$entrada->EBI_precioCompra;
 					}
 
 			?></th>
@@ -174,8 +182,8 @@ $this->renderPartial('_search',array(
 		<?php 
 			}
 
-			// if (empty($entrada) or empty($salida)) {
-			// 	echo 'vacio';
+			// if (empty($entrada) && empty($salida)) {
+			// 	echo '<tr><th class="text-center" colspan="11">Vacio</th></tr>';
 			// }
 		}
 
@@ -186,7 +194,7 @@ $this->renderPartial('_search',array(
 
 </table>
 <div class="text-center" style="padding-bottom:20px">
-	<a id='imprimir' href='?imprimir' target='_blank' class="btn inline" type="\" >Imprimir Kardex</a>
+	<a id='imprimir' href='<?php $valor=Yii::app()->request->requestUri; echo strlen($valor)>40?$valor."&":$valor."?" ?>imprimir' target='_blank' class="btn inline" type="\" >Imprimir Kardex</a>
 </div>
 
 
