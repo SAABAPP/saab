@@ -99,6 +99,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
 	'columns'=>$columns,
+	'ajaxUpdate'=>'bien-grid'
 ));
 ?>
 
