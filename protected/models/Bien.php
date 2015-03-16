@@ -19,6 +19,7 @@
  */
 class Bien extends CActiveRecord
 {
+	public $nombre_bien;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -50,7 +51,7 @@ class Bien extends CActiveRecord
 			array('BIE_caracteristica, BIE_marca', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDBIEN, BIE_stockActual, BIE_stockMinimo, BIE_caracteristica, BIE_marca, IDCATALOGO', 'safe', 'on'=>'search'),
+			array('IDBIEN, nombre_bien', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,6 +97,9 @@ class Bien extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('IDBIEN',$this->IDBIEN);
+		$criteria->with=array("iDCATALOGO");//<--------Agregas la relación
+        $criteria->compare ( 'iDCATALOGO.CAT_descripcion', $this->nombre_bien, true );//<---------Aqui haces el filtro   
+
 		$criteria->compare('BIE_stockActual',$this->BIE_stockActual);
 		$criteria->compare('BIE_stockMinimo',$this->BIE_stockMinimo);
 		$criteria->compare('BIE_caracteristica',$this->BIE_caracteristica,true);

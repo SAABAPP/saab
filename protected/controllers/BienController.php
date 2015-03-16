@@ -133,6 +133,7 @@ class BienController extends Controller
 	{
 		$model=new Bien('search');
 		$model->unsetAttributes();  // clear any default values
+		
 		if(isset($_GET['Bien']))
 			$model->attributes=$_GET['Bien'];
 

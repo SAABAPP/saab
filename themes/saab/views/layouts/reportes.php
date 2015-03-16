@@ -96,6 +96,7 @@
   <img id="logo" src="/saab/themes/saab/img/logo_grell _mini.png" height="55" width="55" alt="GRELL" style="position:absolute;top:-2px;left:40px">
   <label class="text-center" style="position:absolute;top:80px;font-size:10px;">Gerencia Regional de Educacion <br>
   de La Libertad</label>
+  <br>
   <div class="container">
             
     <div class="span12">

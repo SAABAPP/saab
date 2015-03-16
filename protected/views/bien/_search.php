@@ -5,10 +5,10 @@
 )); ?>
 
 	<div class="span8 input-append">
-		<?php echo $form->textFieldRow($model,'IDBIEN',
+		<?php echo $form->textFieldRow($model,'nombre_bien',
 			array(
 				'class'=>'span4',
-				'placeholder' => 'N° de Bien',
+				'placeholder' => 'Nombre de Bien',
 				'labelOptions' => array('label' => false),
 				'autocomplete'=>'off',
 			)

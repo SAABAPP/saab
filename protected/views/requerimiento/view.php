@@ -121,7 +121,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                             Yii::app()->user->setState('idcomprar',$id_comprar);
 
 
-                            return CHtml::textField('cantidad', $compra);
+                            return CHtml::textField('cantidad', $compra,array('disabled'=>'disabled'));
                     },
                     )
                   );

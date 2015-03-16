@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Ver Bien #<?php echo $model->IDBIEN; ?></h1>
+<h1>Bien #<?php echo $model->IDBIEN; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -19,3 +19,5 @@ $this->breadcrumbs=array(
 		'IDCATALOGO',
 	),
 )); ?>
+<br>
+<a class="btn inline secundario" type="button" href="admin">Regresar</a>

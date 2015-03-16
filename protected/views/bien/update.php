@@ -16,6 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Bien <?php echo $model->IDBIEN; ?></h1>
+<h2>Actualizar Bien</h2>
+<br>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

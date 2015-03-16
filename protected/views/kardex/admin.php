@@ -45,6 +45,26 @@ $this->renderPartial('_search',array(
 <?="<h5 class='text-center'>Desde la Fecha: <small>".$rango['min']."</small> Hasta la Fecha :<small> ".$rango['max']."</small></h5>"?>
 
 <br>
+<div class="span12">
+	<div class="span8">
+		<h4>Stock: 
+			<small><?php 
+			foreach ($_bien as $value) {
+				$stock=$value->BIE_stockActual;
+				echo $stock;
+			}
+			?></small>
+		</h4>
+	</div>
+	<div class="span4">
+		<h4>Stock Minimo: <small><?php 
+			foreach ($_bien as $value) {
+				echo $value->BIE_stockMinimo;
+			}
+			?></small>
+		</h4>
+	</div>
+</div>
 <div class="span12" style="margin-bottom:20px">
 
 	<div class="span8">
@@ -92,12 +112,24 @@ $this->renderPartial('_search',array(
 		</tr>
 	</thead>
 	<tbody style="color: #999;">
+		<tr>
+			<th class="text-center"></th>
+			<th class="text-center"></th>
+			<!--ENTRADA-->
+			<th class="text-center" colspan="6">
+				Inventario Actual
+			</th>
+			<!--SALDO-->
+			<th class="text-center"><?=$stock?></th>
+			<th class="text-center"></th>
+			<th class="text-center"></th>
+		</tr>
 		<?php 
 		
 
 
 		$costo_anterior=0;
-		$cantidad=0;
+		$cantidad=$stock;
 		foreach ($data as $value) {
 
 			// $entrada_cantidad=0;

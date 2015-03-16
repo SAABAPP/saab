@@ -40,7 +40,9 @@
 		<label id="control-label" class="control-label">Nombre:</label>
 		<div class="controls">
 			<?php 
-			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+
+			if ($model->isNewRecord) {
+				$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'name'=>'busca_bien',
 				'id'=>'bien',
 				'value'=>$catalogoBiebes->CAT_descripcion,
@@ -62,6 +64,12 @@
 					}'
 					),
 				));
+			}else{
+				echo $model->iDCATALOGO->CAT_descripcion;
+			}
+			
+
+
 				?>
 					<?php echo//$form->textField($model,'IDCATALOGO');
 					$form->hiddenField($model,'IDCATALOGO');
@@ -76,7 +84,7 @@
 						'type'=>'primary',
 						'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
 						)); ?>
-						<a class="btn inline secundario" type="button" href="admin">Cancelar</a>
+						<a class="btn inline secundario" type="button" href="<?=$model->isNewRecord?'admin':'../admin' ?>">Cancelar</a>
 					</div>
 				</div>>
 
