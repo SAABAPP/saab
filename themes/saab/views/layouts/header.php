@@ -44,6 +44,11 @@ switch($this->id)
   break;
 }
 $usuario=Usuario::model()->findByAttributes(array('USU_usuario' => Yii::app()->user->getName()));
+
+if (empty($usuario)) {
+  header("Location: ".Yii::app()->request->baseUrl."/site/logout");
+  die();
+}
 ?>
 <?php /* @var $this Controller */ ?>
 
