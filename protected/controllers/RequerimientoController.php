@@ -40,7 +40,7 @@ class RequerimientoController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','update','view','servicio','view_servicio'),
+				'actions'=>array('index','admin','create','update','view','servicio','view_servicio','salida'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
