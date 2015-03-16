@@ -151,7 +151,7 @@ $this->renderPartial('_search',array(
 			<th class="text-center"><?php
 
 			if(!empty($salida))
-				echo 2*$salida->PBI_cantidad;
+				echo "S/.".$costo_anterior*$salida->PBI_cantidad;
 				// echo $entrada->EBI_precioCompra;
 			?></th>
 			<!--SALDO-->
@@ -171,7 +171,7 @@ $this->renderPartial('_search',array(
 			?></th>
 			<th class="text-center"><?php
 				if(!empty($salida))
-					echo  'S/.'.($cantidad - $salida->PBI_cantidad)*2;
+					echo  'S/.'.($cantidad - $salida->PBI_cantidad)*$costo_anterior;
 				else{
 					if(!empty($entrada))
 						echo  'S/.'.$cantidad*$entrada->EBI_precioCompra;

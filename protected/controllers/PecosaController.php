@@ -116,6 +116,7 @@ class PecosaController extends Controller
 							$pecosaBien->IDBIEN=$value->DOC_bien;
 							$pecosaBien->IDPECOSA=$model->IDPECOSA;
 							$pecosaBien->PBI_cantidad=$value->DOC_cantidad;
+							$pecosaBien->PBI_precioVenta=$value->DOC_precioUnitario;
 							if(!$pecosaBien->save())
 								Yii::app()->user->setFlash('error', '<strong>Oh Nooo!</strong> No se pueden realizar el pedido de salida de los bienes');
 						}
