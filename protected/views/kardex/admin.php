@@ -97,9 +97,10 @@ $this->renderPartial('_search',array(
 
 
 		$costo_anterior=0;
+		$cantidad=0;
 		foreach ($data as $value) {
 
-			$entrada_cantidad=0;
+			// $entrada_cantidad=0;
 			$entrada=EntradaBien::model()->findByAttributes(array('IDENTRADABIEN'=>$value->IDENTRADABIEN,'IDBIEN'=>$idbien));
 			$salida=PecosaBien::model()->findByAttributes(array('IDPECOSABIEN'=>$value->IDPECOSABIEN,'IDBIEN'=>$idbien));
 			
@@ -121,7 +122,7 @@ $this->renderPartial('_search',array(
 			<!--ENTRADA-->
 			<th class="text-center"><?php 
 				if(!empty($entrada)){
-					$cantidad=$entrada_cantidad;
+					// $cantidad=$entrada_cantidad;
 					$cantidad=$entrada->EBI_cantidad + $cantidad;
 					echo $entrada->EBI_cantidad;
 				}
@@ -139,8 +140,11 @@ $this->renderPartial('_search',array(
 			?></th>
 			<!--SALIDA-->
 			<th class="text-center"><?php 
-				if(!empty($salida))
-					echo $salida->PBI_cantidad;?>
+				if(!empty($salida)){
+					$cantidad=$cantidad - $salida->PBI_cantidad;
+					echo $salida->PBI_cantidad;
+				}
+				?>
 			</th>
 			<th class="text-center"><?php
 
@@ -156,9 +160,9 @@ $this->renderPartial('_search',array(
 			?></th>
 			<!--SALDO-->
 			<th class="text-center"><?php
-				if(!empty($salida))
-					echo $cantidad - $salida->PBI_cantidad;
-				else
+				// if(!empty($salida))
+				// 	echo $cantidad - $salida->PBI_cantidad;
+				// else
 					echo $cantidad;
 			?></th>
 			<th class="text-center"><?php
@@ -171,7 +175,7 @@ $this->renderPartial('_search',array(
 			?></th>
 			<th class="text-center"><?php
 				if(!empty($salida))
-					echo  'S/.'.($cantidad - $salida->PBI_cantidad)*$costo_anterior;
+					echo  'S/.'.$cantidad*$costo_anterior;
 				else{
 					if(!empty($entrada))
 						echo  'S/.'.$cantidad*$entrada->EBI_precioCompra;
