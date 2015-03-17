@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 
   Yii::app()->user->setState('comprar',null);
   Yii::app()->user->setState('idcomprar',0);
+  Yii::app()->user->setState('salida',true);
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   'id'=>'requerimiento-form',
@@ -76,11 +77,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
                 array_push($columns, array(
                   'header' => 'Cantidad',
-                  'value'=>'$data->RBI_cantidad',
+                  'value'=>function($data){
+
+                    return $data->RBI_cantidad;
+                   },
                   )
                 );
                 
-                if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
+                if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado' or $model->REQ_estado=='Observado'))
                 {
                   array_push($columns, array(
                     'header' => 'Stock actual',
@@ -90,7 +94,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                   
                   array_push($columns, array(
                     'header' => 'Stock mínimo',
-                    'value'=>'$data->bien->BIE_stockMinimo',
+                    'value'=>function($data){
+                      return $data->bien->BIE_stockMinimo;
+                    },
                     )
                   );
                   
@@ -112,6 +118,13 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                             }
                             else
                               $compra=$min - ($stock - $cant);
+                            $salida=Yii::app()->user->getState('salida');
+                            if ($salida) {
+                              if($stock <= $cant){
+                                Yii::app()->user->setState('salida',false);
+                                $salida=false;
+                              }
+                            }
 
                             $col_comprar=Yii::app()->user->getState('comprar');
                             $id_comprar=Yii::app()->user->getState('idcomprar');
@@ -193,7 +206,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
           </div>          
           <?php
-          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado' or $model->REQ_estado=='Observado'))
           {
             echo "<div class=\"control-group\">
             <label for=\"presupuesto\" class=\"control-label\">Presupuesto:</label>
@@ -206,12 +219,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
           ?>
           <?php
 
-          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado'))
+          if ((Yii::app()->user->checkAccess("administrador") or Yii::app()->user->checkAccess("abastecimiento")) && ($model->REQ_estado=='Requerido' or $model->REQ_estado=='Necesitado' or $model->REQ_estado=='Observado'))
           {
             
             echo "<div class=\"control-group offset3\">
             <div class=\"controls\">";
-            if ($model->TIPO=='b') {
+            if ($model->TIPO=='b' && Yii::app()->user->getState('salida')) {
                 echo "<a href='salida/".$model->IDREQUERIMIENTO."' class=\"btn inline\" type=\"\" >Autorizar Salida</a>&nbsp;&nbsp;&nbsp;&nbsp;";
             }
             

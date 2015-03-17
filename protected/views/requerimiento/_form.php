@@ -15,7 +15,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
   <?php echo $form->errorSummary($model); ?>
  
 
-  <?php echo $form->hiddenField($model,'REQ_estado',array('class'=>'span5','maxlength'=>20,'value'=>'Requerido')); ?>
+  <?php //echo $form->hiddenField($model,'REQ_estado',array('class'=>'span5','maxlength'=>20,'value'=>'Requerido')); ?>
 
 
     <div class="control-group pull-right">
@@ -315,7 +315,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
       'type'=>'primary',
       'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
       )); ?>
-      <a class="btn inline secundario" type="button" href="admin">Cancelar</a>
+      <a class="btn inline secundario" type="button" href="<?=$model->isNewRecord?'admin':'../admin'?>">Cancelar</a>
     </div>
   </div>
   <div class="form-actions">

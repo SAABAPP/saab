@@ -29,11 +29,11 @@ class CotizacionController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index','admin','create','view','update'),
+				'actions'=>array('index','admin','create','view','update','observar'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 				),
 			array('allow',
-				'actions'=>array('index','admin','create','view','update'),
+				'actions'=>array('index','admin','create','view','update','observar'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 				),
 			array('allow', 
@@ -440,6 +440,24 @@ class CotizacionController extends Controller
 			echo "<script>alert('No se pueden agregar mas de 3 cotizaciones.\\nSi desea agregar otra cotizacion borre una de las ingresadas.');</script>";
 			$this->actionDetails();
 		}
+	}
+
+	public function actionObservar($id){
+		// $id=$_POST['IDREQUERIMIENTO'];
+
+		$model = Requerimiento::model()->findByPk($id);
+		$model->REQ_estado='Observado';
+		
+
+		if ($model->save()) {
+			Yii::app()->user->setFlash('success', '<strong>Bien!</strong> Se Cambio el Requerimiento a Observado');
+			$this->redirect(array('requerimiento/admin'));
+		}else{
+			Yii::app()->user->setFlash('warning', '<strong>Error!</strong> Intentalo otra vez!');
+			$this->redirect(array('create','id'=>$id));
+		}
+		
+
 	}
 
 

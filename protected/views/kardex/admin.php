@@ -129,7 +129,7 @@ $this->renderPartial('_search',array(
 
 
 		$costo_anterior=0;
-		$cantidad=$stock;
+		$cantidad=0;
 		foreach ($data as $value) {
 
 			// $entrada_cantidad=0;

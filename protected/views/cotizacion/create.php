@@ -31,4 +31,4 @@ $this->breadcrumbs=array(
     </div>
   </div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'requerimiento'=>$requerimiento,'proveedor'=>$proveedor,'requerimiento_bien'=>$requerimiento_bien,'requerimiento_servicio'=>$requerimiento_servicio,'ordenCompra'=>$ordenCompra)); ?>
+<?php echo $requerimiento->REQ_presupuesto!=0?$this->renderPartial('_form', array('model'=>$model,'requerimiento'=>$requerimiento,'proveedor'=>$proveedor,'requerimiento_bien'=>$requerimiento_bien,'requerimiento_servicio'=>$requerimiento_servicio,'ordenCompra'=>$ordenCompra)):'<div class="alert alert-block alert-info" style="display:block !important"><h4 class="text-center">No tiene Presupuesto Asignado</h4></div><br>'; ?>

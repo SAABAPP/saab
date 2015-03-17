@@ -4,6 +4,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'enableAjaxValidation'=>false,
 	)
 );
+
 ?>
 
 <?php echo $form->errorSummary($model); ?>
@@ -90,6 +91,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     								$('#ruc').val('');
     								$('#monto').val('');
     								$('#detalleCotizacion').html(data);
+    								window.location.reload();
     							}"
     							),
     						)
@@ -107,11 +109,11 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	echo "</div>";
 	?>
 </div>
-<div id="divAnalizar" class="control-group center">
+<div id="divAnalizar" class="control-group center" style="visibility:visible !important">
 	<div class="controls">
 		<?php
 		
-		// if($requerimiento->REQ_presupuesto ==  $this->evaluarMenor())
+		if($requerimiento->REQ_presupuesto >= $this->evaluarMenor()){
 
 			echo CHtml::link("Analizar", 
 				array('analizar'),
@@ -142,38 +144,11 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 
 					)
 				);
-		//}
-		/*else{
-			echo CHtml::link("Pasar a observado", 
-				array('observar'),
-				array(
-					'id' => 'observar',
-					'class' => 'btn',
-					'ajax' => array(
-						'type' => 'POST',
-	                          // 'url' => $this->createUrl('Requerimiento/buscaBien'),
-						'url' => "js:$(this).attr('href')",
-						'data' => array(
-							// 'idbien' => "js: $('#idbien').val()",
-							// 'rbi_cantidad' => "js: $('#cantidadBien').val()",
-							// 'descripcion' => "js: $('#catalogoBien').val()",
-							// 'unidad'=>"js: $('#unidad_catalogo').val()",
-							),
-						'error' => "function(req, status, error) {
-							alert(req.responseText);
-						}",
-						'success' => "function(data) {
-							// $('#unidad_catalogo').val('');
-							// $('#idbien').val('');
-							// $('#cantidadBien').val('');
-							// $('#catalogoBien').val('');
-							// $('#order-detail-div').html(data);                                
-						}"
-						),
-
-					)
-				);			
-		}*/
+		}
+		else{
+			echo "<a class='btn'  href='../observar/$requerimiento->IDREQUERIMIENTO'>Pasar a observado</a>";
+						
+		}
 
 		?>
 	</div>

@@ -320,7 +320,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
       'type'=>'primary',
       'label'=>$model->isNewRecord ? 'Guardar' : 'Actualizar',
       )); ?>
-      <a class="btn inline secundario" type="button" href="admin">Cancelar</a>
+      <a class="btn inline secundario" type="button" href="<?=$model->isNewRecord?'admin':'../admin'?>">Cancelar</a>
     </div>
   </div>
   <div class="form-actions">

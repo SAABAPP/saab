@@ -143,7 +143,7 @@ array_push($columns, array(
     'htmlOptions' => array('class' => 'button-column'),
     'value' => function($data) {
         $html = "";
-        if($data->REQ_estado=='Requerido' || $data->REQ_estado=='Necesitado'){
+        if($data->REQ_estado=='Requerido' || $data->REQ_estado=='Necesitado' || $data->REQ_estado=='Observado'){
             $html .= CHtml::link("<i class='icon-plus'></i>", array('view', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Verificar',));
             $html.='&nbsp;'.CHtml::link("<i class='icon-pencil'></i>", array('update', 'id' => $data->IDREQUERIMIENTO), array('title' => 'Actualizar',));             
         }
@@ -161,7 +161,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'type'=>'bordered hover',
     'template'=>"{items}{pager}",
 	// 'filter'=>$model,
-	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Necesitado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":"finalized")))',
+	'rowCssClassExpression'=>'$data->REQ_estado=="Requerido"?"info":($data->REQ_estado=="Necesitado"?"warning":($data->REQ_estado=="En almacen"?"warehouse":($data->REQ_estado=="Aprobado"?"success":($data->REQ_estado=="Observado"?"warning":"finalized") )))',
 	'columns'=>$columns,
 ));
 ?>

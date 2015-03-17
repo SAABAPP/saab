@@ -87,6 +87,7 @@ class RequerimientoController extends Controller
         if(isset($_POST['Requerimiento']))
 		{
 			$model->attributes=$_POST['Requerimiento'];
+			$model->REQ_estado=$model->REQ_estado=="Observado"?"Requerido":$model->REQ_estado;
 			//$transaction=Yii::app()->db->beginTransaction();//transacciones
 			if($model->save()){
 				if($model->TIPO=='b'){
@@ -256,6 +257,7 @@ class RequerimientoController extends Controller
 			if(isset($_POST['Requerimiento']))
 			{
 				$model->attributes=$_POST['Requerimiento'];
+				$model->REQ_estado='Requerido';
 				//$transaction=Yii::app()->db->beginTransaction();//transacciones
 				$model->REQ_oficina=$usuario->iDPERSONAL->iDAREA->ARE_nombre;
 
@@ -341,7 +343,7 @@ class RequerimientoController extends Controller
 			if(isset($_POST['Requerimiento']))
 			{
 				$model->attributes=$_POST['Requerimiento'];
-
+				$model->REQ_estado='Requerido';
 				// $transaction=Yii::app()->db->beginTransaction();//transacciones
 				if($model->save()){
 
@@ -830,7 +832,7 @@ class RequerimientoController extends Controller
 				if(isset($_POST['Requerimiento']))
 				{
 					$model->attributes=$_POST['Requerimiento'];
-					
+					$model->REQ_estado=$model->REQ_estado=="Observado"?"Requerido":$model->REQ_estado;
 					if($model->save()){
 						if ($model->TIPO=='b') {
 							
