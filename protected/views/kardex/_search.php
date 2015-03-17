@@ -83,7 +83,6 @@
                       ),
           ));
         ?>
-        <!-- <input id="bien_max" type="date" name="Bien[max]" step="1" min="2013-01-01" max="<?=date('Y-m-d')?>" required="required" disabled> -->
       </div>
     </div>
 

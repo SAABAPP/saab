@@ -148,7 +148,7 @@ class KardexController extends Controller
 
 		if(isset($_GET['Fechas'])){
 			$min=$_GET['Fechas']['min'];
-			$max=$_GET['Fechas']['max'];
+			$max=$_GET['Fechas']['max']?$_GET['Fechas']['max']:date('Y-m-d');
 			
 			$rango=[
 				"min"=>$min,
@@ -208,7 +208,7 @@ class KardexController extends Controller
 			$bien->attributes=$_GET['Bien'];
 			$idbien=$bien->IDBIEN?$bien->IDBIEN:'5474';
 			$min=$_GET['Bien']['min'];
-			$max=$_GET['Bien']['max'];
+			$max=isset($_GET['Bien']['max'])?$_GET['Bien']['max']:date('Y-m-d');
 			
 			$rango=[
 				"min"=>$min,
