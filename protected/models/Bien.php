@@ -20,6 +20,8 @@
 class Bien extends CActiveRecord
 {
 	public $nombre_bien;
+	public $min;
+	public $max;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -51,7 +53,7 @@ class Bien extends CActiveRecord
 			array('BIE_caracteristica, BIE_marca', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('IDBIEN, nombre_bien', 'safe', 'on'=>'search'),
+			array('IDBIEN, nombre_bien,min,max', 'safe', 'on'=>'search'),
 		);
 	}
 

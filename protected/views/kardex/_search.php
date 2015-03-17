@@ -45,12 +45,45 @@
     <div class="span12">
       <div class="span3">
         <label>Min</label>
-        <input id="bien_min" type="date" name="Bien[min]" step="1" min="2013-01-01" max="<?=date('Y-m-d')?>" required>
+        <?php 
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                      'model' => $bien,
+                      'language' => 'es',
+                      'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha minima..','required'=>'required'),
+                      'attribute' => 'min',
+                      'options' => array(
+                          'showAnim' => 'fold',
+                          'dateFormat' => 'yy-m-d',
+                          'maxDate'=>'date("Y-m-d")',
+                          'onSelect' => 'js:function(data,event) {
+                                $("#Bien_max").attr("min",data);
+                                // $("#Bien_max").setDate(data);
+                                $("#Bien_max").datepicker( "option", "minDate", data );
+                                $("#Bien_max").attr("disabled",false);
+                                // console.log("bieeeennn",data,event);
+                          }'
+                      ),
+          ));
+        ?>
+        <!-- <input id="bien_min" type="date" name="Bien[min]" step="1" max="<?=date('Y-m-d')?>" required> -->
 
       </div>
       <div class="span3">
         <label>Max</label>
-        <input id="bien_max" type="date" name="Bien[max]" step="1" min="2013-01-01" max="<?=date('Y-m-d')?>" required="required" disabled>
+        <?php 
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                      'model' => $bien,
+                      'language' => 'es',
+                      'htmlOptions'=>array('class'=>'span12','placeholder'=>'Fecha maxima..','required'=>'required','disabled'=>'disabled'),
+                      'attribute' => 'max',
+                      'options' => array(
+                          'showAnim' => 'fold',
+                          'dateFormat' => 'yy-m-d',
+                          'maxDate'=>'date("Y-m-d")'
+                      ),
+          ));
+        ?>
+        <!-- <input id="bien_max" type="date" name="Bien[max]" step="1" min="2013-01-01" max="<?=date('Y-m-d')?>" required="required" disabled> -->
       </div>
     </div>
 
