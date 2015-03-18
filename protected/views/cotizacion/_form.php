@@ -1,4 +1,45 @@
 <?php 
+Yii::app()->clientScript->registerScript('submit-form', "
+
+	console.log('submit cotizacion validacion');
+	var monto_bajo=".Yii::app()->user->getState('montoBajo')."
+	console.log(monto_bajo);
+	$('#cotizacion-form').submit(function(event){
+		
+		console.log(event);
+		var cantidad=[];
+		var precio=[];
+		var total=0;
+		$.each(event.currentTarget,function(index,data){			
+			if(data.name=='cantidad[]'){
+				console.log(data.value);
+				cantidad.push(data.value);
+			}
+			if(data.name=='precioUnitario[]'){
+				console.log(data.value);
+				precio.push(data.value);
+			}
+
+		});
+		$.each(cantidad,function(index,data){
+			total=total+data*precio[index];
+
+		});
+
+		console.log(cantidad,precio,total,monto_bajo);
+
+		if (total==monto_bajo) {
+			$('#error_verificar').hide();
+			return;
+		}else{
+			event.preventDefault();
+			$('#error_verificar').show();
+		}
+		
+	});
+
+");
+
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'cotizacion-form',
 	'enableAjaxValidation'=>false,
@@ -154,6 +195,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	</div>
 </div>
 <div id="bienes" class="oculto">
+	<div id="error_verificar" class="alert alert-error alert-block" style="display:none">
+		<h4><strong>Verificar!!!</strong><br><small>El total de la (cantidad de bienes)*(Precio Unitario) <br>no es igual al monto total de la Cotizacion</small></h4>
+	</div>
 	<?php
 		if($requerimiento->TIPO=='b'){
 			$this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien,'ordenCompra'=>$ordenCompra));
