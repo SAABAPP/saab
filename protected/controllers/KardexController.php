@@ -36,7 +36,7 @@ class KardexController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','reporteArea','reporteBien','reporteMes'),
+				'actions'=>array('index','admin','create','view','reporteArea','reporteBien','reporteMes','excel'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
@@ -234,6 +234,59 @@ class KardexController extends Controller
 			'rango'=>$rango,
 			'_requerimiento'=>$_requerimiento,
 			'val'=>$val
+		));
+	}
+
+	public function actionExcel(){
+
+
+		
+		header("Content-type: application/vnd.ms-excel; name='excel'");
+		header("Content-Disposition: filename=ficheroExcel.xls");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+
+		$bien= new Bien('search');		
+		$bien->unsetAttributes();  // clear any default values
+
+
+		if(isset($_GET['Kardex'])){
+			$model->attributes=$_GET['Kardex'];	
+						
+		}
+
+		if(isset($_GET['Bien'])){
+			$bien->attributes=$_GET['Bien'];
+			$idbien=$bien->IDBIEN?$bien->IDBIEN:'37393';
+			$min=$_GET['Bien']['min'];
+			$max=isset($_GET['Bien']['max'])?$_GET['Bien']['max']:date('Y-m-d');
+			
+			$rango=[
+				"min"=>$min,
+				"max"=>$max
+			];
+						
+		}else{
+			$rango=[
+				"min"=>'2000-01-01',
+				"max"=>date('Y-m-d')
+			];
+			$bien->IDBIEN="37393";
+			$idbien="37393";
+		}
+
+		$model=new Kardex('search');
+		
+
+
+		$this->layout='//layouts/reportes';		
+
+
+		$this->render('excel',array(
+			'model'=>$model,
+			'bien'=>$bien,
+			'idbien'=>$idbien,
+			'rango'=>$rango
 		));
 	}
 
