@@ -295,13 +295,12 @@ class KardexController extends Controller
 
 		
 		
-		$criteria = new CDbCriteria;
 		$counter=array();
 		
-		$model=new Area('search');
-		$_requerimiento=new Requerimiento('search');
-		$area=$model->search()->getData();
 		
+
+
+		$_requerimiento=new Requerimiento('search');		
 
 		if(isset($_GET['Requerimiento'])){
 			$fecha=$_GET['Requerimiento']['REQ_fecha'];
@@ -319,19 +318,16 @@ class KardexController extends Controller
 			];
 		}
 
-		foreach ($area as $value) {
-			$requerimiento = array();
-			$criteria->condition="REQ_oficina='".$value->ARE_nombre."'";
-			$requerimientos=  Requerimiento::model()->findAll($criteria);
-			
-			$rows = array();
-             foreach($requerimientos as $model){
-                $rows[] = $model->attributes;
-             }
-			if (!empty($requerimientos)) {
-				$counter[]=["area"=>$rows[0]['REQ_oficina'],"count"=>Requerimiento::model()->count($criteria)];						
-			}			
+		$sql="SELECT  IDBIEN, count(IDBIEN) as total FROM entrada_bien group by IDBIEN ";
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$results=$command->queryAll();
 
+
+		foreach ($results as $value) {
+				$id=Bien::model()->findByPk($value['IDBIEN'])->IDCATALOGO;
+				$bien=Catalogo::model()->findByPk($id)->CAT_descripcion;
+				$counter[]=["idbien"=>$value['IDBIEN'],"bien"=>$bien,"total"=>$value['total']];					
 		}
 
 
@@ -343,7 +339,7 @@ class KardexController extends Controller
 		$this->render('reporte_bien',array(
 			'rango'=>$rango,
 			'counter'=>$counter,
-			'_requerimiento'=>$_requerimiento,
+			'_requerimiento'=>$_requerimiento
 		));
 	}
 
