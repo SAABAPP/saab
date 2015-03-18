@@ -30,7 +30,7 @@ switch($this->id)
   $d='class="open"';
   break;
   case "kardex":
-  if ($this->action->id=='reportesAdmin') {
+  if ($this->action->id!='admin') {
     $g='class="open"';
   }else{
     $e='class="open"';

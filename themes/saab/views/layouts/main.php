@@ -48,7 +48,7 @@
 
        	break;
        	case "kardex":
-            if ($this->action->id=='reportesAdmin') {
+            if ($this->action->id!='admin') {
                   echo "<h2 class=\"pull-left\"><i class=\"icon-file-alt\"></i> Reporte Gerencial</h2>";
             } else {
                   echo "<h2 class=\"pull-left\"><i class=\"icon-table\"></i> Kardex</h2>";

@@ -1,12 +1,11 @@
 <?php 
 Yii::app()->clientScript->registerScript('submit-form', "
 
-	console.log('submit cotizacion validacion');
+
 	var monto_bajo=".Yii::app()->user->getState('montoBajo')."
-	console.log(monto_bajo);
+
 	$('#cotizacion-form').submit(function(event){
 		
-		console.log(event);
 		var cantidad=[];
 		var precio=[];
 		var total=0;
@@ -27,7 +26,7 @@ Yii::app()->clientScript->registerScript('submit-form', "
 		});
 
 		console.log(cantidad,precio,total,monto_bajo);
-
+		// Math.round(total);
 		if (total==monto_bajo) {
 			$('#error_verificar').hide();
 			return;
@@ -209,7 +208,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'type'=>'secondary',
-			'label'=>$model->isNewRecord ? 'Imprimir Acta Otorgamiento y Generar Orden de Compra' : 'Actualizar',
+			'label'=>$model->isNewRecord ? 'Acta Otorgamiento y Generar Orden de Compra' : 'Actualizar',
 		)); ?>
 
 	</div>

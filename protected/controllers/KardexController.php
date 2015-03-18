@@ -32,11 +32,11 @@ class KardexController extends Controller
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','reportesAdmin'),
+				'actions'=>array('index','admin','create','view','reporteArea','reporteBien','reporteMes'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','reportesAdmin'),
+				'actions'=>array('index','admin','create','view','reporteArea','reporteBien','reporteMes'),
 				'expression'=>'Yii::app()->user->checkAccess("administrador")',
 			),
 			array('deny',  // deny all users
@@ -134,7 +134,7 @@ class KardexController extends Controller
 		));
 	}
 
-	public function actionReportesAdmin(){
+	public function actionReporteArea(){
 
 
 		
@@ -143,22 +143,126 @@ class KardexController extends Controller
 		$counter=array();
 		
 		$model=new Area('search');
+		$_requerimiento=new Requerimiento('search');
 		$area=$model->search()->getData();
 		
 
-		if(isset($_GET['Fechas'])){
-			$min=$_GET['Fechas']['min'];
-			$max=$_GET['Fechas']['max']?$_GET['Fechas']['max']:date('Y-m-d');
+		if(isset($_GET['Requerimiento'])){
+			$fecha=$_GET['Requerimiento']['REQ_fecha'];
+			list($year, $month, $day) = split('[/.-]', $fecha);
 			
 			$rango=[
-				"min"=>$min,
-				"max"=>$max
+				"year"=>$year,
+				"month"=>$month
 			];
 
 		}else{
 			$rango=[
-				"min"=>date('Y-m-d'),
-				"max"=>date('Y-m-d')
+				"year"=>date('Y'),
+				"month"=>date('m')
+			];
+		}
+
+		foreach ($area as $value) {
+			$requerimiento = array();
+			$criteria->condition="REQ_oficina='".$value->ARE_nombre."' and MONTH(REQ_fecha)=".$rango['month']." and YEAR(REQ_fecha)=".$rango['year'];
+			$requerimientos=  Requerimiento::model()->findAll($criteria);
+			
+			$rows = array();
+             foreach($requerimientos as $model){
+                $rows[] = $model->attributes;
+             }
+			if (!empty($requerimientos)) {
+				$counter[]=["area"=>$rows[0]['REQ_oficina'],"count"=>Requerimiento::model()->count($criteria)];						
+			}			
+
+		}
+
+
+		if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/reportes';		
+		}
+
+		$this->render('reporte_area',array(
+			'rango'=>$rango,
+			'counter'=>$counter,
+			'_requerimiento'=>$_requerimiento
+		));
+	}
+
+	public function actionReporteMes(){
+
+
+		
+		
+		$criteria = new CDbCriteria;
+		$val=array();
+		
+		
+
+		$_requerimiento=new Requerimiento('search');		
+
+		if(isset($_GET['Requerimiento'])){
+			$fecha=$_GET['Requerimiento']['REQ_fecha'];
+			list($year, $month, $day) = split('[/.-]', $fecha);
+			
+			$rango=[
+				"year"=>$year,
+				"month"=>$month
+			];
+
+		}else{
+			$rango=[
+				"year"=>date('Y'),
+				"month"=>date('m')
+			];
+		}
+
+
+
+		for ($i=1; $i <=12 ; $i++) { 
+			
+			$criteria->condition="MONTH(REQ_fecha)='".$i."' and YEAR(REQ_fecha)=".$rango['year'];
+			$val[]=Requerimiento::model()->count($criteria);
+		}
+
+		if(isset($_GET['imprimir'])){
+			$this->layout='//layouts/reportes';		
+		}
+
+		$this->render('reporte_mes',array(
+			'rango'=>$rango,
+			'_requerimiento'=>$_requerimiento,
+			'val'=>$val
+		));
+	}
+
+	public function actionReporteBien(){
+
+
+		
+		
+		$criteria = new CDbCriteria;
+		$counter=array();
+		
+		$model=new Area('search');
+		$_requerimiento=new Requerimiento('search');
+		$area=$model->search()->getData();
+		
+
+		if(isset($_GET['Requerimiento'])){
+			$fecha=$_GET['Requerimiento']['REQ_fecha'];
+			list($year, $month, $day) = split('[/.-]', $fecha);
+			
+			$rango=[
+				"year"=>$year,
+				"month"=>$month
+			];
+
+		}else{
+			$rango=[
+				"year"=>date('Y'),
+				"month"=>date('m')
 			];
 		}
 
@@ -177,13 +281,16 @@ class KardexController extends Controller
 
 		}
 
+
+
 		if(isset($_GET['imprimir'])){
 			$this->layout='//layouts/reportes';		
 		}
 
-		$this->render('reportes',array(
+		$this->render('reporte_bien',array(
 			'rango'=>$rango,
-			'counter'=>$counter
+			'counter'=>$counter,
+			'_requerimiento'=>$_requerimiento,
 		));
 	}
 
