@@ -318,7 +318,7 @@ class KardexController extends Controller
 			];
 		}
 
-		$sql="SELECT  IDBIEN, count(IDBIEN) as total FROM entrada_bien group by IDBIEN ";
+		$sql="SELECT  IDBIEN, count(IDBIEN) as total FROM entrada_bien group by IDBIEN order by total desc limit 0,10 ";
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$results=$command->queryAll();
