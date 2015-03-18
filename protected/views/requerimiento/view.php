@@ -110,14 +110,15 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                             $idbien=$data->IDBIEN;
                             $compra=0;
 
-                            if($stock >= $cant){
-                              if(($stock-$cant)<$min)
-                                $compra=2*$cant+($min - $stock);
-                              else
-                                $compra=$cant;
-                            }
-                            else
-                              $compra=$min - ($stock - $cant);
+                            // if($stock >= $cant){
+                            //   if(($stock-$cant)<$min)
+                            //     $compra=2*$cant+($min - $stock);
+                            //   else
+                            //     $compra=$cant;
+                            // }
+                            // else
+                            $compra=$cant;
+
                             $salida=Yii::app()->user->getState('salida');
                             if ($salida) {
                               if($stock <= $cant){
