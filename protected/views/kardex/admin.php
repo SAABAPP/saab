@@ -229,8 +229,8 @@ $this->renderPartial('_search',array(
 	</tbody>
 
 </table>
-<div class="text-center" style="padding-bottom:20px">
-	<a id='imprimir' href='<?php $valor=Yii::app()->request->requestUri; echo strlen($valor)>40?$valor."&":$valor."?" ?>imprimir' target='_blank' class="btn inline" type="\" >Imprimir Kardex</a>
+<div id='imprimir' class="text-center" style="padding-bottom:20px">
+	<a  href='<?php $valor=Yii::app()->request->requestUri; echo strlen($valor)>40?$valor."&":$valor."?" ?>imprimir' target='_blank' class="btn inline" type="\" >Imprimir Kardex</a>
 	<a href="excel?Bien[IDBIEN]=<?=$idbien?>&&Bien[min]=<?=$rango['min']?>&&Bien[max]=<?=$rango['max']?>" class="btn btn-info" target="_blank">Exportar a excel</a>
 </div>
 

@@ -20,8 +20,8 @@ Yii::app()->clientScript->registerScript('submit-form', "
 			}
 
 		});
-		$.each(cantidad,function(index,data){
-			total=total+data*precio[index];
+		$.each(precio,function(index,data){
+			total=total+data*(cantidad[index]?cantidad[index]:1);
 
 		});
 
@@ -195,14 +195,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 </div>
 <div id="bienes" class="oculto">
 	<div id="error_verificar" class="alert alert-error alert-block" style="display:none">
-		<h4><strong>Verificar!!!</strong><br><small>El total de la (cantidad de bienes)*(Precio Unitario) <br>no es igual al monto total de la Cotizacion</small></h4>
+		<h4><strong>Verificar!!!</strong><br><small>El total de la (cantidad)*(Precio Unitario) <br>no es igual al monto total de la Cotizacion</small></h4>
 	</div>
 	<?php
 		if($requerimiento->TIPO=='b'){
-			$this->renderPartial('_bienes',array('requerimiento_bien'=>$requerimiento_bien,'ordenCompra'=>$ordenCompra));
+			$this->renderPartial('_bienes',array('requerimiento'=>$requerimiento,'requerimiento_bien'=>$requerimiento_bien,'ordenCompra'=>$ordenCompra));
 		}
 		else 
-			$this->renderPartial('_servicios',array('requerimiento_servicio'=>$requerimiento_servicio,'ordenCompra'=>$ordenCompra)); 		 
+			$this->renderPartial('_servicios',array('requerimiento'=>$requerimiento,'requerimiento_servicio'=>$requerimiento_servicio,'ordenCompra'=>$ordenCompra)); 		 
 	?>
 	<div class="form-actions text-center">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

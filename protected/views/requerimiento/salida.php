@@ -41,6 +41,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                                   'options' => array(
                                       'showAnim' => 'fold',
                                       'dateFormat' => 'yy-m-d',
+                                      'minDate'=>'date(yy-m-d)'
                                   ),
                       ));
                   

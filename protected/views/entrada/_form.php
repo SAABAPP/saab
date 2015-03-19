@@ -19,7 +19,7 @@
                                 'options' => array(
                                     'showAnim' => 'fold',
                                     'dateFormat' => 'yy-m-d',
-                                    'minDate'=>'date("Y-m-d")',
+                                    'minDate'=>$ordenCompra->OC_fecha,
                                 ),
                     ));
                 

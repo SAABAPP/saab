@@ -19,7 +19,7 @@
     <ul>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/kardex/reporteArea">Requerimientos por Area</a></li>
       <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/kardex/reporteMes">Requerimientos por Mes</a></li>
-      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/kardex/reporteBien">Bien por Año</a></li>
+      <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/kardex/reporteBien">Bienes más Requeridos</a></li>
     </ul>
   </li>
 </ul>

@@ -28,11 +28,11 @@ class KardexController extends Controller
 		return array(
 			
 			array('allow',
-				'actions'=>array('index','admin','create','view'),
+				'actions'=>array('index','admin','create','view','excel'),
 				'expression'=>'Yii::app()->user->checkAccess("almacen")',
 			),
 			array('allow',
-				'actions'=>array('index','admin','create','view','reporteArea','reporteBien','reporteMes'),
+				'actions'=>array('index','admin','create','view','reporteArea','reporteBien','reporteMes','excel'),
 				'expression'=>'Yii::app()->user->checkAccess("abastecimiento")',
 			),
 			array('allow',

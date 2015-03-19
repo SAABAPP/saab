@@ -23,21 +23,30 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
                 <div class="controls"><b> 
 
                   <?php 
-                  $currentDate=date('Y-m-d');
-                      echo $currentDate;
+                    $currentDate=date('Y-m-d');
+                      
 
-                      /*
-                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                                    'model' => $model,
-                                    'language' => 'es',
-                                    'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
-                                    'attribute' => 'REQ_fecha',
-                                    'options' => array(
-                                        'showAnim' => 'fold',
-                                        'dateFormat' => 'yy-m-d',
-                                    ),
-                        ));
-                        */
+                      if (Yii::app()->user->checkAccess("administrador")) {
+                            
+                        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                        'model' => $model,
+                                        'language' => 'es',
+                                        'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..','required'=>'required'),
+                                        'attribute' => 'REQ_fecha',
+                                        'options' => array(
+                                            'showAnim' => 'fold',
+                                            'dateFormat' => 'yy-m-d',
+                                        ),
+                            ));
+                            
+                      }else{
+                        echo $currentDate;
+                        echo $form->hiddenField($model,'REQ_fecha',array('class'=>'span5','value'=>$currentDate)); 
+                      }
+                      
+
+                      
+                      
                     
                     ?>
                   </b></div>
@@ -60,7 +69,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
     <?php echo $form->hiddenField($model,'IDUSUARIO',array('class'=>'span5','value'=>$usuario->IDUSUARIO)); ?>
     <?php echo $form->hiddenField($model,'TIPO',array('class'=>'span5','value'=>'b')); ?>
     <?php echo $form->hiddenField($model,'CODMETA',array('class'=>'codmeta span5')); ?>
-    <?php echo $form->hiddenField($model,'REQ_fecha',array('class'=>'span5','value'=>$currentDate)); ?>    
     <?php echo $form->hiddenField($model,'IDCUANEC',array('class'=>'span5')); ?>
     
 

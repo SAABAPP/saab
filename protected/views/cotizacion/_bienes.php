@@ -93,21 +93,28 @@ array_push($columns, array(
             <div class="controls"><b>  <?php 
             	
             	$currentDate=date('Y-m-d');
-                      echo $currentDate;
-
-                // $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                //                 'model' => $ordenCompra,
-                //                 'language' => 'es',
-                //                 'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..'),
-                //                 'attribute' => 'OC_fecha',
-                //                 'options' => array(
-                //                     'showAnim' => 'fold',
-                //                     'dateFormat' => 'yy-m-d',
-                //                 ),
-                //     ));
+            
+                if (Yii::app()->user->checkAccess("administrador")) {
+                            
+	                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+	                                'model' => $ordenCompra,
+	                                'language' => 'es',
+	                                'htmlOptions'=>array('class'=>'span10','placeholder'=>'Fecha..','required'=>'required'),
+	                                'attribute' => 'OC_fecha',
+	                                'options' => array(
+	                                    'showAnim' => 'fold',
+	                                    'minDate'=>$requerimiento->REQ_fecha,
+	                                    'dateFormat' => 'yy-m-d',
+	                                ),
+	                    ));
+	                    
+	              }else{
+	                echo $currentDate;
+                
                 
                 ?>
-                <input value="<?=$currentDate?>" id="OrdenCompra_OC_fecha" name="OrdenCompra[OC_fecha]" type="hidden">
+                	<input value="<?=$currentDate?>" id="OrdenCompra_OC_fecha" name="OrdenCompra[OC_fecha]" type="hidden">
+                <?php }?>
               </b>
 
              
