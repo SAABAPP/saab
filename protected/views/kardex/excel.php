@@ -1,0 +1,197 @@
+<?php
+	
+	$data=$model->filtrar($rango['min'],$rango['max'])->getData();
+	// $data=$model->search()->getData();
+	$_bien=$bien->search()->getData();
+?>
+
+<hr>
+<h2 class="text-center">Kardex Fisico Valorado</h2>
+<br/>
+
+<div class="span11">
+<?="<h5 class='text-center'>Desde la Fecha: <small>".$rango['min']."</small> Hasta la Fecha :<small> ".$rango['max']."</small></h5>"?>
+
+<br>
+<div class="span12">
+	<div class="span8">
+		<h4>Stock: 
+			<small><?php 
+			foreach ($_bien as $value) {
+				$stock=$value->BIE_stockActual;
+				echo $stock;
+			}
+			?></small>
+		</h4>
+	</div>
+	<div class="span4">
+		<h4>Stock Minimo: <small><?php 
+			foreach ($_bien as $value) {
+				echo $value->BIE_stockMinimo;
+			}
+			?></small>
+		</h4>
+	</div>
+</div>
+<div class="span12" style="margin-bottom:20px">
+
+	<div class="span8">
+		<h4>Articulo: 
+			<small><?php 
+			foreach ($_bien as $value) {
+				echo $value->iDCATALOGO->CAT_descripcion;
+			}
+			?></small>
+		</h4>
+	</div>
+	<div class="span4">
+		<h4>Unidad de Medida: <small><?php 
+			foreach ($_bien as $value) {
+				echo $value->iDCATALOGO->CAT_unidad;
+			}
+			?></small>
+		</h4>
+	</div>
+
+
+</div>
+
+		
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th rowspan="2" colspan="1" >Fecha</th>
+			<th rowspan="2" colspan="1" >N° Doc</th>
+			<th colspan="3">Entrada</th>
+			<th colspan="3">Salida</th>
+			<th colspan="3">Saldo</th>
+		</tr>
+		<tr>
+			<th>Cantidad</th>
+			<th>P.Unit</th>
+			<th>Importe</th>
+			<th>Cantidad</th>
+			<th>P.Unit</th>
+			<th>Importe</th>
+			<th>Cantidad</th>
+			<th>P.Unit</th>
+			<th>Importe</th>
+		</tr>
+	</thead>
+	<tbody style="color: #999;">
+		<tr>
+			<th class="text-center"></th>
+			<th class="text-center"></th>
+			<!--ENTRADA-->
+			<th class="text-center" colspan="6">
+				Inventario Actual
+			</th>
+			<!--SALDO-->
+			<th class="text-center"><?=$stock?></th>
+			<th class="text-center"></th>
+			<th class="text-center"></th>
+		</tr>
+		<?php 
+		
+
+
+		$costo_anterior=0;
+		$cantidad=0;
+		foreach ($data as $value) {
+
+			// $entrada_cantidad=0;
+			$entrada=EntradaBien::model()->findByAttributes(array('IDENTRADABIEN'=>$value->IDENTRADABIEN,'IDBIEN'=>$idbien));
+			$salida=PecosaBien::model()->findByAttributes(array('IDPECOSABIEN'=>$value->IDPECOSABIEN,'IDBIEN'=>$idbien));
+			
+			if (!empty($entrada) or !empty($salida)){
+				
+			?>
+		<tr >
+			<?php
+
+			 ?>
+			<th class="text-center"><?=$value->KAR_fechaMovimiento;?></th>
+			<th class="text-center"><?php 
+				if(!empty($salida))
+					echo 'Pec: '.$value->iDPECOSABIEN->iDPECOSA->PEC_NroPecosa;
+				else
+					if(!empty($entrada))
+						echo 'Ent: '.$value->iDENTRADABIEN->iDENTRADA->ENT_NroEntrada;
+			?></th>
+			<!--ENTRADA-->
+			<th class="text-center"><?php 
+				if(!empty($entrada)){
+					// $cantidad=$entrada_cantidad;
+					$cantidad=$entrada->EBI_cantidad + $cantidad;
+					echo $entrada->EBI_cantidad;
+				}
+			?></th>
+			<th class="text-center"><?php
+				if(!empty($entrada)){
+					$costo_anterior=$entrada->EBI_precioCompra;
+					echo "S/.".$costo_anterior;
+				}
+					
+			?></th>
+			<th class="text-center"><?php 
+			if(!empty($entrada))
+				echo  "S/.".$entrada->EBI_precioCompra*$entrada->EBI_cantidad;
+			?></th>
+			<!--SALIDA-->
+			<th class="text-center"><?php 
+				if(!empty($salida)){
+					$cantidad=$cantidad - $salida->PBI_cantidad;
+					echo $salida->PBI_cantidad;
+				}
+				?>
+			</th>
+			<th class="text-center"><?php
+
+			if(!empty($salida))
+				echo 'S/.'.$costo_anterior;
+				// echo $entrada->EBI_precioCompra;
+			?></th>
+			<th class="text-center"><?php
+
+			if(!empty($salida))
+				echo "S/.".$costo_anterior*$salida->PBI_cantidad;
+				// echo $entrada->EBI_precioCompra;
+			?></th>
+			<!--SALDO-->
+			<th class="text-center"><?php
+				// if(!empty($salida))
+				// 	echo $cantidad - $salida->PBI_cantidad;
+				// else
+					echo $cantidad;
+			?></th>
+			<th class="text-center"><?php
+				if(!empty($salida))
+					echo  'S/.'.$costo_anterior;
+				else{
+					if(!empty($entrada))
+						echo  'S/.'.$entrada->EBI_precioCompra;
+				}
+			?></th>
+			<th class="text-center"><?php
+				if(!empty($salida))
+					echo  'S/.'.$cantidad*$costo_anterior;
+				else{
+					if(!empty($entrada))
+						echo  'S/.'.$cantidad*$entrada->EBI_precioCompra;
+					}
+
+			?></th>
+		</tr>
+		<?php 
+			}
+		}
+		
+		?>
+	</tbody>
+
+</table>
+
+
+
+</div>
